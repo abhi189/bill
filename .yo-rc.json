@@ -1,0 +1,38 @@
+{
+    "generator-jhipster": {
+        "promptValues": {
+            "packageName": "com.budderfly.homebillingweb",
+            "nativeLanguage": "en"
+        },
+        "jhipsterVersion": "5.8.2",
+        "applicationType": "gateway",
+        "baseName": "homebillingweb",
+        "packageName": "com.budderfly.homebillingweb",
+        "packageFolder": "com/budderfly/homebillingweb",
+        "serverPort": "8029",
+        "authenticationType": "uaa",
+        "uaaBaseName": "authenticate",
+        "cacheProvider": "hazelcast",
+        "enableHibernateCache": false,
+        "websocket": false,
+        "databaseType": "no",
+        "devDatabaseType": "no",
+        "prodDatabaseType": "no",
+        "searchEngine": false,
+        "messageBroker": false,
+        "serviceDiscoveryType": "eureka",
+        "buildTool": "maven",
+        "enableSwaggerCodegen": true,
+        "clientFramework": "angularX",
+        "useSass": true,
+        "clientPackageManager": "npm",
+        "testFrameworks": ["gatling", "cucumber", "protractor"],
+        "jhiPrefix": "jhi",
+        "entitySuffix": "",
+        "dtoSuffix": "DTO",
+        "otherModules": [],
+        "enableTranslation": true,
+        "nativeLanguage": "en",
+        "languages": ["en"]
+    }
+}
