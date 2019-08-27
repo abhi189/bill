@@ -1,6 +1,6 @@
 {
     "global": {
-        "title": "Homebillingweb",
+        "title": "Portal",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
             "home": "Home",
@@ -35,7 +35,7 @@
         },
         "form": {
             "username": "Username",
-            "username.placeholder": "Your username",
+            "username.placeholder": "username",
             "currentpassword": "Current password",
             "currentpassword.placeholder": "Current password",
             "newpassword": "New password",
@@ -43,7 +43,7 @@
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
             "email": "Email",
-            "email.placeholder": "Your email"
+            "email.placeholder": "email"
         },
         "messages": {
             "info": {

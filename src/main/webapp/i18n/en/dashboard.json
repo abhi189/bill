@@ -1,0 +1,11 @@
+{
+    "dashboard": {
+        "title": "Autopay Stores - Budderfly",
+        "form": {
+            "button": "Submit"
+        }
+    },
+    "fourOhfour": {
+        "title": "Page Not Found - Budderfly"
+    }
+}

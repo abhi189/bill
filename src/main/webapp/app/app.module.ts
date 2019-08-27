@@ -1,6 +1,6 @@
 import './vendor.ts';
 
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -10,15 +10,24 @@ import { NgJhipsterModule } from 'ng-jhipster';
 import { AuthExpiredInterceptor } from './blocks/interceptor/auth-expired.interceptor';
 import { ErrorHandlerInterceptor } from './blocks/interceptor/errorhandler.interceptor';
 import { NotificationInterceptor } from './blocks/interceptor/notification.interceptor';
-import { HomebillingwebSharedModule } from 'app/shared';
-import { HomebillingwebCoreModule } from 'app/core';
-import { HomebillingwebAppRoutingModule } from './app-routing.module';
-import { HomebillingwebHomeModule } from './home/home.module';
-import { HomebillingwebAccountModule } from './account/account.module';
-import { HomebillingwebEntityModule } from './entities/entity.module';
+import { PortalSharedModule } from 'app/shared';
+import { PortalCoreModule } from 'app/core';
+import { PortalAppRoutingModule } from './app-routing.module';
+import { InvoicesModule } from './invoices/invoives.module';
+import { ModulesModule } from './modules/modules.module';
+import { DashboardModule } from './dashboard/dashboard.module';
+import { PortalEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
-import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import {
+    JhiMainComponent,
+    NavbarComponent,
+    Four04Component,
+    FooterComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    ErrorComponent
+} from './layouts';
 
 @NgModule({
     imports: [
@@ -31,15 +40,24 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
             i18nEnabled: true,
             defaultI18nLang: 'en'
         }),
-        HomebillingwebSharedModule.forRoot(),
-        HomebillingwebCoreModule,
-        HomebillingwebHomeModule,
-        HomebillingwebAccountModule,
+        PortalSharedModule.forRoot(),
+        PortalCoreModule,
+        ModulesModule,
+        DashboardModule,
+        InvoicesModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
-        HomebillingwebEntityModule,
-        HomebillingwebAppRoutingModule
+        PortalEntityModule,
+        PortalAppRoutingModule
     ],
-    declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+    declarations: [
+        JhiMainComponent,
+        NavbarComponent,
+        ErrorComponent,
+        PageRibbonComponent,
+        ActiveMenuDirective,
+        FooterComponent,
+        Four04Component
+    ],
     providers: [
         {
             provide: HTTP_INTERCEPTORS,
@@ -57,9 +75,10 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
             multi: true
         }
     ],
-    bootstrap: [JhiMainComponent]
+    bootstrap: [JhiMainComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class HomebillingwebAppModule {
+export class PortalAppModule {
     constructor(private dpConfig: NgbDatepickerConfig) {
         this.dpConfig.minDate = { year: moment().year() - 100, month: 1, day: 1 };
     }

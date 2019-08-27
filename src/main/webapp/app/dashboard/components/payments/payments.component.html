@@ -1,0 +1,44 @@
+<section class="payment-form-container">
+    <h1>
+        <span (click)="handleBackClick()">
+            <fa-icon icon="arrow-left"></fa-icon>
+        </span>
+        <span>Autopay</span>
+    </h1>
+    <div *ngIf="" class=""></div>
+    <div *ngIf="selectedStores" class="stores-selected-container">
+        <h3>Stores Selected for {{paymentType}}</h3>
+        <div *ngIf="showSelectedStoresError">
+            <small class="form-text text-danger">
+                Please select atleast one store to enable Autopay.
+            </small>
+        </div>
+        <div *ngIf="!showSelectedStoresError" class="stores-list">
+            <div *ngFor="let store of selectedStores; let i = index" 
+                class="store-item"
+                [ngClass]="{disable: store.autoPayEnabled,  enable: !store.autoPayEnabled}"
+            >
+                <div class="store-id">
+                    {{store.budderflyId}}
+                </div>
+                <div class="store-action" (click)="removeStore(store)">
+                    x
+                </div>
+            </div>
+        </div>
+    </div>
+    <jhi-bank-info-component
+        [showLogout]="false"
+        [showBoxLayout]="false"
+        [showLogo]="false"
+        [showStore]="selectedStores"
+        (openRoutingImg)="handleRoutingImgOpen()"
+    >
+    </jhi-bank-info-component>
+    <div *ngIf="showRoutingImage" class="routingImgModal" [ngClass]="{open : showRoutingImage}">
+        <div class="routingImgModal_close" (click)="closeRoutingImgModal()">close</div>
+        <div class="routingImgModal_image">
+            <img src="../../../../content/images/check.png" alt='Routing Number Indication'/>
+        </div>
+    </div>
+</section>

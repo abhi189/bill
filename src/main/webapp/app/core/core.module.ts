@@ -17,7 +17,7 @@ import locale from '@angular/common/locales/en';
         DatePipe
     ]
 })
-export class HomebillingwebCoreModule {
+export class PortalCoreModule {
     constructor() {
         registerLocaleData(locale);
     }

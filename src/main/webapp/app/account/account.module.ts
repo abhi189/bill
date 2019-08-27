@@ -1,11 +1,10 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
-import { HomebillingwebSharedModule } from 'app/shared';
+import { PortalSharedModule } from 'app/shared';
 
 import {
     PasswordStrengthBarComponent,
-    RegisterComponent,
     ActivateComponent,
     PasswordComponent,
     PasswordResetInitComponent,
@@ -15,10 +14,9 @@ import {
 } from './';
 
 @NgModule({
-    imports: [HomebillingwebSharedModule, RouterModule.forChild(accountState)],
+    imports: [PortalSharedModule, RouterModule.forChild(accountState)],
     declarations: [
         ActivateComponent,
-        RegisterComponent,
         PasswordComponent,
         PasswordStrengthBarComponent,
         PasswordResetInitComponent,
@@ -27,4 +25,4 @@ import {
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class HomebillingwebAccountModule {}
+export class PortalAccountModule {}

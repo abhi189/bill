@@ -1,15 +1,15 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+
+/* jhipster-needle-add-entity-module-import - JHipster will add entity modules imports here */
 
 @NgModule({
+    // prettier-ignore
     imports: [
-        RouterModule.forChild([
-            /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
-        ])
+        /* jhipster-needle-add-entity-module - JHipster will add entity modules here */
     ],
     declarations: [],
     entryComponents: [],
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class HomebillingwebEntityModule {}
+export class PortalEntityModule {}

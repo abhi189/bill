@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 
 @Injectable({ providedIn: 'root' })
-export class Register {
+export class ChangePasswordService {
     constructor(private http: HttpClient) {}
 
-    save(account: any): Observable<any> {
-        return this.http.post(SERVER_API_URL + 'authenticate/api/register', account);
+    save(payload: any): Observable<any> {
+        return this.http.post(SERVER_API_URL + 'authenticate/api/account/change-password', payload);
     }
 }

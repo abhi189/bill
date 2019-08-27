@@ -1,0 +1,160 @@
+<section class="bank-info-container" [ngClass]="{boxModel : showBoxLayout}">
+    <div class="bank-info-container-inner">
+        <div class="bank-info-body">
+            <div class="bank-info-header">
+                <div *ngIf="showLogo" class="logo">
+                    <img src='../../../content/images/budderfly-logo-primary-large.png' alt='subway' />
+                </div>
+                <h1>Please complete the information below to securely provide your banking information.</h1>
+            </div>
+            <form class="row no-margin" name="form" role="form" (ngSubmit)="submitBankInfo()" #bankInfoForm="ngForm">
+                <div class="col-md-6">
+                    <div *ngIf="!showStore" class="form-group">
+                        <label class="form-control-label" for="site-no">Site/Store Number<small>*</small></label>
+                        <input type="text" class="form-control" id="site-no" name="site-no" #siteNo="ngModel"
+                            [(ngModel)]="bankInfo.siteNo" (keyup)="handleStoreNumberChange($event.target.value)"
+                            required>
+                        <div *ngIf="siteNo.dirty && siteNo.invalid">
+                            <small class="form-text text-danger" *ngIf="siteNo.errors.required">
+                                Site Number is required.
+                            </small>
+                        </div>
+                        <div *ngIf="bankInfo.siteNo && storeError">
+                            <small class="form-text text-danger">
+                                Site Number not found.
+                            </small>
+                        </div>
+                    </div>
+                    <div *ngIf="!showStore" class="form-group">
+                        <label class="form-control-label" for="site-address">Site Address</label>
+                        <div class="site-address">{{bankInfo.siteAddress}}</div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="account-name">Account Holder's
+                            Name<small>*</small></label>
+                        <input type="text" class="form-control" id="account-name" name="account-name"
+                            #accountName="ngModel" [(ngModel)]="bankInfo.accountName" required>
+                        <div *ngIf="accountName.dirty && accountName.invalid">
+                            <small class="form-text text-danger" *ngIf="accountName.errors.required">
+                                Account Holder's Name is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="account-address1">Account Holder Address
+                            1<small>*</small></label>
+                        <input type="text" class="form-control" id="account-address1" name="account-address1"
+                            #accountAddressOne="ngModel" [(ngModel)]="bankInfo.accountAddressOne" required>
+                        <div *ngIf="accountAddressOne.dirty && accountAddressOne.invalid">
+                            <small class="form-text text-danger" *ngIf="accountAddressOne.errors.required">
+                                Account Holder's Address is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="city">City<small>*</small></label>
+                                <input type="text" class="form-control" id="city" name="city" #city="ngModel"
+                                    [(ngModel)]="bankInfo.city" required>
+                                <div *ngIf="city.dirty && city.invalid">
+                                    <small class="form-text text-danger" *ngIf="city.errors.required">
+                                        City is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-control-label" for="zip-code">Zipcode<small>*</small></label>
+                                <input type="text" class="form-control" id="zip-code" name="zip-code" #zipCode="ngModel"
+                                    [(ngModel)]="bankInfo.zipCode" required>
+                                <div *ngIf="zipCode.dirty && zipCode.invalid">
+                                    <small class="form-text text-danger" *ngIf="zipCode.errors.required">
+                                        Zipcode is required.
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="state">State<small>*</small></label>
+                        <select class="form-control" [value]="bankInfo.state" #state="ngModel"
+                            [(ngModel)]="bankInfo.state" (ngModelChange)="onChangeState($event)" name="state">
+                            <option disabled selected>-Select State-</option>
+                            <option [value]="state" *ngFor="let state of states">{{state}}</option>
+                        </select>
+
+                        <div *ngIf="state.dirty && state.invalid">
+                            <small class="form-text text-danger" *ngIf="state.errors.required">
+                                State is required.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="form-control-label" for="routing-number">
+                            Routing Number<small>*</small>
+                            <fa-icon icon="eye" class="icon" (click)="handleRoutingImgClick()"></fa-icon>
+                        </label>
+                        <input type="text" class="form-control" id="routing-number" name="routing-number"
+                            #routingNumber="ngModel" [(ngModel)]="bankInfo.routingNumber"
+                            (keyup)="handleRoutingNumberChange($event.target.value)" required>
+                        <div *ngIf="routingNumber.dirty && routingNumber.invalid">
+                            <small class="form-text text-danger" *ngIf="routingNumber.errors.required">
+                                Routing Number is required.
+                            </small>
+                        </div>
+                        <div *ngIf="bankInfo.routingNumber && bankDataError">
+                            <small class="form-text text-danger">
+                                Routing Number not Found.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="bank">Bank<small>*</small></label>
+                        <input type="text" class="form-control" id="bank" name="bank" #bank="ngModel"
+                            [(ngModel)]="bankInfo.bank" readonly required>
+                        <div *ngIf="bank.dirty && bank.invalid">
+                            <small class="form-text text-danger" *ngIf="bank.errors.required">
+                                Bank Name is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="account-number">Account Number<small>*</small></label>
+                        <input type="text" class="form-control" id="account-number" name="account-number"
+                            #accountNumber="ngModel" [(ngModel)]="bankInfo.accountNumber" required>
+                        <div *ngIf="accountNumber.dirty && accountNumber.invalid">
+                            <small class="form-text text-danger" *ngIf="accountNumber.errors.required">
+                                Account Number is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" for="account-number-verify">Confirm Account
+                            Number<small>*</small></label>
+                        <input type="text" class="form-control" id="account-number-verify" name="account-number-verify"
+                            #accountNumberVerify="ngModel" [(ngModel)]="bankInfo.accountNumberVerify" required>
+                        <div *ngIf="accountNumberVerify.dirty && accountNumberVerify.invalid">
+                            <small class="form-text text-danger" *ngIf="accountNumberVerify.errors.required">
+                                Account Number for verification is required.
+                            </small>
+                        </div>
+                        <div *ngIf="bankInfo.accountNumber !== bankInfo.accountNumberVerify">
+                            <small class="form-text text-danger">
+                                Account Number does not match.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+                <div class="bank-info-footer">
+                    <button type="submit" [ngClass]="{'enabled' : bankInfoForm.form.valid}"
+                        [disabled]="bankInfoForm.form.invalid" class="bank-info-btn submit">Submit</button>
+                    <div class="bank-info-btn reset" (click)="resetBankForm()">Reset</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

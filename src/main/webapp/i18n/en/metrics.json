@@ -39,15 +39,14 @@
                 "scavengetime": "Scavenge time"
             },
             "http": {
-                "title": "HTTP requests (time in millisecond)",
+                "title": "HTTP requests (events per second)",
                 "active": "Active requests:",
                 "total": "Total requests:",
                 "table": {
                     "code": "Code",
                     "count": "Count",
                     "mean": "Mean",
-                    "average": "Average",
-                    "max": "Max"
+                    "average": "Average"
                 },
                 "code": {
                     "ok": "Ok",
@@ -86,7 +85,7 @@
             "averageRemoveTime": "Average remove time (µs)"
         },
         "datasource": {
-            "usage": "Connection Pool Usage",
+            "usage": "Usage",
             "title": "DataSource statistics (time in millisecond)",
             "name": "Pool usage",
             "count": "Count",

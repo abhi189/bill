@@ -1,0 +1,43 @@
+<nav class="dashboard-navbar">
+    <div class="navbar">
+        <div class="nav-left lhs">
+            <div class="navbar-brand hidden-sm">
+                <a 
+                    [routerLink]="['/main']"
+                    routerLinkActive="active" 
+                    [routerLinkActiveOptions]="{exact: true}"
+                >
+                    <img src='../../../../content/images/budderfly-logo-primary-large.png' alt='budderfly' />
+                </a>
+            </div>
+            <div *ngIf="!hideSidebarToggle" class="action" (click)=toggleSidebar()>
+                <fa-icon icon="bars" fixedWidth="true" class="icon"></fa-icon>
+            </div>
+            <div class="navbar-brand-mobile visible-sm">
+                <img src="../../../../content/images/logo-mobile-img.png" alt="budderfly" />
+            </div>
+        </div>
+        <div class="nav-right rhs">
+            <div class="user-details" (click)=toggleUserDropDown()>
+                <div class="user-img">
+                    <fa-icon icon="user"></fa-icon>
+                </div>
+                <!-- <div class="user-name">Sample</div> -->
+                <div *ngIf="showUserDetails" class="user-details-dropdown" [ngClass]="{visible: showUserDetails}">
+                    <ul>
+                        <li>
+                            <a 
+                                [routerLink]="['/change-password']"
+                                routerLinkActive="active" 
+                                [routerLinkActiveOptions]="{exact: true}"
+                            >
+                                Change password
+                            </a>
+                        </li>
+                        <li (click)="logout()">logout</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
