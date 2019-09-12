@@ -7,7 +7,7 @@ import { DashboardInvoiceComponent } from './components/invoices/invoice.compone
 
 export const DashboardRoutes: Routes = [
     {
-        path: 'invoices',
+        path: '',
         data: {
             breadcrumb: 'main',
             label: 'Invoices',
