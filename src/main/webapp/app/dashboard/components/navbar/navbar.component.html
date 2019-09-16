@@ -7,14 +7,14 @@
                     routerLinkActive="active" 
                     [routerLinkActiveOptions]="{exact: true}"
                 >
-                    <img src='../../../../content/images/budderfly-logo-primary-large.png' alt='budderfly' />
+                    <img [src]="layoutOptions.largeLogo" alt='budderfly' />
                 </a>
             </div>
             <div *ngIf="!hideSidebarToggle" class="action" (click)=toggleSidebar()>
                 <fa-icon icon="bars" fixedWidth="true" class="icon"></fa-icon>
             </div>
             <div class="navbar-brand-mobile visible-sm">
-                <img src="../../../../content/images/logo-mobile-img.png" alt="budderfly" />
+                <img [src]="layoutOptions.largeLogo" alt="budderfly" />
             </div>
         </div>
         <div class="nav-right rhs">

@@ -12,6 +12,7 @@ import { AuthServerProvider } from '../../../core/auth/auth-jwt.service';
 export class DashboardNavbarComponent implements OnInit, AfterViewInit {
     @Output() toggleSideBar = new EventEmitter();
     @Input() hideSidebarToggle;
+    @Input() layoutOptions;
     public showUserDetails: boolean;
     constructor(
         private elm: ElementRef,

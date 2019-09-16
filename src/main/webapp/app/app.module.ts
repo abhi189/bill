@@ -1,6 +1,6 @@
 import './vendor.ts';
 
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -28,6 +28,13 @@ import {
     ActiveMenuDirective,
     ErrorComponent
 } from './layouts';
+import { MainService } from './layouts/main/main.service';
+
+export function initializeApp(appInitService: MainService) {
+    return () => {
+        return appInitService.getLayout();
+    };
+}
 
 @NgModule({
     imports: [
@@ -59,6 +66,13 @@ import {
         Four04Component
     ],
     providers: [
+        MainService,
+        {
+            provide: APP_INITIALIZER,
+            useFactory: initializeApp,
+            deps: [MainService],
+            multi: true
+        },
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthExpiredInterceptor,

@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { map, mergeMap, buffer, pluck } from 'rxjs/internal/operators';
 import { Dashboard } from './dashboard.service';
 import { AccountService, UserService, User } from 'app/core';
+import { MainService } from '../layouts/main/main.service';
 
 @Component({
     selector: 'jhi-dashboard',
@@ -17,6 +18,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public breadcrumbs: Array<any> = [];
     public showStoresList: boolean;
     public storesUpdated = [];
+    public layoutOptions: any;
     public enableCloseUpdate: boolean;
     private storesUpdateSubscriber;
     private updateModalSubscriber;
@@ -26,9 +28,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
         private activatedRoute: ActivatedRoute,
         private router: Router,
         private dashboard: Dashboard,
-        private accountService: AccountService
+        private accountService: AccountService,
+        private mainService: MainService
     ) {
         const that = this;
+        this.layoutOptions = this.mainService.layoutOptions;
         this.storesUpdateSubscriber = this.dashboard.storesUpdated$.subscribe(
             store => {
                 that.constructUpdatedStores(store);

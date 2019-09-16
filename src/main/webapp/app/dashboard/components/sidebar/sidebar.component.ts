@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
     selector: 'jhi-dashboard-sidebar',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
     styleUrls: ['./sidebar.component.scss']
 })
 export class DashboardSidebarComponent {
+    @Input() layoutOptions;
     constructor() {}
 }

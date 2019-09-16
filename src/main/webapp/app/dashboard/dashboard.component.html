@@ -1,11 +1,14 @@
 <main class="dashboard-container">
     <jhi-dashboard-navbar
         (toggleSideBar)="handleToggleSideBar()"
+        [layoutOptions]="layoutOptions"
     ></jhi-dashboard-navbar>
     <section class="dashboard-content-container" [ngClass]="{collapsed: !sideBarVisible}">
         <div *ngIf="!sideBarVisible" (click)="handleToggleSideBar()" class="overlay"></div>
         <aside class="dashboard-sidebar">
-            <jhi-dashboard-sidebar></jhi-dashboard-sidebar>
+            <jhi-dashboard-sidebar
+                [layoutOptions]="layoutOptions"
+            ></jhi-dashboard-sidebar>
         </aside>
         <div class="dashboard-content">
             <div class="dashboard-content-inner">
