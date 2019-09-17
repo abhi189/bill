@@ -6,7 +6,6 @@ import { ModulesModule } from '../modules/modules.module';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardNavbarComponent } from './components/navbar/navbar.component';
 import { DashboardSidebarComponent } from './components/sidebar/sidebar.component';
-import { DashboardPaymentsComponent } from './components/payments/payments.component';
 import { DashboardInvoiceComponent } from './components/invoices/invoice.component';
 import { DashboardListComponent } from './components/list/list.component';
 import { DashboardRoutes } from './dashboard.route';
@@ -17,7 +16,6 @@ import { DashboardRoutes } from './dashboard.route';
         DashboardNavbarComponent,
         DashboardSidebarComponent,
         DashboardComponent,
-        DashboardPaymentsComponent,
         DashboardInvoiceComponent,
         DashboardListComponent
     ],
