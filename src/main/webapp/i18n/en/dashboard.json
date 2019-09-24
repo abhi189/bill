@@ -1,6 +1,6 @@
 {
     "dashboard": {
-        "title": "Autopay Stores - Budderfly",
+        "title": "Billing - Budderfly",
         "form": {
             "button": "Submit"
         }

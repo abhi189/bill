@@ -1,120 +1,124 @@
-.dashboard-navbar {
-    display: flex;
-    transition: 500ms all ease-in;
-    height: 60px;
-    align-items: center;
-    position: fixed;
-    flex: 1;
-    width: 100%;
-    z-index: 1;
-    background: #f5f7f9;
-    top: 0;
-    left: 0;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.075);
-    .navbar {
+.invoice-list-container {
+    .loading {
+        min-height: 300px;
+        width: 100%;
         display: flex;
-        flex: 1;
         align-items: center;
-        padding: 0 40px;
+        justify-content: center;
+    }
+    .header {
+        display: flex;
+        align-items: center;
         justify-content: space-between;
-        .lhs {
-            display: flex;
-            align-items: center;
-            width: 210px;
-            justify-content: space-around;
-            .action {
+        .filters {
+            label {
+                margin: 0;
+                font-size: 14px;
+                font-weight: 500;
+                color: rgba(0, 0, 0, 0.6);
+                margin-right: 10px;
                 cursor: pointer;
-                .icon {
-                    color: rgba(0, 0, 0, 0.6);
-                    font-size: 20px;
+                &:last-child {
+                    margin-right: 0px;
                 }
                 &:hover {
-                    .icon {
-                        color: rgba(0, 0, 0, 0.75);
-                    }
+                    color: rgba(0, 0, 0, 0.75);
                 }
             }
         }
-        .center {
-            h2 {
-                margin: 0;
-                font-weight: 600;
-                color: rgba(0, 0, 0, 0.75);
-            }
-        }
-        .rhs {
-            .user-details {
-                display: flex;
-                cursor: pointer;
-                align-items: center;
-                position: relative;
-                .user-img {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    background: #fff;
-                }
-                .user-name {
-                    margin-left: -40px;
-                    font-size: 14px;
-                    font-weight: 600;
-                    height: 40px;
-                    color: rgba(0, 0, 0, 0.6);
-                    padding: 10px 20px;
-                    padding-left: 50px;
-                    background: rgba(0, 0, 0, 0.1);
-                    border-radius: 20px;
-                }
-                &-dropdown {
-                    position: absolute;
-                    display: none;
-                    transition: 300ms all ease-in;
-                    transform: translateY(-20%);
-                    width: 100%;
-                    left: 0;
-                    top: 50px;
-                    border-radius: 4px;
-                    max-height: 200px;
-                    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.075);
-                    ul {
-                        padding: 0px;
-                        background: #fff;
-                        margin: 0;
-                        li {
-                            padding: 10px;
-                            transition: background 300ms ease-in;
-                            font-size: 14px;
-                            font-weight: 500;
-                            text-transform: capitalize;
-                            cursor: pointer;
-                            list-style-type: none;
-                            &:hover {
-                                background: #f5f5f5;
-                            }
+    }
+    h1 {
+        margin-bottom: 20px;
+        font-weight: 500;
+        padding: 10px 0;
+        font-size: 32px;
+        text-align: left;
+        color: rgba(0, 0, 0, 0.75);
+    }
+    h3 {
+        margin-bottom: 20px;
+        font-weight: 500;
+        padding: 10px 0;
+        font-size: 21px;
+        color: rgba(0, 0, 0, 0.75);
+    }
+}
+.invoice-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: calc(100vh - 215px);
+    overflow: hidden;
+    overflow-y: auto;
+    table {
+        tr {
+            td {
+                &.status {
+                    span {
+                        display: inline-block;
+                        padding: 0.25em 0.4em;
+                        font-size: 75%;
+                        font-weight: 700;
+                        line-height: 1;
+                        text-align: center;
+                        white-space: nowrap;
+                        vertical-align: baseline;
+                        border-radius: 0.25rem;
+                        &.disable {
+                            color: #fff;
+                            background-color: #4dbd74;
+                        }
+                        &.enable {
+                            color: #fff;
+                            background-color: #f86c6b;
                         }
                     }
-                    &:before {
-                        content: ' ';
-                        display: block;
-                        position: absolute;
-                        right: 10px;
-                        top: -20px;
-                        border: 10px solid transparent;
-                        border-bottom: 10px solid rgba(255, 255, 255, 1);
-                    }
-                    &.visible {
-                        display: block;
-                        transform: translateY(20%);
-                        opacity: 1;
-                        top: 45px;
-                    }
                 }
             }
         }
-        &-brand {
-            width: 200px;
-            height: 30px;
-            padding: 0;
+    }
+}
+
+.action-bar {
+    width: 100%;
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    background: rgba(255, 255, 255, 1);
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 10px 40px;
+    transition: 0.25s all ease-in;
+    opacity: 1;
+    transform: translateY(100%);
+    .btn {
+        padding: 10px 20px;
+        background: #14653b;
+        letter-spacing: 0.5px;
+        color: #fff;
+        font-size: 15px;
+        text-transform: uppercase;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.25s all ease-in;
+        &.disabled {
+            background: grey;
+            color: #000;
+            pointer-events: none;
+            cursor: default;
         }
+        &:hover {
+            transform: translateY(-1px);
+        }
+        &:first-child {
+            margin-right: 10px;
+        }
+    }
+    @media screen and (max-width: 600px) {
+        position: absolute;
+        bottom: 25px;
+        padding: 10px 20px;
     }
 }

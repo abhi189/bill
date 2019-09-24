@@ -12,49 +12,7 @@ export const DashboardRoutes: Routes = [
             label: 'Invoices',
             url: 'invoices',
             pageTitle: 'dashboard.title'
-            // authorities: ['ROLE_PORTAL']
         },
-        // canActivate: [UserRouteAccessService],
         component: DashboardComponent
-        // children: [
-        //     {
-        //         loadChildren: './dashboard-children.module#DashboardChildrenModule'
-        //     }
-        // ]
-        // children: [
-        //     {
-        //         path: '',
-        //         redirectTo: 'stores',
-        //         pathMatch: 'full'
-        //     },
-        //     {
-        //         path: 'stores',
-        //         component: DashboardListComponent,
-        //         data: {
-        //             breadcrumb: 'stores',
-        //             pageTitle: 'Budderfly - Stores List'
-        //         }
-        //     },
-        //     {
-        //         path: 'payments',
-        //         data: {
-        //             breadcrumb: 'payments',
-        //             label: 'Payments',
-        //             url: 'payments',
-        //             pageTitle: 'Budderfly - Autopay Form'
-        //         },
-        //         component: DashboardPaymentsComponent
-        //     },
-        //     {
-        //         path: 'invoices',
-        //         data: {
-        //             breadcrumb: 'invoice',
-        //             label: 'Invoices',
-        //             url: 'invoices',
-        //             pageTitle: 'Budderfly - Invoices'
-        //         },
-        //         component: DashboardInvoiceComponent
-        //     }
-        // ]
     }
 ];

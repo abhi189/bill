@@ -1,7 +1,8 @@
-import { Component, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Output, OnInit, EventEmitter, Input } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Dashboard } from '../../dashboard.service';
+import { InvoicesComponent } from 'app/invoices/invoices.component';
 
 @Component({
     selector: 'jhi-stores-list',
@@ -9,15 +10,15 @@ import { Dashboard } from '../../dashboard.service';
     styleUrls: ['./list.component.scss']
 })
 export class DashboardListComponent implements OnInit {
-    @Output() onAutoPayClick = new EventEmitter();
+    @Output() onSiteClick = new EventEmitter<string>();
+    @Input() layoutOptions;
     public storesSelected: Array<any>;
     public storeList: Array<any>;
     public filters: any = {};
+    public budderflyId: string;
+    // showStoresList: boolean = true;
 
     constructor(private dashboard: Dashboard, private router: Router) {
-        // this.dashboard.getStores('sample').subscribe(res => {
-        //     this.storeList = this.enableSlected(res);
-        // });
         this.dashboard.getStoresFromSites().subscribe(
             res => {
                 this.constructStores(res);
@@ -29,107 +30,37 @@ export class DashboardListComponent implements OnInit {
             this.storesSelected = [...res];
         });
     }
-
     ngOnInit() {
         this.storesSelected = [...this.dashboard.selectedStores];
     }
 
     constructStores(stores): void {
         stores = stores.map(store => {
-            const { id, storeNumber, budderflyId, zip, state, city, address, paymentType } = store;
+            const { budderflyId, address, balance, dueDate, amountDue } = store;
 
             return {
-                id: storeNumber,
-                storeId: id,
                 budderflyId,
-                autoPayEnabled: paymentType && paymentType === 'ETF',
-                zip,
-                state,
-                city,
-                address
+                address,
+                balance,
+                dueDate,
+                amountDue
             };
         });
         const finalStores = this.enableSlected(stores);
         this.storeList = finalStores;
     }
 
-    handleStoreClick(store) {
-        if (store && this.storesSelected.length) {
-            const storeIndex = this._getStoreSelectedIndex(store);
-            if (storeIndex > -1) {
-                this.storesSelected.splice(storeIndex, 1);
-                return;
-            }
+    handleSiteClick(budderflyId) {
+        console.log('Hi ' + budderflyId);
+        this.onSiteClick.emit(budderflyId);
+        // this.showStoresList = false;
+    }
+
+    setStoreSelected(store): boolean {
+        if (this.storesSelected.length) {
+            return this._getStoreSelectedIndex(store) > -1 ? true : false;
         }
-        this.storesSelected = [...this.storesSelected, store];
-        this.setStoreSelected(store);
-    }
-
-    handleSelectAllClick() {
-        if (this.filters.selectAll) {
-            this.filters = {};
-            this.filters.selectAll = true;
-            this.handleFiltersApplied('all');
-            this.storesSelected = this.storeList.filter(s => s.checkedManually);
-            return;
-        }
-        this.storesSelected = [];
-        this.handleFiltersApplied();
-    }
-
-    handleSelectAllDisabledClick() {
-        if (this.filters.selectDisabled) {
-            this.filters = {};
-            this.filters.selectDisabled = true;
-            this.handleFiltersApplied('disabled');
-            return;
-        }
-        this.handleFiltersApplied();
-    }
-
-    handleSelectAllEnabledClick() {
-        if (this.filters.selectEnabled) {
-            this.filters = {};
-            this.filters.selectEnabled = true;
-            this.handleFiltersApplied('enabled');
-            return;
-        }
-        this.handleFiltersApplied();
-    }
-
-    handleFiltersApplied(type = '') {
-        this.storeList = this.storeList.map(store => {
-            const { autoPayEnabled } = store;
-            const enable =
-                type === 'all' ? true : autoPayEnabled && type === 'enabled' ? true : !autoPayEnabled && type === 'disabled' ? true : false;
-            if (autoPayEnabled) {
-                return {
-                    ...store
-                };
-            }
-            return {
-                ...store,
-                checkedManually: enable
-            };
-        });
-    }
-
-    getStoreStores(username: string) {
-        this.dashboard.getStores(username).subscribe(
-            res => {
-                console.log('Res: ', res);
-            },
-            err => {
-                console.log('Err: ', err);
-            }
-        );
-    }
-
-    handleAutoPayClick(type) {
-        if (this.storeList.filter(s => s.checkedManually).length) {
-            this.dashboard.setSelectedStores(this.storeList.filter(s => s.checkedManually), type);
-            this.onAutoPayClick.next('showForm');
-        }
+        return false;
     }
 
     enableSlected(stores) {
@@ -154,26 +85,6 @@ export class DashboardListComponent implements OnInit {
             }
             return storeInner;
         });
-    }
-
-    handlePaymentChange(event, store) {
-        if (store && this.storesSelected.length) {
-            const storeIndex = this._getStoreSelectedIndex(store);
-            if (storeIndex > -1) {
-                this.storesSelected.splice(storeIndex, 1);
-                return;
-            }
-        }
-        if (store.checkedManually) {
-            this.storesSelected = [...this.storesSelected, store];
-        }
-    }
-
-    setStoreSelected(store): boolean {
-        if (this.storesSelected.length) {
-            return this._getStoreSelectedIndex(store) > -1 ? true : false;
-        }
-        return false;
     }
 
     private _getStoreSelectedIndex(store): number {

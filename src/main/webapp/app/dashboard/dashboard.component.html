@@ -13,41 +13,18 @@
         <div class="dashboard-content">
             <div class="dashboard-content-inner">
                 <div *ngIf="showStoresList">
-                    <jhi-stores-list 
-                        (onAutoPayClick)="showAutoPayForm()"
+                    <jhi-stores-list
+                        [layoutOptions]="layoutOptions"
+                        (onSiteClick)="handleSiteClick($event)"
                     ></jhi-stores-list>
                 </div>
-                <div *ngIf="!showStoresList">
-                    <jhi-dashboard-payments
-                        (onBackClick)="showStoresListTable()"
-                    ></jhi-dashboard-payments>
+                <div *ngIf = "showInvoiceList">
+                    <jhi-dashboard-invoice
+                        [layoutOptions]="layoutOptions" 
+                        (onBackClick)= "showStoreListTable()"
+                    ></jhi-dashboard-invoice>
                 </div>
                 <!-- <router-outlet></router-outlet> -->
-            </div>
-        </div>
-    </section>
-    <section *ngIf="showSuccessModal" class="success-modal">
-        <div class="success-modal-component col-xs-12 col-lg-3 col-sm-6">
-            <h1>Please do not refresh</h1>
-            <div class="success-modal-component-content">
-                <div *ngIf="!storesUpdated.length" class="loading">
-                    <div class="loader"></div>
-                </div>
-                <div *ngIf="storesUpdated.length" class="updated-stores-list">
-                    <div *ngFor="let store of storesUpdated">
-                        <div class="store-update"
-                            [ngClass]="{success: store.status === 'success', failure: store.status !== 'success'}">
-                            <small *ngIf="store.status === 'success'">Successfully updated.</small>
-                            <small *ngIf="store.status !== 'success'">Something went wrong.</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="success-modal-component-action"
-                (click)="closeStoreUpdateModal()"
-                [ngClass]="{disabled: !enableCloseUpdate}"
-            >
-                close
             </div>
         </div>
     </section>

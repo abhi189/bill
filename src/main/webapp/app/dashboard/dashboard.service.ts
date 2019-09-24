@@ -1,50 +1,32 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, of, Subject, forkJoin } from 'rxjs';
-import { flatMap } from 'rxjs/operators';
 
 import { AccountService } from '../core/auth/account.service';
-
 import { SERVER_API_URL } from 'app/app.constants';
-// const stores = require('../shared/static/stores.json');
 
 @Injectable({ providedIn: 'root' })
 export class Dashboard {
     public storesList: Subject<any> = new Subject<any>();
     public selectedStores: Array<any> = [];
     private storesSelected: Subject<any> = new Subject<any>();
-    private storesUpdated: Subject<any> = new Subject<any>();
-    private openUpdateModal: Subject<any> = new Subject<any>();
-    public openUpdateModal$ = this.openUpdateModal.asObservable();
     public storesSelected$ = this.storesSelected.asObservable();
-    public storesUpdated$ = this.storesUpdated.asObservable();
-    public paymentType: string;
+    public invoiceList: Subject<any> = new Subject<any>();
+    public selectedInvoices: Array<any> = [];
+    private invoiceSelected: Subject<any> = new Subject<any>();
+    public invoiceSelected$ = this.invoiceSelected.asObservable();
+
+    private getInvoice: Subject<any> = new Subject<any>();
+    public getInvoice$ = this.getInvoice.asObservable();
+    budderflyId: string;
 
     constructor(private http: HttpClient, private accountService: AccountService) {}
 
     getStores(user: string): Observable<any> {
         this.getUserAuthentication();
         return new Observable(observer => {
-            setTimeout(() => {
-                // observer.next(stores);
-            }, 500);
+            setTimeout(() => {}, 500);
         });
-        // return this.getStoreBudderflyIds(user).pipe(flatMap(res => this.getAddressFromIds(res)));
-    }
-
-    openStoreUpdateModal(open) {
-        this.openUpdateModal.next(open);
-    }
-
-    clearSelectedStores() {
-        this.selectedStores = [];
-    }
-
-    setStoresUpdated(store, isComplete) {
-        this.storesUpdated.next(store);
-        if (isComplete) {
-            this.storesUpdated.complete();
-        }
     }
 
     getUserAuthentication() {
@@ -52,36 +34,22 @@ export class Dashboard {
     }
 
     getStoresFromSites(): Observable<any> {
-        const url = `${SERVER_API_URL}/sites/api/sites/`;
+        const url = `${SERVER_API_URL}/invoice/api/budderfly-invoices/by-budderfly-id/by-previous-date-and-balance`;
         return this.http.get(url);
     }
 
-    getStoreBudderflyIds(user: string): Observable<any> {
-        const url = `${SERVER_API_URL}/authenticate/api/user-sites-shops/${user}`;
-        return this.http.get(url);
+    getInvoiceFromBudderflyId(budderflyId: String): Observable<any> {
+        const invoiceurl = `${SERVER_API_URL}/invoice/api/budderfly-invoices/by-status-and-dates/${budderflyId}`;
+        return this.http.get(invoiceurl);
     }
 
-    getAddressFromIds(ids: Array<number>): Observable<any> {
-        const getCalls = ids.map(storeId => {
-            return this.http.get(`${SERVER_API_URL}/sites/sites-by-budderfly-id/${storeId}`);
-        });
-
-        return forkJoin(getCalls);
+    setInvoiceSelected(budderflyId: string) {
+        this.budderflyId = budderflyId;
+        this.invoiceSelected.next(budderflyId);
     }
 
-    setSelectedStores(storesList: Array<any>, type) {
-        this.selectedStores = [...storesList];
-        this.paymentType = type;
-        this.storesSelected.next(this.selectedStores);
-    }
-
-    removeStore(store: any) {
-        this.selectedStores = [...this.selectedStores.filter(s => s.id !== store.id)];
-        this.storesSelected.next(this.selectedStores);
-    }
-
-    addStore(store: any) {
-        this.selectedStores = [...this.selectedStores, store];
-        this.storesSelected.next(this.selectedStores);
+    setSelectedInvoices(invoiceList: Array<any>) {
+        this.selectedInvoices = [...invoiceList];
+        this.getInvoice.next(this.selectedInvoices);
     }
 }

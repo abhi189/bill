@@ -9,9 +9,10 @@ import { DashboardSidebarComponent } from './components/sidebar/sidebar.componen
 import { DashboardInvoiceComponent } from './components/invoices/invoice.component';
 import { DashboardListComponent } from './components/list/list.component';
 import { DashboardRoutes } from './dashboard.route';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-    imports: [PortalSharedModule, ModulesModule, CommonModule, RouterModule.forChild(DashboardRoutes)],
+    imports: [PortalSharedModule, ModulesModule, CommonModule, RouterModule.forChild(DashboardRoutes), HttpClientModule],
     declarations: [
         DashboardNavbarComponent,
         DashboardSidebarComponent,

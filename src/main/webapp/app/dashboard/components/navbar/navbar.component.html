@@ -3,9 +3,7 @@
         <div class="nav-left lhs">
             <div class="navbar-brand hidden-sm">
                 <a 
-                    [routerLink]="['/main']"
-                    routerLinkActive="active" 
-                    [routerLinkActiveOptions]="{exact: true}"
+                    href ="/#/main"
                 >
                     <img [src]="layoutOptions.largeLogo" alt='budderfly' />
                 </a>
@@ -28,8 +26,6 @@
                         <li>
                             <a 
                                 href="/#/change-password"
-                                routerLinkActive="active" 
-                                [routerLinkActiveOptions]="{exact: true}"
                             >
                                 Change password
                             </a>

@@ -1,39 +1,16 @@
 <div class="sidebar-container" [ngStyle]="{'background-color': layoutOptions.dashboard.btnColor}">
     <ul class="sidebar-list">
         <li class="sidebar-list-item">
-                <a href="/#/main">
-                    <fa-icon icon="home" fixedWidth="true" class="icon"></fa-icon>
-                    Autopay
-                </a>
-        </li>
-        <br>
-        <li class="sidebar-list-item">
-            <a
-            href="/homebillingweb/" class="active"
-            >
+            <a href="/#/main">
+                <fa-icon icon="home" fixedWidth="true" class="icon"></fa-icon>
+                Auto pay
+            </a>
+    </li>
+    <li class="sidebar-list-item">
+            <a href="/homebillingweb/" class="active">
                 <fa-icon icon="tasks" fixedWidth="true" class="icon"></fa-icon>
                 Billing
             </a>
-        </li>
-        <!-- <li class="sidebar-list-item">
-            <a 
-                [routerLink]="['/dashboard/payments']"
-                routerLinkActive="active" 
-                [routerLinkActiveOptions]="{exact: true}"
-            >
-                <fa-icon icon="tasks" fixedWidth="true" class="icon"></fa-icon>
-                payments
-            </a>
-        </li> -->
-        <!-- <li class="sidebar-list-item">
-            <a 
-                [routerLink]="['/dashboard/invoices']"
-                routerLinkActive="active" 
-                [routerLinkActiveOptions]="{exact: true}"
-            >
-                <fa-icon icon="file-text-o" fixedWidth="true" class="icon"></fa-icon>
-                invoices
-            </a>
-        </li> -->
+    </li>
     </ul>
 </div>

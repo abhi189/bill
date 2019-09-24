@@ -125,7 +125,6 @@
         }
         &-brand {
             width: 200px;
-            height: 30px;
             padding: 0;
             &-mobile {
                 display: none;
@@ -134,7 +133,7 @@
                 &-mobile {
                     display: block;
                     margin-left: 10px;
-                    max-width: 30px;
+                    max-width: 100px;
                 }
             }
         }
