@@ -1,0 +1,58 @@
+
+<div *ngIf="equipment">
+    <h2><span jhiTranslate="billingWebApp.equipment.detail.title">Equipment</span> {{equipment.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.equipment.name">Name</span></dt>
+        <dd>
+            <span>{{equipment.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.equipment.description">Description</span></dt>
+        <dd>
+            <span>{{equipment.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.equipment.bfSiteId">Bf Site Id</span></dt>
+        <dd>
+            <span>{{equipment.bfSiteId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.equipment.state">State</span></dt>
+        <dd>
+            <span>{{equipment.state}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.equipment.macAddress">Mac Address</span></dt>
+        <dd>
+            <span>{{equipment.macAddress}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.equipment.ipAddress">Ip Address</span></dt>
+        <dd>
+            <span>{{equipment.ipAddress}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.equipment.locationDetails">Location Details</span></dt>
+        <dd>
+            <span>{{equipment.locationDetails}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.equipment.equipmentNr">Equipment Nr</span></dt>
+        <dd>
+            <span>{{equipment.equipmentNr}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.equipment.equipmentType">Equipment Type</span></dt>
+        <dd>
+            <span>{{equipment.equipmentType}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'equipment/'+ equipment.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

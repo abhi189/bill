@@ -1,0 +1,13 @@
+{
+    "billingWebApp": {
+        "JobType": {
+            "null": "",
+            "URJANET_IMPORT": "URJANET_IMPORT",
+            "SEND_INVOICES_FINANCE": "SEND_INVOICES_FINANCE",
+            "UPDATE_AME_CALCULATION": "UPDATE_AME_CALCULATION",
+            "AME_CALCULATION": "AME_CALCULATION",
+            "ZOHO_IMPORT": "ZOHO_IMPORT",
+            "ACCOUNT_AUTO_LINKING": "ACCOUNT_AUTO_LINKING"
+        }
+    }
+}

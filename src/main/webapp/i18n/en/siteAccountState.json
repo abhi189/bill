@@ -1,0 +1,14 @@
+{
+    "billingWebApp": {
+        "SiteAccountState": {
+            "null": "",
+            "WAITING_FOR_INVOICES": "WAITING_FOR_INVOICES",
+            "AMU_GENERATED": "AMU_GENERATED",
+            "AMU_APPROVED": "AMU_APPROVED",
+            "AMU_REJECTED": "AMU_REJECTED",
+            "INACTIVE": "INACTIVE",
+            "ACTIVE": "ACTIVE",
+            "LINKED": "LINKED"
+        }
+    }
+}

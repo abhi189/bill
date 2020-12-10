@@ -1,0 +1,98 @@
+<div class="row mt-3">
+    <div class="col-md-4">
+        <dt><span jhiTranslate="billingWebApp.discount.discountName">Discount Name</span></dt>
+        <dd>
+            <span>{{discount.discountName}}</span>
+        </dd>
+    </div>
+    <div class="col-md-4">
+        <dt><span jhiTranslate="billingWebApp.discount.discountType">Discount Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.DiscountType.' + discount.discountType}}">{{discount.discountType}}</span>
+        </dd>
+    </div>
+    <div class="col-md-4">
+        <dt><span jhiTranslate="billingWebApp.discount.associatedEMO">Associated EMO</span></dt>
+        <dd>
+            <span>{{discount.associatedEMO}}</span>
+        </dd>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <dt><span jhiTranslate="billingWebApp.discount.description">Description</span></dt>
+        <dd>
+            <span>{{discount.description}}</span>
+        </dd>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <dt>
+            <span class="fa" [ngClass]="discount.equipmentInstalledRequired ? 'fa-check' : 'fa-times'"></span>
+            <span jhiTranslate="billingWebApp.discount.equipmentInstalledRequired">Equipment Must Be Installed to Begin
+                Discount
+            </span>
+        </dt>
+        <dd *ngIf="discount.equipmentInstalledRequired">
+            <span jhiTranslate="{{'billingWebApp.EquipmentInstalled.' + discount.equipmentInstalled}}">{{discount.equipmentInstalled}}</span>
+        </dd>
+    </div>
+    <div class="col-md-4">
+        <dt>
+            <span class="fa" [ngClass]="discount.equipmentInstalledMonthsRequired ? 'fa-check' : 'fa-times'"></span>
+            <span jhiTranslate="billingWebApp.discount.equipmentInstalledMonthsRequired">Equipment Must Be Installed
+                N Months To Begin Discount</span>
+        </dt>
+        <dd *ngIf="discount.equipmentInstalledMonthsRequired">
+            <span>{{discount.equipmentInstalledMonths}}</span>
+        </dd>
+    </div>
+    <div class="col-md-4">
+        <dt>
+            <span class="fa" [ngClass]="discount.accrueDiscountSavings ? 'fa-check' : 'fa-times'"></span>
+            <span jhiTranslate="billingWebApp.discount.accrueDiscountSavings">Accrue Discount Savings</span>
+        </dt>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <dt><span jhiTranslate="billingWebApp.discount.startDate">Start Date</span></dt>
+        <dd>
+            <span>{{discount.startDate | date:'mediumDate'}}</span>
+        </dd>
+    </div>
+    <div class="col-md-4">
+        <dt><span jhiTranslate="billingWebApp.discount.endDate">End Date</span></dt>
+        <dd>
+            <span>{{discount.endDate | date:'mediumDate'}}</span>
+        </dd>
+    </div>
+</div>
+<hr>
+<h5><span jhiTranslate="billingWebApp.discount.discountValues">Discount Values</h5>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th><span jhiTranslate="billingWebApp.discount.beginningValue">Beginning Value</span></th>
+            <th><span jhiTranslate="billingWebApp.discount.endValue">End Value</span></th>
+            <th><span jhiTranslate="billingWebApp.discount.discountPercentage">Discount</span></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let discountValue of discount.discountValues">
+            <td>{{discountValue?.beginningValue | currency}}</td>
+            <td>{{discountValue?.endValue | currency}}</td>
+            <td>{{discountValue?.discountPercentage | percent:'.1-1'}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<button type="submit" (click)="previousState()" class="btn btn-info">
+    <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+</button>
+
+<button type="button" [routerLink]="['/', { outlets: { popup: 'discount/'+ discount.id + '/edit'} }]" replaceUrl="true" queryParamsHandling="merge"
+    class="btn btn-primary">
+    <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+</button>

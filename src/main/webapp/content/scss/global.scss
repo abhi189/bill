@@ -1,39 +1,41 @@
+@import '~@ng-select/ng-select/themes/default.theme.css';
 @import 'bootstrap-variables';
 
-/* Open Sans Font-Family */
-@font-face {
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-weight: 400;
-    src: local('Open Sans Regular'), local('OpenSans-Regular'),
-        url(https://fonts.gstatic.com/s/opensans/v16/mem8YaGs126MiZpBA-UFVZ0bf8pkAg.woff2) format('woff2');
-    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191,
-        U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+button.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 50%;
+    border-radius: 15px;
 }
-@font-face {
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-weight: 600;
-    src: local('Open Sans SemiBold'), local('OpenSans-SemiBold'),
-        url(https://fonts.gstatic.com/s/opensans/v16/mem5YaGs126MiZpBA-UNirkOXOhpKKSTj5PW.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+
+/* CSS for graphs tooltip */
+.morris-hover {
+    position: absolute;
+    z-index: 1000;
 }
-@font-face {
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-weight: 700;
-    src: local('Open Sans Bold'), local('OpenSans-Bold'),
-        url(https://fonts.gstatic.com/s/opensans/v16/mem5YaGs126MiZpBA-UN7rgOXOhpKKSTj5PW.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+.morris-hover.morris-default-style {
+    border-radius: 10px;
+    padding: 6px;
+    color: #666;
+    background: rgba(255, 255, 255, 0.8);
+    border: solid 2px rgba(230, 230, 230, 0.8);
+    font-family: sans-serif;
+    font-size: 12px;
+    text-align: center;
+    font-weight: bold;
 }
-@font-face {
-    font-family: 'Open Sans';
-    font-style: normal;
-    font-weight: 800;
-    src: local('Open Sans ExtraBold'), local('OpenSans-ExtraBold'),
-        url(https://fonts.gstatic.com/s/opensans/v16/mem5YaGs126MiZpBA-UN8rsOXOhpKKSTj5PW.woff2) format('woff2');
-    unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+.morris-hover.morris-default-style .morris-hover-row-label {
+    font-weight: bold;
+    margin: 0.25em 0;
 }
+.morris-hover.morris-default-style .morris-hover-point {
+    white-space: nowrap;
+    margin: 0.1em 0;
+}
+
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
@@ -54,8 +56,14 @@ a {
 a:hover {
     color: #533f03;
     font-weight: bold;
-    /* make sure browsers use the pointer cursor for anchors, even with no href */
-    cursor: pointer;
+}
+
+dl {
+    columns: 2;
+}
+
+dd {
+    break-before: avoid;
 }
 
 /* ==========================================================================
@@ -78,7 +86,7 @@ Generic styles
     border-left: 5px solid green;
 }
 
-.ng-invalid:not(form) {
+.ng-touched.ng-invalid:not(form) {
     border-left: 5px solid red;
 }
 
@@ -90,10 +98,6 @@ Generic styles
     border: none;
 }
 
-.main-container {
-    padding: 0;
-}
-
 .error {
     color: white;
     background-color: red;
@@ -103,8 +107,16 @@ Generic styles
     padding: 10px;
 }
 
+.w-30 {
+    width: 30% !important;
+}
+
 .w-40 {
     width: 40% !important;
+}
+
+.w-50 {
+    width: 50% !important;
 }
 
 .w-60 {
@@ -123,6 +135,13 @@ Generic styles
 
 .footer {
     border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+/* ==========================================================================
+make sure browsers use the pointer cursor for anchors, even with no href
+========================================================================== */
+a:hover {
+    cursor: pointer;
 }
 
 .hand,
@@ -177,7 +196,7 @@ entity tables helpers
 ========================================================================== */
 
 /* Remove Bootstrap padding from the element
-http://stackoverflow.com/questions/19562903/remove-padding-from-columns-in-bootstrap-3 */
+   http://stackoverflow.com/questions/19562903/remove-padding-from-columns-in-bootstrap-3 */
 @mixin no-padding($side) {
     @if $side == 'all' {
         .no-padding {
@@ -196,13 +215,13 @@ http://stackoverflow.com/questions/19562903/remove-padding-from-columns-in-boots
 @include no-padding('all');
 
 /* bootstrap 3 input-group 100% width
-http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
+   http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
 .width-min {
     width: 1% !important;
 }
 
 /* Makes toolbar not wrap on smaller screens
-http://www.sketchingwithcss.com/samplechapter/cheatsheet.html#right */
+   http://www.sketchingwithcss.com/samplechapter/cheatsheet.html#right */
 .flex-btn-group-container {
     display: -webkit-flex;
     display: flex;
@@ -261,18 +280,95 @@ ui bootstrap tweaks
     white-space: nowrap;
 }
 
-.alert p {
-    margin: 0;
+/* ==========================================================================
+ ON/OFF Switch component for checkbox replacement
+========================================================================== */
+.automatic-update {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-img {
-    max-width: 100%;
+.automatic-update.disabled {
+    opacity: 0.65;
 }
-
-.modal.show .modal-dialog {
-    transform: translate(0, 20%);
+.automatic-update.disabled label,
+.automatic-update.disabled span {
+    cursor: default;
 }
-.modal-content {
+.automatic-update span {
+    font-size: 14px;
+    font-weight: bold;
+}
+.onoffswitch {
+    position: relative;
+    width: 90px;
+    height: 34px;
+    margin-left: 10px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #999999;
     border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: 'ON';
+    padding-left: 10px;
+    background-color: #34a7c1;
+    color: #ffffff;
+}
+.onoffswitch-inner:after {
+    content: 'OFF';
+    padding-right: 10px;
+    background-color: #eeeeee;
+    color: #999999;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block;
+    width: 22px;
+    margin: 6px;
+    background: #ffffff;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 56px;
+    border: 2px solid #999999;
+    border-radius: 20px;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */

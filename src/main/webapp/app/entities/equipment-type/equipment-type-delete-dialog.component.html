@@ -1,0 +1,38 @@
+<form name="deleteForm" (ngSubmit)="confirmDelete(equipmentType.id)">
+    <div class="modal-header">
+        <h4 class="modal-title" jhiTranslate="entity.delete.title">Confirm delete operation</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert></jhi-alert>
+        <ng-container *ngIf="hasAssociatedEquipments; else noEquipmentsRelated">
+            <p>This EquipmentType {{equipmentType.code}} has {{equipmentType.equipmentCount}} associated Equipment{{equipmentType.equipmentCount > 1 ? 's' : ''}}.</p>
+            <div class="form-group">
+                <label class="form-control-label" for="field_newEquipmentType">
+                    Select another Equipment Type to which {{equipmentType.equipmentCount > 1 ? 'they' : 'it'}} should be associated:
+                </label>
+                <input id="field_newEquipmentType" name="newEquipmentType" type="text" class="form-control"
+                       [disabled]="equipmentTypes == null || equipmentTypes.length < 1"
+                       (selectItem)="selectedNewEquipmentType($event)"
+                       [ngbTypeahead]="searchEquipmentType"
+                       (focus)="focus$.next($any($event).target.value)"
+                       (click)="click$.next($any($event).target.value)"
+                       #ngbTypeAheadInstance="ngbTypeahead"
+                       [resultFormatter]="formatterNewEquipmentType"
+                       [inputFormatter]="formatterNewEquipmentType">
+            </div>
+        </ng-container>
+        <ng-template #noEquipmentsRelated>
+            <p jhiTranslate="billingWebApp.inventoryEquipmentType.delete.question" translateValues="{id: '{{equipmentType.id}}'}">Are you sure you want to delete this Equipment Type?</p>
+        </ng-template>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-danger" [disabled]="(this.hasAssociatedEquipments && this.newEquipmentType == null)">
+            <span class="fa fa-remove"></span>&nbsp;<span jhiTranslate="entity.action.delete">Delete</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,132 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTariffLabel" jhiTranslate="billingWebApp.tariff.home.createOrEditLabel">Create or
+            edit a Tariff</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;
+        </button>
+    </div>
+    <div class="modal-body">
+        <div *ngIf="tariffUpdateFinished; else spinner"></div>
+        <ng-template #spinner>
+            <div>
+                <div class="text-center">
+                    <div class="spinner-border">
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+        </ng-template>
+
+        <jhi-alert-error></jhi-alert-error>
+        <ngb-tabset [justify]="'fill'" type="pills" [activeId]="activeIdString" (tabChange)="beforeTabChange($event)">
+            <ngb-tab id="tabManual">
+                <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.tariff.manual">Manual</span></ng-template>
+                <ng-template ngbTabContent>
+                    <div class="form-group" [hidden]="!tariff.id">
+                        <label for="id" jhiTranslate="global.field.id">ID</label>
+                        <input type="text" class="form-control" id="id" name="id"
+                               [(ngModel)]="tariff.id" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="billingWebApp.tariff.utilityProviderKey"
+                               for="field_utilityProviderKey">Utility Provider Key</label>
+                        <input id="field_utilityProviderKey" name="utilityProviderKey" type="text" class="form-control"
+                               [(ngModel)]="tariff.utilityProviderKey"
+                               [ngbTypeahead]="search"/>
+                        <hr>
+                        <div [hidden]="!(editForm.controls.utilityProviderKey?.dirty && editForm.controls.utilityProviderKey?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!editForm.controls.utilityProviderKey?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="billingWebApp.tariff.tariffName"
+                               for="field_tariffName">Tariff
+                            Name</label>
+                        <input type="text" class="form-control" name="tariffName" id="field_tariffName"
+                               [(ngModel)]="tariff.tariffName"/>
+                        <div [hidden]="!(editForm.controls.tariffName?.dirty && editForm.controls.tariffName?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!editForm.controls.tariffName?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="billingWebApp.tariff.status"
+                               for="field_status">Status</label>
+                        <select class="form-control" name="status" [(ngModel)]="tariff.status" id="field_status"
+                                required>
+                            <option value="NEW">{{'billingWebApp.TariffStatus.NEW' | translate}}</option>
+                            <option value="ACTIVE">{{'billingWebApp.TariffStatus.ACTIVE' | translate}}</option>
+                            <option value="PENDING_UPDATE">{{'billingWebApp.TariffStatus.PENDING_UPDATE' | translate}}</option>
+                        </select>
+                        <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!editForm.controls.status?.errors?.required"
+                                   jhiTranslate="entity.validation.required">
+                                This field is required.
+                            </small>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-control-label" jhiTranslate="billingWebApp.tariff.autoUpdate" for="field_autoUpdate">Autoupdate</label>
+                        <input type="checkbox" class="form-control" name="autoUpdate" id="field_autoUpdate"
+                               [(ngModel)]="tariff.autoUpdate" />
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="tabImport">
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.tariff.import">Import</span>
+                </ng-template>
+
+                <ng-template ngbTabContent>
+                    <div class="form-group">
+                        <label for="externalId" jhiTranslate="billingWebApp.tariff.externalId">External ID</label>
+                        <input type="number" class="form-control" id="externalId" name="externalId"
+                               [(ngModel)]="tariff.externalId" required/>
+                    </div>
+                    <div [hidden]="!(editForm.controls.externalId?.dirty && editForm.controls.externalId?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.externalId?.errors?.required"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="field_providerId" jhiTranslate="billingWebApp.tariff.provider">Provider</label>
+                        <select class="custom-select" id="field_providerId" [(ngModel)]="tariff.providerId"
+                                name="field_providerId" required>
+                            <option [ngValue]="null">--</option>
+                            <option *ngFor="let provider of providers"
+                                    [ngValue]="provider.id">{{provider.name}}</option>
+                        </select>
+                    </div>
+                    <div [hidden]="!(editForm.controls.providerId?.dirty && editForm.controls.providerId?.invalid)">
+                        <small class="form-text text-danger"
+                               [hidden]="!editForm.controls.providerId?.errors?.required"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,128 @@
+{
+    "billingWebApp": {
+        "discount": {
+            "home": {
+                "title": "Discounts",
+                "createLabel": "Create a new Discount",
+                "createOrEditLabel": "Create or edit a Discount",
+                "search": "Search for Discount"
+            },
+            "created": "A new Discount is created with identifier {{ param }}",
+            "updated": "A Discount is updated with identifier {{ param }}",
+            "deleted": "A Discount is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Discount {{ id }}?"
+            },
+            "duplicate": {
+                "question": "Are you sure you want to duplicate Discount {{ id }}?"
+            },
+            "detail": {
+                "title": "Discount"
+            },
+            "tabs": {
+                "associatedAgreements": {
+                    "title": "Associated Agreements",
+                    "agreementType": "Agreement Type",
+                    "version": "Version"
+                },
+                "discounts": "Discounts",
+                "sharedSavings": {
+                    "title": "Shared Savings",
+                    "sharedSavingsFalse": "This agreement has no shared savings component",
+                    "sharedSavingsTrue": "There is a shared savings element to this agreement",
+                    "beginsAfterYears": "Shared Savings begins after",
+                    "years": "years",
+                    "beginsAfterSavings": "Shared Savings begins after savings exceed"
+                },
+                "solutions": {
+                    "title": "Solutions",
+                    "name": "Name"
+                },
+                "charges": {
+                    "title": "Charges",
+                    "chargeTotal": "Charge Total",
+                    "chargeDescription": "Charge Description"
+                },
+                "lateCharges": {
+                    "title": "Late Charges",
+                    "lateChargesFalse": "No Late Charges are associated to this offer",
+                    "lateChargesTrue": "Late Charges will be associated to this offer",
+                    "daysLate": "Invoices are considered late if they arrive beyond this many days",
+                    "lateChargesPercentage": "% Of the Open Balance to bill as the late charge"
+                }
+            },
+            "discountName": "Discount Name",
+            "discountType": "Discount Type",
+            "minimunDiscount": "Minimum Discount",
+            "maximunDiscount": "Maximum Discount",
+            "sharedSavings": "Shared Savings",
+            "solutions": "Solutions",
+            "charges": "Charges",
+            "lateFees": "Late Fees",
+            "associatedEMO": "Associated EMO",
+            "description": "Description",
+            "equipmentInstalledRequired": "Equipment Must Be Installed to Begin Discount",
+            "equipmentInstalled": "Equipment Installed",
+            "equipmentInstalledMonthsRequired": "Equipment Must Be Installed N Months To Begin Discount",
+            "equipmentInstalledMonths": "Equipment Installed Months",
+            "accrueDiscountSavings": "Accrue Discount Savings",
+            "discountValues": "Discount Values",
+            "beginningValue": "Beginning Value",
+            "endValue": "EndValue",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "discountPercentage": "Discount Percentage"
+        }
+    },
+    "invoiceApp": {
+        "invoiceDiscount": {
+            "home": {
+                "title": "Discounts",
+                "createLabel": "Create a new Discount",
+                "createOrEditLabel": "Create or edit a Discount",
+                "search": "Search for Discount"
+            },
+            "created": "A new Discount is created with identifier {{ param }}",
+            "updated": "A Discount is updated with identifier {{ param }}",
+            "deleted": "A Discount is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Discount {{ id }}?"
+            },
+            "detail": {
+                "title": "Discount"
+            },
+            "discountName": "Discount Name",
+            "discountType": "Discount Type",
+            "minimunDiscount": "Minimum Discount",
+            "maximunDiscount": "Maximum Discount",
+            "associatedEMO": "Associated EMO",
+            "description": "Description",
+            "equipmentInstalledRequired": "Equipment Must Be Installed to Begin Discount",
+            "equipmentInstalled": "Equipment Installed",
+            "equipmentInstalledMonthsRequired": "Equipment Must Be Installed N Months To Begin Discount",
+            "equipmentInstalledMonths": "Equipment Installed Months",
+            "accrueDiscountSavings": "Accrue Discount Savings",
+            "discountValues": "Discount Values"
+        },
+        "invoiceDiscountValues": {
+            "created": "A new DiscountValue is created with identifier {{ param }}",
+            "updated": "A DiscountValue is updated with identifier {{ param }}",
+            "deleted": "A DiscountValue is deleted with identifier {{ param }}"
+        },
+        "invoiceDiscountCharge": {
+            "created": "A new DiscountCharge is created with identifier {{ param }}",
+            "updated": "A DiscountCharge is updated with identifier {{ param }}",
+            "deleted": "A DiscountCharge is deleted with identifier {{ param }}"
+        },
+        "invoiceDiscountSolution": {
+            "created": "A new DiscountSolution is created with identifier {{ param }}",
+            "updated": "A DiscountSolution is updated with identifier {{ param }}",
+            "deleted": "A DiscountSolution is deleted with identifier {{ param }}"
+        },
+        "invoiceAssociatedAgreement": {
+            "created": "A new AssociatedAgreement is created with identifier {{ param }}",
+            "updated": "A AssociatedAgreement is updated with identifier {{ param }}",
+            "deleted": "A AssociatedAgreement is deleted with identifier {{ param }}"
+        }
+    }
+}

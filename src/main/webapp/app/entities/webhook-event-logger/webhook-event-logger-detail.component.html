@@ -1,0 +1,48 @@
+
+<div *ngIf="webhookEventLogger">
+    <h2><span jhiTranslate="billingWebApp.webhookEventLogger.detail.title">Webhook Event Logger</span> {{webhookEventLogger.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.webhookEventLogger.eventId">Event Id</span></dt>
+        <dd>
+            <span>{{webhookEventLogger.eventId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.webhookEventLogger.eventType">Event Type</span></dt>
+        <dd>
+            <span>{{webhookEventLogger.eventType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.webhookEventLogger.eventDate">Event Date</span></dt>
+        <dd>
+            <span>{{webhookEventLogger.eventDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.webhookEventLogger.eventEndpoint">Event Endpoint</span></dt>
+        <dd>
+            <span>{{webhookEventLogger.eventEndpoint}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.webhookEventLogger.status">Status</span></dt>
+        <dd>
+            <span>{{webhookEventLogger.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.webhookEventLogger.providerId">Provider Id</span></dt>
+        <dd>
+            <span>{{webhookEventLogger.providerId}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <!--
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'webhook-event-logger/'+ webhookEventLogger.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+    -->
+</div>

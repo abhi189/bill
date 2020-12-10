@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { HomebillingwebTestModule } from '../../../test.module';
-import { UserMgmtDeleteDialogComponent } from 'app/admin/user-management/user-management-delete-dialog.component';
-import { UserService } from 'app/core';
+import { BillingWebTestModule } from '../../../test.module';
+import { UserMgmtDeleteDialogComponent } from '../../../../../../main/webapp/app/admin/user-management/user-management-delete-dialog.component';
+import { UserService } from '../../../../../../main/webapp/app/shared';
 
 describe('Component Tests', () => {
     describe('User Management Delete Component', () => {
@@ -17,8 +17,9 @@ describe('Component Tests', () => {
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
-                imports: [HomebillingwebTestModule],
-                declarations: [UserMgmtDeleteDialogComponent]
+                imports: [BillingWebTestModule],
+                declarations: [UserMgmtDeleteDialogComponent],
+                providers: [UserService]
             })
                 .overrideTemplate(UserMgmtDeleteDialogComponent, '')
                 .compileComponents();
@@ -37,7 +38,7 @@ describe('Component Tests', () => {
                 [],
                 fakeAsync(() => {
                     // GIVEN
-                    spyOn(service, 'delete').and.returnValue(of({}));
+                    spyOn(service, 'delete').and.returnValue(Observable.of({}));
 
                     // WHEN
                     comp.confirmDelete('user');

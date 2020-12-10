@@ -1,16 +1,25 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
-import { PortalSharedModule } from 'app/shared';
+import { JhiTrackerService } from './../shared/tracker/tracker.service';
+
+import { BillingWebSharedModule } from '../shared';
+import { BillingWebElasticsearchReindexModule } from './elasticsearch-reindex/elasticsearch-reindex.module';
+
+import { JobDescriptionModule } from './job-description/job-description.module';
+
 /* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 import {
     adminState,
+    AuditsComponent,
     UserMgmtComponent,
+    UserDialogComponent,
+    UserDeleteDialogComponent,
+    UserAssignSitesDialogComponent,
     UserMgmtDetailComponent,
-    UserMgmtUpdateComponent,
+    UserMgmtDialogComponent,
     UserMgmtDeleteDialogComponent,
+    UserMgmtAssignSiteDialogComponent,
     LogsComponent,
     JhiMetricsMonitoringModalComponent,
     JhiMetricsMonitoringComponent,
@@ -18,19 +27,36 @@ import {
     JhiHealthCheckComponent,
     JhiConfigurationComponent,
     JhiDocsComponent,
-    JhiGatewayComponent
+    AuditsService,
+    JhiConfigurationService,
+    JhiHealthService,
+    JhiMetricsService,
+    GatewayRoutesService,
+    JhiGatewayComponent,
+    JhiTrackerComponent,
+    LogsService,
+    UserResolvePagingParams,
+    UserResolve,
+    UserModalService
 } from './';
 
 @NgModule({
     imports: [
-        PortalSharedModule,
-        RouterModule.forChild(adminState)
+        BillingWebSharedModule,
+        RouterModule.forChild(adminState),
+        BillingWebElasticsearchReindexModule,
+        JobDescriptionModule
         /* jhipster-needle-add-admin-module - JHipster will add admin modules here */
     ],
     declarations: [
+        AuditsComponent,
         UserMgmtComponent,
+        UserDialogComponent,
+        UserDeleteDialogComponent,
+        UserAssignSitesDialogComponent,
         UserMgmtDetailComponent,
-        UserMgmtUpdateComponent,
+        UserMgmtDialogComponent,
+        UserMgmtAssignSiteDialogComponent,
         UserMgmtDeleteDialogComponent,
         LogsComponent,
         JhiConfigurationComponent,
@@ -38,19 +64,29 @@ import {
         JhiHealthModalComponent,
         JhiDocsComponent,
         JhiGatewayComponent,
+        JhiTrackerComponent,
         JhiMetricsMonitoringComponent,
         JhiMetricsMonitoringModalComponent
     ],
-    providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
-    entryComponents: [UserMgmtDeleteDialogComponent, JhiHealthModalComponent, JhiMetricsMonitoringModalComponent],
+    entryComponents: [
+        UserMgmtDialogComponent,
+        UserMgmtDeleteDialogComponent,
+        UserMgmtAssignSiteDialogComponent,
+        JhiHealthModalComponent,
+        JhiMetricsMonitoringModalComponent
+    ],
+    providers: [
+        AuditsService,
+        JhiConfigurationService,
+        JhiHealthService,
+        JhiMetricsService,
+        GatewayRoutesService,
+        LogsService,
+        JhiTrackerService,
+        UserResolvePagingParams,
+        UserResolve,
+        UserModalService
+    ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class PortalAdminModule {
-    // constructor(private languageService: JhiLanguageService, private languageHelper: JhiLanguageHelper) {
-    //     this.languageHelper.language.subscribe((languageKey: string) => {
-    //         if (languageKey !== undefined) {
-    //             this.languageService.changeLanguage(languageKey);
-    //         }
-    //     });
-    // }
-}
+export class BillingWebAdminModule {}

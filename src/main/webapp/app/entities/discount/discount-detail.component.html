@@ -1,0 +1,89 @@
+<div *ngIf="discount">
+    <h2><span jhiTranslate="billingWebApp.discount.detail.title">Discount</span> {{discount.id}}</h2>
+    <hr>
+    <ngb-tabset [justify]="'fill'" type="pills">
+        <ngb-tab id="tabAssociatedAgreements">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.discount.tabs.associatedAgreements.title">Associated Agreements</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert></jhi-alert>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-discount-associated-agreement [discountId]="discount.id"></jhi-discount-associated-agreement>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <button type="submit" (click)="previousState()" class="btn btn-info">
+                            <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabDiscounts">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.discount.tabs.discounts">Discounts</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert></jhi-alert>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-discount-values [discount]="discount"></jhi-discount-values>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabSharedSavings">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.discount.tabs.sharedSavings.title">Shared Savings</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert></jhi-alert>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-discount-shared-savings [discount]="discount"></jhi-discount-shared-savings>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabSolutions">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.discount.tabs.solutions.title">Solutions</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert></jhi-alert>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-discount-solution [discountId]="discount.id"></jhi-discount-solution>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <button type="submit" (click)="previousState()" class="btn btn-info">
+                            <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabCharges">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.discount.tabs.charges.title">Charges</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert></jhi-alert>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-discount-charges [discountId]="discount.id"></jhi-discount-charges>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <button type="submit" (click)="previousState()" class="btn btn-info">
+                            <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                        </button>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabLateFees">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.discount.tabs.lateCharges.title">Late Charges</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert></jhi-alert>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-discount-late-charges [discount]="discount"></jhi-discount-late-charges>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+
+
+</div>

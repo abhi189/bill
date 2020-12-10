@@ -1,0 +1,12 @@
+{
+    "billingWebApp": {
+        "AMEStatus": {
+            "null": "",
+            "CALCULATING": "CALCULATING",
+            "FAILED": "FAILED",
+            "PENDING": "PENDING",
+            "APPROVED": "APPROVED",
+            "REJECTED": "REJECTED"
+        }
+    }
+}

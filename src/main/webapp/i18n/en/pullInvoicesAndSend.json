@@ -1,0 +1,11 @@
+{
+    "pullInvoicesAndSend": {
+        "accepted": "Request accepted, performing invoice pull and send",
+        "dialog": {
+            "title": "Confirm invoice send",
+            "question": "This will send out all approved invoices. Are you sure you want to proceed?",
+            "cancel": "Cancel",
+            "confirm": "Send"
+        }
+    }
+}

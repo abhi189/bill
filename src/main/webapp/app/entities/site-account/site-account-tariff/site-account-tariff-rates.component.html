@@ -1,0 +1,150 @@
+<div class="row" [ngClass]="{'controls-disabled' : disableControls}">
+    <div class="automatic-update col-sm-2" [ngClass]="{'disabled' : editingRate || disableControls}">
+        <span>Use for Invoice</span>
+        <div class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
+                   [disabled]="editingRate"
+                   [(ngModel)]="selectedAme.useRateRepository"
+                   (change)="onUseRepositoryChange()"
+                  >
+            <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-4  header-content">
+        <label class="form-control-label" jhiTranslate="billingWebApp.tariff.utilityProviderKey"
+               for="field_utilityProviderKey">Utility Provider Key</label>
+        <input id="field_utilityProviderKey" name="utilityProviderKey" type="text" class="w-75"
+               (selectItem)="selectedUtilityProviderItem($event)"
+               (click)="click$.next($event.target.value)"
+               #instance="ngbTypeahead"
+               placeholder="Start typing a utility name..."
+               [(ngModel)]="currentUtilityProvider"
+               [ngbTypeahead]="search"
+               [disabled]="!editingRate"/>
+    </div>
+    <div class="col-sm-3 header-content">
+        <div>
+            <ng-template #rt let-r="result" let-t="term">
+                {{ r.tariffName}}
+            </ng-template>
+            <label class="form-control-label" jhiTranslate="billingWebApp.tariff.tariffName"
+                   for="field_utilityTariffName">Tariff name</label>
+            <input id="field_utilityTariffName" name="utilityTariffName" type="text" class="w-75"
+                   (click)="click$.next($event.target.value)"
+                   #instanceTariff="ngbTypeahead"
+                   [ngbTypeahead]="searchTariff"
+                   [inputFormatter]="formatter"
+                   [resultTemplate]="rt"
+                   [(ngModel)]="currentTariff"
+                   placeholder="Start typing a tariff name..."
+                   (selectItem)="selectedTariffItem($event)"
+                   [disabled]="!editingRate  || !currentUtilityProvider"/>
+        </div>
+    </div>
+    <div class="container-buttons col-sm-3">
+        <div class="pull-right">
+            <button type="button" class="btn btn-primary ml-2" *ngIf="!editingRate" (click)="editRates()">Edit</button>
+            <button type="button" class="btn btn-danger ml-2" *ngIf="editingRate" (click)="cancelEditRates()">Cancel</button>
+            <button type="button" class="btn btn-success ml-2" *ngIf="editingRate" (click)="saveApproveRates()">Save and Approve Rates</button>
+        </div>
+    </div>
+</div>
+<div class="row-rates" [ngClass]="{'controls-disabled' : disableControls}">
+    <ng-container  *ngIf="selectedTariffYear && selectedTariffYear.rates && selectedTariffYear.rates.length != 0">
+        <div class="pull-left col-sm-6 pb-1 pl-0">
+            <select [disabled]="!editingRate" class="form-control col-sm-2" name="rateYear" [(ngModel)]="selectedTariffYear"
+                    [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="onSelectedTariffYear($event)">
+                <option *ngFor="let tariffYear of tariffYears" [ngValue]="tariffYear">{{tariffYear.year}}</option>
+            </select>
+        </div>
+        <table class="table table-sm table-striped table-bordered">
+        <tr>
+            <th>
+                <span jhiTranslate="billingWebApp.rate.optional">Opt</span>
+                <span class="fa fa-sort" (click)="sortRateTable('chargeId')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.rate.chargeId">Charge Id</span>
+                <span class="fa fa-sort" (click)="sortRateTable('chargeId')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.rate.chargeDescription">Charge Description</span>
+                <span class="fa fa-sort" (click)="sortRateTable('chargeDescription')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.rate.rateComponent">Rate Component</span>
+                <span class="fa fa-sort" (click)="sortRateTable('rateComponent')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.rate.usageUnit">Usage Unit</span>
+                <span class="fa fa-sort" (click)="sortRateTable('usageUnit')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.rate.rateType">Rate Type</span>
+                <span class="fa fa-sort" (click)="sortRateTable('rateType')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.rate.amount">Amount</span>
+                <span class="fa fa-sort" (click)="sortRateTable('amount')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.rate.applyPercentage">Apply Percentage</span>
+                <span class="fa fa-sort" (click)="sortRateTable('applyPercentage')"></span>
+            </th>
+            <th *ngFor="let month of monthNames;">
+                <span jhiTranslate="billingWebApp.rate.{{month}}">{{month}}</span>
+                <span class="fa fa-sort" (click)="sortRateTable(month)"></span>
+            </th>
+
+            <th>
+                <span jhiTranslate="billingWebApp.rate.invoiceSection">Invoice Section</span>
+                <span class="fa fa-sort" (click)="sortRateTable('invoiceSection')"></span>
+            </th>
+
+            <th>
+                <span jhiTranslate="billingWebApp.rate.updateDate">Update Date</span>
+                <span class="fa fa-sort" (click)="sortRateTable('updateDate')"></span>
+            </th>
+        </tr>
+        <ng-container *ngIf="selectedTariffYear?.rates?.length != 0">
+            <tr *ngFor="let rate of selectedTariffYear.rates; let i = index;">
+                <td *ngIf="editingRate">
+                    <input *ngIf="rate.optional" type="checkbox" name="confirmed" [(ngModel)]="rate.confirmed"/>
+                </td>
+                <td *ngIf="!editingRate">
+                    <input *ngIf="rate.optional" type="checkbox" name="confirmed" [disabled]="true" [(ngModel)]="rate.confirmed"/>
+                </td>
+                <td>{{rate?.chargeId}}</td>
+                <td>{{rate?.chargeDescription}}</td>
+                <td>{{rate?.rateComponent}}</td>
+                <td>{{rate?.usageUnit}}</td>
+                <td>{{rate?.rateType}}</td>
+                <td>{{rate?.amount}}</td>
+                <td>
+                    <a (click)="openComboSelector(false, true, false, rate)">
+                        <span>{{labelForAP(rate)}}</span>
+                    </a>
+                </td>
+                <td>{{rate?.billingMonthJan}}</td>
+                <td>{{rate?.billingMonthFeb}}</td>
+                <td>{{rate?.billingMonthMar}}</td>
+                <td>{{rate?.billingMonthApr}}</td>
+                <td>{{rate?.billingMonthMay}}</td>
+                <td>{{rate?.billingMonthJun}}</td>
+                <td>{{rate?.billingMonthJul}}</td>
+                <td>{{rate?.billingMonthAug}}</td>
+                <td>{{rate?.billingMonthSep}}</td>
+                <td>{{rate?.billingMonthOct}}</td>
+                <td>{{rate?.billingMonthNov}}</td>
+                <td>{{rate?.billingMonthDec}}</td>
+                <td>{{invoiceSectionsMap[rate?.invoiceSection]}} </td>
+                <td>{{rate?.updateDate | date:'MM-dd-yyyy':'UTC'}}</td>
+            </tr>
+        </ng-container>
+    </table>
+    </ng-container>
+</div>

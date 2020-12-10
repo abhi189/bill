@@ -1,0 +1,289 @@
+<div>
+    <h2>
+        <div *ngIf="showCreateButton">
+            <span jhiTranslate="billingWebApp.alertMs.home.title">Alert Ms</span>
+            <button class="btn btn-primary float-right jh-create-entity create-alert-ms" [routerLink]="['/', { outlets: { popup: ['alert-ms-new'] } }]">
+                <span class="fa fa-plus"></span>
+                <span class="hidden-sm-down"  jhiTranslate="billingWebApp.alertMs.home.createLabel"> Create new Alert Ms </span>
+            </button>
+        </div>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div *ngIf="showSearchBar">
+        <div class="row">
+            <div class="col-sm-12">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group w-100 mt-3">
+                        <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.alertMs.home.search' | translate }}">
+                        <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                            <span class="fa fa-search"></span>
+                        </button>
+                        <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                            <span class="fa fa-trash-o"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br/>
+    </div>
+
+    <div *ngIf="showCharts">
+        <ngb-tabset #t="ngbTabset" [justify]="'justified'" (tabChange)="fetchData($event)">
+            <ngb-tab id="year-tab" >
+                <ng-template ngbTabTitle>
+                        <span jhiTranslate="billingWebApp.alertMs.home.year">Year</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <div class="row mt-2 justify-content-md-center">
+                        <h4 class="badge badge-primary">
+                            Current Year: {{currentYear}}
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-1 align-self-center">
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-outline-dark" (click)="previousYear()">
+                                    <i class="fa fa-angle-double-left"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <!-- <div mk-morris-js [options]="chartOptionsOld" [data]="yearChartData" type="Bar" ></div> -->
+
+                            <div style="height: 300px">
+                                <canvas
+                                        baseChart
+                                        [chartType]="'bar'"
+                                        [datasets]="yearChartData"
+                                        [colors]="yearChartColors"
+                                        [labels]="yearChartLabels"
+                                        [options]="chartOptions"
+                                        (chartClick)="onChartClick($event)">
+                                </canvas>
+                            </div>
+                        </div>
+                        <div class="col-1 align-self-center">
+                            <div class="d-flex justify-content-start">
+                                <button type="button" class="btn btn-outline-dark" (click)="nextYear()">
+                                    <i class="fa fa-angle-double-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="month-tab" >
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.alertMs.home.month">Month</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <div class="row mt-2 justify-content-md-center">
+                        <h4 class="badge badge-primary">
+                            Month of: {{currentMonthDate | date:'mediumDate'}}
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-1 align-self-center">
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-outline-dark" (click)="previousMonth()">
+                                    <i class="fa fa-angle-double-left"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <!-- <div mk-morris-js [options]="chartOptionsOld" [data]="monthChartData" type="Bar" ></div> -->
+                            <div style="height: 300px">
+                                <canvas
+                                        baseChart
+                                        [chartType]="'bar'"
+                                        [datasets]="monthChartData"
+                                        [colors]="monthChartColors"
+                                        [labels]="monthChartLabels"
+                                        [options]="chartOptions"
+                                        (chartClick)="onChartClick($event)">
+                                </canvas>
+                            </div>
+                        </div>
+                        <div class="col-1 align-self-center">
+                            <div class="d-flex justify-content-start">
+                                <button type="button" class="btn btn-outline-dark" (click)="nextMonth()">
+                                    <i class="fa fa-angle-double-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="week-tab" >
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.alertMs.home.week">Week</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <div class="row mt-2 justify-content-md-center">
+                        <h4 class="badge badge-primary">
+                            Week of: {{currentWeekDate | date:'mediumDate'}}
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-1 align-self-center">
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-outline-dark" (click)="previousWeek()">
+                                    <i class="fa fa-angle-double-left"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <!-- <div mk-morris-js [options]="chartOptionsOld" [data]="weekChartData" type="Bar" ></div> -->
+                            <div style="height: 300px">
+                                <canvas
+                                        baseChart
+                                        [chartType]="'bar'"
+                                        [datasets]="weekChartData"
+                                        [colors]="weekChartColors"
+                                        [labels]="weekChartLabels"
+                                        [options]="chartOptions"
+                                        (chartClick)="onChartClick($event)">
+                                </canvas>
+                            </div>
+                        </div>
+                        <div class="col-1 align-self-center">
+                            <div class="d-flex justify-content-start">
+                                <button type="button" class="btn btn-outline-dark" (click)="nextWeek()">
+                                    <i class="fa fa-angle-double-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab  id="day-tab" >
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.alertMs.home.day">Day</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+
+
+                    <div class="row mt-2 justify-content-md-center">
+                        <h4 class="badge badge-primary">
+                            This Day: {{currentDate | date:'mediumDate'}}
+                        </h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-1 align-self-center">
+                            <div class="d-flex justify-content-end">
+                                <button type="button" class="btn btn-outline-dark" (click)="previousDay()">
+                                    <i class="fa fa-angle-double-left"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-10">
+                            <!-- <div mk-morris-js [options]="chartOptionsOld" [data]="dayChartData" type="Bar" ></div> -->
+                            <div style="height: 300px">
+                                <canvas
+                                        baseChart
+                                        [chartType]="'bar'"
+                                        [datasets]="dayChartData"
+                                        [colors]="dayChartColors"
+                                        [labels]="dayChartLabels"
+                                        [options]="chartOptions"
+                                        (chartClick)="onChartClick($event)">
+                                </canvas>
+                            </div>
+                        </div>
+                        <div class="col-1 align-self-center">
+                            <div class="d-flex justify-content-start">
+                                <button type="button" class="btn btn-outline-dark" (click)="nextDay()">
+                                    <i class="fa fa-angle-double-right"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+
+    </div>
+
+    <div *ngIf="noAlerts">
+        <div class="alert alert-secondary" role="alert">
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.alertMs.noAlerts"> No alerts. </span>
+        </div>
+    </div>
+    <div class="table-responsive" *ngIf="alertMs && !noAlerts">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="assignee"><span jhiTranslate="billingWebApp.alertMs.assignee">Assignee</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="alertType"><span jhiTranslate="billingWebApp.alertMs.alertType">Alert Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="budderflyId"><span jhiTranslate="billingWebApp.alertMs.budderflyId">Budderfly Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="item"><span jhiTranslate="billingWebApp.alertMs.item">Item</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span jhiTranslate="billingWebApp.alertMs.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="source"><span jhiTranslate="billingWebApp.alertMs.source">Source</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="alertDate"><span jhiTranslate="billingWebApp.alertMs.alertDate">Alert Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="severity"><span jhiTranslate="billingWebApp.alertMs.severity">Severity</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span jhiTranslate="billingWebApp.alertMs.status">Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span jhiTranslate="billingWebApp.alertMs.url">Ticket URL</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let alertMs of alertMs ;trackBy: trackId">
+                <td><a [routerLink]="['../alert-ms', alertMs.id ]">{{alertMs.id}}</a></td>
+                <td>{{alertMs.assignee}}</td>
+                <td jhiTranslate="{{'billingWebApp.AlertType.' + alertMs.alertTypeType}}">{{alertMs.alertTypeType}}</td>
+
+                <div *ngIf="alertMs.siteId;else other_content">
+                    <td><a [routerLink]="['../site', alertMs.siteId ]">{{alertMs.budderflyId}}</a></td>
+                </div>
+                <ng-template #other_content>
+                    <td>{{alertMs.budderflyId}}</td>
+                </ng-template>
+
+                <td>{{alertMs.item}}</td>
+                <td>{{alertMs.description}}</td>
+                <td jhiTranslate="{{'billingWebApp.SourceType.' + alertMs.source}}">{{alertMs.source}}</td>
+                <td>{{alertMs.alertDate | date:'mediumDate'}}</td>
+                <td jhiTranslate="{{'billingWebApp.SeverityType.' + alertMs.severity}}">{{alertMs.severity}}</td>
+                <td jhiTranslate="{{'billingWebApp.AlertStatus.' + alertMs.status}}">{{alertMs.status}}</td>
+                <td><div *ngIf="alertMs.ticketUrl"><a href="{{alertMs.ticketUrl}}" target="_blank">Ticket link</a></div></td>
+                <td *ngIf="showRowButtons" class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../alert-ms', alertMs.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'alert-ms/'+ alertMs.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'alert-ms/'+ alertMs.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="alertMs && alertMs.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

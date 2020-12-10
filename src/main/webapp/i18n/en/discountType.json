@@ -1,0 +1,11 @@
+{
+    "billingWebApp": {
+        "DiscountType": {
+            "null": "",
+            "BILLING_MONTHS": "BILLING_MONTHS",
+            "HISTORICAL_SPEND": "HISTORICAL_SPEND",
+            "EQUIPMENT": "EQUIPMENT",
+            "SHARED_SAVINGS": "SHARED_SAVINGS"
+        }
+    }
+}

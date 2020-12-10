@@ -1,0 +1,10 @@
+{
+    "billingWebApp": {
+        "SeverityType": {
+            "null": "",
+            "HIGH": "HIGH",
+            "MEDIUM": "MEDIUM",
+            "LOW": "LOW"
+        }
+    }
+}

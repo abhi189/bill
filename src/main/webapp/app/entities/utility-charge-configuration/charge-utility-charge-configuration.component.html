@@ -1,0 +1,40 @@
+<div>
+    <div class="table-responsive" *ngIf="chargeUtilityChargeConfigurations">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="billingWebApp.utilityChargeConfiguration.serviceType">Service Type</span> </th>
+            <th><span jhiTranslate="billingWebApp.utilityChargeConfiguration.chargeId">Charge Id</span> </th>
+            <th><span jhiTranslate="billingWebApp.utilityChargeConfiguration.chargeActualName">Charge Actual Name</span> </th>
+            <th><span jhiTranslate="billingWebApp.utilityChargeConfiguration.utilityProvider">Utility Provider</span> </th>
+            <th><span jhiTranslate="billingWebApp.utilityChargeConfiguration.ruleServiceType">Service Type</span> </th>
+            <th><span jhiTranslate="billingWebApp.utilityChargeConfiguration.ruleChargeId">Charge Id</span> </th>
+            <th><span jhiTranslate="billingWebApp.utilityChargeConfiguration.ruleChargeActualName">Charge Actual Name</span> </th>
+            <th><span jhiTranslate="billingWebApp.utilityChargeConfiguration.ruleUtilityProvider">Utility Provider</span> </th>
+            <th><span jhiTranslate="billingWebApp.utilityChargeConfiguration.chargeCategory">Charge Category</span> </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let charge of chargeUtilityChargeConfigurations ;trackBy: trackId">
+                <td>{{charge.chargeId}}</td>
+                <td>{{charge.chargeActualName}}</td>
+                <td>{{charge.serviceType}}</td>
+                <td>{{charge.utilityProvider}}</td>
+                <td>{{charge.utilityChargeConfigurationChargeActualName}}</td>
+                <td>{{charge.utilityChargeConfigurationChargeId}}</td>
+                <td>{{charge.utilityChargeConfigurationServiceType}}</td>
+                <td>{{charge.utilityChargeConfigurationUtilityProvider}}</td>
+                <td>{{charge.utilityChargeConfigurationCategory}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="chargeUtilityChargeConfigurations && chargeUtilityChargeConfigurations.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+{
+    "billingWebApp": {
+        "UsageType": {
+            "null": "",
+            "KW": "KW",
+            "KWH": "KWH",
+            "DAY": "DAY",
+            "FLAT": "FLAT",
+            "CHARGE": "CHARGE",
+            "USD": "USD",
+            "CAD": "CAD",
+            "CCF": "CCF",
+            "GAL": "GAL",
+            "LBS": "LBS"
+        }
+    }
+}

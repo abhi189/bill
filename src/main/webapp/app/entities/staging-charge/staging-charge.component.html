@@ -1,0 +1,121 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.stagingCharge.home.title">Staging Charges</span>
+        <button class="btn btn-primary float-right jh-create-entity create-staging-charge" [routerLink]="['/', { outlets: { popup: ['staging-charge-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.stagingCharge.home.createLabel">
+            Create new Staging Charge
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.stagingCharge.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="stagingCharges">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="usageUnit"><span jhiTranslate="billingWebApp.stagingCharge.usageUnit">Usage Unit</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="measurementType"><span jhiTranslate="billingWebApp.stagingCharge.measurementType">Measurement Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="rateComponent"><span jhiTranslate="billingWebApp.stagingCharge.rateComponent">Rate Component</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalStart"><span jhiTranslate="billingWebApp.stagingCharge.intervalStart">Interval Start</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalEnd"><span jhiTranslate="billingWebApp.stagingCharge.intervalEnd">Interval End</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="chargeAmount"><span jhiTranslate="billingWebApp.stagingCharge.chargeAmount">Charge Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="chargeCurrency"><span jhiTranslate="billingWebApp.stagingCharge.chargeCurrency">Charge Currency</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="chargeRatePerUnit"><span jhiTranslate="billingWebApp.stagingCharge.chargeRatePerUnit">Charge Rate Per Unit</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="chargeRatePerUnitMultiplier"><span jhiTranslate="billingWebApp.stagingCharge.chargeRatePerUnitMultiplier">Charge Rate Per Unit Multiplier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="chargeUnitsUsed"><span jhiTranslate="billingWebApp.stagingCharge.chargeUnitsUsed">Charge Units Used</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="chargeActualName"><span jhiTranslate="billingWebApp.stagingCharge.chargeActualName">Charge Actual Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="chargeAmountCurrency"><span jhiTranslate="billingWebApp.stagingCharge.chargeAmountCurrency">Charge Amount Currency</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="chargeId"><span jhiTranslate="billingWebApp.stagingCharge.chargeId">Charge Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="chargeRateCurrency"><span jhiTranslate="billingWebApp.stagingCharge.chargeRateCurrency">Charge Rate Currency</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="isAdjustmentCharge"><span jhiTranslate="billingWebApp.stagingCharge.isAdjustmentCharge">Is Adjustment Charge</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lifecycle"><span jhiTranslate="billingWebApp.stagingCharge.lifecycle">Lifecycle</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="thirdPartyAccountNumber"><span jhiTranslate="billingWebApp.stagingCharge.thirdPartyAccountNumber">Third Party Account Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="thirdPartyProvider"><span jhiTranslate="billingWebApp.stagingCharge.thirdPartyProvider">Third Party Provider</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createDate"><span jhiTranslate="billingWebApp.stagingCharge.createDate">Create Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastModified"><span jhiTranslate="billingWebApp.stagingCharge.lastModified">Last Modified</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="invoiceId"><span jhiTranslate="billingWebApp.stagingCharge.invoice">Invoice</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="meterLogicalMeterId"><span jhiTranslate="billingWebApp.stagingCharge.meter">Meter</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let stagingCharge of stagingCharges ;trackBy: trackId">
+                <td><a [routerLink]="['../staging-charge', stagingCharge.id ]">{{stagingCharge.id}}</a></td>
+                <td>{{stagingCharge.usageUnit}}</td>
+                <td>{{stagingCharge.measurementType}}</td>
+                <td>{{stagingCharge.rateComponent}}</td>
+                <td>{{stagingCharge.intervalStart | date:'mediumDate'}}</td>
+                <td>{{stagingCharge.intervalEnd | date:'mediumDate'}}</td>
+                <td>{{stagingCharge.chargeAmount}}</td>
+                <td>{{stagingCharge.chargeCurrency}}</td>
+                <td>{{stagingCharge.chargeRatePerUnit}}</td>
+                <td>{{stagingCharge.chargeRatePerUnitMultiplier}}</td>
+                <td>{{stagingCharge.chargeUnitsUsed}}</td>
+                <td>{{stagingCharge.chargeActualName}}</td>
+                <td>{{stagingCharge.chargeAmountCurrency}}</td>
+                <td>{{stagingCharge.chargeId}}</td>
+                <td>{{stagingCharge.chargeRateCurrency}}</td>
+                <td>{{stagingCharge.isAdjustmentCharge}}</td>
+                <td>{{stagingCharge.lifecycle}}</td>
+                <td>{{stagingCharge.thirdPartyAccountNumber}}</td>
+                <td>{{stagingCharge.thirdPartyProvider}}</td>
+                <td>{{stagingCharge.createDate | date:'medium'}}</td>
+                <td>{{stagingCharge.lastModified | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="stagingCharge.invoiceId">
+                        <a [routerLink]="['../staging-invoice', stagingCharge.invoiceId  ]" >{{stagingCharge.invoiceId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="stagingCharge.meterId">
+                        <a [routerLink]="['../staging-meter', stagingCharge.meterId  ]" >{{stagingCharge.meterLogicalMeterId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../staging-charge', stagingCharge.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'staging-charge/'+ stagingCharge.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'staging-charge/'+ stagingCharge.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

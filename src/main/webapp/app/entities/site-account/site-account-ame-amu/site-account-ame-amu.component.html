@@ -1,0 +1,88 @@
+<div class="row" style="margin: 5px">
+    <div class="col-sm-4">
+        <angular4-multiselect [data]="amuFilterOptions" [(ngModel)]="amuSelectedFilters" [settings]="amuFilterConf"
+            (onSelect)="amuFilterSelect($event)" (onDeSelect)="amuFilterDeSelect($event)" ></angular4-multiselect>
+
+    </div>
+    <div class="col-sm-8 d-flex justify-content-end">
+        <div class="d-flex justify-content-end">
+            <button type="button" class="my-1 ml-1 btn btn-info" *ngIf="editingAmu" (click)="addNewAmu()">Add
+            </button>
+            <button type="button" class="my-1 ml-1 btn btn-danger" *ngIf="editingAmu" (click)="cancelEditAmus()">Cancel
+            </button>
+            <button type="button" class="my-1 ml-1 btn btn-success" *ngIf="editingAmu"
+                (click)="confirmEditAmus()">Confirm
+            </button>
+            <button type="button" class="my-1 ml-1 btn btn-primary" *ngIf="!editingAmu" (click)="editAmus()">Edit
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-sm table-striped table-bordered">
+        <tr>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.billingMonth">Billing Month</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.rateComponent">Rate Component</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.usageUnit">Usage Unit</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.normalizedAmount">Normalized Amount</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.approvedAmount">Approved Amount</span>
+            </th>
+            <th *ngIf="editingAmu"></th>
+        </tr>
+        <tr *ngIf="creatingAmu">
+        <tr *ngFor="let newAmu of newAmus; let i = index">
+            <td>
+                <select [(ngModel)]="newAmu.month" class="custom-select select-month">
+                    <option *ngFor="let month of shortMonths">{{month}}</option>
+                </select>
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="newAmu.rateComponent" name="newAmuRateComponent">
+            </td>
+            <td>
+                <select [(ngModel)]="newAmu.usageType" class="custom-select select-month">
+                    <option *ngFor="let unit of usageUnits">{{unit}}</option>
+                </select>
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="newAmu.usage" name="newAmuUsage" disabled placeholder="0">
+            </td>
+            <td>
+                <input type="number" step=".1" class="form-control" [(ngModel)]="newAmu.approvedUsage" name="newAmuApprovedUsage">
+            </td>
+        </tr>
+        </tr>
+        <tr *ngFor="let amu of filteredAmus; let i = index">
+            <td>{{amu?.month}}</td>
+            <td *ngIf="!editingAmu; else editAmuRateComponent">{{amu?.rateComponent}}</td>
+            <ng-template #editAmuRateComponent>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="amu.rateComponent" name="rateComponent">
+                </td>
+            </ng-template>
+            <td>{{amu?.usageType}}</td>
+            <td>{{amu?.usage | number:'.1-1' }}</td>
+            <td *ngIf="!editingAmu; else editApprovedUsage">{{amu?.approvedUsage | number:'.1-1' }}</td>
+            <ng-template #editApprovedUsage>
+                <td>
+                    <input type="number" step=".1" class="form-control" [(ngModel)]="amu.approvedUsage" name="approvedUsage">
+                </td>
+            </ng-template>
+            <td *ngIf="editingAmu">
+                <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove"
+                    (click)="removeAmu(amu, i)">
+                    <span class="fa fa-lg fa-trash"></span>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>

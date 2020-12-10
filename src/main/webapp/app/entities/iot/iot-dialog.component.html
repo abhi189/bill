@@ -1,0 +1,79 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySiteLabel" jhiTranslate="billingWebApp.iot.home.createOrEditLabel">Create or edit an item</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <hr>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.iot.kitItemType" for="field_kittedItemTypeId">Kit Item Type</label>
+            <select class="form-control" name="kittedItemTypeId" [(ngModel)]="kittedItem.kitItemTypeId" id="field_kittedItemTypeId" required>
+                <!-- Temporary hardcode until I can generate it dynamically -->
+                <option value="1">{{'billingWebApp.iot.kittedItemTypeId.fc' | translate}}</option>
+                <option value="2">{{'billingWebApp.iot.kittedItemTypeId.smappee' | translate}}</option>
+                <option value="3">{{'billingWebApp.iot.kittedItemTypeId.pepwave' | translate}}</option>
+                <option value="4">{{'billingWebApp.iot.kittedItemTypeId.ggfc' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.kittedItemTypeId?.dirty && editForm.controls.kittedItemTypeId?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.kittedItemTypeId?.errors?.required"
+                       jhiTranslate="entity.validation.required">This field is required.</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.iot.externalId" for="field_externalId">External Id (LAN MAC or Serial Number)</label>
+            <input type="text" class="form-control" name="externalId" id="field_externalId"
+                   [(ngModel)]="kittedItem.externalId" required/>
+            <div [hidden]="!(editForm.controls.externalId?.dirty && editForm.controls.externalId?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.externalId?.errors?.required"
+                       jhiTranslate="entity.validation.required">This field is required.</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.iot.status" for="field_status">Status</label>
+            <input type="text" class="form-control" name="status" id="field_status"
+                   [(ngModel)]="kittedItem.status" required/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.iot.tested" for="field_tested">Tested</label>
+            <select class="form-control" name="tested" [(ngModel)]="kittedItem.tested" id="field_tested" required>
+                <option value="No">{{'billingWebApp.iot.testedStatus.No' | translate}}</option>
+                <option value="Yes">{{'billingWebApp.iot.testedStatus.Yes' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.tested?.dirty && editForm.controls.tested?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.tested?.errors?.required"
+                       jhiTranslate="entity.validation.required">This field is required.</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.iot.provision" for="field_provision">Provision</label>
+            <select class="form-control" name="provision" [(ngModel)]="kittedItem.provision" id="field_provision" required>
+                <!-- Temporary hardcode until I can generate it dynamically -->
+                <option value="ERROR">{{'billingWebApp.iot.ProvisionStatus.ERROR' | translate}}</option>
+                <option value="SUCCESS">{{'billingWebApp.iot.ProvisionStatus.SUCCESS' | translate}}</option>
+                <option value="IN_PROGRESS">{{'billingWebApp.iot.ProvisionStatus.IN_PROGRESS' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.kittedItemTypeId?.dirty && editForm.controls.kittedItemTypeId?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.kittedItemTypeId?.errors?.required"
+                       jhiTranslate="entity.validation.required">This field is required.</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.iot.kittedBy" for="field_kittedBy">Kitted By</label>
+            <input type="text" class="form-control" name="kittedBy" id="field_kittedBy" [(ngModel)]="kittedItem.kittedBy" readonly/>
+        </div>
+        <div class="form-group" [hidden]="!kittedItem.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="kittedItem.id" readonly />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

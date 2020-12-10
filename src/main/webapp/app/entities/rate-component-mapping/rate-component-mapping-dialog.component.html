@@ -1,0 +1,66 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myRateComponentMappingLabel" jhiTranslate="billingWebApp.rateComponentMapping.home.createOrEditLabel">Create or edit a Rate Component Mapping</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateComponentMapping.bdRateComponent" for="field_bdRateComponent">Bd Rate Component</label>
+            <input type="text" class="form-control" name="bdRateComponent" id="field_bdRateComponent"
+                [(ngModel)]="rateComponentMapping.bdRateComponent" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateComponentMapping.bdRateType" for="field_bdRateType">Bd Rate Type</label>
+            <input type="text" class="form-control" name="bdRateType" id="field_bdRateType"
+                [(ngModel)]="rateComponentMapping.bdRateType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateComponentMapping.rateMapped" for="field_rateMapped">Rate Mapped</label>
+            <input type="checkbox" class="form-control" name="rateMapped" id="field_rateMapped"
+                   [(ngModel)]="rateComponentMapping.rateMapped" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateComponentMapping.provider" for="field_provider">Provider</label>
+            <select class="form-control" id="field_provider" name="provider" [(ngModel)]="rateComponentMapping.providerId" [disabled]="rateComponentMapping.id !== undefined">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="providerOption.id" *ngFor="let providerOption of providers; trackBy: trackProviderById">{{providerOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateComponentMapping.chargeType" for="field_chargeType">Charge Type</label>
+            <input type="text" class="form-control" name="chargeType" id="field_chargeType" [disabled]="rateComponentMapping.id !== undefined"
+                [(ngModel)]="rateComponentMapping.chargeType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateComponentMapping.chargePeriod" for="field_chargePeriod">Charge Period</label>
+            <input type="text" class="form-control" name="chargePeriod" id="field_chargePeriod" [disabled]="rateComponentMapping.id !== undefined"
+                [(ngModel)]="rateComponentMapping.chargePeriod" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateComponentMapping.tier" for="field_tier">Tier</label>
+            <input type="text" class="form-control" name="tier" id="field_tier" [disabled]="rateComponentMapping.id !== undefined"
+                [(ngModel)]="rateComponentMapping.tier" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateComponentMapping.touName" for="field_touName">Tou Name</label>
+            <input type="text" class="form-control" name="touName" id="field_touName" [disabled]="rateComponentMapping.id !== undefined"
+                [(ngModel)]="rateComponentMapping.touName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateComponentMapping.touType" for="field_touType">Tou Type</label>
+            <input type="text" class="form-control" name="touType" id="field_touType" [disabled]="rateComponentMapping.id !== undefined"
+                [(ngModel)]="rateComponentMapping.touType" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

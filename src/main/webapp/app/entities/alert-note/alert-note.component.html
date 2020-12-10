@@ -1,0 +1,62 @@
+<div>
+    <h2>
+        <button class="btn btn-primary float-right jh-create-entity create-alert-note" (click)="openAlertNotePopup()">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.alertNote.home.createLabel">
+            Create new Alert Note
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+
+    <br/>
+    <div class="table-responsive" *ngIf="alertNotes">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="date"><span jhiTranslate="billingWebApp.alertNote.date">Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="note"><span jhiTranslate="billingWebApp.alertNote.note">Note</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="customerFacing"><span jhiTranslate="billingWebApp.alertNote.customerFacing">Customer Facing</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let alertNote of alertNotes ;trackBy: trackId">
+                <td>{{alertNote.date | date:'medium'}}</td>
+                <td>{{alertNote.note}}</td>
+                <td>{{alertNote.customerFacing}}</td>
+
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'alert-note/'+ alertNote.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'alert-note/'+ alertNote.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="alertNotes && alertNotes.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

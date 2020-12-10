@@ -1,0 +1,220 @@
+<div class="row mt-3" [ngClass]="{'controls-disabled' : disableControls}">
+    <div class="col-md-2 small">
+        <jhi-alert-error></jhi-alert-error>
+
+        <label class="input-group-text" for="ameSelected">AME Selected</label>
+        <div class="input-group mb-3">
+            <select class="custom-select select-ame" id="ameSelected" [(ngModel)]="selectedAme"
+                    (ngModelChange)="onSelectedAmeChange($event)">
+                <option *ngFor="let ame of ames" [ngValue]="ame">{{ame.createdDate | date:'MM-dd-yyyy hh:mm':'UTC'}}
+                </option>
+            </select>
+        </div>
+        <table class="table">
+            <tr *ngFor="let monthlyValue of monthlyValues">
+                <td>{{monthlyValue.month}}</td>
+                <td>{{(monthlyValue?.value | currency) || '--'}}</td>
+            </tr>
+        </table>
+        <button type="button" (click)="recalculateAmeMonthlyValues(selectedAme.id)" class="btn btn-primary w-100">
+            <span class="fa fa-calculator"></span>&nbsp;
+            <span jhiTranslate="billingWebApp.siteAccount.recalculate"> Recalculate </span>
+        </button>
+        <button type="button" (click)="refreshAMEMonthlyValues(selectedAme.id)" class="btn btn-secondary w-100">
+            <span class="fa fa-refresh"></span>&nbsp;
+            <span jhiTranslate="billingWebApp.siteAccount.refreshMonthlyValues"> Refresh AME Monthly Values</span>
+        </button>
+        <hr>
+        <div class="row">
+            <table class="table table-sm table-bordered">
+                <tr>
+                    <td>
+                        <span jhiTranslate="billingWebApp.siteAccount.active">Active</span>
+                    </td>
+                    <td>{{(selectedAme?.active ? 'Yes' : 'No') }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span jhiTranslate="billingWebApp.siteAccount.status">Status</span>
+                    </td>
+                    <td>{{(selectedAme?.status) || '--'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span jhiTranslate="billingWebApp.siteAccount.createdDate">Created Date</span>
+                    </td>
+                    <td>{{(selectedAme?.createdDate | date:'MM-dd-yyyy':'UTC') || '--'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span jhiTranslate="billingWebApp.siteAccount.startDate">Start Date</span>
+                    </td>
+                    <td>{{(selectedAme?.startDate) || '--'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span jhiTranslate="billingWebApp.siteAccount.lastModified">Last Modified</span>
+                    </td>
+                    <td>{{(selectedAme?.lastModified | date:'MM-dd-yyyy':'UTC') || '--'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span jhiTranslate="billingWebApp.siteAccount.approvedDate">Approved Date</span>
+                    </td>
+                    <td>{{(selectedAme?.approvedDate | date:'MM-dd-yyyy':'UTC') || '--'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span jhiTranslate="billingWebApp.siteAccount.approvedBy">Approved By:</span>
+                    </td>
+                    <td>{{(selectedAme?.approvedBy) || '--'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span jhiTranslate="billingWebApp.siteAccount.algorithm">Algorithm</span>
+                    </td>
+                    <td class="d-flex justify-content-between">
+                        <ng-container *ngIf="!editingAmeAlgorithm; else editAmeAlgorithm">
+                            <span>{{(selectedAme?.algorithm) || '--'}}</span>
+                            <span *ngIf="selectedAme?.algorithm" class="fa fa-pencil icon-edit-algorithm"
+                                  (click)="editAlgorithm(selectedAme.algorithm)"></span>
+                        </ng-container>
+                        <ng-template #editAmeAlgorithm>
+                            <select #selectAmeAlgorithm class="form-control" id="selectAmeAlgorithm"
+                                    [ngModel]="selectedAme.algorithm" (ngModelChange)="onSelectAmeAlgorithm($event)"
+                                    (blur)="blurSelectAmeAlgorithm($event)">
+                                <option *ngFor="let algorithm of getAlgorithmOptionsToCalculateAme()">{{algorithm}}</option>
+                            </select>
+                        </ng-template>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span jhiTranslate="billingWebApp.siteAccount.dateNormalizationRule">Date Normalization Rule</span>
+                    </td>
+                    <td>{{(selectedAme?.dateNormalizationRule) || '--'}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <span jhiTranslate="billingWebApp.siteAccount.version">Version</span>
+                    </td>
+                    <td>{{(selectedAme?.version) || '--'}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="row" style="align-content: center">
+            <div class="col-sm">
+                <button type="button" (click)="openAmeCalculationPopup()" class="btn btn-primary" style="width: 100%">
+                    <span class="fa fa-calculator"></span>&nbsp;
+                    <span jhiTranslate="entity.action.create_ame"> Calculate AME</span>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm">
+                <button type="button" (click)="checkAmeStatus()" class="btn btn-danger" style="width: 100%">
+                    <span class="fa fa-remove"></span>&nbsp;
+                    <span jhiTranslate="entity.action.delete_ame"> Delete AME</span>
+                </button>
+            </div>
+        </div>
+        <div class="row" style="align-content: center">
+            <div class="col-sm">
+                <button type="button" (click)="openApproveAmePopUp()" class="btn btn-success" style="width: 100%">
+                    <span class="fa fa-calculator"></span>&nbsp;
+                    <span jhiTranslate="entity.action.approve_ame"> Approve AME</span>
+                </button>
+            </div>
+        </div>
+        <div class="row" style="align-content: center">
+            <div class="col-sm">
+                <button type="button" (click)="checkAmeRejectStatus()" class="btn btn-dark" style="width: 100%">
+                    <span class="fa fa-remove"></span>&nbsp;
+                    <span jhiTranslate="entity.action.reject_ame"> Reject AME</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10 small">
+        <ngb-tabset [justify]="'justified'">
+            <ngb-tab [disabled]="isTabDisabled()">
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.siteAccount.invoicesPerMonth">Invoice Per Month</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <jhi-site-account-ame-invoices [ameId]="selectedAme.id"></jhi-site-account-ame-invoices>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab [disabled]="isTabDisabled()">
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.siteAccount.normalizedData">Normalized Data</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <jhi-site-account-ame-amun [ameId]="selectedAme.id" 
+                        (recalculateDollarsEvent)="onRecalculateDollars($event)" (recalculateAmunEvent)="onRecalculateAmun($event)">
+                    </jhi-site-account-ame-amun>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab [disabled]="isTabDisabled()">
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.siteAccount.amu">AMU</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <jhi-site-account-ame-amu [ameId]="selectedAme.id" (recalculateAmeMonthlyValues)="onRecalculateAmeMonthlyValues($event)">
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab [disabled]="isTabDisabled()">
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.siteAccount.rates">Rates</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <jhi-site-account-ame-rates [ameId]="selectedAme.id"
+                                                [automaticUpdate]="selectedAme.automaticUpdate"
+                                                [useRateRepository]="selectedAme.useRateRepository"
+                                                [addChargesToTariffRates]="selectedAme.addChargesToTariffRates"
+                                                (recalculateAmeMonthlyValues)="onRecalculateAmeMonthlyValues($event)"
+                                                (automaticUpdateEvent)="onAutomaticUpdateChange($event)"
+                                                (addChargeToTariffEvent)="onAddChargesToTariffRatesChange($event)">
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab [disabled]="isTabDisabled()">
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.siteAccount.tariffRates">Tariff Rates</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <jhi-site-account-tariff-rates
+                            [siteAccount]="siteAccount"
+                            (toParent)="load($event)"
+                            (siteAccountTariffChanged)="onSiteAccountTariffChanged()"
+                            [selectedAme]="selectedAme">
+                    </jhi-site-account-tariff-rates>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab [disabled]="isTabDisabled()">
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.siteAccount.alert">Alert</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <jhi-site-account-ame-alerts [ameId]="selectedAme.id"></jhi-site-account-ame-alerts>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab [disabled]="isTabDisabled()">
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.siteAccount.activity">Activity</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <jhi-site-account-ame-activities [ameId]="selectedAme.id"></jhi-site-account-ame-activities>
+                </ng-template>
+            </ngb-tab>
+            <ngb-tab id="tabPerformance" [disabled]="isTabDisabled()">
+                <ng-template ngbTabTitle>
+                    <span jhiTranslate="billingWebApp.siteAccount.performance">Performance</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                    <jhi-site-account-performance [ameId]="selectedAme.id"></jhi-site-account-performance>
+                </ng-template>
+            </ngb-tab>
+        </ngb-tabset>
+    </div>
+</div>

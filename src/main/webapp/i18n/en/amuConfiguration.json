@@ -1,0 +1,28 @@
+{
+    "billingWebApp": {
+        "amuConfiguration": {
+            "home": {
+                "title": "Customer Configurations",
+                "createLabel": "Create a new Customer Configuration",
+                "createOrEditLabel": "Create or edit a Customer Configuration",
+                "search": "Search for Customer Configuration"
+            },
+            "created": "A new Customer Configuration is created with identifier {{ param }}",
+            "updated": "A Customer Configuration is updated with identifier {{ param }}",
+            "deleted": "A Customer Configuration is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Customer Configuration {{ id }}?"
+            },
+            "detail": {
+                "title": "Customer Configuration",
+                "general": "General",
+                "expectedSavings": "Expected Savings",
+                "templates": "Templates"
+            },
+            "customerType": "Customer Type",
+            "utilityProvider": "Utility Provider",
+            "message": "Message",
+            "algorithm": "Algorithm"
+        }
+    }
+}

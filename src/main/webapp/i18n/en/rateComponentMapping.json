@@ -1,0 +1,39 @@
+{
+    "billingWebApp": {
+        "rateComponentMapping": {
+            "home": {
+                "title": "Rate Component Mappings",
+                "createLabel": "Create a new Rate Component Mapping",
+                "createOrEditLabel": "Create or edit a Rate Component Mapping",
+                "search": "Search for Rate Component Mapping"
+            },
+            "created": "A new Rate Component Mapping is created with identifier {{ param }}",
+            "updated": "A Rate Component Mapping is updated with identifier {{ param }}",
+            "deleted": "A Rate Component Mapping is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Rate Component Mapping {{ id }}?"
+            },
+            "edit": {
+                "question": "Rate Component Mapping  {{ id }} is being used in other tariffs. Are you sure you want to edit?"
+            },
+            "detail": {
+                "title": "Rate Component Mapping"
+            },
+            "bdRateComponent": "Bd Rate Component",
+            "bdRateType": "Bd Rate Type",
+            "chargeType": "Charge Type",
+            "chargePeriod": "Charge Period",
+            "tier": "Tier",
+            "touName": "Tou Name",
+            "touType": "Tou Type",
+            "rateMapped": "Rate Mapped",
+            "provider": "Provider",
+            "tariffCount": "Tariff Usage"
+        },
+        "billingimportRateComponentMapping": {
+            "created": "A new Rate Component Mapping is created with identifier {{ param }}",
+            "updated": "A Rate Component Mapping is updated with identifier {{ param }}",
+            "deleted": "A Rate Component Mapping is deleted with identifier {{ param }}"
+        }
+    }
+}

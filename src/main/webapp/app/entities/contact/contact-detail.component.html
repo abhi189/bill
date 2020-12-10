@@ -1,0 +1,78 @@
+
+<div *ngIf="contact">
+    <h2><span jhiTranslate="billingWebApp.contact.detail.title">Contact</span> {{contact.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.contact.contactType">Contact Type</span></dt>
+        <dd>
+            <span>{{contact.contactType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.name">Name</span></dt>
+        <dd>
+            <span>{{contact.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.phoneNumber">Phone Number</span></dt>
+        <dd>
+            <span>{{contact.phoneNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.webPage">Web Page</span></dt>
+        <dd>
+            <span>{{contact.webPage}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.notes">Notes</span></dt>
+        <dd>
+            <span>{{contact.notes}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.city">City</span></dt>
+        <dd>
+            <span>{{contact.city}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.street">Street</span></dt>
+        <dd>
+            <span>{{contact.street}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.zipCode">Zip Code</span></dt>
+        <dd>
+            <span>{{contact.zipCode}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.country">Country</span></dt>
+        <dd>
+            <span>{{contact.country}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.contactEmail">Contact Email</span></dt>
+        <dd>
+            <span>{{contact.contactEmail}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{contact.createdDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.lastModifyDate">Last Modify Date</span></dt>
+        <dd>
+            <span>{{contact.lastModifyDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.modifiedBy">Modified By</span></dt>
+        <dd>
+            <span>{{contact.modifiedBy}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.contact.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{contact.createdBy}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'contact/'+ contact.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

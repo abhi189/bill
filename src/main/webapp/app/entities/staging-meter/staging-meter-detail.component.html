@@ -1,0 +1,148 @@
+
+<div *ngIf="stagingMeter">
+    <h2><span jhiTranslate="billingWebApp.stagingMeter.detail.title">Staging Meter</span> {{stagingMeter.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.meterId">Meter Id</span></dt>
+        <dd>
+            <span>{{stagingMeter.meterId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.logicalMeterId">Logical Meter Id</span></dt>
+        <dd>
+            <span>{{stagingMeter.logicalMeterId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.meterNumber">Meter Number</span></dt>
+        <dd>
+            <span>{{stagingMeter.meterNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.serviceType">Service Type</span></dt>
+        <dd>
+            <span>{{stagingMeter.serviceType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.tariff">Tariff</span></dt>
+        <dd>
+            <span>{{stagingMeter.tariff}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.serviceAddress">Service Address</span></dt>
+        <dd>
+            <span>{{stagingMeter.serviceAddress}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.serviceCity">Service City</span></dt>
+        <dd>
+            <span>{{stagingMeter.serviceCity}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.serviceState">Service State</span></dt>
+        <dd>
+            <span>{{stagingMeter.serviceState}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.serviceZip">Service Zip</span></dt>
+        <dd>
+            <span>{{stagingMeter.serviceZip}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.bulbType">Bulb Type</span></dt>
+        <dd>
+            <span>{{stagingMeter.bulbType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.podId">Pod Id</span></dt>
+        <dd>
+            <span>{{stagingMeter.podId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.intervalStart">Interval Start</span></dt>
+        <dd>
+            <span>{{stagingMeter.intervalStart | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.intervalEnd">Interval End</span></dt>
+        <dd>
+            <span>{{stagingMeter.intervalEnd | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.bulbQuantity">Bulb Quantity</span></dt>
+        <dd>
+            <span>{{stagingMeter.bulbQuantity}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.meterConstantMultiplier">Meter Constant Multiplier</span></dt>
+        <dd>
+            <span>{{stagingMeter.meterConstantMultiplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.meterConversionMultiplier">Meter Conversion Multiplier</span></dt>
+        <dd>
+            <span>{{stagingMeter.meterConversionMultiplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.thirdPartyProvider">Third Party Provider</span></dt>
+        <dd>
+            <span>{{stagingMeter.thirdPartyProvider}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.thirdPartyAccountNumber">Third Party Account Number</span></dt>
+        <dd>
+            <span>{{stagingMeter.thirdPartyAccountNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.degreeDayStatus">Degree Day Status</span></dt>
+        <dd>
+            <span>{{stagingMeter.degreeDayStatus}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.opTemp">Op Temp</span></dt>
+        <dd>
+            <span>{{stagingMeter.opTemp}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.timeRange">Time Range</span></dt>
+        <dd>
+            <span>{{stagingMeter.timeRange}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.cdd">Cdd</span></dt>
+        <dd>
+            <span>{{stagingMeter.cdd}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.hdd">Hdd</span></dt>
+        <dd>
+            <span>{{stagingMeter.hdd}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.weatherSensitivityIndex">Weather Sensitivity Index</span></dt>
+        <dd>
+            <span>{{stagingMeter.weatherSensitivityIndex}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.weatherNormalizedConsumption">Weather Normalized Consumption</span></dt>
+        <dd>
+            <span>{{stagingMeter.weatherNormalizedConsumption}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.avgMonthlyBaseload">Avg Monthly Baseload</span></dt>
+        <dd>
+            <span>{{stagingMeter.avgMonthlyBaseload}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.predictedConsumption">Predicted Consumption</span></dt>
+        <dd>
+            <span>{{stagingMeter.predictedConsumption}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.serviceIdentifier">Service Identifier</span></dt>
+        <dd>
+            <span>{{stagingMeter.serviceIdentifier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{stagingMeter.createDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.lastModified">Last Modified</span></dt>
+        <dd>
+            <span>{{stagingMeter.lastModified | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingMeter.invoice">Invoice</span></dt>
+        <dd>
+            <div *ngIf="stagingMeter.invoiceId">
+                <a [routerLink]="['/staging-invoice', stagingMeter.invoiceId]">{{stagingMeter.invoiceId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'staging-meter/'+ stagingMeter.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

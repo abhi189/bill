@@ -1,0 +1,27 @@
+<div class="row" style="margin: 5px">
+    <div class="container-buttons col-sm-12">
+        <div class="pull-right">
+            <button type="button" class="btn btn-danger ml-2" (click)="deleteAlerts()">Delete Alerts</button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-sm table-striped table-bordered">
+        <tr>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.ameId">AME Id</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.description">Description</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.createdDate">Created Date</span>
+            </th>
+        </tr>
+        <tr *ngFor="let issue of ameIssues">
+            <td>{{issue?.id}}</td>
+            <td>{{issue?.description}}</td>
+            <td>{{issue?.createdDate | date:'mediumDate'}}</td>
+        </tr>
+    </table>
+</div>

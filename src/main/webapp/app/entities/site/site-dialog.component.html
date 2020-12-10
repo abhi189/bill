@@ -1,0 +1,207 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySiteLabel" jhiTranslate="billingWebApp.site.home.createOrEditLabel">Create or edit a Site</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <hr>
+        <div class="form-group" [hidden]="!site.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="site.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.budderflyId" for="field_budderflyId">Budderfly Id</label>
+            <input type="text" class="form-control" name="budderflyId" id="field_budderflyId"
+                [(ngModel)]="site.budderflyId" required/>
+            <div [hidden]="!(editForm.controls.budderflyId?.dirty && editForm.controls.budderflyId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.budderflyId?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.customerName" for="field_customerName">Customer Name</label>
+            <input type="text" class="form-control" name="customerName" id="field_customerName"
+                [(ngModel)]="site.customerName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="site.status" id="field_status"  required>
+                <option value="ACTIVE">{{'billingWebApp.SiteStatus.ACTIVE' | translate}}</option>
+                <option value="INACTIVE">{{'billingWebApp.SiteStatus.INACTIVE' | translate}}</option>
+                <option value="PENDING">{{'billingWebApp.SiteStatus.PENDING' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.status?.dirty && editForm.controls.status?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.status?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.companyType" for="field_companyType">Company Type</label>
+            <input type="text" class="form-control" name="companyType" id="field_companyType"
+                [(ngModel)]="site.companyType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.storeNumber" for="field_storeNumber">Store Number</label>
+            <input type="number" class="form-control" name="storeNumber" id="field_storeNumber"
+                [(ngModel)]="site.storeNumber" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.parentSite" for="field_parentSite">Parent Site</label>
+            <input id="field_parentSite" type="text" name="gowers" class="form-control"
+                   [ngbTypeahead]="searchSites"
+                   [resultFormatter]="formatterSites"
+                   [inputFormatter]="formatterSites"
+                   [(ngModel)]="siteSelected"/>
+            <span *ngIf="searching">searching...</span>
+            <div class="invalid-feedback" *ngIf="searchFailed">Sorry, suggestions could not be loaded.</div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.address" for="field_address">Address</label>
+            <input type="text" class="form-control" name="address" id="field_address"
+                [(ngModel)]="site.address" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.city" for="field_city">City</label>
+            <input type="text" class="form-control" name="city" id="field_city"
+                [(ngModel)]="site.city" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.state" for="field_state">State</label>
+            <input type="text" class="form-control" name="state" id="field_state"
+                [(ngModel)]="site.state" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.zip" for="field_zip">Zip</label>
+            <input type="text" class="form-control" name="zip" id="field_zip"
+                [(ngModel)]="site.zip" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.billingType" for="field_billingType">Billing Type</label>
+            <select class="form-control" name="billingType" [(ngModel)]="site.billingType" id="field_billingType"  required>
+                <option value="AMU_Forward">{{'billingWebApp.BillingStatus.AMU_Forward' | translate}}</option>
+                <option value="AMU_Arrears">{{'billingWebApp.BillingStatus.AMU_Arrears' | translate}}</option>
+                <option value="AME">{{'billingWebApp.BillingStatus.AME' | translate}}</option>
+                <option value="PASSTHROUGH">{{'billingWebApp.BillingStatus.PASSTHROUGH' | translate}}</option>
+                <option value="LME">{{'billingWebApp.BillingStatus.LME' | translate}}</option>
+                <option value="none">{{'billingWebApp.BillingStatus.none' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.billingType?.dirty && editForm.controls.billingType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.billingType?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.paymentType" for="field_paymentType">Payment Type</label>
+            <select class="form-control" name="paymentType" [(ngModel)]="site.paymentType" id="field_paymentType"  required>
+                <option value="ETF">{{'billingWebApp.PaymentType.ETF' | translate}}</option>
+                <option value="Check">{{'billingWebApp.PaymentType.Check' | translate}}</option>
+                <option value="Credit_Card">{{'billingWebApp.PaymentType.Credit_Card' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.paymentType?.dirty && editForm.controls.paymentType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.paymentType?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.siteType" for="field_siteType">Site Type</label>
+            <select class="form-control" name="siteType" [(ngModel)]="site.siteType" id="field_siteType" >
+                <option value="Physical">{{'billingWebApp.SiteType.Physical' | translate}}</option>
+                <option value="Virtual">{{'billingWebApp.SiteType.Virtual' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.ownerName" for="field_ownerName">Owner Name</label>
+            <input type="text" class="form-control" name="ownerName" id="field_ownerName"
+                [(ngModel)]="site.ownerName" required/>
+            <div [hidden]="!(editForm.controls.ownerName?.dirty && editForm.controls.ownerName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ownerName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.ownerEmail" for="field_ownerEmail">Owner Email</label>
+            <input type="text" class="form-control" name="ownerEmail" id="field_ownerEmail"
+                [(ngModel)]="site.ownerEmail" required/>
+            <div [hidden]="!(editForm.controls.ownerEmail?.dirty && editForm.controls.ownerEmail?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ownerEmail?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.ownerPhone" for="field_ownerPhone">Owner Phone</label>
+            <input type="text" class="form-control" name="ownerPhone" id="field_ownerPhone"
+                [(ngModel)]="site.ownerPhone" required/>
+            <div [hidden]="!(editForm.controls.ownerPhone?.dirty && editForm.controls.ownerPhone?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.ownerPhone?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.address1" for="field_address1">Address 1</label>
+            <input type="text" class="form-control" name="address1" id="field_address1"
+                [(ngModel)]="site.address1" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.address2" for="field_address2">Address 2</label>
+            <input type="text" class="form-control" name="address2" id="field_address2"
+                [(ngModel)]="site.address2" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.latitude" for="field_latitude">Latitude</label>
+            <input type="text" class="form-control" name="latitude" id="field_latitude"
+                [(ngModel)]="site.latitude" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.longitude" for="field_longitude">Longitude</label>
+            <input type="text" class="form-control" name="longitude" id="field_longitude"
+                [(ngModel)]="site.longitude" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.taxExempt" for="field_taxExempt">Tax Exempt</label>
+            <input type="checkbox" class="form-control" name="taxExempt" id="field_taxExempt"
+                [(ngModel)]="site.taxExempt" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.rollBilling" for="field_rollBilling">Roll Billing</label>
+            <input type="checkbox" class="form-control" name="rollBilling" id="field_rollBilling"
+                [(ngModel)]="site.rollBilling" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.enableTicketDispatch" for="field_enableTicketDispatch">Enable Ticket Dispatch</label>
+            <input type="checkbox" class="form-control" name="enableTicketDispatch" id="field_enableTicketDispatch"
+                [(ngModel)]="site.enableTicketDispatch" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.site.contactDeskId" for="field_contactDeskId">Contact Desk Id</label>
+            <input type="text" class="form-control" name="contactDeskId" id="field_contactDeskId"
+                   [(ngModel)]="site.contactDeskId" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

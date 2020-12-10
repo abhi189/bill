@@ -1,0 +1,199 @@
+
+<div *ngIf="billingCycle">
+    <h2><span jhiTranslate="billingWebApp.billingCycle.detail.title">Billing Cycle</span> {{billingCycle.name}}</h2>
+    <ngb-tabset [justify]="'fill'" type="pills"  [activeId]="activeIdString">
+        <ngb-tab id="tabGeneral">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.siteAccount.general">General</span></ng-template>
+            <ng-template ngbTabContent>
+
+                    <hr>
+                    <jhi-alert></jhi-alert>
+                    <jhi-alert-error></jhi-alert-error>
+                    <dl class="row-md jh-entity-details">
+                        <dt><span jhiTranslate="billingWebApp.billingCycle.name">Name</span></dt>
+                        <dd>
+                            <span>{{billingCycle.name}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.billingCycle.dueDate">Due Date</span></dt>
+                        <dd>
+                            <span>{{billingCycle.dueDate | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.billingCycle.statementDate">Statement Date</span></dt>
+                        <dd>
+                            <span>{{billingCycle.statementDate | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.billingCycle.notes">Notes</span></dt>
+                        <dd>
+                            <span>{{billingCycle.notes}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.billingCycle.status">Status</span></dt>
+                        <dd>
+                            <span jhiTranslate="{{'billingWebApp.BillingCycleStatus.' + billingCycle.status}}">{{billingCycle.status}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="submit"
+                            (click)="previousState()"
+                            class="btn btn-info">
+                        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                    </button>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'billing-cycle/'+ billingCycle.id + '/edit'} }]"
+                            replaceUrl="true"
+                            queryParamsHandling="merge"
+                            class="btn btn-primary">
+                        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                    </button>
+
+                    <button type="button"
+                            (click)="generateInvoices()"
+                            class="btn btn-primary">
+                        <span class="fa fa-cog"></span>&nbsp;<span jhiTranslate="billingWebApp.billingCycle.generate_invoices"> Generate Invoices</span>
+                    </button>
+                    <button type="button"
+                            (click)="emailInvoices()"
+                            class="btn btn-primary">
+                        <span class="fa fa-envelope-o"></span>&nbsp;<span jhiTranslate="billingWebApp.billingCycle.email_invoices"> Email Invoices</span>
+                    </button>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabInvoices" >
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.siteAccount.invoices">Invoices</span></ng-template>
+            <ng-template ngbTabContent>
+
+                <div>
+                    <jhi-alert></jhi-alert>
+                    <jhi-alert-error></jhi-alert-error>
+                    <h2>
+                        <span jhiTranslate="billingWebApp.budderflyInvoice.home.title">Budderfly Invoices</span>
+
+                        <button type="button"
+                                class="btn btn-secondary ml-2"
+                                (click)="refreshInvoices()"
+                                jhiTranslate="billingWebApp.budderflyInvoice.refresh">Refresh</button>
+
+                        <button class="btn btn-primary float-right jh-create-entity create-budderfly-invoice"
+                                [routerLink]="['/', { outlets: { popup: 'budderfly-invoice/'+ billingCycle.id + '/add-sites'} }]"
+                                replaceUrl="true">
+                            <span class="fa fa-plus"></span>
+                            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.budderflyInvoice.addSites">
+                                Add Sites
+                            </span>
+                        </button>
+
+                    </h2>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form name="searchForm" class="form-inline">
+                                <div class="input-group w-100 mt-3">
+                                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.budderflyInvoice.home.search' | translate }}">
+                                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                                        <span class="fa fa-trash-o"></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="font-size: 0.85rem;" *ngIf="budderflyInvoices">
+                        <table class="table table-sm table-striped table-bordered">
+                            <thead>
+                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                                <th jhiSortBy="budderflyId" ><span jhiTranslate="billingWebApp.budderflyInvoice.budderflyId">BF-ID</span>  <span class="fa fa-sort"></span></th>
+                                <th jhiSortBy="utilityProvider" ><span jhiTranslate="billingWebApp.budderflyInvoice.utilityProvider">Utility</span>  <span class="fa fa-sort"></span></th>
+                                <th jhiSortBy="budderflyInvoiceStatus" ><span jhiTranslate="billingWebApp.budderflyInvoice.budderflyInvoiceStatus">Status</span>  <span class="fa fa-sort"></span></th>
+                                <th jhiSortBy="arrears" ><span jhiTranslate="billingWebApp.budderflyInvoice.arrears">Arrears</span>  <span class="fa fa-sort"></span> </th>
+                                <th jhiSortBy="invoiceNumber" ><span jhiTranslate="billingWebApp.budderflyInvoice.invoiceNumber">Invoice #</span>  <span class="fa fa-sort"></span></th>
+                                <th ><span jhiTranslate="billingWebApp.budderflyInvoice.priorInvoice">Prior Invoice #</span></th>
+                                <th jhiSortBy="contactName" ><span jhiTranslate="billingWebApp.budderflyInvoice.addressee">Addressee</span>  <span class="fa fa-sort"></th>
+                                <th jhiSortBy="contactEmail" ><span jhiTranslate="billingWebApp.budderflyInvoice.contactEmail">Email</span> <span class="fa fa-sort"></th>
+                                <th ><span jhiTranslate="billingWebApp.budderflyInvoice.discount">Discount</span></th>
+                                <th ><span jhiTranslate="billingWebApp.budderflyInvoice.discountAmount">Discount Amount</span></th>
+                                <th ><span jhiTranslate="billingWebApp.budderflyInvoice.priorBalance">Prior</span></th>
+                                <th ><span jhiTranslate="billingWebApp.budderflyInvoice.paymentsCredits">P/C</span></th>
+                                <th ><span jhiTranslate="billingWebApp.budderflyInvoice.totalNewElectricCharges">New Electric</span></th>
+                                <th ><span jhiTranslate="billingWebApp.budderflyInvoice.totalOtherCharges">Other</span></th>
+                                <th ><span jhiTranslate="billingWebApp.budderflyInvoice.taxes">Tax</span></th>
+                                <th ><span jhiTranslate="billingWebApp.budderflyInvoice.amountDue">Due</span></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let budderflyInvoice of budderflyInvoices ;trackBy: trackId">
+                                <td><a [routerLink]="['/site/',  budderflyInvoice.budderflyId]" target="_blank">{{budderflyInvoice.budderflyId}}</a></td>
+                                <td>{{budderflyInvoice.utilityProvider}}</td>
+                                <td jhiTranslate="{{'billingWebApp.BudderflyInvoiceStatus.' + budderflyInvoice.budderflyInvoiceStatus}}">{{budderflyInvoice.budderflyInvoiceStatus}}</td>
+                                <td>{{budderflyInvoice.arrears}}</td>
+                                <td><a href={{budderflyInvoice.pdfUrl}} target="_blank">{{budderflyInvoice.invoiceNumber}}</a></td>
+                                <td><a href={{budderflyInvoice.previousPdfUrl}} target="_blank">{{budderflyInvoice.previousInvoiceNumber}}</a></td>
+                                <td>{{budderflyInvoice.contactName}}</td>
+                                <td style="max-width: 100px">
+                                    <span *ngIf="budderflyInvoice.contactEmail" ngbTooltip="{{budderflyInvoice.contactEmail}}">
+                                            {{budderflyInvoice.contactEmail | truncate:5 }}
+                                    </span>
+                                </td>
+                                <td>{{budderflyInvoice.discount}}</td>
+                                <td>{{budderflyInvoice.discountAmount | number: '.2'}}</td>
+                                <td>{{budderflyInvoice.priorBalance | number: '.2'}}</td>
+                                <td>{{budderflyInvoice.paymentsCredits | number: '.2'}}</td>
+                                <td>{{budderflyInvoice.totalNewElectricCharges | number: '.2'}}</td>
+                                <td>{{budderflyInvoice.totalOtherCharges | number: '.2'}}</td>
+                                <td>{{budderflyInvoice.taxes | number: '.2'}}</td>
+                                <td>{{budderflyInvoice.amountDue | number: '.2'}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                [routerLink]="['budderfly-invoice/', budderflyInvoice.id ]"
+                                                class="btn btn-info btn-sm">
+                                            <span class="fa fa-eye"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                        </button>
+                                        <button *ngIf="budderflyInvoice.budderflyInvoiceStatus == 'PENDING_APPROVAL'"
+                                                type="submit"
+                                                (click)="approveInvoice(budderflyInvoice)"
+                                                replaceUrl="true"
+                                                queryParamsHandling="merge"
+                                                class="btn btn-primary btn-sm">
+                                            <span class="fa fa-pencil"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="billingWebApp.budderflyInvoice.approve">Approve</span>
+                                        </button>
+                                        <button *ngIf="budderflyInvoice.budderflyInvoiceStatus == 'PENDING_APPROVAL'"
+                                                type="submit"
+                                                (click)="rejectInvoice(budderflyInvoice)"
+                                                replaceUrl="true"
+                                                queryParamsHandling="merge"
+                                                class="btn btn-danger btn-sm">
+                                            <span class="fa fa-remove"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="billingWebApp.budderflyInvoice.reject">Reject</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Pager is not implemented yet, so this is normal pagination instead -->
+                    <div *ngIf="budderflyInvoices && budderflyInvoices.length">
+                        <div class="row justify-content-center">
+                            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                        </div>
+                        <div class="row justify-content-center">
+                            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabActivities" >
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.billingCycleActivity.detail.title">Billing Cycle Activity</span></ng-template>
+            <ng-template ngbTabContent>
+                <jhi-billing-cycle-activity [billingCycleId]="billingCycle.id" ></jhi-billing-cycle-activity>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+
+</div>
+

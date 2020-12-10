@@ -1,0 +1,48 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTariffMappingRuleLabel" jhiTranslate="billingWebApp.tariffMappingRule.home.createOrEditLabel">Create or edit a Tariff Mapping Rule</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tariffMappingRule.bdTariffName" for="field_bdTariffNameId">Bd Tariff Name</label>
+            <select class="form-control" id="field_bdTariffNameId" name="bdTariffNameId" [(ngModel)]="tariffMappingRule.bdTariffNameId"  >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="tariffNameOption.id" *ngFor="let tariffNameOption of tariffNames; trackBy: trackTariffNameById">{{tariffNameOption.name}} / {{tariffNameOption.utilityCode}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tariffMappingRule.bdUtilityProviderKey" for="field_bdUtilityProviderKey">Bd Utility Provider Key</label>
+            <input type="text" class="form-control" name="bdUtilityProviderKey" id="field_bdUtilityProviderKey"
+                [(ngModel)]="tariffMappingRule.bdUtilityProviderKey" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tariffMappingRule.provider" for="field_provider">Provider</label>
+            <select class="form-control" id="field_provider" name="provider" [(ngModel)]="tariffMappingRule.providerId" [disabled]="tariffMappingRule.id !== undefined">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="providerOption.id" *ngFor="let providerOption of providers; trackBy: trackProviderById">{{providerOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tariffMappingRule.providerTariffCode" for="field_providerTariffCode">Provider Tariff Code</label>
+            <input type="text" class="form-control" name="providerTariffCode" id="field_providerTariffCode" [disabled]="tariffMappingRule.id !== undefined"
+                [(ngModel)]="tariffMappingRule.providerTariffCode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tariffMappingRule.providerTariffName" for="field_providerTariffName">Provider Tariff Name</label>
+            <input type="text" class="form-control" name="providerTariffName" id="field_providerTariffName" [disabled]="tariffMappingRule.id !== undefined"
+                [(ngModel)]="tariffMappingRule.providerTariffName" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

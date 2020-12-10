@@ -1,0 +1,59 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myMeterLabel" jhiTranslate="billingWebApp.meter.home.createOrEditLabel">Create or edit a Meter</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!meter.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="meter.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.meter.meterNumber" for="field_number">Meter Number</label>
+            <input type="text" class="form-control" name="number" id="field_number"
+                [(ngModel)]="meter.meterNumber" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.meter.tariff" for="field_tariff">Tariff</label>
+            <input type="text" class="form-control" name="tarif" id="field_tariff"
+                [(ngModel)]="meter.tariff" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.meter.serviceType" for="field_serviceType">Tariff</label>
+            <input type="text" class="form-control" name="serviceType" id="field_serviceType"
+                [(ngModel)]="meter.serviceType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.meter.serviceAddress" for="field_serviceAddress">Tariff</label>
+            <input type="text" class="form-control" name="serviceAddress" id="field_serviceAddress"
+                [(ngModel)]="meter.serviceAddress" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.meter.serviceCity" for="field_serviceCity">Tariff</label>
+            <input type="text" class="form-control" name="serviceCity" id="field_serviceCity"
+                [(ngModel)]="meter.serviceCity" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.meter.serviceState" for="field_serviceState">Tariff</label>
+            <input type="text" class="form-control" name="serviceState" id="field_serviceState"
+                [(ngModel)]="meter.serviceState" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.meter.podId" for="field_podId">Tariff</label>
+            <input type="text" class="form-control" name="podId" id="field_podId"
+                [(ngModel)]="meter.podId" />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

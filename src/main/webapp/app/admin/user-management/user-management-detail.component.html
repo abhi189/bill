@@ -1,49 +1,152 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="user">
-            <h2>
-                <span jhiTranslate="userManagement.detail.title">User</span> [<b>{{user.login}}</b>]
-            </h2>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="userManagement.login">Login</span></dt>
-                <dd>
-                    <span>{{user.login}}</span>
-                    <jhi-boolean
-                        [value]="user.activated"
-                        [textTrue]="'userManagement.activated' | translate"
-                        [textFalse]="'userManagement.deactivated' | translate">
-                    </jhi-boolean>
-                </dd>
-                <dt><span jhiTranslate="userManagement.firstName">First Name</span></dt>
-                <dd>{{user.firstName}}</dd>
-                <dt><span jhiTranslate="userManagement.lastName">Last Name</span></dt>
-                <dd>{{user.lastName}}</dd>
-                <dt><span jhiTranslate="userManagement.email">Email</span></dt>
-                <dd>{{user.email}}</dd>
-                <dt><span jhiTranslate="userManagement.langKey">Lang Key</span></dt>
-                <dd>{{user.langKey}}</dd>
-                <dt><span jhiTranslate="userManagement.createdBy">Created By</span></dt>
-                <dd>{{user.createdBy}}</dd>
-                <dt><span jhiTranslate="userManagement.createdDate">Created Date</span></dt>
-                <dd>{{user.createdDate | date:'dd/MM/yy HH:mm' }}</dd>
-                <dt><span jhiTranslate="userManagement.lastModifiedBy">Last Modified By</span></dt>
-                <dd>{{user.lastModifiedBy}}</dd>
-                <dt><span jhiTranslate="userManagement.lastModifiedDate">Last Modified Date</span></dt>
-                <dd>{{user.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</dd>
-                <dt><span jhiTranslate="userManagement.profiles">Profiles</span></dt>
-                <dd>
-                    <ul class="list-unstyled">
-                        <li *ngFor="let authority of user.authorities">
-                            <span class="badge badge-info">{{authority}}</span>
-                        </li>
-                    </ul>
-                </dd>
-            </dl>
-            <button type="submit"
-                    routerLink="../../"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-        </div>
-    </div>
+<div *ngIf="user">
+    <h2>
+        <span jhiTranslate="userManagement.detail.title">User</span> [<b>{{user.login}}</b>]
+    </h2>
+    <ngb-tabset [justify]="'fill'" type="pills" (tabChange)="beforeTabChange($event)" [activeId]="activeIdString">
+        <ngb-tab id="userDetails">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="userManagement.details">Details</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert-error></jhi-alert-error>
+                <dl class="row-md jh-entity-details mt-1">
+                    <dt><span jhiTranslate="userManagement.login">Login</span></dt>
+                    <dd>
+                        <span>{{user.login}}</span>
+                        <jhi-boolean
+                            [value]="user.activated"
+                            [textTrue]="'userManagement.activated' | translate"
+                            [textFalse]="'userManagement.deactivated' | translate">
+                        </jhi-boolean>
+                    </dd>
+                    
+                    <dt><span jhiTranslate="userManagement.lastName">Last Name</span></dt>
+                    <dd>{{user.lastName}}</dd>
+                    <dt><span jhiTranslate="userManagement.email">Email</span></dt>
+                    <dd>{{user.email}}</dd>
+                    <dt><span jhiTranslate="userManagement.langKey">Lang Key</span></dt>
+                    <dd>{{user.langKey}}</dd>
+                    <dt><span jhiTranslate="userManagement.createdBy">Created By</span></dt>
+                    <dd>{{user.createdBy}}</dd>
+                    <dt><span jhiTranslate="userManagement.partner">Partner</span></dt>
+                    <dd>{{user.defaultPartner}}</dd>
+                    <dt><span jhiTranslate="userManagement.createdDate">Created Date</span></dt>
+                    <dd>{{user.createdDate | date:'dd/MM/yy HH:mm' }}</dd>
+                    <dt><span jhiTranslate="userManagement.lastModifiedBy">Last Modified By</span></dt>
+                    <dd>{{user.lastModifiedBy}}</dd>
+                    <dt><span jhiTranslate="userManagement.lastModifiedDate">Last Modified Date</span></dt>
+                    <dd>{{user.lastModifiedDate | date:'dd/MM/yy HH:mm'}}</dd>
+                    <dt><span jhiTranslate="userManagement.profiles">Profiles</span></dt>
+                    <dd>
+                        <ul class="list-unstyled">
+                            <li *ngFor="let authority of user.authorities">
+                                <span class="badge badge-info">{{authority}}</span>
+                            </li>
+                        </ul>
+                    </dd>
+                    </dl>
+                    <button type="submit"
+                            routerLink="/user-management"
+                            class="btn btn-info">
+                        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                    </button>  
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="userSites">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="userManagement.sites">Sites</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <!-- <jhi-alert-error></jhi-alert-error> -->
+                <div class="row mt-1">
+                    <div class="col">
+                        <div class="text-right">
+                            <button class="btn btn-primary float-right"
+                                [routerLink]="['/', { outlets: { popup: 'user-management/'+ user.login + '/assign-sites'} }]"
+                                replaceUrl="true"
+                            >
+                                <span class="fa fa-plus"></span>
+                                <span  jhiTranslate="userManagement.site.assignLabel">
+                                   Assign new Site
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form name="searchForm" class="form-inline">
+                            <div class="input-group w-100 mt-3">
+                                <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'userManagement.site.search' | translate }}">
+                                <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                                    <span class="fa fa-search"></span>
+                                </button>
+                                <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                                    <span class="fa fa-trash-o"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+             <br/>
+                <div class="table-responsive mt-1" *ngIf="userSites">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                            <th jhiSortBy="budderflyId"><span jhiTranslate="userManagement.site.budderflyId">Budderfly Id</span> <span class="fa fa-sort"></span></th>
+                            <th jhiSortBy="customerName"><span jhiTranslate="userManagement.site.customerName">Customer Name</span> <span class="fa fa-sort"></span></th>
+                            <th jhiSortBy="status"><span jhiTranslate="userManagement.site.status">Status</span> <span class="fa fa-sort"></span></th>
+                            <th jhiSortBy="companyType"><span jhiTranslate="userManagement.site.companyType">Company Type</span> <span class="fa fa-sort"></span></th>
+                            <th jhiSortBy="storeNumber"><span jhiTranslate="userManagement.site.storeNumber">Store Number</span> <span class="fa fa-sort"></span></th>
+                            <th jhiSortBy="address"><span jhiTranslate="userManagement.site.address">Address</span> <span class="fa fa-sort"></span></th>
+                            <th jhiSortBy="city"><span jhiTranslate="userManagement.site.city">City</span> <span class="fa fa-sort"></span></th>
+                            <th jhiSortBy="state"><span jhiTranslate="userManagement.site.state">State</span> <span class="fa fa-sort"></span></th>
+                            <th jhiSortBy="zip"><span jhiTranslate="userManagement.site.zip">Zip</span> <span class="fa fa-sort"></span></th>
+                            <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let site of userSites ;trackBy: trackId">
+                                <td><a [routerLink]="['/site', site.id ]" data-dismiss="modal" (click)="dismissPopup()">{{site.id}}</a></td>
+                                <td>{{site.budderflyId}}</td>
+                                <td>{{site.customerName}}</td>
+                                <td jhiTranslate="{{'userManagement.SiteStatus.' + site.status}}">{{site.status}}</td>
+                                <td>{{site.companyType}}</td>
+                                <td>{{site.storeNumber}}</td>
+                                <td>{{site.address}}</td>
+                                <td>{{site.city}}</td>
+                                <td>{{site.state}}</td>
+                                <td>{{site.zip}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                [routerLink]="['/site', site.id ]"
+                                                class="btn btn-info btn-sm">
+                                            <span class="fa fa-eye"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                        </button>
+                                        <button type="submit"
+                                                (click)="handleRemoveSiteClick(site.budderflyId)"
+                                                class="btn btn-warning btn-sm">
+                                            <span class="fa fa-cog"></span>
+                                            <span class="d-none d-md-inline" >Remove</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="userSites && userSites.length">
+                        <div class="row justify-content-center">
+                            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                        </div>
+                        <div class="row justify-content-center">
+                            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                        </div>
+                    </div>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset> 
 </div>

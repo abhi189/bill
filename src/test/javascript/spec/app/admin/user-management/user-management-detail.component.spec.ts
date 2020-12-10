@@ -1,28 +1,29 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
 
-import { HomebillingwebTestModule } from '../../../test.module';
-import { UserMgmtDetailComponent } from 'app/admin/user-management/user-management-detail.component';
-import { User } from 'app/core';
+import { BillingWebTestModule } from '../../../test.module';
+import { MockActivatedRoute } from '../../../helpers/mock-route.service';
+import { UserMgmtDetailComponent } from '../../../../../../main/webapp/app/admin/user-management/user-management-detail.component';
+import { UserService, User } from '../../../../../../main/webapp/app/shared';
 
 describe('Component Tests', () => {
     describe('User Management Detail Component', () => {
         let comp: UserMgmtDetailComponent;
         let fixture: ComponentFixture<UserMgmtDetailComponent>;
-        const route = ({
-            data: of({ user: new User(1, 'user', 'first', 'last', 'first@last.com', true, 'en', ['ROLE_USER'], 'admin', null, null, null) })
-        } as any) as ActivatedRoute;
+        let service: UserService;
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
-                imports: [HomebillingwebTestModule],
+                imports: [BillingWebTestModule],
                 declarations: [UserMgmtDetailComponent],
                 providers: [
                     {
                         provide: ActivatedRoute,
-                        useValue: route
-                    }
+                        useValue: new MockActivatedRoute({ login: 'user' })
+                    },
+                    UserService
                 ]
             })
                 .overrideTemplate(UserMgmtDetailComponent, '')
@@ -32,16 +33,39 @@ describe('Component Tests', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(UserMgmtDetailComponent);
             comp = fixture.componentInstance;
+            service = fixture.debugElement.injector.get(UserService);
         });
 
         describe('OnInit', () => {
             it('Should call load all on init', () => {
                 // GIVEN
 
+                spyOn(service, 'find').and.returnValue(
+                    Observable.of(
+                        new HttpResponse({
+                            body: new User(
+                                1,
+                                'user',
+                                'first',
+                                'last',
+                                'first@last.com',
+                                true,
+                                'en',
+                                ['ROLE_USER'],
+                                'admin',
+                                null,
+                                null,
+                                null
+                            )
+                        })
+                    )
+                );
+
                 // WHEN
                 comp.ngOnInit();
 
                 // THEN
+                expect(service.find).toHaveBeenCalledWith('user');
                 expect(comp.user).toEqual(
                     jasmine.objectContaining({
                         id: 1,

@@ -1,0 +1,65 @@
+{
+    "billingWebApp": {
+        "stagingMeter": {
+            "home": {
+                "title": "Staging Meters",
+                "createLabel": "Create a new Staging Meter",
+                "createOrEditLabel": "Create or edit a Staging Meter",
+                "search": "Search for Staging Meter"
+            },
+            "created": "A new Staging Meter is created with identifier {{ param }}",
+            "updated": "A Staging Meter is updated with identifier {{ param }}",
+            "deleted": "A Staging Meter is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Staging Meter {{ id }}?"
+            },
+            "detail": {
+                "title": "Staging Meter"
+            },
+            "meterId": "Meter Id",
+            "logicalMeterId": "Logical Meter Id",
+            "meterNumber": "Meter Number",
+            "serviceType": "Service Type",
+            "tariff": "Tariff",
+            "serviceAddress": "Service Address",
+            "serviceCity": "Service City",
+            "serviceState": "Service State",
+            "serviceZip": "Service Zip",
+            "bulbType": "Bulb Type",
+            "podId": "Pod Id",
+            "intervalStart": "Interval Start",
+            "intervalEnd": "Interval End",
+            "bulbQuantity": "Bulb Quantity",
+            "meterConstantMultiplier": "Meter Constant Multiplier",
+            "meterConversionMultiplier": "Meter Conversion Multiplier",
+            "thirdPartyProvider": "Third Party Provider",
+            "thirdPartyAccountNumber": "Third Party Account Number",
+            "degreeDayStatus": "Degree Day Status",
+            "opTemp": "Op Temp",
+            "timeRange": "Time Range",
+            "cdd": "Cdd",
+            "hdd": "Hdd",
+            "weatherSensitivityIndex": "Weather Sensitivity Index",
+            "weatherNormalizedConsumption": "Weather Normalized Consumption",
+            "avgMonthlyBaseload": "Avg Monthly Baseload",
+            "predictedConsumption": "Predicted Consumption",
+            "serviceIdentifier": "Service Identifier",
+            "createDate": "Create Date",
+            "lastModified": "Last Modified",
+            "consumptions": "Consumptions",
+            "charges": "Charges",
+            "invoice": "Invoice"
+        }
+    },
+
+    "billingimportApp": {
+        "billingimportStagingMeter": {
+            "created": "A new Staging Meter is created with identifier {{ param }}",
+            "updated": "A Staging Meter is updated with identifier {{ param }}",
+            "deleted": "A Staging Meter is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Staging Meter {{ id }}?"
+            }
+        }
+    }
+}

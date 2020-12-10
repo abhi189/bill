@@ -1,0 +1,25 @@
+{
+    "billingWebApp": {
+        "alertNote": {
+            "home": {
+                "title": "Alert Notes",
+                "createLabel": "Create a new Alert Note",
+                "createOrEditLabel": "Create or edit a Alert Note",
+                "search": "Search for Alert Note"
+            },
+            "created": "A new Alert Note is created with identifier {{ param }}",
+            "updated": "A Alert Note is updated with identifier {{ param }}",
+            "deleted": "A Alert Note is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Alert Note {{ id }}?"
+            },
+            "detail": {
+                "title": "Alert Note"
+            },
+            "date": "Date",
+            "note": "Note",
+            "customerFacing": "Customer Facing",
+            "alertNote": "Alert Note"
+        }
+    }
+}

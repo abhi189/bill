@@ -1,0 +1,87 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.meter.home.title">Meters</span>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.meter.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="meters">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalStart"><span jhiTranslate="billingWebApp.meter.intervalStart">Interval Start</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalEnd"><span jhiTranslate="billingWebApp.meter.intervalEnd">Interval End</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="meterNumber"><span jhiTranslate="billingWebApp.meter.meterNumber">Meter Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="tariff"><span jhiTranslate="billingWebApp.meter.tariff">Tariff</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="serviceType"><span jhiTranslate="billingWebApp.meter.serviceType">Service Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="serviceAddress"><span jhiTranslate="billingWebApp.meter.serviceAddress">Service Address</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="serviceCity"><span jhiTranslate="billingWebApp.meter.serviceCity">Service City</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="serviceState"><span jhiTranslate="billingWebApp.meter.serviceState">Service State</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="podId"><span jhiTranslate="billingWebApp.meter.podId">Pod Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastModifiedBy"><span jhiTranslate="billingWebApp.invoice.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastModified"><span jhiTranslate="billingWebApp.invoice.lastModified">Last Modified</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let meter of meters ;trackBy: trackId">
+                <td><a [routerLink]="['../meter', meter.id ]">{{meter.id}}</a></td>
+                <td>{{meter.intervalStart | date:'mediumDate'}}</td>
+                <td>{{meter.intervalEnd | date:'mediumDate'}}</td>
+                <td>{{meter.meterNumber}}</td>
+                <td>{{meter.tariff}}</td>
+                <td>{{meter.serviceType}}</td>
+                <td>{{meter.serviceAddress}}</td>
+                <td>{{meter.serviceCity}}</td>
+                <td>{{meter.serviceState}}</td>
+                <td>{{meter.podId}}</td>
+                <td>{{meter.lastModifiedBy}}</td>
+                <td>{{meter.lastModified | date:'mediumDate':'UTC'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'meter/'+ meter.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'meter/'+ meter.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="meters && meters.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

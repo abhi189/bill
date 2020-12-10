@@ -1,0 +1,57 @@
+{
+    "billingWebApp": {
+        "billingCycle": {
+            "home": {
+                "title": "Billing Cycles",
+                "createLabel": "Create a new Billing Cycle",
+                "createOrEditLabel": "Create or edit a Billing Cycle",
+                "search": "Search for Billing Cycle",
+                "createInvoices": "Create Invoices"
+            },
+            "created": "A new Billing Cycle is created with identifier {{ param }}",
+            "updated": "A Billing Cycle is updated with identifier {{ param }}",
+            "deleted": "A Billing Cycle is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Billing Cycle {{ id }}?"
+            },
+            "detail": {
+                "title": "Billing Cycle"
+            },
+            "name": "Name",
+            "dueDate": "Due Date",
+            "statementDate": "Statement Date",
+            "notes": "Notes",
+            "message": "Message",
+            "status": "Status",
+            "budderflyInvoice": "Budderfly Invoice",
+            "email_invoices": "Email Invoices",
+            "generate_invoices": "Generate Invoices"
+        }
+    },
+    "invoiceApp": {
+        "invoiceBillingCycle": {
+            "home": {
+                "title": "Billing Cycles",
+                "createLabel": "Create a new Billing Cycle",
+                "createOrEditLabel": "Create or edit a Billing Cycle",
+                "search": "Search for Billing Cycle"
+            },
+            "created": "A new Billing Cycle is created with identifier {{ param }}",
+            "updated": "A Billing Cycle is updated with identifier {{ param }}",
+            "deleted": "A Billing Cycle is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Billing Cycle {{ id }}?"
+            },
+            "detail": {
+                "title": "Billing Cycle"
+            },
+            "name": "Name",
+            "dueDate": "Due Date",
+            "statementDate": "Statement Date",
+            "notes": "Notes",
+            "message": "Message",
+            "status": "Status",
+            "budderflyInvoice": "Budderfly Invoice"
+        }
+    }
+}

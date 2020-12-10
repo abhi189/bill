@@ -1,0 +1,82 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.missingInvoice.home.title">Missing Invoices Report</span>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.missingInvoice.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="missingInvoices">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="budderflyId"><span jhiTranslate="billingWebApp.missingInvoice.budderflyId">Budderfly Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="utilityProvider"><span jhiTranslate="billingWebApp.missingInvoice.utilityProvider">Utility Provider</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="accountNumber"><span jhiTranslate="billingWebApp.missingInvoice.accountNumber">Account Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="takeOverDate"><span jhiTranslate="billingWebApp.missingInvoice.takeOverDate">Take Over Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="startDate"><span jhiTranslate="billingWebApp.missingInvoice.startDate">Start Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="endDate"><span jhiTranslate="billingWebApp.missingInvoice.endDate">End Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="gapFixed"><span jhiTranslate="billingWebApp.missingInvoice.gapFixed">Gap Fixed</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="uploadedToUrjanet"><span jhiTranslate="billingWebApp.missingInvoice.uploadedToUrjanet">Uploaded To Urjanet</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="responsible"><span jhiTranslate="billingWebApp.missingInvoice.responsible">Responsible</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let missingInvoice of missingInvoices ;trackBy: trackId">
+                <!--<td>{{missingInvoice.budderflyId}}</td>-->
+                <td><a [routerLink]="['/site-account/',  missingInvoice.siteAccountId]" target="_blank">{{missingInvoice.budderflyId}}</a></td>
+                <td>{{missingInvoice.utilityProvider}}</td>
+                <td>{{missingInvoice.accountNumber}}</td>
+                <td>{{missingInvoice.takeOverDate | date:'mediumDate':'UTC'}}</td>
+                <td>{{missingInvoice.startDate | date:'mediumDate':'UTC'}}</td>
+                <td>{{missingInvoice.endDate | date:'mediumDate':'UTC'}}</td>
+                <td>{{missingInvoice.gapFixed}}</td>
+                <td>{{missingInvoice.uploadedToUrjanet}}</td>
+                <td jhiTranslate="{{'billingWebApp.ResponsibleParty.' + missingInvoice.responsible}}">{{missingInvoice.responsible}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'missing-invoice/'+ missingInvoice.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <!-- <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'missing-invoice/'+ missingInvoice.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button> -->
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="missingInvoices && missingInvoices.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

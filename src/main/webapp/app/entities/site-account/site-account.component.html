@@ -1,0 +1,158 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.siteAccount.home.title">Site Accounts</span>
+
+    </h2>
+    <div class="row">
+        <div class="col-sm-3">
+            <select class="dropdown" (change)="onSelectChange($event)">
+                <option value="">All</option>
+                <option value="WAITING_FOR_INVOICES">{{'billingWebApp.SiteAccountState.WAITING_FOR_INVOICES' | translate}}</option>
+                <option value="AMU_GENERATED">{{'billingWebApp.SiteAccountState.AMU_GENERATED' | translate}}</option>
+                <option value="AMU_APPROVED">{{'billingWebApp.SiteAccountState.AMU_APPROVED' | translate}}</option>
+                <option value="AMU_REJECTED">{{'billingWebApp.SiteAccountState.AMU_REJECTED' | translate}}</option>
+                <option value="INACTIVE">{{'billingWebApp.SiteAccountState.INACTIVE' | translate}}</option>
+                <option value="ACTIVE">{{'billingWebApp.SiteAccountState.ACTIVE' | translate}}</option>
+            </select>
+        </div>
+
+        <div class="container-buttons col-sm-9">
+            <div class="pull-right">
+                <button *ngIf="siteAccountsWithNoBfID !==undefined && siteAccountsWithNoBfID.length > 0" type="button" (click)="openMissingBFIdPopup()" class="btn btn-danger">
+                    <span class="fa fa-eye"></span>
+                    <span class="hidden-sm-down" jhiTranslate="billingWebApp.siteAccount.home.missingInformation">
+                        Missing Information
+                    </span>
+                </button>
+                <button class="btn btn-primary jh-create-entity create-site-account" [routerLink]="['/', { outlets: { popup: ['site-account-new'] } }]">
+                    <span class="fa fa-plus"></span>
+                    <span class="hidden-sm-down" jhiTranslate="billingWebApp.siteAccount.home.createLabel">
+                       Create new Site Account
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <jhi-alert></jhi-alert>
+    <jhi-alert-error></jhi-alert-error>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.siteAccount.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="siteAccounts">
+        <table class="table table-striped table-sm table-bordered">
+            <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                    <th jhiSortBy="state">
+                        <span jhiTranslate="billingWebApp.siteAccount.status">Status</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="utilityProvider">
+                        <span jhiTranslate="billingWebApp.siteAccount.utilityProvider">Utility Provider</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="accountNumber">
+                        <span jhiTranslate="billingWebApp.siteAccount.accountNumber">Account Number</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="accountNumber">
+                        <span jhiTranslate="billingWebApp.siteAccount.billingAccountNumber">Billing Account Number</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="relatedSiteAccount">
+                        <span jhiTranslate="billingWebApp.siteAccount.relatedSiteAccount">Related Site Account</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="type">
+                        <span jhiTranslate="billingWebApp.siteAccount.type">Type</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="customerName">
+                        <span jhiTranslate="billingWebApp.siteAccount.customerName">Customer Name</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="budderflyId">
+                        <span jhiTranslate="billingWebApp.siteAccount.budderflyId">BF-ID</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th jhiSortBy="invoices">
+                        <span jhiTranslate="billingWebApp.siteAccount.invoices">Invoices</span>
+                        <span class="fa fa-sort"></span>
+                    </th>
+                    <th>
+                        <span jhiTranslate="billingWebApp.siteAccount.lastInvoice">Last Invoice</span>
+                        <span class="fa fa-sort"></span>
+                    <th>
+                        <span jhiTranslate="billingWebApp.siteAccount.dateInvoice">Date Last Invoice</span>
+                        <span class="fa fa-sort"></span>
+                    <th>
+                        <span jhiTranslate="billingWebApp.siteAccount.tariff">Tariff</span>
+                    <span class="fa fa-sort"></span>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let siteAccount of siteAccounts ;trackBy: trackId">
+                    <td jhiTranslate="{{'billingWebApp.SiteAccountState.' + siteAccount.state}}">{{siteAccount.state}}</td>
+                    <td>{{siteAccount.utilityProvider}}</td>
+                    <td><a [routerLink]="['/site-account', siteAccount.id]">{{siteAccount.accountNumber}}</a></td>
+                    <td>{{siteAccount.billingAccountNumber}}</td>
+                    <td *ngIf="!siteAccount.relatedSiteAccountId; else relatedSiteAccount"></td>
+                    <ng-template #relatedSiteAccount>
+                        <td>
+                            <a [routerLink]="['/site-account', siteAccount.relatedSiteAccountId]">{{siteAccount.relatedSiteAccountNumber}}</a>
+                        </td>
+                    </ng-template>
+                    <td>{{siteAccount.type}}</td>
+                    <td>{{siteAccount.customerName}}</td>
+                    <td><a [routerLink]="['/site', siteAccount.siteId]">{{siteAccount.budderflyId}}</a></td>
+                    <td>{{siteAccount.invoicesSize}}</td>
+                    <td>{{siteAccount.summaryInvoices.lastInvoice}}</td>
+                    <td>{{siteAccount.summaryInvoices.dateInvoice | date:'mediumDate':'UTC'}}</td>
+                    <td>{{siteAccount.summaryInvoices.tariffInvoice}}</td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit" [routerLink]="['../site-account', siteAccount.id ]" class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+                            <button type="submit" [routerLink]="['/', { outlets: { popup: 'site-account/'+ siteAccount.id + '/edit'} }]" replaceUrl="true"
+                                queryParamsHandling="merge" class="btn btn-primary btn-sm">
+                                <span class="fa fa-pencil"></span>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+                            <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="submit" [routerLink]="['/', { outlets: { popup: 'site-account/'+ siteAccount.id + '/delete'} }]" replaceUrl="true"
+                                queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                <span class="fa fa-remove"></span>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="siteAccounts && siteAccounts.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"
+                (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

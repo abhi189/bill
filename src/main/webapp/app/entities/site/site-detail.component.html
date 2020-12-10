@@ -1,0 +1,341 @@
+<div *ngIf="site">
+    <h2><span jhiTranslate="billingWebApp.site.detail.title">Site</span> {{site.budderflyId}}</h2>
+    <hr>
+    <ngb-tabset [justify]="'fill'" type="pills" (tabChange)="beforeTabChange($event)" [activeId]="activeIdString">
+        <ngb-tab id="tabGeneral">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.siteAccount.general">General</span></ng-template>
+            <ng-template ngbTabContent>
+
+                <jhi-alert-error></jhi-alert-error>
+                <dl class="row-md jh-entity-details">
+                    <dt><span jhiTranslate="billingWebApp.site.budderflyId">Budderfly Id</span></dt>
+                    <dd>
+                        <span>{{site.budderflyId}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.customerName">Customer Name</span></dt>
+                    <dd>
+                        <span>{{site.customerName}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.status">Status</span></dt>
+                    <dd>
+                        <span jhiTranslate="{{'billingWebApp.SiteStatus.' + site.status}}">{{site.status}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.companyType">Company Type</span></dt>
+                    <dd>
+                        <span>{{site.companyType}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.storeNumber">Store Number</span></dt>
+                    <dd>
+                        <span>{{site.storeNumber}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.address">Address</span></dt>
+                    <dd>
+                        <span>{{site.address}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.city">City</span></dt>
+                    <dd>
+                        <span>{{site.city}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.state">State</span></dt>
+                    <dd>
+                        <span>{{site.state}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.zip">Zip</span></dt>
+                    <dd>
+                        <span>{{site.zip}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.billingType">Billing Type</span></dt>
+                    <dd>
+                        <span jhiTranslate="{{'billingWebApp.BillingStatus.' + site.billingType}}">{{site.billingType}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.paymentType">Payment Type</span></dt>
+                    <dd>
+                        <span jhiTranslate="{{'billingWebApp.PaymentType.' + site.paymentType}}">{{site.paymentType}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.siteType">Site Type</span></dt>
+                    <dd>
+                        <span jhiTranslate="{{'billingWebApp.SiteType.' + site.siteType}}">{{site.siteType}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.ownerName">Owner Name</span></dt>
+                    <dd>
+                        <span>{{site.ownerName}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.ownerEmail">Owner Email</span></dt>
+                    <dd>
+                        <span>{{site.ownerEmail}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.ownerPhone">Owner Phone</span></dt>
+                    <dd>
+                        <span>{{site.ownerPhone}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.address1">Address 1</span></dt>
+                    <dd>
+                        <span>{{site.address1}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.address2">Address 2</span></dt>
+                    <dd>
+                        <span>{{site.address2}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.latitude">Latitude</span></dt>
+                    <dd>
+                        <span>{{site.latitude}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.longitude">Longitude</span></dt>
+                    <dd>
+                        <span>{{site.longitude}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.taxExempt">Tax Exempt</span></dt>
+                    <dd>
+                        <span>{{site.taxExempt}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.rollBilling">Roll Billing</span></dt>
+                    <dd>
+                        <span>{{site.rollBilling}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.parentSite">Parent Site</span></dt>
+                    <dd>
+                        <div *ngIf="site.parentSiteId">
+                            <a [routerLink]="['/site', site.parentSiteId]">{{site.parentSiteId}}</a>
+                        </div>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.createdBy">Created By</span></dt>
+                    <dd>
+                        <span>{{site.createdby}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.createdDate">Created Date</span></dt>
+                    <dd>
+                        <span>{{site.createdDate | date:'medium'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.lastModifiedBy">Last Modified By</span></dt>
+                    <dd>
+                        <span>{{site.lastModifiedBy}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.lastModifiedDate">Last Modified Date </span></dt>
+                    <dd>
+                        <span>{{site.lastModifiedDate | date:'medium'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.siteAccount.emoVersion">EMO Version</span></dt>
+                    <dd>
+                        <span>{{site.emoVersion}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.enableTicketDispatch">Enable Ticket Dispatch</span></dt>
+                    <dd>
+                        <span>{{site.enableTicketDispatch}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.contactDeskId">Contact Desk Id</span></dt>
+                    <dd>
+                        <span>{{site.contactDeskId}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.site.creditHold">Credit Hold</span></dt>
+                    <dd>
+                        <span>{{site.creditHold}}</span>
+                    </dd>
+                </dl>
+                <button type="submit"
+                        (click)="previousState()"
+                        class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                </button>
+                <button type="button"
+                        [routerLink]="['/', { outlets: { popup: 'site/'+ site.id + '/edit'} }]"
+                        replaceUrl="true"
+                        queryParamsHandling="merge"
+                        class="btn btn-primary">
+                    <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                </button>
+                <button type="button"
+                        [disabled]="site.paymentType === 'Check'"
+                        (click)="deleteACH()"
+                        class="btn btn-primary">
+                    <span class="fa fa-trash"></span>&nbsp;<span jhiTranslate="ACHInfo.delete_ACH"> Remove ACH</span>
+                </button>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabContact">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.contact.home.title">Contact</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-site-contact [siteContact]="site.siteContact" [billingContact]="site.billingContact" [franchiseContact]="site.franchiseContact"></jhi-site-contact>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabInventory">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.inventoryItem.home.title">Inventory</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-inventory-item></jhi-inventory-item>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabUtilityAccount">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.site.utilityAccount">Utility Account</span></ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="table-responsive" *ngIf="utilityAccounts">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+                                    <th jhiSortBy="status"><span jhiTranslate="billingWebApp.siteAccount.status">Status</span> <span class="fa fa-sort"></span></th>
+                                    <th jhiSortBy="utilityProvider"><span jhiTranslate="billingWebApp.siteAccount.utilityProvider">Utility Provider</span> <span class="fa fa-sort"></span></th>
+                                    <th jhiSortBy="accountNumber"><span jhiTranslate="billingWebApp.siteAccount.accountNumber">Account Number</span> <span class="fa fa-sort"></span></th>
+                                    <th jhiSortBy="type"><span jhiTranslate="billingWebApp.siteAccount.type">Account Type</span> <span class="fa fa-sort"></span></th>
+                                    <th jhiSortBy="relatedSiteAccount"><span jhiTranslate="billingWebApp.siteAccount.relatedSiteAccount">Related Site Account</span> <span class="fa fa-sort"></span></th>
+                                    <th jhiSortBy="type"><span jhiTranslate="billingWebApp.siteAccount.customerName">Customer Name</span> <span class="fa fa-sort"></span></th>
+                                    <th ><span jhiTranslate="billingWebApp.siteAccount.amountInvoices"># Invoices</span> <span class="fa fa-sort"></span></th>
+                                    <th ><span jhiTranslate="billingWebApp.siteAccount.lastInvoice">Last Invoice</span> <span class="fa fa-sort"></span></th>
+                                    <th ><span jhiTranslate="billingWebApp.siteAccount.dateInvoice">Date Last Invoice</span> <span class="fa fa-sort"></span></th>
+                                    <th ><span jhiTranslate="billingWebApp.siteAccount.tariff">Tariff</span> <span class="fa fa-sort"></span></th>
+                                    <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let utility of utilityAccounts ;trackBy: trackId">
+                                <td>{{utility.state}}</td>
+                                <td>{{utility.utilityProvider}}</td>
+                                <td><a [routerLink]="['/site-account', utility.id]">{{utility.accountNumber}}</a></td>
+                                <td jhiTranslate="{{'billingWebApp.SiteAccountType.'+utility.type}}">{{utility.type}} </td>
+                                <td *ngIf="utility.relatedSiteAccountId != null">
+                                    <a [routerLink]="['/site-account', utility.relatedSiteAccountId]">{{utility.relatedSiteAccountNumber}}</a>
+                                </td>
+                                <td *ngIf="!utility.relatedSiteAccountId"></td>
+                                <td>{{utility.customerName}}</td>
+                                <td>{{utility.summaryInvoices.amountInvoices}}</td>
+                                <td>{{utility.summaryInvoices.lastInvoice}}</td>
+                                <td>{{utility.summaryInvoices.dateInvoice | date:'mediumDate':'UTC'}}</td>
+                                <td>{{utility.summaryInvoices.tariffInvoice}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit" [routerLink]="['/site-account', utility.id ]" class="btn btn-info btn-sm">
+                                            <span class="fa fa-eye"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                        </button>
+                                        <button type="submit" [routerLink]="['/', { outlets: { popup: 'site-account/'+ utility.id + '/edit'} }]" replaceUrl="true"
+                                            queryParamsHandling="merge" class="btn btn-primary btn-sm">
+                                            <span class="fa fa-pencil"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                        </button>
+                                        <button type="submit" [routerLink]="['/', { outlets: { popup: 'site-account/'+ utility.id + '/delete'} }]" replaceUrl="true"
+                                            queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                                            <span class="fa fa-remove"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabInvoices">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.budderflyInvoice.home.title">Invoices</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-site-budderfly-invoice [budderflyId]="site.budderflyId"></jhi-site-budderfly-invoice>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabSiteDiscount">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.siteDiscount.title">Site Discount</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert></jhi-alert>
+                <ng-container *ngIf="siteDiscount; else createSiteDiscount">
+                    <dl class="row-md">
+                        <dt><span jhiTranslate="billingWebApp.siteDiscount.discountName">Discount Name</span></dt>
+                        <dd>
+                            <span>{{siteDiscount?.name}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteDiscount.percentage">Discount Percentage</span></dt>
+                        <dd>
+                            <span>{{siteDiscount?.percentage}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteDiscount.accrued">Accrued</span></dt>
+                        <dd>
+                            <span>{{siteDiscount?.accrued}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteDiscount.override">Override</span></dt>
+                        <dd>
+                            <span>{{siteDiscount?.override}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteDiscount.createdBy">Created By</span></dt>
+                        <dd>
+                            <span>{{siteDiscount?.createdBy}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteDiscount.createdDate">Created Date</span></dt>
+                        <dd>
+                            <span>{{siteDiscount?.createdDate | date:'medium'}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteDiscount.lastModifiedBy">Last Modified By</span></dt>
+                        <dd>
+                            <span>{{siteDiscount?.lastModifiedBy}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteDiscount.lastModifiedDate">Last Modified Date</span></dt>
+                        <dd>
+                            <span>{{siteDiscount?.lastModifiedDate | date:'medium'}}</span>
+                        </dd>
+                    </dl>
+
+                    <button type="button"
+                            [routerLink]="['/', { outlets: { popup: 'site-discount/'+ siteDiscount.id + '/edit'} }]"
+                            replaceUrl="true"
+                            queryParamsHandling="merge"
+                            class="btn btn-primary">
+                        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                    </button>
+
+                    <button type="submit"
+                            [routerLink]="['/', { outlets: { popup: 'site-discount/'+ siteDiscount.id + '/delete'} }]" replaceUrl="true"
+                            queryParamsHandling="merge" class="btn btn-danger">
+                        <span class="fa fa-remove"></span>
+                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                    </button>
+                </ng-container>
+                <ng-template #createSiteDiscount>
+                    <button type="button"
+                            class="btn btn-primary"
+                            [routerLink]="['/', { outlets: { popup: ['site-discount-new'] } }]">
+                        <span class="fa fa-plus"></span>&nbsp;
+                        <span jhiTranslate="billingWebApp.siteDiscount.createLabel"> Create new Site Discount </span>
+                    </button>
+                </ng-template>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabEquipment">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.equipment.home.title">Equipment</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-site-equipments [budderflyId]="site.budderflyId" [timeZoneID]="site.timeZoneId"></jhi-site-equipments>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabAlerts">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.alert.home.title">Alerts</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert-ms [budderflyId]="site.budderflyId"></jhi-alert-ms>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabWorkOrders">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.site.workOrder.title">Work Orders</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-site-work-order [budderflyId]="site.budderflyId"></jhi-site-work-order>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabSiteConfig">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.site.configurations.title">Configurations</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-site-configurations [bfUuid]="site.bfUuid"></jhi-site-configurations>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>

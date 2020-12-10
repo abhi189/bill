@@ -1,0 +1,33 @@
+{
+    "billingWebApp": {
+        "missingInvoice": {
+            "home": {
+                "title": "Missing Invoices Report",
+                "createLabel": "Create a new Missing Invoice",
+                "createOrEditLabel": "Create or edit a Missing Invoice",
+                "search": "Search for Missing Invoice"
+            },
+            "created": "A new Missing Invoice is created with identifier {{ param }}",
+            "updated": "A Missing Invoice is updated with identifier {{ param }}",
+            "deleted": "A Missing Invoice is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Missing Invoice {{ id }}?"
+            },
+            "detail": {
+                "title": "Missing Invoice"
+            },
+            "budderflyId": "Budderfly Id",
+            "utilityProvider": "Utility Provider",
+            "accountNumber": "Account Number",
+            "takeOverDate": "Take Over Date",
+            "startDate": "Start Date",
+            "endDate": "End Date",
+            "gapFixed": "Gap Fixed",
+            "uploadedToUrjanet": "Uploaded To Urjanet",
+            "responsible": "Responsible",
+            "noInvoices": "No Invoices",
+            "notes": "Notes",
+            "siteAccount": "Site Account"
+        }
+    }
+}

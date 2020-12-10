@@ -1,0 +1,40 @@
+<div class="table-responsive" *ngIf="contacts">
+    <table class="table table-striped">
+        <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse">
+            <th jhiSortBy="contactType"><span jhiTranslate="billingWebApp.contact.contactType">Contact Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="name"><span jhiTranslate="billingWebApp.contact.name">Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="phoneNumber"><span jhiTranslate="billingWebApp.contact.phoneNumber">Phone Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="webPage"><span jhiTranslate="billingWebApp.contact.webPage">Web Page</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="notes"><span jhiTranslate="billingWebApp.contact.notes">Notes</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="city"><span jhiTranslate="billingWebApp.contact.city">City</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="street"><span jhiTranslate="billingWebApp.contact.street">Street</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="zipCode"><span jhiTranslate="billingWebApp.contact.zipCode">Zip Code</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="country"><span jhiTranslate="billingWebApp.contact.country">Country</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="contactEmail"><span jhiTranslate="billingWebApp.contact.contactEmail">Contact Email</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdDate"><span jhiTranslate="billingWebApp.contact.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastModifyDate"><span jhiTranslate="billingWebApp.contact.lastModifyDate">Last Modify Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="modifiedBy"><span jhiTranslate="billingWebApp.contact.modifiedBy">Modified By</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdBy"><span jhiTranslate="billingWebApp.contact.createdBy">Created By</span> <span class="fa fa-sort"></span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let contact of contacts ;trackBy: trackId">
+            <td>{{contact.contactType}}</td>
+            <td>{{contact.name}}</td>
+            <td>{{contact.phoneNumber}}</td>
+            <td>{{contact.webPage}}</td>
+            <td>{{contact.notes}}</td>
+            <td>{{contact.city}}</td>
+            <td>{{contact.street}}</td>
+            <td>{{contact.zipCode}}</td>
+            <td>{{contact.country}}</td>
+            <td>{{contact.contactEmail}}</td>
+            <td>{{contact.createdDate | date:'medium'}}</td>
+            <td>{{contact.lastModifyDate | date:'medium'}}</td>
+            <td>{{contact.modifiedBy}}</td>
+            <td>{{contact.createdBy}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -3,11 +3,15 @@
         "home": {
             "title": "Users",
             "createLabel": "Create a new user",
+            "search": "Search Sites",
             "createOrEditLabel": "Create or edit a user"
         },
         "created": "A new user is created with identifier {{ param }}",
         "updated": "An user is updated with identifier {{ param }}",
         "deleted": "An user is deleted with identifier {{ param }}",
+        "resetLink": "Password Reset link sent to {{ param }}",
+        "removeSite": "Successfully unassigned {{ param }}",
+        "search": "Search Users by LOGIN - NAME - EMAIL - PARTNER",
         "delete": {
             "question": "Are you sure you want to delete user {{ login }}?"
         },
@@ -22,9 +26,56 @@
         "deactivated": "Deactivated",
         "profiles": "Profiles",
         "langKey": "Language",
+        "partner": "Partner",
         "createdBy": "Created by",
         "createdDate": "Created date",
         "lastModifiedBy": "Modified by",
-        "lastModifiedDate": "Modified date"
+        "lastModifiedDate": "Modified date",
+        "details": "Details",
+        "sites": "Sites",
+        "site": {
+            "budderflyId": "Budderfly Id",
+            "customerName": "Customer Name",
+            "status": "Status",
+            "companyType": "Company Type",
+            "storeNumber": "Store Number",
+            "address": "Address",
+            "city": "City",
+            "state": "State",
+            "zip": "Zip",
+            "billingType": "Billing Type",
+            "paymentType": "Payment Type",
+            "siteType": "Site Type",
+            "ownerName": "Owner Name",
+            "ownerEmail": "Owner Email",
+            "ownerPhone": "Owner Phone",
+            "address1": "Address 1",
+            "address2": "Address 2",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "taxExempt": "Tax Exempt",
+            "rollBilling": "Roll Billing",
+            "parentSite": "Parent Site",
+            "general": "General",
+            "utilityAccount": "Utility Account",
+            "invoices": "Invoices",
+            "createdBy": "Created By",
+            "createdDate": "Created Date",
+            "lastModifiedBy": "Last Modified By",
+            "lastModifiedDate": "Last Modified Date",
+            "assignLabel": "Assign New Site",
+            "searchAndAssign": "Search and Assign Sites",
+            "search": "Search User Sites"
+        },
+        "SiteStatus": {
+            "null": "",
+            "ACTIVE": "ACTIVE",
+            "INACTIVE": "INACTIVE",
+            "PENDING": "PENDING"
+        },
+        "action": {
+            "assign": "Assign",
+            "reset": "Reset Password"
+        }
     }
 }

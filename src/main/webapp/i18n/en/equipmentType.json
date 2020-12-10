@@ -1,0 +1,48 @@
+{
+    "billingWebApp": {
+        "inventoryEquipmentType": {
+            "home": {
+                "title": "Equipment Types",
+                "search": "Search for Equipment Types",
+                "createLabel": "Create a new Equipment Type",
+                "createOrEditLabel": "Create or edit a Equipment Type"
+            },
+            "created": "A new Equipment Type is created with identifier {{ param }}",
+            "updated": "A Equipment Type is updated with identifier {{ param }}",
+            "deleted": "A Equipment Type is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Equipment Type {{ id }}?",
+                "processing": "Equipment Type {{ param }} is being deleted.",
+                "selectNewEquipmentType": "Select another Equipment Type to which they should be associated"
+            },
+            "detail": {
+                "title": "Equipment Type"
+            },
+            "code": "Code",
+            "name": "Name",
+            "equipmentCount": "Equipment Count",
+            "tabs": {
+                "equipmentTypeDetails": "Details",
+                "equipmentTypeLocation": "Location / Description"
+            }
+        },
+        "inventoryEquipmentTypeLocation": {
+            "home": {
+                "title": "Equipment Type Locations",
+                "createLabel": "Create a new Equipment Type Location",
+                "createOrEditLabel": "Create or edit a Equipment Type Location"
+            },
+            "created": "A new Equipment Type Location is created with identifier {{ param }}",
+            "updated": "A Equipment Type Location is updated with identifier {{ param }}",
+            "deleted": "A Equipment Type Location is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Equipment Type Location {{ id }}?"
+            },
+            "detail": {
+                "title": "Equipment Type Location"
+            },
+            "location": "Location",
+            "code": "Code"
+        }
+    }
+}

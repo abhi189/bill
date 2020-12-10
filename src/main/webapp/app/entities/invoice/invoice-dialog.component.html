@@ -1,0 +1,160 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myInvoiceLabel" jhiTranslate="billingWebApp.invoice.home.createOrEditLabel">Create or edit a Invoice</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!invoice.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="invoice.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.electricSupplier" for="field_electricSupplier">Electric Supplier</label>
+            <input type="text" class="form-control" name="electricSupplier" id="field_electricSupplier"
+                [(ngModel)]="invoice.electricSupplier" required/>
+            <div [hidden]="!(editForm.controls.electricSupplier?.dirty && editForm.controls.electricSupplier?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.electricSupplier?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.intervalStart" for="field_intervalStart">Interval Start</label>
+            <div class="input-group">
+                <input id="field_intervalStart" type="text" class="form-control" name="intervalStart" ngbDatepicker  #intervalStartDp="ngbDatepicker" [(ngModel)]="invoice.intervalStart"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="intervalStartDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.intervalStart?.dirty && editForm.controls.intervalStart?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.intervalStart?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.intervalEnd" for="field_intervalEnd">Interval End</label>
+            <div class="input-group">
+                <input id="field_intervalEnd" type="text" class="form-control" name="intervalEnd" ngbDatepicker  #intervalEndDp="ngbDatepicker" [(ngModel)]="invoice.intervalEnd"
+                required/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="intervalEndDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+            <div [hidden]="!(editForm.controls.intervalEnd?.dirty && editForm.controls.intervalEnd?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.intervalEnd?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.billingDays" for="field_billingDays">Billing Days</label>
+            <input type="number" class="form-control" name="billingDays" id="field_billingDays"
+                [(ngModel)]="invoice.billingDays" required/>
+            <div [hidden]="!(editForm.controls.billingDays?.dirty && editForm.controls.billingDays?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.billingDays?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.billingDays?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.newCharges" for="field_newCharges">New Charges</label>
+            <input type="number" class="form-control" name="newCharges" id="field_newCharges"
+                [(ngModel)]="invoice.newCharges" required/>
+            <div [hidden]="!(editForm.controls.newCharges?.dirty && editForm.controls.newCharges?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.newCharges?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.newCharges?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.peakKWH" for="field_peakKWH">Peak KWH</label>
+            <input type="number" class="form-control" name="peakKWH" id="field_peakKWH"
+                [(ngModel)]="invoice.peakKWH" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.midPeakKWH" for="field_midPeakKWH">Mid Peak KWH</label>
+            <input type="number" class="form-control" name="midPeakKWH" id="field_midPeakKWH"
+                [(ngModel)]="invoice.midPeakKWH" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.offPeakKWH" for="field_offPeakKWH">Off Peak KWH</label>
+            <input type="number" class="form-control" name="offPeakKWH" id="field_offPeakKWH"
+                [(ngModel)]="invoice.offPeakKWH" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.totalKWH" for="field_totalKWH">Total KWH</label>
+            <input type="number" class="form-control" name="totalKWH" id="field_totalKWH"
+                [(ngModel)]="invoice.totalKWH" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.peakKW" for="field_peakKW">Peak KW</label>
+            <input type="number" class="form-control" name="peakKW" id="field_peakKW"
+                [(ngModel)]="invoice.peakKW" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.midPeakKW" for="field_midPeakKW">Mid Peak KW</label>
+            <input type="number" class="form-control" name="midPeakKW" id="field_midPeakKW"
+                [(ngModel)]="invoice.midPeakKW" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.offPeakKW" for="field_offPeakKW">Off Peak KW</label>
+            <input type="number" class="form-control" name="offPeakKW" id="field_offPeakKW"
+                [(ngModel)]="invoice.offPeakKW" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.maxKW" for="field_maxKW">Max KW</label>
+            <input type="number" class="form-control" name="maxKW" id="field_maxKW"
+                [(ngModel)]="invoice.maxKW" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.urjanetId" for="field_urjanetId">Urjanet Id</label>
+            <input type="text" class="form-control" name="urjanetId" id="field_urjanetId"
+                [(ngModel)]="invoice.urjanetId" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.siteAccount" for="field_siteAccount">Site Account</label>
+            <select class="form-control" id="field_siteAccount" name="siteAccount" [(ngModel)]="invoice.siteAccountId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="siteAccountOption.id" *ngFor="let siteAccountOption of siteaccounts; trackBy: trackSiteAccountById">{{siteAccountOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.invalid" for="field_invalid">invalid</label>
+            <input type="checkbox" class="form-control" name="rollBilling" id="field_invalid"
+                   [(ngModel)]="invoice.invalid" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.invoice.budderflyInvoiceNumber" for="field_budderflyInvoiceNumber">Budderfly Invoice Number</label>
+            <input type="text" class="form-control" name="udderflyInvoiceNumber" id="field_budderflyInvoiceNumber"
+                   [(ngModel)]="invoice.budderflyInvoiceNumber" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

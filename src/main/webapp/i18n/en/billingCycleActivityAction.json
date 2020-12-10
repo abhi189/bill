@@ -1,0 +1,13 @@
+{
+    "billingWebApp": {
+        "BillingCycleActivityAction": {
+            "null": "",
+            "ADDING_SITE": "ADDING_SITE",
+            "EMAILING": "EMAILING",
+            "DELETING_INVOICE": "DELETING_INVOICE",
+            "EXPORT": "EXPORT",
+            "UPDATE": "UPDATE",
+            "CREATION": "CREATION"
+        }
+    }
+}

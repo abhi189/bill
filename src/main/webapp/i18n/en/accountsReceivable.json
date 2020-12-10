@@ -1,0 +1,27 @@
+{
+    "billingWebApp": {
+        "accountsReceivable": {
+            "home": {
+                "title": "Accounts Receivables",
+                "createLabel": "Create a new Accounts Receivable",
+                "createOrEditLabel": "Create or edit a Accounts Receivable",
+                "search": "Search for Accounts Receivable"
+            },
+            "created": "A new Accounts Receivable is created with identifier {{ param }}",
+            "updated": "A Accounts Receivable is updated with identifier {{ param }}",
+            "deleted": "A Accounts Receivable is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Accounts Receivable {{ id }}?"
+            },
+            "detail": {
+                "title": "Accounts Receivable"
+            },
+            "previousBalance": "Previous Balance",
+            "paymentsReceived": "Payments Received",
+            "outstandingBalance": "Outstanding Balance",
+            "adjustment": "Adjustment",
+            "generateAccountsReceivable": "Generate Accounts Receivable",
+            "refreshAccountsReceivable": "Are you sure you want to refresh Accounts Receivables?"
+        }
+    }
+}

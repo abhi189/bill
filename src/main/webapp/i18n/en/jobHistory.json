@@ -1,0 +1,76 @@
+{
+    "billingWebApp": {
+        "jobHistory": {
+            "home": {
+                "title": "Job Histories",
+                "createLabel": "Create a new Job History",
+                "createOrEditLabel": "Create or edit a Job History",
+                "search": "Search for Job History"
+            },
+            "created": "A new Job History is created with identifier {{ param }}",
+            "updated": "A Job History is updated with identifier {{ param }}",
+            "deleted": "A Job History is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Job History {{ id }}?"
+            },
+            "detail": {
+                "title": "Job History"
+            },
+            "description": "Description",
+            "type": "Type",
+            "createDate": "Create Date",
+            "siteAccount": "Site Account",
+            "error": {
+                "internal.server.error": "There was an issue on the Server - Please try again. If the issue persists, Please contact customer support.",
+                "interacting.with.external.api.error": "Error trying to connect to external api",
+                "tariff": {
+                    "import": {
+                        "tariff.not.found": "Tariff not found",
+                        "failed": "An error occurred during the tariff import"
+                    },
+                    "mapping": {
+                        "mapping.not.found": "Tariff mapping not found",
+                        "tariff.name.not.found": "Tariff name must be selected",
+                        "tariff.name.null": "Tariff name shouldn't be null",
+                        "tariff.name.raterepository.connection.refused": "Problems detected while interacting with the raterepository service"
+                    }
+                },
+                "utility": {
+                    "import": {
+                        "state.not.found": "Utility state not found"
+                    },
+                    "mapping": {
+                        "mapping.not.found": "Utility mapping not found",
+                        "utility.provider.key.null": "Utility provider key shouldn't be null"
+                    }
+                },
+                "rate": {
+                    "mapping": {
+                        "rate.charge.mapping.not.found": "Rate charge mapping not found",
+                        "rate.charge.mapping.not.confirmed": "Rate charge mapping not confirmed",
+                        "rate.usage.type.mapping.not.found": "Rate usage type mapping not found",
+                        "rate.usage.type.mapping.not.confirmed": "Rate usage type mapping not confirmed",
+                        "rate.component.mapping.not.found": "Rate component mapping not found",
+                        "rate.component.mapping.not.confirmed": "Rate component mapping not confirmed"
+                    }
+                },
+                "export": {
+                    "rates": {
+                        "raterepository.connection.refused": "Problems detected while interacting with the raterepository service",
+                        "raterepository.connection.timeout": "Problems detected while interacting with the raterepository service",
+                        "raterepository.tariff.name.not.found": "Budderfly tariff name doesn't exist"
+                    },
+                    "tariff": {
+                        "bf.tariff.id.required": "A budderfly tariff Id is required",
+                        "bf.tariff.not.found": "Budderfly tariff not found",
+                        "utilityProviderKey.must.match.utilityProviderKey.tariffName": "The utilityProviderKey is inconsistent, please contact to support for more details"
+                    }
+                },
+                "tariffhistory": {
+                    "download.document.genability.error": "An error occurred while downloading a document from Genability",
+                    "upload.document.amazonservice.error": "An error occurred while uploading a document to Amazon"
+                }
+            }
+        }
+    }
+}

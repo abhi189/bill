@@ -1,0 +1,11 @@
+{
+    "billingWebApp": {
+        "CampaignType": {
+            "TEST": "TEST",
+            "OVERDUE": "OVERDUE",
+            "DUNNING": "DUNNING",
+            "TERMINATION": "TERMINATION",
+            "TOTAL": "TOTAL"
+        }
+    }
+}

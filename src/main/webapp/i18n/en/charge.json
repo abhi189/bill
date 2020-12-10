@@ -1,0 +1,42 @@
+{
+    "billingWebApp": {
+        "charge": {
+            "home": {
+                "title": "Charges",
+                "createLabel": "Create a new Charge",
+                "createOrEditLabel": "Create or edit a Charge",
+                "search": "Search for Charge"
+            },
+            "created": "A new Charge is created with identifier {{ param }}",
+            "updated": "A Charge is updated with identifier {{ param }}",
+            "deleted": "A Charge is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Charge {{ id }}?"
+            },
+            "detail": {
+                "title": "Charge"
+            },
+            "chargeId": "Charge Id",
+            "lifecycle": "Lifecycle",
+            "usageUnit": "Usage Unit",
+            "measurementType": "Measurement Type",
+            "rateComponent": "Rate Component",
+            "intervalStart": "Interval Start",
+            "intervalEnd": "Interval End",
+            "chargeAmount": "Charge Amount",
+            "chargeAmountCurrency": "Charge Amount Currency",
+            "chargeCurrency": "Charge Currency",
+            "chargeRateCurrency": "Charge Rate Currency",
+            "chargeRatePerUnit": "Charge Rate Per Unit",
+            "chargeRatePerUnitMultiplier": "Charge Rate Per Unit Multiplier",
+            "chargeUnitsUsed": "Charge Units Used",
+            "chargeActualName": "Charge Actual Name",
+            "thirdPartyProvider": "Third Party Provider",
+            "thirdPartyAccountNumber": "Third Party Account Number",
+            "isAdjustmentCharge": "Is Adjustment Charge",
+            "createDate": "Create Date",
+            "invoice": "Invoice",
+            "meter": "Meter"
+        }
+    }
+}

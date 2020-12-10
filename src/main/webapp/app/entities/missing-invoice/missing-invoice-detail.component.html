@@ -1,0 +1,72 @@
+
+<div *ngIf="missingInvoice">
+    <h2><span jhiTranslate="billingWebApp.missingInvoice.detail.title">Missing Invoice</span> {{missingInvoice.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.budderflyId">Budderfly Id</span></dt>
+        <dd>
+            <span>{{missingInvoice.budderflyId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.utilityProvider">Utility Provider</span></dt>
+        <dd>
+            <span>{{missingInvoice.utilityProvider}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.accountNumber">Account Number</span></dt>
+        <dd>
+            <span>{{missingInvoice.accountNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.takeOverDate">Take Over Date</span></dt>
+        <dd>
+            <span>{{missingInvoice.takeOverDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.startDate">Start Date</span></dt>
+        <dd>
+            <span>{{missingInvoice.startDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.endDate">End Date</span></dt>
+        <dd>
+            <span>{{missingInvoice.endDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.gapFixed">Gap Fixed</span></dt>
+        <dd>
+            <span>{{missingInvoice.gapFixed}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.uploadedToUrjanet">Uploaded To Urjanet</span></dt>
+        <dd>
+            <span>{{missingInvoice.uploadedToUrjanet}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.responsible">Responsible</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.ResponsibleParty.' + missingInvoice.responsible}}">{{missingInvoice.responsible}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.noInvoices">No Invoices</span></dt>
+        <dd>
+            <span>{{missingInvoice.noInvoices}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.notes">Notes</span></dt>
+        <dd>
+            <span>{{missingInvoice.notes}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.missingInvoice.siteAccount">Site Account</span></dt>
+        <dd>
+            <div *ngIf="missingInvoice.siteAccountId">
+                <a [routerLink]="['/site-account', missingInvoice.siteAccountId]">{{missingInvoice.siteAccountId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'missing-invoice/'+ missingInvoice.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

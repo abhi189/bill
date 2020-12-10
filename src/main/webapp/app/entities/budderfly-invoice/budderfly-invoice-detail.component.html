@@ -1,0 +1,850 @@
+<div *ngIf="budderflyInvoice">
+    <h2><span jhiTranslate="billingWebApp.budderflyInvoice.detail.title">Budderfly Invoice</span> {{budderflyInvoice.invoiceNumber}}</h2>
+    <ngb-tabset [justify]="'fill'" type="pills"  (tabChange)="beforeTabChange($event)">
+        <ngb-tab id="tabInvoice">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.budderflyInvoice.detail.title">Budderfly Invoice</span></ng-template>
+            <ng-template ngbTabContent>
+                <hr>
+                <jhi-alert-error></jhi-alert-error>
+                <dl class="row-md jh-entity-details">
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.budderflyId">Budderfly Id</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.budderflyId}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.invoiceNumber">Invoice Number</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.invoiceNumber}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.utilityAccountNumber"> Utility Account Number</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.utilityAccountNumber}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.lastInvoice">Last Invoice</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.lastInvoice | date:'mediumDate'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.addressee">Addressee</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.contactName}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.contactEmail">Contact Email</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.contactEmail}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.LEDInstallDate">LED Install Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.LEDInstallDate | date:'mediumDate'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.accountTakeOverDate">Account Take Over Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.accountTakeOverDate | date:'mediumDate'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.utilityProvider">Utility Provider</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.utilityProvider}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.tariff">Tariff</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.tariff}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.address">Address</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.address}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.city">City</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.city}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.state">State</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.state}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.zipCode">Zip Code</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.zipCode}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.message">Message</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.message}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.country">Country</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.country}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.billingAddress">Billing Address</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.billingAddress}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.billingCity">Billing City</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.billingCity}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.billingState">Billing State</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.billingState}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.billingZipCode">Billing Zip Code</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.billingZipCode}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.billingCountry">Billing Country</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.billingCountry}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.arrears">Arrears</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.arrears}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.discount">Discount</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.discount}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.discountAmount">Discount Amount</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.discountAmount}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.yearToDateSavings">Year To Date Savings</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.yearToDateSavings}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.programToDateSavings">Program To Date Savings</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.programToDateSavings}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.discountedUsage">Discounted Usage</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.discountedUsage}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.supplyChargeReduction">Supply Charge Reduction</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.supplyChargeReduction}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.reducedTaxes">Reduced Taxes</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.reducedTaxes}}</span>
+                    </dd>       
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.fullAmount">Full Amount</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.fullAmount}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.priorBalance">Prior Balance</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.priorBalance}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.paymentsCredits">Payments Credits</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.paymentsCredits}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.totalNewElectricCharges">Total New Electric Charges</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.totalNewElectricCharges}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.totalOtherCharges">Total Other Charges</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.totalOtherCharges}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.taxes">Taxes</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.taxes}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.totalNewCharges">Total New Charges</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.totalNewCharges}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.amountDue">Amount Due</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.amountDue}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.pdfUrl">Pdf Url</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.pdfUrl}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.startDate">Start Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.startDate | date:'mediumDate'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.endDate">End Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.endDate | date:'mediumDate'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.dueDate">Due Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.dueDate | date:'mediumDate'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.statementDate">Statement Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.statementDate | date:'mediumDate'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.billingDays">Billing Days</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.billingDays}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.approvedBy">Approved By</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.approvedBy}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.approvedDate">Approved Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.approvedDate | date:'medium'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.rejectedBy">Rejected By</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.rejectedBy}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.rejectedDate">Rejected Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.rejectedDate | date:'medium'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.rejectionNotes">Rejection Notes</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.rejectionNotes}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.budderflyInvoiceStatus">Budderfly Invoice Status</span></dt>
+                    <dd>
+                        <span jhiTranslate="{{'billingWebApp.BudderflyInvoiceStatus.' + budderflyInvoice.budderflyInvoiceStatus}}">{{budderflyInvoice.budderflyInvoiceStatus}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.createdBy">Created By</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.createdBy}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.createdDate">Created Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.createdDate | date:'medium'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.lastModifiedBy">Last Modified By</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.lastModifiedBy}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.lastModifiedDate">Last Modified Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.lastModifiedDate | date:'medium'}}</span>
+                    </dd>
+                </dl>
+                <button type="submit"
+                        (click)="previousState()"
+                        class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                </button>
+
+                <button type="button"
+                        [routerLink]="['/', { outlets: { popup: 'budderfly-invoice/'+ budderflyInvoice.id + '/edit'} }]"
+                        replaceUrl="true"
+                        queryParamsHandling="merge"
+                        class="btn btn-primary">
+                    <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                </button>
+                <button type="button"
+                        [routerLink]="['/', { outlets: { popup: 'budderfly-invoice/'+ budderflyInvoice.id + '/delete'} }]"
+                        replaceUrl="true"
+                        queryParamsHandling="merge"
+                        class="btn btn-danger">
+                    <span class="fa fa-remove"></span>&nbsp;<span jhiTranslate="entity.action.delete"> Delete</span>
+                </button>
+                <button type="button"
+                        (click)="updateInvoice()"
+                        [disabled]="!invoiceEditable || buttonUpdateInvoiceClicked"
+                        class="btn btn-success"
+                        jhiTranslate="billingWebApp.budderflyInvoice.updateInvoice"> Update Invoice </button>
+                <button type="button"
+                        (click)="generateInvoice()"
+                        [disabled]="!invoiceEditable || buttonGenerateInvoiceClicked"
+                        class="btn btn-success"
+                        jhiTranslate="billingWebApp.budderflyInvoice.generateInvoice"> Generate Invoice </button>
+                <button type="button"
+                        class="btn btn-secondary ml-2"
+                        (click)="refreshInvoice()"
+                        jhiTranslate="billingWebApp.budderflyInvoice.refresh">Refresh</button>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabCharges">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.budderflyCharge.home.title">Budderfly Charges</span></ng-template>
+            <ng-template ngbTabContent>
+                <div class="container-buttons col-sm-12 d-flex justify-content-end">
+                    <button type="button"
+                            class="btn btn-primary ml-2"
+                            (click)="generateCharges()"
+                            [disabled]="!invoiceEditable"
+                            jhiTranslate="billingWebApp.budderflyCharge.generateCharges">Generate Charges</button>
+
+                    <button type="button"
+                            class="btn btn-secondary ml-2"
+                            (click)="refreshCharges()"
+                            jhiTranslate="billingWebApp.budderflyInvoice.refresh">Refresh</button>
+                </div>
+                <div class="container-buttons col-sm-12 d-flex">
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.lastModifiedDate">Last Modified Date</span>: </dt>
+                    <dd>
+                        <span>{{chargesLastModifiedDate | date:'medium'}}</span>
+                    </dd>
+                </div>
+
+    <div class="row">
+        <table class="table table-sm table-striped table-bordered">
+            <tr>
+            <th data-toggle="tooltip" data-placement="top" title="Effective Date">
+                <span jhiTranslate="billingWebApp.budderflyCharge.name">Name</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.tier">Tier</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.usageAmount">Usage Amount</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.usageType">Usage Type</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.rate">Rate</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.total">Total</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.discountAmount">Discount Amount</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.fullAmount">Full Amount</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.invoiceSection">Invoice Section</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.chargeId">Charge Id</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.chargeActualName">Charge Actual Name</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.usage">Usage</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.month">Month</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.rateComponent">Rate Component</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.intervalStart">Interval Start</span>
+            </th><th>
+                <span jhiTranslate="billingWebApp.budderflyCharge.intervalEnd">Interval End</span>
+            </th>
+            <th *ngIf="editingRate"></th>
+        </tr>
+        <ng-container *ngIf="creatingCharge">
+            <tr *ngFor="let newCharge of newCharges">
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="newCharge.name" name="newChargeName">
+                </td>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="newCharge.tier" name="newChargeTier">
+                </td>
+                <td>
+                    <input type="number" class="form-control" [(ngModel)]="newCharge.usageAmount" name="newChargeUsageAmount">
+                </td>
+                <td>
+                    <select class="form-control" id="newChargeUsageType" [(ngModel)]="newCharge.usageType">
+                        <option value="">{{'billingWebApp.UsageType.null' | translate}}</option>
+                        <option value="KW">{{'billingWebApp.UsageType.KW' | translate}}</option>
+                        <option value="KWH">{{'billingWebApp.UsageType.KWH' | translate}}</option>
+                        <option value="DAY">{{'billingWebApp.UsageType.DAY' | translate}}</option>
+                        <option value="FLAT">{{'billingWebApp.UsageType.FLAT' | translate}}</option>
+                        <option value="CHARGE">{{'billingWebApp.UsageType.CHARGE' | translate}}</option>
+                        <option value="USD">{{'billingWebApp.UsageType.USD' | translate}}</option>
+                        <option value="CAD">{{'billingWebApp.UsageType.CAD' | translate}}</option>
+                        <option value="GAL">{{'billingWebApp.UsageType.GAL' | translate}}</option>
+                        <option value="LBS">{{'billingWebApp.UsageType.LBS' | translate}}</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="number" class="form-control" [(ngModel)]="newCharge.rate" name="newChargeRate">
+                </td>
+                <td>
+                    <input type="number" class="form-control" [(ngModel)]="newCharge.total" name="newChargeTotal">
+                </td>
+                <td>
+                    <input type="number" class="form-control" [(ngModel)]="newCharge.discountAmount" name="newDiscountAmount">
+                </td>
+                <td>
+                    <input type="number" class="form-control" [(ngModel)]="newCharge.fullAmount" name="newfullAmount">
+                </td>
+                <td>
+                    <select class="form-control" id="newChargeInvoiceSection" [(ngModel)]="newCharge.invoiceSection">
+                        <option *ngFor="let invoiceSection of invoiceSectionsMap;" value="{{invoiceSection.key}}">{{invoiceSection.value}}</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="newCharge.chargeId" name="newChargeId">
+                </td>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="newCharge.chargeActualName" name="newChargeActualName">
+                </td>
+                <td>
+                    <input type="number" class="form-control" [(ngModel)]="newCharge.usage" name="newUsage">
+                </td>
+                <td>
+                    <select class="form-control" name="month" [(ngModel)]="newCharge.month">
+                        <option value="JAN">{{'billingWebApp.Month.JAN' | translate}}</option>
+                        <option value="FEB">{{'billingWebApp.Month.FEB' | translate}}</option>
+                        <option value="MAR">{{'billingWebApp.Month.MAR' | translate}}</option>
+                        <option value="APR">{{'billingWebApp.Month.APR' | translate}}</option>
+                        <option value="MAY">{{'billingWebApp.Month.MAY' | translate}}</option>
+                        <option value="JUN">{{'billingWebApp.Month.JUN' | translate}}</option>
+                        <option value="JUL">{{'billingWebApp.Month.JUL' | translate}}</option>
+                        <option value="AUG">{{'billingWebApp.Month.AUG' | translate}}</option>
+                        <option value="SEP">{{'billingWebApp.Month.SEP' | translate}}</option>
+                        <option value="OCT">{{'billingWebApp.Month.OCT' | translate}}</option>
+                        <option value="NOV">{{'billingWebApp.Month.NOV' | translate}}</option>
+                        <option value="DEC">{{'billingWebApp.Month.DEC' | translate}}</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="newCharge.rateComponent" name="nweRateComponent">
+                </td>
+                <td>
+                    <input type="date" class="form-control" [(ngModel)]="newCharge.intervalStart" name="newIintervalStart"/>
+                </td>
+                <td>
+                    <input type="date" class="form-control" [(ngModel)]="newCharge.intervalEnd" name="newIntervalEnd" />
+                </td>
+            </tr>
+        </ng-container>
+        <tr *ngFor="let charge of editableCharges; let i = index">
+            <!-- START STATIC FIELDS -->
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="charge.name" name="name" [disabled]="!editingCharge">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="charge.tier" name="tier" disabled>
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="charge.usageAmount" name="usageAmount" disabled>
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="charge.usageType" name="usageType" disabled>
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="charge.rate" name="rate" disabled>
+            </td>
+            <td>
+                <input type="number" class="form-control" [(ngModel)]="charge.total" name="total" [disabled]="!editingCharge">
+            </td>
+            <td>
+                <input type="number" class="form-control" [(ngModel)]="charge.discountAmount" name="discountAmount" [disabled]="!editingCharge">
+            </td>
+            <td>
+                <input type="number" class="form-control" [(ngModel)]="charge.fullAmount" name="fullAmount" [disabled]="!editingCharge">
+            </td>
+            <select class="form-control" id="ChargeInvoiceSection" [(ngModel)]="charge.invoiceSection" [disabled]="!editingCharge">
+                <option *ngFor="let invoiceSection of invoiceSectionsMap;" value="{{invoiceSection.key}}">{{invoiceSection.value}}</option>
+            </select>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="charge.chargeId" name="chargeId" [disabled]="!editingCharge">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="charge.chargeActualName" name="chargeActualName" [disabled]="!editingCharge">
+            </td>
+            <td>
+                <input type="number" class="form-control" [(ngModel)]="charge.usage" name="usage" [disabled]="!editingCharge">
+            </td>
+            <select class="form-control" name="month" [(ngModel)]="charge.month" [disabled]="!editingCharge">
+                <option value="JAN">{{'billingWebApp.Month.JAN' | translate}}</option>
+                <option value="FEB">{{'billingWebApp.Month.FEB' | translate}}</option>
+                <option value="MAR">{{'billingWebApp.Month.MAR' | translate}}</option>
+                <option value="APR">{{'billingWebApp.Month.APR' | translate}}</option>
+                <option value="MAY">{{'billingWebApp.Month.MAY' | translate}}</option>
+                <option value="JUN">{{'billingWebApp.Month.JUN' | translate}}</option>
+                <option value="JUL">{{'billingWebApp.Month.JUL' | translate}}</option>
+                <option value="AUG">{{'billingWebApp.Month.AUG' | translate}}</option>
+                <option value="SEP">{{'billingWebApp.Month.SEP' | translate}}</option>
+                <option value="OCT">{{'billingWebApp.Month.OCT' | translate}}</option>
+                <option value="NOV">{{'billingWebApp.Month.NOV' | translate}}</option>
+                <option value="DEC">{{'billingWebApp.Month.DEC' | translate}}</option>
+            </select>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="charge.rateComponent" name="rateComponent" [disabled]="!editingCharge">
+            </td>
+            <td>
+                <input type="date" class="form-control" name="intervalStart" [(ngModel)]="charge.intervalStart"
+                       required [disabled]="!editingCharge"/>
+            </td>
+            <td>
+                <input type="date" class="form-control" name="intervalEnd" [(ngModel)]="charge.intervalEnd"
+                       required [disabled]="!editingCharge"/>
+            </td>
+            <td *ngIf="editingCharge">
+                <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove" (click)="removeCharge(charge)">
+                    <span class="fa fa-lg fa-trash"></span>
+                </button>
+            </td>
+        </tr>
+    </table>
+    <div>
+    <div *ngIf="budderflyInvoiceDiscount">
+        <span>
+            <span jhiTranslate="billingWebApp.budderflyInvoiceDiscount.discountPct">Discount Pct</span>
+            <input type="text" class="form-control discountInput" [(ngModel)]="budderflyInvoiceDiscount.discountPct" name="discountPct" [disabled]="!editingCharge">
+            <span jhiTranslate="billingWebApp.budderflyInvoiceDiscount.discountSaving">Discount Saving</span>
+            <input type="text" class="form-control discountInput" [(ngModel)]="budderflyInvoiceDiscount.discountSaving" name="discountSaving" disabled>
+        </span>
+    </div>
+    <div *ngIf="budderflyInvoice.chargesGeneratedDate">
+        <dt><span jhiTranslate="billingWebApp.budderflyInvoice.chargesGeneratedDate">Last Charge Generated Date</span></dt>
+        <dd>
+            <span>{{budderflyInvoice.chargesGeneratedDate | date:'medium'}}</span>
+        </dd>
+    </div>
+    </div>
+    <div class="container-buttons col-sm-12 d-flex justify-content-end">
+        <div class="pull-right">
+            <button type="button" class="btn btn-primary ml-2" *ngIf="!editingCharge" (click)="editCharge()" [disabled]="disableControls || !invoiceEditable" >Edit</button>
+            <button type="button" class="btn btn-info ml-2" *ngIf="editingCharge" (click)="addNewCharge()" [disabled]="disableControls">Add</button>
+            <button type="button" class="btn btn-danger ml-2" *ngIf="editingCharge" (click)="cancelEditCharges()" [disabled]="disableControls">Cancel</button>
+            <button type="button" class="btn btn-success ml-2" *ngIf="editingCharge" (click)="confirmEditCharges()" [disabled]="disableControls">Confirm</button>
+        </div>
+    </div>
+
+</div>
+    </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabSolutions">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.solution.home.title">Solutions</span></ng-template>
+
+            <ng-template ngbTabContent>
+                <div class="container-buttons col-sm-12 d-flex justify-content-end">
+                    <button type="button"
+                            class="btn btn-primary ml-2"
+                            (click)="generateSolutions()"
+                            [disabled]="!invoiceEditable"
+                            jhiTranslate="billingWebApp.solution.generateSolutions">Generate Solutions</button>
+
+                    <button type="button"
+                            class="btn btn-secondary ml-2"
+                            (click)="refreshSolutions()"
+                            jhiTranslate="billingWebApp.budderflyInvoice.refresh">Refresh</button>
+                </div>
+                <div class="container-buttons col-sm-12 d-flex">
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.lastModifiedDate">Last Modified Date</span>: </dt>
+                    <dd>
+                        <span>{{solutionsLastModifiedDate | date:'medium'}}</span>
+                    </dd>
+                </div>
+                <div>
+                    <br/>
+                    <div class="table-responsive" *ngIf="solutions">
+                        <table class="table table-striped">
+                            <thead>
+                                <th><span jhiTranslate="billingWebApp.solution.name" >Name</span></th>
+                                <th></th>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let solution of solutions ;trackBy: trackId">
+                                <input class="submissionfield" type="text" [(ngModel)]="solution.name"  [disabled]="!editingSolutions">
+                                <td *ngIf="editingSolutions">
+                                    <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove"
+                                            (click)="removeSolution(solution)">
+                                        <span class="fa fa-lg fa-trash"></span>
+                                    </button>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary ml-2" *ngIf="!editingSolutions" [disabled]="!invoiceEditable" (click)="editSolutions()">Edit</button>
+                        <button type="button" class="btn btn-info ml-2" *ngIf="editingSolutions" (click)="addNewSolutions()">Add</button>
+                        <button type="button" class="btn btn-danger ml-2" *ngIf="editingSolutions" (click)="cancelEditSolutions()">Cancel</button>
+                        <button type="button" class="btn btn-success ml-2" *ngIf="editingSolutions" (click)="confirmEditSolutions()">Confirm</button>
+                    </div>
+                </div>
+                <div *ngIf="budderflyInvoice.solutionsGeneratedDate">
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.solutionsGeneratedDate">Last Solutions Generated Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.solutionsGeneratedDate | date:'medium'}}</span>
+                    </dd>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabAccountsReceivable">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.accountsReceivable.home.title">Accounts Receivable</span></ng-template>
+            <ng-template ngbTabContent>
+                <div class="container-buttons col-sm-12 d-flex justify-content-end">
+                    <button type="button"
+                            class="btn btn-primary ml-2"
+                            (click)="generateAccountsReceivables()"
+                            [disabled]="!invoiceEditable"
+                            jhiTranslate="billingWebApp.accountsReceivable.generateAccountsReceivable">Generate Accounts Receivable</button>
+
+                    <button type="button"
+                            class="btn btn-secondary ml-2"
+                            (click)="refreshAccountsReceivables()"
+                            jhiTranslate="billingWebApp.budderflyInvoice.refresh">Refresh</button>
+                </div>
+                <div *ngIf="accountsReceivable" class="container-buttons col-sm-12 d-flex">
+                        <dt><span jhiTranslate="billingWebApp.budderflyInvoice.lastModifiedDate">Last Modified Date</span>: </dt>
+                        <dd>
+                        <span>{{accountsReceivable.lastModifiedDate | date:'medium'}}</span>
+                    </dd>
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><span jhiTranslate="billingWebApp.accountsReceivable.paymentsReceived">Payments Received</span></th>
+                                <th><span jhiTranslate="billingWebApp.accountsReceivable.previousBalance">Previous Balance</span></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td *ngIf="!editingAccounts; else editPaymentsReceived">{{accountsReceivable?.paymentsReceived | number:'.2' }}</td>
+                                <ng-template #editPaymentsReceived>
+                                    <td>
+                                        <input type="number" class="form-control" [(ngModel)]="accountsReceivable.paymentsReceived" name="paymentsReceived">
+                                    </td>
+                                </ng-template>
+
+                                <td *ngIf="!editingAccounts; else editPreviousBalance">{{accountsReceivable?.previousBalance | number:'.2' }}</td>
+                                <ng-template #editPreviousBalance>
+                                    <td>
+                                        <input type="number" class="form-control" [(ngModel)]="accountsReceivable.previousBalance" name="previousBalance">
+                                    </td>
+                                </ng-template>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr >
+                                <th><span jhiTranslate="billingWebApp.adjustment.name">Name</span></th>
+                                <th><span jhiTranslate="billingWebApp.adjustment.total">Total</span></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let adjustment of adjustments ;trackBy: trackId">
+                                <td>
+                                    <input type="text" [(ngModel)]="adjustment.name" [disabled]="!editingAccounts">
+                                </td>
+                                <td *ngIf="!editingAccounts; else editTotal">{{adjustment?.total | number:'.2' }}</td>
+                                <ng-template #editTotal>
+                                    <td>
+                                        <input type="number" class="form-control" [(ngModel)]="adjustment.total" name="total">
+                                    </td>
+                                </ng-template>
+                                <td *ngIf="editingAccounts">
+                                    <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove"
+                                            (click)="removeAdjustment(adjustment)">
+                                        <span class="fa fa-lg fa-trash"></span>
+                                    </button>
+                                </td>
+                                </tr>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th><span jhiTranslate="billingWebApp.accountsReceivable.outstandingBalance">Outstanding Balance</span></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td *ngIf="!editingAccounts; else editOutstandingBalance">{{accountsReceivable?.outstandingBalance | number:'.2' }}</td>
+                                <ng-template #editOutstandingBalance>
+                                    <td>
+                                        <input type="number" class="form-control" [(ngModel)]="accountsReceivable.outstandingBalance" name="outstandingBalance">
+                                    </td>
+                                </ng-template>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="pull-right">
+                    <button type="button" class="btn btn-primary ml-2" *ngIf="!editingAccounts" [disabled]="!invoiceEditable" (click)="editAccounts()">Edit</button>
+                    <button type="button" class="btn btn-info ml-2" *ngIf="editingAccounts" (click)="addNewAdjustement()">Add</button>
+                    <button type="button" class="btn btn-danger ml-2" *ngIf="editingAccounts" (click)="cancelEditAccounts()">Cancel</button>
+                    <button type="button" class="btn btn-success ml-2" *ngIf="editingAccounts" (click)="confirmEditAccounts()">Confirm</button>
+                </div>
+                <div *ngIf="budderflyInvoice.accountsReceivablesGeneratedDate">
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.accountsReceivablesGeneratedDate">Last Accounts Receivables Generated Date</span></dt>
+                    <dd>
+                        <span>{{budderflyInvoice.accountsReceivablesGeneratedDate | date:'medium'}}</span>
+                    </dd>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabPerformance">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.performance.home.title">Performance</span></ng-template>
+            <ng-template ngbTabContent>
+                <div class="container-buttons col-sm-12 d-flex justify-content-end">
+                    <button type="button"
+                            class="btn btn-primary ml-2"
+                            (click)="generatePerformances()"
+                            [disabled]="!invoiceEditable"
+                            jhiTranslate="billingWebApp.performance.generatePerformances">Generate Performances</button>
+
+                    <button type="button"
+                            class="btn btn-secondary ml-2"
+                            (click)="refreshPerformances()"
+                            jhiTranslate="billingWebApp.budderflyInvoice.refresh">Refresh</button>
+                </div>
+                <div class="container-buttons col-sm-12 d-flex">
+                    <dt><span jhiTranslate="billingWebApp.budderflyInvoice.lastModifiedDate">Last Modified Date</span>: </dt>
+                    <dd>
+                        <span>{{performancesLastModifiedDate | date:'medium'}}</span>
+                    </dd>
+                </div>
+                <div>
+                    <table class="table table-sm table-striped table-bordered">
+                        <thead>
+                        <tr>
+                            <th><span jhiTranslate="billingWebApp.performance.month">Month</span></th>
+                            <th><span jhiTranslate="billingWebApp.performance.usage">Usage</span></th>
+                            <th><span jhiTranslate="billingWebApp.performance.usageType">Usage Type</span></th>
+                            <th><span jhiTranslate="billingWebApp.performance.actual">Actual</span></th>
+                            <th><span jhiTranslate="billingWebApp.performance.lastInvoice">Last Invoice</span></th>
+                            <th><span jhiTranslate="billingWebApp.performance.installDate">Install Date</span></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let performance of performances ;trackBy: trackId">
+                            <td>
+                                <select class="form-control"  [disabled]="!editingPerformances" name="month" [(ngModel)]="performance.month" id="field_month">
+                                    <option value="JAN">{{'billingWebApp.Month.JAN' | translate}}</option>
+                                    <option value="FEB">{{'billingWebApp.Month.FEB' | translate}}</option>
+                                    <option value="MAR">{{'billingWebApp.Month.MAR' | translate}}</option>
+                                    <option value="APR">{{'billingWebApp.Month.APR' | translate}}</option>
+                                    <option value="MAY">{{'billingWebApp.Month.MAY' | translate}}</option>
+                                    <option value="JUN">{{'billingWebApp.Month.JUN' | translate}}</option>
+                                    <option value="JUL">{{'billingWebApp.Month.JUL' | translate}}</option>
+                                    <option value="AUG">{{'billingWebApp.Month.AUG' | translate}}</option>
+                                    <option value="SEP">{{'billingWebApp.Month.SEP' | translate}}</option>
+                                    <option value="OCT">{{'billingWebApp.Month.OCT' | translate}}</option>
+                                    <option value="NOV">{{'billingWebApp.Month.NOV' | translate}}</option>
+                                    <option value="DEC">{{'billingWebApp.Month.DEC' | translate}}</option>
+                                </select>
+                            </td>
+
+                            <td *ngIf="!editingPerformances">{{performance?.usage | number:'.2' }}</td>
+                            <td *ngIf="editingPerformances"><input type="number" class="form-control" [(ngModel)]="performance.usage" name="usage"></td>
+
+                            <td>
+                                <select class="form-control"  [disabled]="!editingPerformances" name="usageType" [(ngModel)]="performance.usageType" id="field_usageType">
+                                    <option value="KW">{{'billingWebApp.UsageType.KW' | translate}}</option>
+                                    <option value="KWH">{{'billingWebApp.UsageType.KWH' | translate}}</option>
+                                    <option value="DAY">{{'billingWebApp.UsageType.DAY' | translate}}</option>
+                                    <option value="FLAT">{{'billingWebApp.UsageType.FLAT' | translate}}</option>
+                                    <option value="CHARGE">{{'billingWebApp.UsageType.CHARGE' | translate}}</option>
+                                    <option value="USD">{{'billingWebApp.UsageType.USD' | translate}}</option>
+                                    <option value="CAD">{{'billingWebApp.UsageType.CAD' | translate}}</option>
+                                    <option value="CCF">{{'billingWebApp.UsageType.CCF' | translate}}</option>
+                                </select>
+                            </td>
+                            <td *ngIf="!editingPerformances; else editActual">{{performance?.actual | number:'.2' }}</td>
+                            <ng-template #editActual>
+                                <td>
+                                    <input type="number" class="form-control" [(ngModel)]="performance.actual" name="actual">
+                                </td>
+                            </ng-template>
+
+                            <td *ngIf="!editingPerformances">{{performance?.lastInvoice  | date: 'yyyy-MM-dd'}}</td>
+                            <td *ngIf="editingPerformances">
+                                <input id="field_lastInvoice" type="date" class="form-control" name="lastInvoice" [ngModel] ="performance.lastInvoice | date:'yyyy-MM-dd'" (ngModelChange)="performance.lastInvoice = $event"/>
+                            </td>
+
+                            <td *ngIf="!editingPerformances">{{performance?.installDate | date:'yyyy-MM-dd'}}</td>
+                            <td *ngIf="editingPerformances">
+                                <input id="field_installDate" type="date" class="form-control" name="installDate" [ngModel] ="performance.installDate | date:'yyyy-MM-dd'" (ngModelChange)="performance.installDate = $event"/>
+                            </td>
+
+                           <td *ngIf="editingPerformances">
+                                <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove"
+                                        (click)="removePerformance(performance)">
+                                    <span class="fa fa-lg fa-trash"></span>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                        </table>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary ml-2" *ngIf="!editingPerformances" [disabled]="!invoiceEditable" (click)="editPerformances()">Edit</button>
+                        <button type="button" class="btn btn-info ml-2" *ngIf="editingPerformances" (click)="addNewPerformances()">Add</button>
+                        <button type="button" class="btn btn-danger ml-2" *ngIf="editingPerformances" (click)="cancelEditPerformances()">Cancel</button>
+                        <button type="button" class="btn btn-success ml-2" *ngIf="editingPerformances" (click)="confirmEditPerformances()">Confirm</button>
+                    </div>
+
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabInvoiceActivity">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.detail.title">Billing Cycle Invoice Activity</span></ng-template>
+            <ng-template ngbTabContent>
+                <div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <form name="searchForm" class="form-inline">
+                                <div class="input-group w-100 mt-3">
+                                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.billingCycleInvoiceActivity.home.search' | translate }}">
+                                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                                        <span class="fa fa-search"></span>
+                                    </button>
+                                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                                        <span class="fa fa-trash-o"></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <br/>
+                    <div class="table-responsive" *ngIf="billingCycleInvoiceActivities">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                                <th jhiSortBy="user"><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.user">User</span> <span class="fa fa-sort"></span></th>
+                                <th jhiSortBy="pdfLink"><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.pdfLink">Pdf Link</span> <span class="fa fa-sort"></span></th>
+                                <th jhiSortBy="activity"><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.activity">Activity</span> <span class="fa fa-sort"></span></th>
+                                <th jhiSortBy="level"><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.level">Level</span> <span class="fa fa-sort"></span></th>
+                                <th jhiSortBy="message"><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.message">Message</span> <span class="fa fa-sort"></span></th>
+                                <th jhiSortBy="activityDate"><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.activityDate">Activity Date</span> <span class="fa fa-sort"></span></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let billingCycleInvoiceActivity of billingCycleInvoiceActivities ;trackBy: trackId">
+                                <td>{{billingCycleInvoiceActivity.user}}</td>
+                                <td>{{billingCycleInvoiceActivity.pdfLink}}</td>
+                                <td jhiTranslate="{{'billingWebApp.BillingCycleInvoiceActivityAction.' + billingCycleInvoiceActivity.activity}}">{{billingCycleInvoiceActivity.activity}}</td>
+                                <td jhiTranslate="{{'billingWebApp.ActivityLevel.' + billingCycleInvoiceActivity.level}}">{{billingCycleInvoiceActivity.level}}</td>
+                                <td>{{billingCycleInvoiceActivity.message}}</td>
+                                <td>{{billingCycleInvoiceActivity.activityDate | date:'medium'}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="billingCycleInvoiceActivities && billingCycleInvoiceActivities.length">
+                        <div class="row justify-content-center">
+                            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                        </div>
+                        <div class="row justify-content-center">
+                            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabInvoiceAutoApprovalTests">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.autoApprovalTests.home.title">Auto Approval Tests</span></ng-template>
+            <ng-template ngbTabContent>
+                <jhi-auto-approval-tests [buddeflyInvoice]="budderflyInvoice">
+                </jhi-auto-approval-tests>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>

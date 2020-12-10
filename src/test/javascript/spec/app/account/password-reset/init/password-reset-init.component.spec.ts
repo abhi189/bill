@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed, inject } from '@angular/core/testing';
 import { Renderer, ElementRef } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
-import { HomebillingwebTestModule } from '../../../../test.module';
-import { PasswordResetInitComponent } from 'app/account/password-reset/init/password-reset-init.component';
-import { PasswordResetInitService } from 'app/account/password-reset/init/password-reset-init.service';
-import { EMAIL_NOT_FOUND_TYPE } from 'app/shared';
+import { BillingWebTestModule } from '../../../../test.module';
+import { PasswordResetInitComponent } from '../../../../../../../main/webapp/app/account/password-reset/init/password-reset-init.component';
+import { PasswordResetInitService } from '../../../../../../../main/webapp/app/account/password-reset/init/password-reset-init.service';
+import { EMAIL_NOT_FOUND_TYPE } from '../../../../../../../main/webapp/app/shared';
 
 describe('Component Tests', () => {
     describe('PasswordResetInitComponent', () => {
@@ -14,9 +14,10 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             fixture = TestBed.configureTestingModule({
-                imports: [HomebillingwebTestModule],
+                imports: [BillingWebTestModule],
                 declarations: [PasswordResetInitComponent],
                 providers: [
+                    PasswordResetInitService,
                     {
                         provide: Renderer,
                         useValue: {
@@ -59,7 +60,7 @@ describe('Component Tests', () => {
         }));
 
         it('notifies of success upon successful requestReset', inject([PasswordResetInitService], (service: PasswordResetInitService) => {
-            spyOn(service, 'save').and.returnValue(of({}));
+            spyOn(service, 'save').and.returnValue(Observable.of({}));
             comp.resetAccount.email = 'user@domain.com';
 
             comp.requestReset();
@@ -74,9 +75,11 @@ describe('Component Tests', () => {
             [PasswordResetInitService],
             (service: PasswordResetInitService) => {
                 spyOn(service, 'save').and.returnValue(
-                    throwError({
+                    Observable.throw({
                         status: 400,
-                        error: { type: EMAIL_NOT_FOUND_TYPE }
+                        json() {
+                            return { type: EMAIL_NOT_FOUND_TYPE };
+                        }
                     })
                 );
                 comp.resetAccount.email = 'user@domain.com';
@@ -92,7 +95,7 @@ describe('Component Tests', () => {
 
         it('notifies of error upon error response', inject([PasswordResetInitService], (service: PasswordResetInitService) => {
             spyOn(service, 'save').and.returnValue(
-                throwError({
+                Observable.throw({
                     status: 503,
                     data: 'something else'
                 })

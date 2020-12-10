@@ -1,0 +1,27 @@
+{
+    "billingWebApp": {
+        "dataRetention": {
+            "home": {
+                "title": "Data Retentions",
+                "createLabel": "Create a new Data Retention",
+                "createOrEditLabel": "Create or edit a Data Retention",
+                "search": "Search for Data Retention"
+            },
+            "created": "A new Data Retention is created with identifier {{ param }}",
+            "updated": "A Data Retention is updated with identifier {{ param }}",
+            "deleted": "A Data Retention is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Data Retention {{ id }}?"
+            },
+            "detail": {
+                "title": "Data Retention"
+            },
+            "serviceName": "Service Name",
+            "serviceDescription": "Service Description",
+            "serviceRetentionPeriodYear": "Service Retention Period Year",
+            "serviceRetentionPeriodMonth": "Service Retention Period Month",
+            "serviceRetentionPeriodDay": "Service Retention Period Day",
+            "serviceEndpoint": "Service Endpoint"
+        }
+    }
+}

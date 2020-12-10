@@ -1,0 +1,34 @@
+{
+    "billingWebApp": {
+        "BudderflyInvoiceStatus": {
+            "null": "",
+            "IN_PROGRESS": "IN_PROGRESS",
+            "PENDING_APPROVAL": "PENDING_APPROVAL",
+            "APPROVED": "APPROVED",
+            "SENT": "SENT",
+            "REJECTED": "REJECTED",
+            "LOCKED": "LOCKED",
+            "ON_HOLD": "ON_HOLD",
+            "WAITING": "WAITING",
+            "FAILED": "FAILED",
+            "VALIDATION_FAILED": "VALIDATION_FAILED",
+            "VALIDATION_PASS": "VALIDATION_PASS"
+        }
+    },
+    "invoiceApp": {
+        "BudderflyInvoiceStatus": {
+            "null": "",
+            "IN_PROGRESS": "IN_PROGRESS",
+            "PENDING_APPROVAL": "PENDING_APPROVAL",
+            "APPROVED": "APPROVED",
+            "SENT": "SENT",
+            "REJECTED": "REJECTED",
+            "LOCKED": "LOCKED",
+            "ON_HOLD": "ON_HOLD",
+            "WAITING": "WAITING",
+            "FAILED": "FAILED",
+            "VALIDATION_FAILED": "VALIDATION_FAILED",
+            "VALIDATION_PASS": "VALIDATION_PASS"
+        }
+    }
+}

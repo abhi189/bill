@@ -1,0 +1,86 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myAlertMsLabel" jhiTranslate="billingWebApp.alertMs.home.createOrEditLabel">Create or edit a Alert Ms</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!alertMs.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="alertMs.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alertMs.assignee" for="field_assignee">Assignee</label>
+            <input type="text" class="form-control" name="assignee" id="field_assignee"
+                [(ngModel)]="alertMs.assignee" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alertMs.alertType" for="field_alertType">Alert Type</label>
+            <select class="form-control" name="alertType" [(ngModel)]="alertMs.alertType" id="field_alertType" >
+                <option value="EQUIPMENT">{{'billingWebApp.AlertType.EQUIPMENT' | translate}}</option>
+                <option value="OTHER">{{'billingWebApp.AlertType.OTHER' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alertMs.budderflyId" for="field_budderflyId">Budderfly Id</label>
+            <input type="text" class="form-control" name="budderflyId" id="field_budderflyId"
+                [(ngModel)]="alertMs.budderflyId" required/>
+            <div [hidden]="!(editForm.controls.budderflyId?.dirty && editForm.controls.budderflyId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.budderflyId?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alertMs.item" for="field_item">Item</label>
+            <input type="text" class="form-control" name="item" id="field_item"
+                [(ngModel)]="alertMs.item" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alertMs.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="alertMs.description" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alertMs.source" for="field_source">Source</label>
+            <select class="form-control" name="source" [(ngModel)]="alertMs.source" id="field_source" >
+                <option value="KE2">{{'billingWebApp.SourceType.KE2' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alertMs.alertDate" for="field_alertDate">Alert Date</label>
+            <div class="d-flex">
+                <input id="field_alertDate" type="datetime-local" class="form-control" name="alertDate" [(ngModel)]="alertMs.alertDate"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alertMs.severity" for="field_severity">Severity</label>
+            <select class="form-control" name="severity" [(ngModel)]="alertMs.severity" id="field_severity" >
+                <option value="HIGH">{{'billingWebApp.SeverityType.HIGH' | translate}}</option>
+                <option value="MEDIUM">{{'billingWebApp.SeverityType.MEDIUM' | translate}}</option>
+                <option value="LOW">{{'billingWebApp.SeverityType.LOW' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alertMs.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="alertMs.status" id="field_status" >
+                <option value="OPEN">{{'billingWebApp.AlertStatus.OPEN' | translate}}</option>
+                <option value="CLOSED">{{'billingWebApp.AlertStatus.CLOSED' | translate}}</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

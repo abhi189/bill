@@ -1,0 +1,24 @@
+<div>
+    <h3>
+        <span jhiTranslate="billingWebApp.importMapping.home.title" translateValues="{tariffId:'{{importMapping.tariffId}}'}">Unmapped items</span>
+    </h3>
+    <hr>
+    <button type="button" class="btn btn-primary float-right btn-restart-job" (click)="restartJob()">
+        <span class="fa fa-refresh"></span>
+        <span class="d-none d-md-inline"> Restart Job</span>
+    </button>
+    <br>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+         <jhi-utility-mapping-rule-job-task ></jhi-utility-mapping-rule-job-task>
+         <jhi-tariff-mapping-rule-job-task></jhi-tariff-mapping-rule-job-task>
+         <jhi-rate-charge-mapping-job-task [importMapping]="importMapping"></jhi-rate-charge-mapping-job-task>
+         <jhi-rate-component-mapping-job-task [importMapping]="importMapping"></jhi-rate-component-mapping-job-task>
+         <jhi-rate-usage-type-mapping-job-task [importMapping]="importMapping"></jhi-rate-usage-type-mapping-job-task>
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+</div>

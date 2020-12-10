@@ -16,14 +16,15 @@
             "configServer": "Microservice Config Server",
             "hystrix": "Hystrix",
             "diskSpace": "Disk space",
-            "mail": "Email"
+            "mail": "Email",
+            "elasticsearch": "Elasticsearch",
+            "db": "Database"
         },
         "table": {
             "service": "Service name",
             "status": "Status"
         },
         "status": {
-            "UNKNOWN": "UNKNOWN",
             "UP": "UP",
             "DOWN": "DOWN"
         }

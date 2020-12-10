@@ -1,0 +1,9 @@
+{
+    "billingWebApp": {
+        "JobExecutionType": {
+            "null": "",
+            "ERROR": "ERROR",
+            "SUCCESS": "SUCCESS"
+        }
+    }
+}

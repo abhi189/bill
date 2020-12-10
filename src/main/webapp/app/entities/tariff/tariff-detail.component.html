@@ -1,0 +1,73 @@
+<div *ngIf="tariff">
+    <ng-container *ngIf="tariff.utilityProviderKey && tariff.tariffName; else externalIdTitle">
+        <h2>{{tariff.utilityProviderKey}} / {{tariff.tariffName}}</h2>
+    </ng-container>
+    <ng-template #externalIdTitle>
+        <h2>Importing Tariff: {{tariff.providerName}} / {{tariff.externalId}}</h2>
+    </ng-template>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.tariff.utilityProviderKey">Utility Provider</span></dt>
+        <dd>
+            <span>{{tariff.utilityProviderKey}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tariff.tariffName">Tariff Name</span></dt>
+        <dd>
+            <span>{{tariff.tariffName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tariff.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.TariffStatus.' + tariff.status}}">{{tariff.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tariff.provider">Provider</span></dt>
+        <dd>
+            <span>{{tariff.providerName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tariff.externalId">External Id</span></dt>
+        <dd>
+            <span>{{tariff.externalId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tariff.autoUpdate">Autoupdate</span></dt>
+        <dd>
+            <span>{{tariff.autoUpdate}}</span>
+        </dd>
+    </dl>
+    <ngb-tabset [justify]="'fill'" type="pills" class="nav-background" [activeId]="activeIdString">
+        <ngb-tab id="tabCurrentRates">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.tariff.currentRates">Current Rates</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-tariff-rates-table [tariffYears]="tariffYears" [tariff]="tariff"
+                                        (toParent)="load($event)" [manualProvider]="isManualProvider()">
+                </jhi-tariff-rates-table>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabImportHistory" [disabled]="isManualProvider()"> 
+            <ng-template ngbTabTitle>Import History</ng-template>
+            <ng-template ngbTabContent>
+                <jhi-rate-import-job [tariffId]="tariff.id" [jobId]="jobId" (loadTariff)="load($event)" ></jhi-rate-import-job>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabTariffVersionHistory" [disabled]="isManualProvider()">
+            <ng-template ngbTabTitle>Tariff Version History</ng-template>
+            <ng-template ngbTabContent>
+                <jhi-tariff-version-history [tariffId]="tariff.id" (loadTariff)="load($event)" ></jhi-tariff-version-history>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'tariff/'+ tariff.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

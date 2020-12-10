@@ -1,0 +1,42 @@
+{
+    "billingWebApp": {
+        "rateChargeMapping": {
+            "home": {
+                "title": "Rate Charge Mappings",
+                "createLabel": "Create a new Rate Charge Mapping",
+                "createOrEditLabel": "Create or edit a Rate Charge Mapping",
+                "search": "Search for Rate Charge Mapping"
+            },
+            "created": "A new Rate Charge Mapping is created with identifier {{ param }}",
+            "updated": "A Rate Charge Mapping is updated with identifier {{ param }}",
+            "deleted": "A Rate Charge Mapping is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Rate Charge Mapping {{ id }}?"
+            },
+            "edit": {
+                "question": "Rate Charge Mapping  {{ id }} is being used in other tariffs. Are you sure you want to edit?"
+            },
+            "detail": {
+                "title": "Rate Charge Mapping"
+            },
+            "bdChargeId": "Bd Charge Id",
+            "bdChargeDescription": "Bd Charge Description",
+            "bdInvoiceSection": "Bd Invoice Section",
+            "rateName": "Rate Name",
+            "rateGroupName": "Rate Group Name",
+            "chargeClass": "Charge Class",
+            "seasonName": "Season Name",
+            "applicabilityValue": "Applicability Value",
+            "rateMapped": "Rate Mapped",
+            "ignoreExport": "Ignore Export",
+            "forceOptional": "Force Optional",
+            "provider": "Provider",
+            "tariffCount": "Tariff Usage"
+        },
+        "billingimportRateChargeMapping": {
+            "created": "A new Rate Charge Mapping is created with identifier {{ param }}",
+            "updated": "A Rate Charge Mapping is updated with identifier {{ param }}",
+            "deleted": "A Rate Charge Mapping is deleted with identifier {{ param }}"
+        }
+    }
+}

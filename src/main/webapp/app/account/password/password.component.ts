@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AccountService } from 'app/core';
+import { Principal } from '../../shared';
 import { PasswordService } from './password.service';
 
 @Component({
@@ -14,24 +14,26 @@ export class PasswordComponent implements OnInit {
     account: any;
     currentPassword: string;
     newPassword: string;
+    password: string;
     confirmPassword: string;
 
-    constructor(private passwordService: PasswordService, private accountService: AccountService) {}
+    constructor(private passwordService: PasswordService, private principal: Principal) {}
 
     ngOnInit() {
-        this.accountService.identity().then(account => {
+        this.principal.identity().then(account => {
             this.account = account;
         });
     }
 
     changePassword() {
-        if (this.newPassword !== this.confirmPassword) {
+        this.doNotMatch = null;
+        this.error = null;
+        if (this.currentPassword === this.newPassword) {
             this.error = null;
             this.success = null;
             this.doNotMatch = 'ERROR';
         } else {
-            this.doNotMatch = null;
-            this.passwordService.save(this.newPassword, this.currentPassword).subscribe(
+            this.passwordService.save({ currentPassword: this.currentPassword, newPassword: this.newPassword }).subscribe(
                 () => {
                     this.error = null;
                     this.success = 'OK';

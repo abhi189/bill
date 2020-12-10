@@ -1,0 +1,110 @@
+
+<div *ngIf="charge">
+    <h2><span jhiTranslate="billingWebApp.charge.detail.title">Charge</span> {{charge.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.charge.chargeId">Charge Id</span></dt>
+        <dd>
+            <span>{{charge.chargeId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.lifecycle">Lifecycle</span></dt>
+        <dd>
+            <span>{{charge.lifecycle}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.usageUnit">Usage Unit</span></dt>
+        <dd>
+            <span>{{charge.usageUnit}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.measurementType">Measurement Type</span></dt>
+        <dd>
+            <span>{{charge.measurementType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.rateComponent">Rate Component</span></dt>
+        <dd>
+            <span>{{charge.rateComponent}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.intervalStart">Interval Start</span></dt>
+        <dd>
+            <span>{{charge.intervalStart | date:'medium':'UTC'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.intervalEnd">Interval End</span></dt>
+        <dd>
+            <span>{{charge.intervalEnd | date:'medium':'UTC'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.chargeAmount">Charge Amount</span></dt>
+        <dd>
+            <span>{{charge.chargeAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.chargeAmountCurrency">Charge Amount Currency</span></dt>
+        <dd>
+            <span>{{charge.chargeAmountCurrency}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.chargeCurrency">Charge Currency</span></dt>
+        <dd>
+            <span>{{charge.chargeCurrency}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.chargeRateCurrency">Charge Rate Currency</span></dt>
+        <dd>
+            <span>{{charge.chargeRateCurrency}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.chargeRatePerUnit">Charge Rate Per Unit</span></dt>
+        <dd>
+            <span>{{charge.chargeRatePerUnit}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.chargeRatePerUnitMultiplier">Charge Rate Per Unit Multiplier</span></dt>
+        <dd>
+            <span>{{charge.chargeRatePerUnitMultiplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.chargeUnitsUsed">Charge Units Used</span></dt>
+        <dd>
+            <span>{{charge.chargeUnitsUsed}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.chargeActualName">Charge Actual Name</span></dt>
+        <dd>
+            <span>{{charge.chargeActualName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.thirdPartyProvider">Third Party Provider</span></dt>
+        <dd>
+            <span>{{charge.thirdPartyProvider}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.thirdPartyAccountNumber">Third Party Account Number</span></dt>
+        <dd>
+            <span>{{charge.thirdPartyAccountNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.isAdjustmentCharge">Is Adjustment Charge</span></dt>
+        <dd>
+            <span>{{charge.isAdjustmentCharge}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{charge.createDate | date:'medium':'UTC'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.invoice">Invoice</span></dt>
+        <dd>
+            <div *ngIf="charge.invoiceId">
+                <a [routerLink]="['/invoice', charge.invoiceId]">{{charge.invoiceId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.charge.meter">Meter</span></dt>
+        <dd>
+            <div *ngIf="charge.meterId">
+                <a [routerLink]="['/meter', charge.meterId]">{{charge.meterId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'charge/'+ charge.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

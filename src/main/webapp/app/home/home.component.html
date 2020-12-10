@@ -1,29 +1,28 @@
-<main class="home-container">
-    <div class="home-container-inner">
+<div class="row">
+    <div class="col-md-12">
         <div class="row">
-            <div class="container col-sm-12 col-md-10 col-lg-8 col-xl-5">
-                <div class="logo-container row">
-                    <div class="logo col-12 col-sm-12">
-                        <div class="logo-text">
-                            <img src='../../content/images/budderfly-logo-primary-large.png' alt='Portal logo' />
-                        </div>
-                        <h2>Welcome to Budderfly</h2>
+            <div class="col-md-12">
+                <span class="logo img-fluid rounded center"></span>
+            </div>
+        </div>
+        <div class="row mt-5 justify-content-md-center">
+            <div class="col-md-9">
+                <div [ngSwitch]="isAuthenticated()">
+                    <div class="alert alert-info text-center" *ngSwitchCase="true">
+                        <span *ngIf="account" jhiTranslate="home.logged.message"
+                            translateValues="{username: '{{account.login}}'}"> You are logged in as user "{{account.login}}". </span>
                     </div>
-                </div>
-                <jhi-login-component *ngIf="activeForm === 'login'"
-                    (gotToRegister)="onRegisterClick()"
-                    (goToForgot)="onForgotPasswordClick()"
-                ></jhi-login-component>
-                <jhi-register-component *ngIf="activeForm === 'register'"
-                    (goToLogin)="onLoginClick()"
-                >
-                </jhi-register-component>
-                <jhi-reset-component *ngIf="activeForm === 'reset'"
-                    (gotToLogin)="onLoginClick()"
-                >
-                </jhi-reset-component>
+        
+                    <div class="alert alert-info text-center" *ngSwitchCase="false">
+                        <span jhiTranslate="global.messages.info.authenticated.prefix">If you want to </span>
+                        <a class="alert-link" (click)="login()" jhiTranslate="global.messages.info.authenticated.link">sign in</a><span jhiTranslate="global.messages.info.authenticated.suffix">, your account information was sent over email.</span>
+                    </div>
+                    <div class="alert alert-light text-center" *ngSwitchCase="false">
+                        <span jhiTranslate="global.messages.info.register.noaccount">You don't have an account yet?</span>
+                        <span jhiTranslate="global.messages.info.register.link">Contact the administrator</span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</main>
+</div>

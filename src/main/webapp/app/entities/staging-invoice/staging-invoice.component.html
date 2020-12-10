@@ -1,0 +1,145 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.stagingInvoice.home.title">Staging Invoices</span>
+        <button class="btn btn-primary float-right jh-create-entity create-staging-invoice" [routerLink]="['/', { outlets: { popup: ['staging-invoice-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.stagingInvoice.home.createLabel">
+            Create new Staging Invoice
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.stagingInvoice.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="stagingInvoices">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="electricSupplier"><span jhiTranslate="billingWebApp.stagingInvoice.electricSupplier">Electric Supplier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalStart"><span jhiTranslate="billingWebApp.stagingInvoice.intervalStart">Interval Start</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalEnd"><span jhiTranslate="billingWebApp.stagingInvoice.intervalEnd">Interval End</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="billingDays"><span jhiTranslate="billingWebApp.stagingInvoice.billingDays">Billing Days</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="statementDate"><span jhiTranslate="billingWebApp.stagingInvoice.statementDate">Statement Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dueByDate"><span jhiTranslate="billingWebApp.stagingInvoice.dueByDate">Due By Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="invoiceNumber"><span jhiTranslate="billingWebApp.stagingInvoice.invoiceNumber">Invoice Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="statementCreateDate"><span jhiTranslate="billingWebApp.stagingInvoice.statementCreateDate">Statement Create Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="statementType"><span jhiTranslate="billingWebApp.stagingInvoice.statementType">Statement Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="newCharges"><span jhiTranslate="billingWebApp.stagingInvoice.newCharges">New Charges</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="totalBillAmount"><span jhiTranslate="billingWebApp.stagingInvoice.totalBillAmount">Total Bill Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="amountDue"><span jhiTranslate="billingWebApp.stagingInvoice.amountDue">Amount Due</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="outstandingBalance"><span jhiTranslate="billingWebApp.stagingInvoice.outstandingBalance">Outstanding Balance</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="previousBalance"><span jhiTranslate="billingWebApp.stagingInvoice.previousBalance">Previous Balance</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="peakKWH"><span jhiTranslate="billingWebApp.stagingInvoice.peakKWH">Peak KWH</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="midPeakKWH"><span jhiTranslate="billingWebApp.stagingInvoice.midPeakKWH">Mid Peak KWH</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="offPeakKWH"><span jhiTranslate="billingWebApp.stagingInvoice.offPeakKWH">Off Peak KWH</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="totalKWH"><span jhiTranslate="billingWebApp.stagingInvoice.totalKWH">Total KWH</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="peakKW"><span jhiTranslate="billingWebApp.stagingInvoice.peakKW">Peak KW</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="midPeakKW"><span jhiTranslate="billingWebApp.stagingInvoice.midPeakKW">Mid Peak KW</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="offPeakKW"><span jhiTranslate="billingWebApp.stagingInvoice.offPeakKW">Off Peak KW</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="maxKW"><span jhiTranslate="billingWebApp.stagingInvoice.maxKW">Max KW</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="siteAccountId"><span jhiTranslate="billingWebApp.stagingInvoice.siteAccountId">Site Account Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="providerId"><span jhiTranslate="billingWebApp.stagingInvoice.providerId">Provider Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="providerStatementId"><span jhiTranslate="billingWebApp.stagingInvoice.providerStatementId">Provider Statement Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="providerName"><span jhiTranslate="billingWebApp.stagingInvoice.providerName">Provider Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="jobHistoryId"><span jhiTranslate="billingWebApp.stagingInvoice.jobHistoryId">Job History Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="totalUnit"><span jhiTranslate="billingWebApp.stagingInvoice.totalUnit">Total Unit</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="totalVolume"><span jhiTranslate="billingWebApp.stagingInvoice.totalVolume">Total Volume</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="billingAccount"><span jhiTranslate="billingWebApp.stagingInvoice.billingAccount">Billing Account</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="billingAddress"><span jhiTranslate="billingWebApp.stagingInvoice.billingAddress">Billing Address</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="billingContact"><span jhiTranslate="billingWebApp.stagingInvoice.billingContact">Billing Contact</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="updatedDate"><span jhiTranslate="billingWebApp.stagingInvoice.updatedDate">Updated Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="authorizationUid"><span jhiTranslate="billingWebApp.stagingInvoice.authorizationUid">Authorization Uid</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="sourceLink"><span jhiTranslate="billingWebApp.stagingInvoice.sourceLink">Source Link</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdDate"><span jhiTranslate="billingWebApp.stagingInvoice.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastModified"><span jhiTranslate="billingWebApp.stagingInvoice.lastModified">Last Modified</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="imported"><span jhiTranslate="billingWebApp.stagingInvoice.imported">Imported</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let stagingInvoice of stagingInvoices ;trackBy: trackId">
+                <td><a [routerLink]="['../staging-invoice', stagingInvoice.id ]">{{stagingInvoice.id}}</a></td>
+                <td>{{stagingInvoice.electricSupplier}}</td>
+                <td>{{stagingInvoice.intervalStart | date:'mediumDate'}}</td>
+                <td>{{stagingInvoice.intervalEnd | date:'mediumDate'}}</td>
+                <td>{{stagingInvoice.billingDays}}</td>
+                <td>{{stagingInvoice.statementDate | date:'medium'}}</td>
+                <td>{{stagingInvoice.dueByDate | date:'medium'}}</td>
+                <td>{{stagingInvoice.invoiceNumber}}</td>
+                <td>{{stagingInvoice.statementCreateDate | date:'medium'}}</td>
+                <td>{{stagingInvoice.statementType}}</td>
+                <td>{{stagingInvoice.newCharges}}</td>
+                <td>{{stagingInvoice.totalBillAmount}}</td>
+                <td>{{stagingInvoice.amountDue}}</td>
+                <td>{{stagingInvoice.outstandingBalance}}</td>
+                <td>{{stagingInvoice.previousBalance}}</td>
+                <td>{{stagingInvoice.peakKWH}}</td>
+                <td>{{stagingInvoice.midPeakKWH}}</td>
+                <td>{{stagingInvoice.offPeakKWH}}</td>
+                <td>{{stagingInvoice.totalKWH}}</td>
+                <td>{{stagingInvoice.peakKW}}</td>
+                <td>{{stagingInvoice.midPeakKW}}</td>
+                <td>{{stagingInvoice.offPeakKW}}</td>
+                <td>{{stagingInvoice.maxKW}}</td>
+                <td>{{stagingInvoice.siteAccountId}}</td>
+                <td>{{stagingInvoice.providerId}}</td>
+                <td>{{stagingInvoice.providerStatementId}}</td>
+                <td>{{stagingInvoice.providerName}}</td>
+                <td>{{stagingInvoice.jobHistoryId}}</td>
+                <td>{{stagingInvoice.totalUnit}}</td>
+                <td>{{stagingInvoice.totalVolume}}</td>
+                <td>{{stagingInvoice.billingAccount}}</td>
+                <td>{{stagingInvoice.billingAddress}}</td>
+                <td>{{stagingInvoice.billingContact}}</td>
+                <td>{{stagingInvoice.updatedDate | date:'medium'}}</td>
+                <td>{{stagingInvoice.authorizationUid}}</td>
+                <td>{{stagingInvoice.sourceLink}}</td>
+                <td>{{stagingInvoice.createdDate | date:'medium'}}</td>
+                <td>{{stagingInvoice.lastModified | date:'medium'}}</td>
+                <td>{{stagingInvoice.imported}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../staging-invoice', stagingInvoice.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'staging-invoice/'+ stagingInvoice.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'staging-invoice/'+ stagingInvoice.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

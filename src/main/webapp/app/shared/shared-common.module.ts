@@ -1,10 +1,27 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { registerLocaleData } from '@angular/common';
+import locale from '@angular/common/locales/en';
 
-import { PortalSharedLibsModule, FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent } from './';
+import { WindowRef } from './tracker/window.service';
+import { BillingWebSharedLibsModule, JhiLanguageHelper, FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent } from './';
 
 @NgModule({
-    imports: [PortalSharedLibsModule],
+    imports: [BillingWebSharedLibsModule],
     declarations: [FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent],
-    exports: [PortalSharedLibsModule, FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent]
+    providers: [
+        JhiLanguageHelper,
+        WindowRef,
+        Title,
+        {
+            provide: LOCALE_ID,
+            useValue: 'en'
+        }
+    ],
+    exports: [BillingWebSharedLibsModule, FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent]
 })
-export class PortalSharedCommonModule {}
+export class BillingWebSharedCommonModule {
+    constructor() {
+        registerLocaleData(locale);
+    }
+}

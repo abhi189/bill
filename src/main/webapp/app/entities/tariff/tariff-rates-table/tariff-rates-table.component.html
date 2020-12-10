@@ -1,0 +1,412 @@
+<jhi-alert></jhi-alert>
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+    <div class="row small">
+        <div class="pull-left col-sm-6 mt-1">
+            <div class="pull-left">
+                <select [disabled]="editingRate" class="form-control" name="rateYear" [(ngModel)]="selectedTariffYear"
+                        [ngModelOptions]="{standalone: true}"
+                        (ngModelChange)="onSelectedTariffYear($event)">
+                    <option *ngFor="let tariffYear of tariffYears" [ngValue]="tariffYear">{{tariffYear.year}}</option>
+                </select>
+            </div>
+            <div class="pull-left">
+                <button type="button" class="btn btn-info ml-2" (click)="copyToNextYear()"
+                        jhiTranslate="billingWebApp.rate.createNextYear">Create next year
+                </button>
+                <button type="button" class="btn btn-info ml-2" (click)="updateRates()" [disabled]="manualProvider">
+                    Update Rates
+                </button>
+            </div>
+            <div *ngIf="!updateRatesRunning; else spinner"></div>
+            <ng-template #spinner>
+                <div class="pull-left ml-xl-2 mt-xl-2">
+                    <div class="text-center">
+                        <div class="spinner-border">
+                            <i class="fa fa-spinner fa-spin"></i>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="container-buttons col-sm-6">
+            <div class="pull-right">
+                <button type="button" class="btn btn-info ml-2" *ngIf="editingRate" (click)="addNewRate()">Add</button>
+                <button type="button" class="btn btn-primary ml-2" *ngIf="!editingRate" (click)="editRates()">Edit
+                </button>
+                <button type="button" class="btn btn-danger ml-2" *ngIf="editingRate" (click)="cancelEditRates()">Cancel
+                </button>
+                <button type="button" class="btn btn-success ml-2" *ngIf="editingRate"
+                        [disabled]="editForm.form.invalid || !validateMonths()" (click)="confirmEditRates()">
+                    Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row-rates small">
+        <table class="table table-sm table-striped table-bordered">
+            <tr>
+                <th>
+                    <span jhiTranslate="billingWebApp.rate.optional">Opt</span>
+                    <span class="fa fa-sort" (click)="sortRateTable('optional')"></span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.rate.chargeId">Charge Id</span>
+                    <span class="fa fa-sort" (click)="sortRateTable('chargeId')"></span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.rate.chargeDescription">Charge Description</span>
+                    <span class="fa fa-sort" (click)="sortRateTable('chargeDescription')"></span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.rate.rateComponent">Rate Component</span>
+                    <span class="fa fa-sort" (click)="sortRateTable('rateComponent')"></span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.rate.usageUnit">Usage Unit</span>
+                    <span class="fa fa-sort" (click)="sortRateTable('usageUnit')"></span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.rate.rateType">Rate Type</span>
+                    <span class="fa fa-sort" (click)="sortRateTable('rateType')"></span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.rate.amount">Amount</span>
+                    <span class="fa fa-sort" (click)="sortRateTable('amount')"></span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.rate.applyPercentage">Apply Percentage</span>
+                    <span class="fa fa-sort" (click)="sortRateTable('applyPercentage')"></span>
+                </th>
+                <th *ngIf="editingRate"></th>
+                <th *ngFor="let month of monthNames;">
+                    <span jhiTranslate="billingWebApp.rate.{{month}}">{{month}}</span>
+                    <span class="fa fa-sort" (click)="sortRateTable(month)"></span>
+                </th>
+
+                <th>
+                    <span jhiTranslate="billingWebApp.rate.invoiceSection">Invoice Section</span>
+                    <span class="fa fa-sort" (click)="sortRateTable('invoiceSection')"></span>
+                </th>
+
+                <th>
+                    <span jhiTranslate="billingWebApp.rate.updateDate">Update Date</span>
+                    <span class="fa fa-sort" (click)="sortRateTable('updateDate')"></span>
+                </th>
+            </tr>
+            <ng-container *ngIf="creatingRate">
+                <tr *ngFor="let newRate of newRates; let i = index; trackBy: trackId">
+                    <td>
+                        <input type="checkbox" [(ngModel)]="newRate.optional"
+                               name="newRateOptional_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input required type="text" class="form-control" [(ngModel)]="newRate.chargeId"
+                               name="newRateChargeId_{{newRate.id}}">
+                        <small class="form-text text-danger"
+                               [hidden]="!(editForm.controls['newRateChargeId_' + newRate.id]?.errors?.required &&
+                               (editForm.controls['newRateChargeId_' + newRate.id]?.dirty || editForm.controls['newRateChargeId_' + newRate.id]?.touched))"
+                        >
+                            This field is required.
+                        </small>
+                    </td>
+                    <td>
+                        <input required type="text" class="form-control"
+                               [(ngModel)]="newRate.chargeDescription" name="newRateChargeDescription_{{newRate.id}}">
+                        <small class="form-text text-danger"
+                               [hidden]="!(editForm.controls['newRateChargeDescription_' + newRate.id]?.errors?.required &&
+                               (editForm.controls['newRateChargeDescription_' + newRate.id]?.dirty || editForm.controls['newRateChargeDescription_' + newRate.id]?.touched))"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" [(ngModel)]="newRate.rateComponent"
+                               name="newRateComponent_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <select required class="form-control select-rates" id="newRateUsageUnit_{{newRate.id}}"
+                                name="newRateUsageUnit_{{newRate.id}}"
+                                [(ngModel)]="newRate.usageUnit">
+                            <option *ngFor="let unit of ratesUsageUnits">{{unit}}</option>
+                        </select>
+                        <small class="form-text text-danger"
+                               [hidden]="!(editForm.controls['newRateUsageUnit_' + newRate.id]?.errors?.required &&
+                               (editForm.controls['newRateUsageUnit_' + newRate.id]?.dirty || editForm.controls['newRateUsageUnit_' + newRate.id]?.touched))"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </td>
+                    <td class="d-flex">
+                        <select class="form-control select-rates" id="newRateType_{{newRate.id}}"
+                                [(ngModel)]="newRate.rateTypeParsed" name="newRateType_{{newRate.id}}">
+                            <option value="FLAT">FLAT</option>
+                            <option value="USAGE">USAGE</option>
+                            <option value="PERCENTAGE">PERCENTAGE</option>
+                            <option value="TIER">TIER</option>
+                        </select>
+                        <input type="number" class="form-control max-width-rate-type"
+                               name="newTierNumber_{{newRate.id}}" id="newTierNumber_{{newRate.id}}"
+                               [(ngModel)]="newRate.tierNumber" [hidden]="enableTierNumber(newRate.rateTypeParsed)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" [(ngModel)]="newRate.amount"
+                               name="newRateAmount_{{newRate.id}}">
+                    </td>
+
+                    <td>
+                        <button type="button" (click)="openComboSelector(false, false, true, newRate)"
+                                class="btn btn-primary w-100"
+                                [disabled]="enableApplyPercentageButton(newRate.rateTypeParsed)">
+                            <span jhiTranslate="billingWebApp.siteAccount.select">Select Charges</span>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="form-control" *ngIf="editingRate"
+                                (click)="openMonthPopup(newRate)">
+                            Copy
+                        </button>
+                        <small class="form-text text-danger" [hidden]="checkIfAtLeastOneMonth(newRate)">
+                            At least one month is required.
+                        </small>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthJan"
+                               name="newRateMonthJan_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthFeb"
+                               name="newRateMonthFeb_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthMar"
+                               name="newRateMonthMar_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthApr"
+                               name="newRateMonthApr_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthMay"
+                               name="newRateMonthMay_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthJun"
+                               name="newRateMonthJun_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthJul"
+                               name="newRateMonthJul_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthAug"
+                               name="newRateMonthAug_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthSep"
+                               name="newRateMonthSep_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthOct"
+                               name="newRateMonthOct_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthNov"
+                               name="newRateMonthNov_{{newRate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="newRate.billingMonthDec"
+                               name="newRateMonthDec_{{newRate.id}}">
+                    </td>
+
+                    <td>
+                        <select class="form-control select-rates" id="newRateInvoiceSection_{{newRate.id}}"
+                                name="newRateInvoiceSection_{{newRate.id}}"
+                                [(ngModel)]="newRate.invoiceSection">
+                            <option *ngFor="let invoiceSection of invoiceSectionsMap;"
+                                    value="{{invoiceSection.key}}">{{invoiceSection.value}}</option>
+                        </select>
+                    </td>
+                    <td></td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove"
+                                (click)="removeNewRate(i, newRate)">
+                            <span class="fa fa-lg fa-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="editingRate">
+                <tr *ngFor="let rate of selectedTariffYear.rates; let i = index">
+                    <td>
+                        <input type="checkbox" [(ngModel)]="rate.optional"
+                               name="rateOptional_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input required type="text" class="form-control" [(ngModel)]="rate.chargeId"
+                               name="rateRateChargeId_{{rate.id}}">
+                        <small class="form-text text-danger"
+                               [hidden]="!(editForm.controls['rateRateChargeId_' + rate.id]?.errors?.required &&
+                               (editForm.controls['rateRateChargeId_' + rate.id]?.dirty || editForm.controls['rateRateChargeId_' + rate.id]?.touched))"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </td>
+                    <td>
+                        <input required type="text" class="form-control"
+                               [(ngModel)]="rate.chargeDescription" name="rateChargeDescription_{{rate.id}}">
+                        <small class="form-text text-danger"
+                               [hidden]="!(editForm.controls['rateChargeDescription_' + rate.id]?.errors?.required &&
+                               (editForm.controls['rateChargeDescription_' + rate.id]?.dirty || editForm.controls['rateChargeDescription_' + rate.id]?.touched))"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" [(ngModel)]="rate.rateComponent"
+                               name="rateComponent_{{rate.id}}">
+                    </td>
+                    <td>
+                        <select required class="form-control select-rates" id="rateUsageUnit_{{rate.id}}"
+                                name="rateUsageUnit_{{rate.id}}"
+                                [(ngModel)]="rate.usageUnit">
+                            <option *ngFor="let unit of ratesUsageUnits">{{unit}}</option>
+                        </select>
+                        <small class="form-text text-danger"
+                               [hidden]="!(editForm.controls['rateUsageUnit_' + rate.id]?.errors?.required &&
+                               (editForm.controls['rateUsageUnit_' + rate.id]?.dirty || editForm.controls['rateUsageUnit_' + rate.id]?.touched))"
+                               jhiTranslate="entity.validation.required">
+                            This field is required.
+                        </small>
+                    </td>
+                    <td class="d-flex">
+                        <select class="form-control select-rates" id="rateType_{{rate.id}}"
+                                [(ngModel)]="rate.rateTypeParsed"
+                                name="rateType_{{rate.id}}">
+                            <option value="FLAT">FLAT</option>
+                            <option value="USAGE">USAGE</option>
+                            <option value="PERCENTAGE">PERCENTAGE</option>
+                            <option value="TIER">TIER</option>
+                        </select>
+                        <input type="number" class="form-control max-width-rate-type" name="newTierNumber_{{rate.id}}"
+                               id="newTierNumber_{{rate.id}}"
+                               [(ngModel)]="rate.tierNumber" [hidden]="enableTierNumber(rate.rateTypeParsed)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" [(ngModel)]="rate.amount" name="rateAmount_{{rate.id}}">
+                    </td>
+                    <td>
+                        <button type="button" (click)="openComboSelector(false, false, false, rate)"
+                                class="btn btn-primary w-100"
+                                [disabled]="enableApplyPercentageButton(rate.rateTypeParsed)">
+                            <span jhiTranslate="billingWebApp.siteAccount.select">Select Charges</span>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" class="form-control" *ngIf="editingRate" (click)="openMonthPopup(rate)">
+                            Copy
+                        </button>
+                        <small class="form-text text-danger" [hidden]="checkIfAtLeastOneMonth(rate)">
+                            At least one month is required.
+                        </small>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthJan"
+                               name="rateMonthJan_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthFeb"
+                               name="rateMonthFeb_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthMar"
+                               name="rateMonthMar_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthApr"
+                               name="rateMonthApr_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthMay"
+                               name="rateMonthMay_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthJun"
+                               name="rateMonthJun_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthJul"
+                               name="rateMonthJul_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthAug"
+                               name="rateMonthAug_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthSep"
+                               name="rateMonthSep_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthOct"
+                               name="rateMonthOct_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthNov"
+                               name="rateMonthNov_{{rate.id}}">
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.billingMonthDec"
+                               name="rateMonthDec_{{rate.id}}">
+                    </td>
+
+                    <td>
+                        <select class="form-control select-rates" id="rateInvoiceSection_{{rate.id}}"
+                                name="rateInvoiceSection_{{rate.id}}"
+                                [(ngModel)]="rate.invoiceSection">
+                            <option *ngFor="let invoiceSection of invoiceSectionsMap;"
+                                    value="{{invoiceSection.key}}">{{invoiceSection.value}}</option>
+                        </select>
+                    </td>
+                    <td>{{ rate.updateDate | date:'MM-dd-yyyy':'UTC'}}</td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove"
+                                (click)="removeRate(i, rate)">
+                            <span class="fa fa-lg fa-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="!editingRate">
+                <tr *ngFor="let rate of selectedTariffYear.rates; let i = index;">
+                    <td>
+                        <input type="checkbox" disabled [(ngModel)]="rate.optional"
+                               name="rateOptional_{{i}}">
+                    </td>
+                    <td>{{rate?.chargeId}}</td>
+                    <td>{{rate?.chargeDescription}}</td>
+                    <td>{{rate?.rateComponent}}</td>
+                    <td>{{rate?.usageUnit}}</td>
+                    <td>{{rate?.rateType}}</td>
+                    <td>{{rate?.amount}}</td>
+                    <td><a (click)="openComboSelector(false, true, false, rate)">
+                        <span>{{labelForAP(rate)}}</span>
+                    </a></td>
+                    <td>{{rate?.billingMonthJan}}</td>
+                    <td>{{rate?.billingMonthFeb}}</td>
+                    <td>{{rate?.billingMonthMar}}</td>
+                    <td>{{rate?.billingMonthApr}}</td>
+                    <td>{{rate?.billingMonthMay}}</td>
+                    <td>{{rate?.billingMonthJun}}</td>
+                    <td>{{rate?.billingMonthJul}}</td>
+                    <td>{{rate?.billingMonthAug}}</td>
+                    <td>{{rate?.billingMonthSep}}</td>
+                    <td>{{rate?.billingMonthOct}}</td>
+                    <td>{{rate?.billingMonthNov}}</td>
+                    <td>{{rate?.billingMonthDec}}</td>
+                    <td>{{InvoiceSectionEnum[rate?.invoiceSection]}} </td>
+                    <td>{{rate?.updateDate | date:'MM-dd-yyyy':'UTC'}}</td>
+                </tr>
+            </ng-container>
+        </table>
+    </div>
+</form>

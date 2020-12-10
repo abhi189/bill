@@ -1,0 +1,67 @@
+<jhi-alert></jhi-alert>
+<ngb-accordion #accordion="ngbAccordion" class="m-1">
+    <ng-container *ngFor="let job of rateImportJobs; let i = index">
+        <ngb-panel>
+            <ng-template ngbPanelTitle>
+                <span>{{job.createdDate | date:'medium'}} - {{RateImportJobStatus[job.status]}}</span>
+                <button type="button" class="btn btn-primary btn-restart-job" *ngIf="jobIsRestartable(job, i)"
+                        (click)="restartJob(job, $event)">
+                    <span class="fa fa-refresh"></span>
+                    <span class="d-none d-md-inline"> Restart</span>
+                </button>
+                <button type="button" class="btn btn-secondary ml-2 btn-refresh" *ngIf="jobIsRestartable(job, i)"
+                        (click)="getRateImportJobs()">
+                    <span>Refresh</span>
+                </button>
+                <a id="lnkUpdateMappings" class="lnk-fix-mappings" [routerLink]="['../../import-mapping']" [queryParams]="importMapping" *ngIf="fixMappings(job)">Update Mappings</a>
+
+            </ng-template>
+            <ng-template ngbPanelContent>
+                <p>
+                    <ng-container *ngIf="job.completedTasks > 0">
+                        <ngb-progressbar type="success" [value]="job.percentageCompletion">{{job.completedTasks}} /
+                            {{job.totalTasks}}</ngb-progressbar>
+                    </ng-container>
+                </p>
+                <p>
+                    <ng-container *ngIf="job.failedTasks > 0">
+                        <ngb-progressbar type="danger" [value]="job.percentageFailed">{{job.failedTasks}} /
+                            {{job.totalTasks}}</ngb-progressbar>
+                    </ng-container>
+                </p>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Task</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Error Message</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let task of job.importRateJobTasks; index as i">
+                        <th scope="row">{{ i + 1 }}</th>
+                        <td> {{ TaskDescription[task.name] }} </td>
+                        <td> {{ TaskStatus[task.status] }} </td>
+                        <td>
+                            <span *ngIf="LinksErrorMessages[task.codeMessage]" >
+                                <a
+                                   [routerLink]="LinksErrorMessages[task.codeMessage].url"
+                                   [queryParams]="LinksErrorMessages[task.codeMessage].queryParams">
+                                {{ 'billingWebApp.jobHistory.error.' + task.codeMessage | translate }}
+                            </a>
+                            </span>
+                            <span *ngIf="task.codeMessage != null && !LinksErrorMessages[task.codeMessage] ">
+                                  {{ 'billingWebApp.jobHistory.error.' + task.codeMessage | translate }}
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </ng-template>
+        </ngb-panel>
+    </ng-container>
+</ngb-accordion>
+<ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true"
+                [boundaryLinks]="true" (pageChange)="loadPage(page)">
+</ngb-pagination>

@@ -1,0 +1,103 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.tax.home.title">Taxes</span>
+        <button class="btn btn-primary float-right jh-create-entity create-tax" [routerLink]="['/', { outlets: { popup: ['tax-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="billingWebApp.tax.home.createLabel">
+            Create new Tax
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="taxes">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="city"><span jhiTranslate="billingWebApp.tax.city">City</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="state"><span jhiTranslate="billingWebApp.tax.state">State</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="country"><span jhiTranslate="billingWebApp.tax.country">Country</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="zip"><span jhiTranslate="billingWebApp.tax.zip">Zip</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cityTax"><span jhiTranslate="billingWebApp.tax.cityTax">City Tax</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cityTaxName"><span jhiTranslate="billingWebApp.tax.cityTaxName">City Tax Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="stateTax"><span jhiTranslate="billingWebApp.tax.stateTax">State Tax</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="stateExemptAmount"><span jhiTranslate="billingWebApp.tax.stateExemptAmount">State Exempt Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="stateTaxName"><span jhiTranslate="billingWebApp.tax.stateTaxName">State Tax Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="countyTax"><span jhiTranslate="billingWebApp.tax.countyTax">County Tax</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="countyTaxName"><span jhiTranslate="billingWebApp.tax.countyTaxName">County Tax Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="otherTax"><span jhiTranslate="billingWebApp.tax.otherTax">Other Tax</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="otherTaxName"><span jhiTranslate="billingWebApp.tax.otherTaxName">Other Tax Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="vadidFrom"><span jhiTranslate="billingWebApp.tax.vadidFrom">Vadid From</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="validTo"><span jhiTranslate="billingWebApp.tax.validTo">Valid To</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdBy"><span jhiTranslate="billingWebApp.tax.createdBy">Created By</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdDate"><span jhiTranslate="billingWebApp.tax.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="editedBy"><span jhiTranslate="billingWebApp.tax.lastModifiedBy">Edited By</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="editedDate"><span jhiTranslate="billingWebApp.tax.lastModifiedDate">Edited Date</span> <span class="fa fa-sort"></span></th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let tax of taxes ;trackBy: trackId">
+                <td><a [routerLink]="['../tax', tax.id ]">{{tax.id}}</a></td>
+                <td>{{tax.city}}</td>
+                <td>{{tax.state}}</td>
+                <td>{{tax.country}}</td>
+                <td>{{tax.zip}}</td>
+                <td>{{tax.cityTax}}</td>
+                <td>{{tax.cityTaxName}}</td>
+                <td>{{tax.stateTax}}</td>
+                <td>{{tax.stateExemptAmount}}</td>
+                <td>{{tax.stateTaxName}}</td>
+                <td>{{tax.countyTax}}</td>
+                <td>{{tax.countyTaxName}}</td>
+                <td>{{tax.otherTax}}</td>
+                <td>{{tax.otherTaxName}}</td>
+                <td>{{tax.vadidFrom | date:'mediumDate'}}</td>
+                <td>{{tax.validTo | date:'mediumDate'}}</td>
+                <td>{{tax.createdBy}}</td>
+                <td>{{tax.createdDate | date:'mediumDate'}}</td>
+                <td>{{tax.lastModifiedBy}}</td>
+                <td>{{tax.lastModifiedDate | date:'mediumDate'}}</td>
+
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../tax', tax.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'tax/'+ tax.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'tax/'+ tax.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="taxes && taxes.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

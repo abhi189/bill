@@ -1,0 +1,52 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myExpectedSavingsLabel" jhiTranslate="billingWebApp.inventoryExpectedSavings.home.createOrEditLabel">Create or edit a Expected Savings</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <input type="hidden" class="form-control" id="id" name="id"
+           [(ngModel)]="expectedSavings.id" readonly />
+    <input type="hidden" class="form-control" name="customerType" id="field_customerType"
+           [(ngModel)]="expectedSavings.customerType" required/>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.inventoryExpectedSavings.solution" for="field_solution">Solution</label>
+            <select class="form-control" name="solution" [(ngModel)]="expectedSavings.solution" id="field_solution"  required>
+                <option *ngFor="let solutionOption of solutionOptions" [ngValue]="solutionOption" >{{solutionOption}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.solution?.dirty && editForm.controls.solution?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.solution?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.inventoryExpectedSavings.savingPercentage" for="field_savingPercentage">Saving Percentage</label>
+            <input type="number" class="form-control" name="savingPercentage" id="field_savingPercentage"
+                [(ngModel)]="expectedSavings.savingPercentage" required/>
+            <div [hidden]="!(editForm.controls.savingPercentage?.dirty && editForm.controls.savingPercentage?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.savingPercentage?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.savingPercentage?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

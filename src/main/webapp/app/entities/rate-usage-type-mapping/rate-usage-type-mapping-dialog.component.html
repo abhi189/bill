@@ -1,0 +1,46 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myRateUsageTypeMappingLabel" jhiTranslate="billingWebApp.rateUsageTypeMapping.home.createOrEditLabel">Create or edit a Rate Usage Type Mapping</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateUsageTypeMapping.bdUsageUnit" for="field_bdUsageUnit">Bd Usage Unit</label>
+            <input type="text" class="form-control" name="bdUsageUnit" id="field_bdUsageUnit"
+                [(ngModel)]="rateUsageTypeMapping.bdUsageUnit" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateUsageTypeMapping.rateMapped" for="field_rateMapped">Rate Mapped</label>
+            <input type="checkbox" class="form-control" name="rateMapped" id="field_rateMapped"
+                   [(ngModel)]="rateUsageTypeMapping.rateMapped" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateUsageTypeMapping.provider" for="field_provider">Provider</label>
+            <select class="form-control" id="field_provider" name="provider" [(ngModel)]="rateUsageTypeMapping.providerId" [disabled]="rateUsageTypeMapping.id !== undefined" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="providerOption.id" *ngFor="let providerOption of providers; trackBy: trackProviderById">{{providerOption.name}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateUsageTypeMapping.chargeType" for="field_chargeType">Charge Type</label>
+            <input type="text" class="form-control" name="chargeType" id="field_chargeType" [disabled]="rateUsageTypeMapping.id !== undefined"
+                   [(ngModel)]="rateUsageTypeMapping.chargeType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.rateUsageTypeMapping.serviceType" for="field_serviceType">Service Type</label>
+            <input type="text" class="form-control" name="serviceType" id="field_serviceType" [disabled]="rateUsageTypeMapping.id !== undefined"
+                   [(ngModel)]="rateUsageTypeMapping.serviceType"/>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

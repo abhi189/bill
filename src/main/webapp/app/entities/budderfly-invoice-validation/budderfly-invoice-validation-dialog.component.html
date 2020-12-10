@@ -1,0 +1,81 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBudderflyInvoiceValidationLabel" jhiTranslate="billingWebApp.budderflyInvoiceValidation.home.createOrEditLabel">Create or edit a Budderfly Invoice Validation</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!budderflyInvoiceValidation.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="budderflyInvoiceValidation.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.budderflyInvoiceValidation.testName" for="field_testName">Test Name</label>
+            <input type="text" class="form-control" name="testName" id="field_testName"
+                [(ngModel)]="budderflyInvoiceValidation.testName" required/>
+            <div [hidden]="!(editForm.controls.testName?.dirty && editForm.controls.testName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.testName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.budderflyInvoiceValidation.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="budderflyInvoiceValidation.description" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.budderflyInvoiceValidation.config" for="field_config">Config</label>
+            <textarea class="form-control" name="config" id="field_config"
+                [(ngModel)]="budderflyInvoiceValidation.config" ></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.budderflyInvoiceValidation.enabled" for="field_enabled">Enabled</label>
+            <input type="checkbox" class="form-control" name="enabled" id="field_enabled"
+                [(ngModel)]="budderflyInvoiceValidation.enabled" />
+            <div [hidden]="!(editForm.controls.enabled?.dirty && editForm.controls.enabled?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.enabled?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.budderflyInvoiceValidation.order" for="field_order">Order</label>
+            <input type="number" class="form-control" name="order" id="field_order"
+                [(ngModel)]="budderflyInvoiceValidation.order" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.budderflyInvoiceValidation.endpoint" for="field_endpoint">Endpoint</label>
+            <select class="form-control" id="field_endpoint" name="endpoint"
+                    [(ngModel)]="budderflyInvoiceValidation.endpoint" required [disabled]="isReadonly">
+                <option [ngValue]="endpoint" *ngFor="let endpoint of endpoints">{{endpoint}}</option>
+            </select>
+
+            <div [hidden]="!(editForm.controls.endpoint?.dirty && editForm.controls.endpoint?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.endpoint?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.budderflyInvoiceValidation.updateInvoiceStatus" for="field_updateInvoiceStatus">Update Invoice Status</label>
+            <input type="checkbox" class="form-control" name="updateInvoiceStatus" id="field_updateInvoiceStatus"
+                [(ngModel)]="budderflyInvoiceValidation.updateInvoiceStatus" />
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

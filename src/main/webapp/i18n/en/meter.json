@@ -1,0 +1,24 @@
+{
+    "billingWebApp": {
+        "meter": {
+            "home": {
+                "title": "Meters",
+                "createLabel": "Create a new Meters",
+                "createOrEditLabel": "Create or edit a Meters",
+                "search": "Search for Meters"
+            },
+            "intervalStart": "Interval Start",
+            "podId": "Pod Id",
+            "intervalEnd": "Interval End",
+            "serviceType": "Service Type",
+            "serviceAddress": "Service Address",
+            "serviceCity": "Service City",
+            "serviceState": "Service State",
+            "tariff": "tariff",
+            "meterNumber": "Meter Number",
+            "created": "A new item is created with identifier: {{ param }}",
+            "updated": "Updated item with identifier: {{ param }}",
+            "deleted": "Deleted item with identifier: {{ param }}"
+        }
+    }
+}

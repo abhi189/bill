@@ -1,0 +1,72 @@
+
+<div *ngIf="consumption">
+    <h2><span jhiTranslate="billingWebApp.consumption.detail.title">Consumption</span> {{consumption.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.consumption.measurementType">Measurement Type</span></dt>
+        <dd>
+            <span>{{consumption.measurementType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.consumption.rateComponent">Rate Component</span></dt>
+        <dd>
+            <span>{{consumption.rateComponent}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.consumption.intervalStart">Interval Start</span></dt>
+        <dd>
+            <span>{{consumption.intervalStart | date:'medium':'UTC'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.consumption.intervalEnd">Interval End</span></dt>
+        <dd>
+            <span>{{consumption.intervalEnd | date:'medium':'UTC'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.consumption.usageAmount">Usage Amount</span></dt>
+        <dd>
+            <span>{{consumption.usageAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.consumption.loadFactor">Load Factor</span></dt>
+        <dd>
+            <span>{{consumption.loadFactor}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.consumption.energyUnit">Energy Unit</span></dt>
+        <dd>
+            <span>{{consumption.energyUnit}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.consumption.meterReadCurrent">Meter Read Current</span></dt>
+        <dd>
+            <span>{{consumption.meterReadCurrent}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.consumption.meterReadPrevious">Meter Read Previous</span></dt>
+        <dd>
+            <span>{{consumption.meterReadPrevious}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.consumption.usageConstantMultiplier">Usage Constant Multiplier</span></dt>
+        <dd>
+            <span>{{consumption.usageConstantMultiplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.consumption.usageConversionMultiplier">Usage Conversion Multiplier</span></dt>
+        <dd>
+            <span>{{consumption.usageConversionMultiplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.consumption.invoice">Invoice</span></dt>
+        <dd>
+            <div *ngIf="consumption.invoiceId">
+                <a [routerLink]="['/invoice', consumption.invoiceId]">{{consumption.invoiceId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'consumption/'+ consumption.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

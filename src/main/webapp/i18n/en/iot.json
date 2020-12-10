@@ -1,0 +1,49 @@
+{
+    "billingWebApp": {
+        "iot": {
+            "home": {
+                "title": "IoT",
+                "createLabel": "Create a new item",
+                "createOrEditLabel": "Create or edit an item",
+                "search": "Search for an item",
+                "discoverGGFacilityControllers": "Discover GG Facility Controllers"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete this item: {{ id }}?"
+            },
+            "externalId": "External Id",
+            "kittedBy": "Kitted By",
+            "kittedDate": "Kitted Date",
+            "tested": "Tested",
+            "provision": "Provision",
+            "testedStatus": {
+                "No": "No",
+                "Yes": "Yes"
+            },
+            "configuration": "Configuration",
+            "kitItemType": "Kit Item Type",
+            "kittedItemTypeId": {
+                "fc": "Facility Controller",
+                "smappee": "Smappee Power Meter",
+                "pepwave": "Pepwave Surf SOHO Router",
+                "ggfc": "Green Grass Facility Controller"
+            },
+            "ipAddress": "IP Address",
+            "startProvisioning": "Start Provisioning",
+            "deviceCreatedAws": "Device successfully created on AWS",
+            "GGFCCreated": "GG Facility controller successfully saved",
+            "GGFCErrorCreation": "Error when trying to save GG Facility controller",
+            "errorComunicationMdnsService": "Error with the communication with mdns server",
+            "provisionSelected": "Provision Selected Items",
+            "status": "Status",
+            "errorComunicationFCprovisioningService": "Error with the communication with FC Provisioning service",
+            "itemCreated": "GG Facility Controller already created",
+            "errorWhenTryingToGetProvisionUrl": "Error When Trying To Get Provision Url"
+        },
+        "inventoryKittedItem": {
+            "created": "A new item is created with identifier: {{ param }}",
+            "updated": "Updated item with identifier: {{ param }}",
+            "deleted": "Deleted item with identifier: {{ param }}"
+        }
+    }
+}

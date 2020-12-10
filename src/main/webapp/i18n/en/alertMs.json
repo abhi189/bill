@@ -1,0 +1,36 @@
+{
+    "billingWebApp": {
+        "alertMs": {
+            "home": {
+                "title": "Alerts",
+                "createLabel": "Create a new Alert",
+                "createOrEditLabel": "Create or edit a Alert",
+                "search": "Search for Alerts",
+                "day": "Day",
+                "month": "Month",
+                "year": "Year",
+                "week": "Week"
+            },
+            "created": "A new Alert is created with identifier {{ param }}",
+            "updated": "A Alert is updated with identifier {{ param }}",
+            "deleted": "A Alert is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Alert {{ id }}?"
+            },
+            "detail": {
+                "title": "Alert"
+            },
+            "assignee": "Assignee",
+            "alertType": "Alert Type",
+            "budderflyId": "Budderfly Id",
+            "item": "Item",
+            "description": "Description",
+            "source": "Source",
+            "alertDate": "Alert Date",
+            "severity": "Severity",
+            "status": "Status",
+            "url": "Ticket Url",
+            "noAlerts": "No alerts."
+        }
+    }
+}

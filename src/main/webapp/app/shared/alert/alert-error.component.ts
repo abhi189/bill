@@ -1,13 +1,13 @@
 import { Component, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { JhiEventManager, JhiAlert, JhiAlertService } from 'ng-jhipster';
-import { Subscription } from 'rxjs';
+import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     selector: 'jhi-alert-error',
     template: `
         <div class="alerts" role="alert">
-            <div *ngFor="let alert of alerts" [ngClass]="setClasses(alert)">
+            <div *ngFor="let alert of alerts" [ngClass]="{\'alert.position\': true, \'toast\': alert.toast}">
                 <ngb-alert *ngIf="alert && alert.type && alert.msg" [type]="alert.type" (close)="alert.close(alerts)">
                     <pre [innerHTML]="alert.msg"></pre>
                 </ngb-alert>
@@ -18,12 +18,11 @@ import { Subscription } from 'rxjs';
 export class JhiAlertErrorComponent implements OnDestroy {
     alerts: any[];
     cleanHttpErrorListener: Subscription;
-    /* tslint:disable */
+    // tslint:disable-next-line: no-unused-variable
     constructor(private alertService: JhiAlertService, private eventManager: JhiEventManager, private translateService: TranslateService) {
-        /* tslint:enable */
         this.alerts = [];
 
-        this.cleanHttpErrorListener = eventManager.subscribe('homebillingwebApp.httpError', response => {
+        this.cleanHttpErrorListener = eventManager.subscribe('billingWebApp.httpError', response => {
             let i;
             const httpErrorResponse = response.content;
             switch (httpErrorResponse.status) {
@@ -37,9 +36,9 @@ export class JhiAlertErrorComponent implements OnDestroy {
                     let errorHeader = null;
                     let entityKey = null;
                     arr.forEach(entry => {
-                        if (entry.toLowerCase().endsWith('app-error')) {
+                        if (entry.endsWith('app-error')) {
                             errorHeader = httpErrorResponse.headers.get(entry);
-                        } else if (entry.toLowerCase().endsWith('app-params')) {
+                        } else if (entry.endsWith('app-params')) {
                             entityKey = httpErrorResponse.headers.get(entry);
                         }
                     });
@@ -50,12 +49,9 @@ export class JhiAlertErrorComponent implements OnDestroy {
                         const fieldErrors = httpErrorResponse.error.fieldErrors;
                         for (i = 0; i < fieldErrors.length; i++) {
                             const fieldError = fieldErrors[i];
-                            if (['Min', 'Max', 'DecimalMin', 'DecimalMax'].includes(fieldError.message)) {
-                                fieldError.message = 'Size';
-                            }
                             // convert 'something[14].other[4].id' to 'something[].other[].id' so translations can be written to it
                             const convertedField = fieldError.field.replace(/\[\d*\]/g, '[]');
-                            const fieldName = translateService.instant('portalApp.' + fieldError.objectName + '.' + convertedField);
+                            const fieldName = translateService.instant('billingWebApp.' + fieldError.objectName + '.' + convertedField);
                             this.addErrorAlert('Error on field "' + fieldName + '"', 'error.' + fieldError.message, { fieldName });
                         }
                     } else if (httpErrorResponse.error !== '' && httpErrorResponse.error.message) {
@@ -66,6 +62,29 @@ export class JhiAlertErrorComponent implements OnDestroy {
                         );
                     } else {
                         this.addErrorAlert(httpErrorResponse.error);
+                    }
+                    break;
+
+                case 403:
+                    const headers = httpErrorResponse.headers.keys();
+                    let errorMessage = null;
+                    let errorParams = null;
+                    let entity = null;
+                    headers.forEach(entry => {
+                        if (entry.endsWith('app-error')) {
+                            errorMessage = httpErrorResponse.headers.get(entry);
+                        } else if (entry.endsWith('app-params')) {
+                            errorParams = httpErrorResponse.headers.get(entry);
+                        } else if (entry.endsWith('app-alert')) {
+                            entity = httpErrorResponse.headers.get(entry);
+                        }
+                    });
+                    if (errorMessage) {
+                        const params = {
+                            entityName: entity,
+                            params: errorParams
+                        };
+                        this.addErrorAlert(errorMessage, errorMessage, params);
                     }
                     break;
 
@@ -83,13 +102,6 @@ export class JhiAlertErrorComponent implements OnDestroy {
         });
     }
 
-    setClasses(alert) {
-        return {
-            toast: !!alert.toast,
-            [alert.position]: true
-        };
-    }
-
     ngOnDestroy() {
         if (this.cleanHttpErrorListener !== undefined && this.cleanHttpErrorListener !== null) {
             this.eventManager.destroy(this.cleanHttpErrorListener);
@@ -98,17 +110,19 @@ export class JhiAlertErrorComponent implements OnDestroy {
     }
 
     addErrorAlert(message, key?, data?) {
-        message = key && key !== null ? key : message;
-
-        const newAlert: JhiAlert = {
-            type: 'danger',
-            msg: message,
-            params: data,
-            timeout: 5000,
-            toast: this.alertService.isToast(),
-            scoped: true
-        };
-
-        this.alerts.push(this.alertService.addAlert(newAlert, this.alerts));
+        key = key && key !== null ? key : message;
+        this.alerts.push(
+            this.alertService.addAlert(
+                {
+                    type: 'danger',
+                    msg: key,
+                    params: data,
+                    timeout: 5000,
+                    toast: this.alertService.isToast(),
+                    scoped: true
+                },
+                this.alerts
+            )
+        );
     }
 }

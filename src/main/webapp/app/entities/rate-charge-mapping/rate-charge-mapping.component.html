@@ -1,0 +1,124 @@
+<div>
+    <h2 *ngIf="extendedView">
+        <span jhiTranslate="billingWebApp.rateChargeMapping.home.title">Rate Charge Mappings</span>
+        <button class="btn btn-primary float-right jh-create-entity create-rate-charge-mapping" [routerLink]="['/', { outlets: { popup: ['rate-charge-mapping-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.rateChargeMapping.home.createLabel">
+            Create new Rate Charge Mapping
+            </span>
+        </button>
+    </h2>
+    <h4 id="title" *ngIf="!extendedView && rateChargeMappings && rateChargeMappings.length > 0">
+        <span jhiTranslate="billingWebApp.rateChargeMapping.home.title">Rate Charge Mappings</span>
+    </h4>
+    <jhi-alert *ngIf="extendedView"></jhi-alert>
+    <div class="row" *ngIf="extendedView">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.rateChargeMapping.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="rateChargeMappings && rateChargeMappings.length > 0">
+        <table class="table table-striped">
+            <thead *ngIf="extendedView">
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bdChargeId"><span jhiTranslate="billingWebApp.rateChargeMapping.bdChargeId">Bd Charge Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bdChargeDescription"><span jhiTranslate="billingWebApp.rateChargeMapping.bdChargeDescription">Bd Charge Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bdInvoiceSection"><span jhiTranslate="billingWebApp.rateChargeMapping.bdInvoiceSection">Bd Invoice Section</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ignoreExport"><span jhiTranslate="billingWebApp.rateChargeMapping.ignoreExport">Ignore Export</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="rateName"><span jhiTranslate="billingWebApp.rateChargeMapping.rateName">Rate Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="rateGroupName"><span jhiTranslate="billingWebApp.rateChargeMapping.rateGroupName">Rate Group Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="chargeClass"><span jhiTranslate="billingWebApp.rateChargeMapping.chargeClass">Charge Class</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="rateMapped"><span jhiTranslate="billingWebApp.rateChargeMapping.rateMapped">Rate Mapped</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="providerName"><span jhiTranslate="billingWebApp.rateChargeMapping.provider">Provider</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <thead *ngIf="!extendedView">
+                <tr>
+                <th><span jhiTranslate="global.field.id">ID</span></th>
+                <th><span jhiTranslate="billingWebApp.rateChargeMapping.bdChargeDescription">Bd Charge Description</span></th>
+                <th><span jhiTranslate="billingWebApp.rateChargeMapping.bdInvoiceSection">Bd Invoice Section</span></th>
+                <th><span jhiTranslate="billingWebApp.rateChargeMapping.ignoreExport">Ignore Export</span></th>
+                <th><span jhiTranslate="billingWebApp.rateChargeMapping.rateName">Rate Name</span></th>
+                <th><span jhiTranslate="billingWebApp.rateChargeMapping.rateGroupName">Rate Group Name</span></th>
+                <th><span jhiTranslate="billingWebApp.rateChargeMapping.chargeClass">Charge Class</span></th>
+                <th><span jhiTranslate="billingWebApp.rateChargeMapping.tariffCount">Tariff Usage</span></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let rateChargeMapping of rateChargeMappings ;trackBy: trackId" [ngStyle]="{'background':rateChargeMapping.rateMapped?'#FDFAE5':'#D7ECD1'}">
+                <td><a [routerLink]="['../rate-charge-mapping', rateChargeMapping.id ]">{{rateChargeMapping.id}}</a></td>
+                <td *ngIf="extendedView">{{rateChargeMapping.bdChargeId}}</td>
+                <td>{{rateChargeMapping.bdChargeDescription}}</td>
+                <td>{{InvoiceSectionEnum[rateChargeMapping?.bdInvoiceSection]}}</td>
+                <td>{{rateChargeMapping.ignoreExport}}</td>
+                <td>{{rateChargeMapping.rateName}}</td>
+                <td>{{rateChargeMapping.rateGroupName}}</td>
+                <td>{{rateChargeMapping.chargeClass}}</td>
+                <td *ngIf="extendedView">{{rateChargeMapping.rateMapped}}</td>
+                <td *ngIf="!extendedView"><a>{{rateChargeMapping.tariffCount}}</a></td>
+                <td *ngIf="extendedView">
+                    <div *ngIf="rateChargeMapping.providerId">
+                        <a [routerLink]="['../provider', rateChargeMapping.providerId  ]" >{{rateChargeMapping.providerName}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../rate-charge-mapping', rateChargeMapping.id ]"
+                                class="btn btn-info btn-sm" *ngIf="extendedView">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit" *ngIf="!extendedView && rateChargeMapping.tariffCount > 1"
+                                [routerLink]="['/', { outlets: { popup: 'rate-charge-mapping/'+ rateChargeMapping.id + '/confirm-edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" *ngIf="!rateChargeMapping.tariffCount || (rateChargeMapping.tariffCount && rateChargeMapping.tariffCount < 2)"
+                                [routerLink]="['/', { outlets: { popup: 'rate-charge-mapping/'+ rateChargeMapping.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'rate-charge-mapping/'+ rateChargeMapping.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm" *ngIf="extendedView">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="rateChargeMappings && rateChargeMappings.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

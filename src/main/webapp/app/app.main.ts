@@ -1,6 +1,6 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ProdConfig } from './blocks/config/prod.config';
-import { PortalAppModule } from './app.module';
+import { BillingWebAppModule } from './app.module';
 
 ProdConfig();
 
@@ -9,6 +9,6 @@ if (module['hot']) {
 }
 
 platformBrowserDynamic()
-    .bootstrapModule(PortalAppModule, { preserveWhitespaces: true })
+    .bootstrapModule(BillingWebAppModule)
     .then(success => console.log(`Application started`))
     .catch(err => console.error(err));

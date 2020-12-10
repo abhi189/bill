@@ -1,0 +1,42 @@
+
+<div *ngIf="inventoryItem">
+    <h2><span jhiTranslate="billingWebApp.inventoryItem.detail.title">Inventory Item</span> {{inventoryItem.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.inventoryItem.name">Name</span></dt>
+        <dd>
+            <span>{{inventoryItem.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.inventoryItem.installDate">Install Date</span></dt>
+        <dd>
+            <span>{{inventoryItem.installDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.inventoryItem.budderflyId">Budderfly Id</span></dt>
+        <dd>
+            <span>{{inventoryItem.budderflyId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.inventoryItem.externalId">External Id</span></dt>
+        <dd>
+            <span>{{inventoryItem.externalId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.inventoryItem.inventoryItemTypeName">Item Type Name</span></dt>
+        <dd>
+            <span>{{inventoryItem.inventoryItemTypeName}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'inventory-item/'+ inventoryItem.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

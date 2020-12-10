@@ -1,0 +1,10 @@
+{
+    "billingWebApp": {
+        "ActivityLevel": {
+            "null": "",
+            "ERROR": "ERROR",
+            "WARNING": "WARNING",
+            "INFO": "INFO"
+        }
+    }
+}

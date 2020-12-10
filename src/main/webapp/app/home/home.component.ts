@@ -1,36 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { LoginModalService } from 'app/core/login/login-modal.service';
-import { AccountService, UserService, User } from 'app/core';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { JhiEventManager } from 'ng-jhipster';
+
+import { Account, LoginModalService, Principal } from '../shared';
 
 @Component({
     selector: 'jhi-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.scss']
+    styleUrls: ['home.scss']
 })
 export class HomeComponent implements OnInit {
-    activeForm: string;
+    account: Account;
+    modalRef: NgbModalRef;
 
-    constructor(private loginModalService: LoginModalService, private accountService: AccountService, private router: Router) {}
+    constructor(private principal: Principal, private loginModalService: LoginModalService, private eventManager: JhiEventManager) {}
 
     ngOnInit() {
-        this.accountService.identity().then(account => {
-            if (account) {
-                this.router.navigate(['/main']);
-            }
+        this.principal.identity().then(account => {
+            this.account = account;
         });
-        this.activeForm = 'login';
+        this.registerAuthenticationSuccess();
     }
 
-    onLoginClick() {
-        this.activeForm = 'login';
+    registerAuthenticationSuccess() {
+        this.eventManager.subscribe('authenticationSuccess', message => {
+            this.principal.identity().then(account => {
+                this.account = account;
+            });
+        });
     }
 
-    onForgotPasswordClick() {
-        this.activeForm = 'reset';
+    isAuthenticated() {
+        return this.principal.isAuthenticated();
     }
 
-    onRegisterClick() {
-        this.activeForm = 'register';
+    login() {
+        this.modalRef = this.loginModalService.open();
     }
 }

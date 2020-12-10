@@ -1,0 +1,55 @@
+<div class="row mt-3">
+    <div class="col-md-8">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="lateChargesRadio" id="lateChargesFalse" [value]="false"
+                [(ngModel)]="discount.lateCharges">
+            <label class="form-check-label" for="lateChargesFalse">
+                <span jhiTranslate="billingWebApp.discount.tabs.lateCharges.lateChargesFalse">
+                    No Late Charges are associated to this offer
+                </span>
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="lateChargesRadio" id="lateChargesTrue" [value]="true" 
+            [(ngModel)]="discount.lateCharges">
+            <label class="form-check-label" for="lateChargesTrue">
+                <span jhiTranslate="billingWebApp.discount.tabs.lateCharges.lateChargesTrue">
+                    Late Charges will be associated to this offer
+                </span>
+            </label>
+        </div>
+        <div *ngIf="discount.lateCharges" class="ml-5 mt-2 w-75">
+            <form class="form-inline">
+                <span class="fa mr-2 fa-check-square-o"></span>
+                <span jhiTranslate="billingWebApp.discount.tabs.lateCharges.daysLate">
+                    Invoices are considered late if they arrive beyond this many days
+                </span>
+                <input class="form-control mx-2 w-25 inline-input" type="number" min="0" name="lateChargesDays" [(ngModel)]="discount.lateChargesDays">
+            </form>
+            <form class="form-inline mt-2">
+                <span class="fa mr-2 fa-check-square-o"></span>
+                <span jhiTranslate="billingWebApp.discount.tabs.lateCharges.lateChargesPercentage">
+                    % Of the Open Balance to bill as the late charge
+                </span>
+                <input class="form-control ml-2 w-25 inline-input" type="number" min="0" name="lateChargesPercentage"
+                    [ngModel]="discount.lateChargesPercentage * 100" (ngModelChange)="discount.lateChargesPercentage = $event / 100">
+                <div class="input-group-append">
+                    <div class="input-group-text">%</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-6">
+        <button type="submit" (click)="previousState()" class="btn btn-info">
+            <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        </button>
+        <button type="button" (click)="resetDiscount()" class="btn btn-primary">
+            <span class="fa fa-lg fa-undo"></span>&nbsp;<span jhiTranslate="entity.action.reset"> Reset</span>
+        </button>
+        <button type="button" (click)="saveDiscount()" class="btn btn-success">
+            <span class="fa fa-lg fa-check"></span>&nbsp;<span jhiTranslate="entity.action.save"> Save</span>
+        </button>
+    </div>
+</div>

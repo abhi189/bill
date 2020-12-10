@@ -1,0 +1,48 @@
+
+<div *ngIf="billingCycleActivity">
+    <h2><span jhiTranslate="billingWebApp.billingCycleActivity.detail.title">Billing Cycle Activity</span> {{billingCycleActivity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.billingCycleActivity.user">User</span></dt>
+        <dd>
+            <span>{{billingCycleActivity.user}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.billingCycleActivity.activity">Activity</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.BillingCycleActivityAction.' + billingCycleActivity.activity}}">{{billingCycleActivity.activity}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.billingCycleActivity.level">Level</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.ActivityLevel.' + billingCycleActivity.level}}">{{billingCycleActivity.level}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.billingCycleActivity.message">Message</span></dt>
+        <dd>
+            <span>{{billingCycleActivity.message}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.billingCycleActivity.activityDate">Activity Date</span></dt>
+        <dd>
+            <span>{{billingCycleActivity.activityDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.billingCycleActivity.billingCycle">Billing Cycle</span></dt>
+        <dd>
+            <div *ngIf="billingCycleActivity.billingCycleId">
+                <a [routerLink]="['/billing-cycle', billingCycleActivity.billingCycleId]">{{billingCycleActivity.billingCycleName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'billing-cycle-activity/'+ billingCycleActivity.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

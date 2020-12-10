@@ -1,0 +1,65 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalTitle"> Missing BD-ID</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+        <jhi-alert></jhi-alert>
+        <span> The following BF-ID's are missing and the system can't automatically create them since we have missing information </span>
+        <br>
+        <table class="table table-striped table-sm table-bordered">
+            <thead>
+            <tr>
+                <th>
+                    <span>Utility Provider</span>
+                </th>
+                <th>
+                    <span>Customer Type</span>
+                </th>
+                <th>
+                    <span>Customer Code</span>
+                </th>
+                <th>
+                    <span>Site Code</span>
+                </th>
+                <th>
+                    <span>Account Number</span>
+                </th>
+                <th>
+                    <span>Budderfly id</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let siteAccount of siteAccounts; let i = index">
+                <td>{{siteAccount.utilityProvider}}</td>
+                <td>{{siteAccount.customerType}}</td>
+                <td>{{siteAccount.customerCode}}</td>
+                <td>{{siteAccount.siteCode}}</td>
+                <td>{{siteAccount.accountNumber}}</td>
+                <td>
+                  <input type="text" class="form-control" name="budderflyId{{i}}" [(ngModel)]="siteAccount.budderflyId">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <small>
+            <span> Remember that the BF-ID should be Customer Type + Customer Code (SUBW + 1234 = SUBW-1234)</span>
+        </small>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+
+</form>
+

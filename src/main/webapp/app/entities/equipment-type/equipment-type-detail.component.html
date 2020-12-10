@@ -1,0 +1,57 @@
+
+<div *ngIf="equipmentType">
+    <h2>{{equipmentType.name}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <ngb-tabset [justify]="'fill'" type="pills">
+        <ngb-tab id="equipmentTypeDetails">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.inventoryEquipmentType.tabs.equipmentTypeDetails">Equipment Type Details</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <dl class="row-md jh-entity-details">
+                    <dt><span jhiTranslate="billingWebApp.inventoryEquipmentType.code">Code</span></dt>
+                    <dd>
+                        <span>{{equipmentType.code}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.inventoryEquipmentType.name">Name</span></dt>
+                    <dd>
+                        <span>{{equipmentType.name}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.inventoryEquipmentType.equipmentCount">Equipment Count</span></dt>
+                    <dd>
+                        <span>{{equipmentType.equipmentCount}}</span>
+                    </dd>
+                </dl>
+                <button type="submit"
+                        (click)="previousState()"
+                        class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                </button>
+            
+                <button type="button"
+                        [routerLink]="['/', { outlets: { popup: 'equipment-type/'+ equipmentType.id + '/edit'} }]"
+                        replaceUrl="true"
+                        queryParamsHandling="merge"
+                        class="btn btn-primary">
+                    <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                </button>
+            </ng-template>
+        </ngb-tab>
+
+        <ngb-tab id="equipmentTypeLocation">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.inventoryEquipmentType.tabs.equipmentTypeLocation">Equipment Type Location</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-equipment-type-location [equipmentTypeId]="equipmentType.id"></jhi-equipment-type-location>
+                <button type="submit"
+                        (click)="previousState()"
+                        class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                </button>
+            </ng-template>
+        </ngb-tab>
+
+    </ngb-tabset>
+</div>

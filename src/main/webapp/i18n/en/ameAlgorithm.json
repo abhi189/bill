@@ -1,0 +1,12 @@
+{
+    "billingWebApp": {
+        "AmeAlgorithm": {
+            "null": "",
+            "LATEST_RATES": "LATEST_RATES",
+            "STANDARD": "STANDARD",
+            "LATEST_RATES_V2": "LATEST_RATES_V2",
+            "LATEST_RATES_V3": "LATEST_RATES_V3",
+            "LOWEST_PERIOD": "LOWEST_PERIOD"
+        }
+    }
+}

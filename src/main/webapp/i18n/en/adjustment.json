@@ -1,0 +1,24 @@
+{
+    "billingWebApp": {
+        "adjustment": {
+            "home": {
+                "title": "Adjustments",
+                "createLabel": "Create a new Adjustment",
+                "createOrEditLabel": "Create or edit a Adjustment",
+                "search": "Search for Adjustment"
+            },
+            "created": "A new Adjustment is created with identifier {{ param }}",
+            "updated": "A Adjustment is updated with identifier {{ param }}",
+            "deleted": "A Adjustment is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Adjustment {{ id }}?"
+            },
+            "detail": {
+                "title": "Adjustment"
+            },
+            "name": "Name",
+            "total": "Total",
+            "invoiceSection": "Invoice Section"
+        }
+    }
+}

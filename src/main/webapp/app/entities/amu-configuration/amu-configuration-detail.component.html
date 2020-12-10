@@ -1,0 +1,167 @@
+
+<div *ngIf="amuConfiguration">
+    <h2><span jhiTranslate="billingWebApp.amuConfiguration.detail.title">Customer Configuration</span> {{amuConfiguration.customerType}}</h2>
+    <hr>
+    <ngb-tabset [justify]="'fill'" type="pills"  (tabChange)="beforeTabChange($event)">
+        <ngb-tab id="tabGeneral">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.amuConfiguration.detail.general">General</span></ng-template>
+            <ng-template ngbTabContent>
+                <hr>
+                <jhi-alert-error></jhi-alert-error>
+                <dl class="row-md jh-entity-details">
+                    <dt><span jhiTranslate="billingWebApp.amuConfiguration.customerType">Customer Type</span></dt>
+                    <dd>
+                        <span>{{amuConfiguration.customerType}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.amuConfiguration.utilityProvider">Utility Provider</span></dt>
+                    <dd>
+                        <span>{{amuConfiguration.utilityProvider}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.amuConfiguration.message">Message</span></dt>
+                    <dd>
+                        <span>{{amuConfiguration.message}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.amuConfiguration.algorithm">Algorithm</span></dt>
+                    <dd>
+                        <span jhiTranslate="{{'billingWebApp.AmeAlgorithm.' + amuConfiguration.algorithm}}">{{amuConfiguration.algorithm}}</span>
+                    </dd>
+                </dl>
+
+                <button type="submit"
+                        (click)="previousState()"
+                        class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                </button>
+
+                <button type="button"
+                        [routerLink]="['/', { outlets: { popup: 'amu-configuration/'+ amuConfiguration.id + '/edit'} }]"
+                        replaceUrl="true"
+                        queryParamsHandling="merge"
+                        class="btn btn-primary">
+                    <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                </button>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabExpectedSavings">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.amuConfiguration.detail.expectedSavings">Expected Savings</span></ng-template>
+            <ng-template ngbTabContent>
+                <hr>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-alert></jhi-alert>
+                <div>
+                    <h2>
+                        <button class="btn btn-primary float-right jh-create-entity create-expected-savings"
+                                (click)="openExpectedSavingsPopup()"
+                                replaceUrl="true"
+                                queryParamsHandling="merge">
+                            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.inventoryExpectedSavings.home.createLabel">
+            Create new Expected Savings
+            </span>
+                        </button>
+                    </h2>
+
+
+                    <br/>
+                    <div class="table-responsive" *ngIf="expectedSavings">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" >
+                                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                                <th jhiSortBy="solution"><span jhiTranslate="billingWebApp.inventoryExpectedSavings.solution">Solution</span> <span class="fa fa-sort"></span></th>
+                                <th jhiSortBy="savingPercentage"><span jhiTranslate="billingWebApp.inventoryExpectedSavings.savingPercentage">Saving Percentage</span> <span class="fa fa-sort"></span></th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let expectedSavings of expectedSavings ;trackBy: trackId">
+                                <td><a [routerLink]="['../expected-savings', expectedSavings.id ]">{{expectedSavings.id}}</a></td>
+                                <!-- <td jhiTranslate="{{'billingWebApp.SolutionItems.' + expectedSavings.solution}}">{{expectedSavings.solution}}</td> -->
+                                <td>{{expectedSavings.solution}}</td>
+                                <td>{{expectedSavings.savingPercentage}}</td>
+                                <td class="text-right">
+                                    <div class="btn-group flex-btn-group-container">
+                                        <button type="submit"
+                                                [routerLink]="['/', { outlets: { popup: 'expected-savings/'+ expectedSavings.id + '/edit'} }]"
+                                                replaceUrl="true"
+                                                queryParamsHandling="merge"
+                                                class="btn btn-primary btn-sm">
+                                            <span class="fa fa-pencil"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                        </button>
+                                        <button type="submit"
+                                                [routerLink]="['/', { outlets: { popup: 'expected-savings/'+ expectedSavings.id + '/delete'} }]"
+                                                replaceUrl="true"
+                                                queryParamsHandling="merge"
+                                                class="btn btn-danger btn-sm">
+                                            <span class="fa fa-remove"></span>
+                                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabTemplates">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.amuConfiguration.detail.templates">Templates</span></ng-template>
+            <ng-template ngbTabContent>
+                <hr>
+                <jhi-alert-error></jhi-alert-error>
+                <jhi-alert></jhi-alert>
+                <div>
+                    <h2>
+                        <button class="btn btn-primary float-right jh-create-entity create-templates" (click)="openTemplatesPopup()">
+                            <span class="fa fa-plus"></span>
+                            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.inventoryTemplates.home.createLabel">
+                                Create new Templates
+                            </span>
+                        </button>
+                    </h2>
+                </div>
+                <div class="table-responsive" *ngIf="templates">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" >
+                            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                            <th jhiSortBy="templateType"><span jhiTranslate="billingWebApp.inventoryTemplates.templateType">Template Type</span> <span class="fa fa-sort"></span></th>
+                            <th jhiSortBy="templateName"><span jhiTranslate="billingWebApp.inventoryTemplates.templateName">Template Name</span> <span class="fa fa-sort"></span></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let templates of templates ;trackBy: trackId">
+                            <td><a [routerLink]="['../templates', templates.id ]">{{templates.id}}</a></td>
+                            <td jhiTranslate="{{'billingWebApp.TemplateType.' + templates.templateType}}">{{templates.templateType}}</td>
+                            <td>{{templates.templateName}}</td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            [routerLink]="['/', { outlets: { popup: 'templates/'+ templates.id + '/edit'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-primary btn-sm">
+                                        <span class="fa fa-pencil"></span>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', { outlets: { popup: 'templates/'+ templates.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-danger btn-sm">
+                                        <span class="fa fa-remove"></span>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>

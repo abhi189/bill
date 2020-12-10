@@ -1,0 +1,9 @@
+{
+    "billingWebApp": {
+        "SiteType": {
+            "null": "",
+            "Physical": "Physical",
+            "Virtual": "Virtual"
+        }
+    }
+}

@@ -1,0 +1,72 @@
+
+<div *ngIf="rateChargeMapping">
+    <h2><span jhiTranslate="billingWebApp.rateChargeMapping.detail.title">Rate Charge Mapping</span> {{rateChargeMapping.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.bdChargeId">Bd Charge Id</span></dt>
+        <dd>
+            <span>{{rateChargeMapping.bdChargeId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.bdChargeDescription">Bd Charge Description</span></dt>
+        <dd>
+            <span>{{rateChargeMapping.bdChargeDescription}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.bdInvoiceSection">Bd Invoice Section</span></dt>
+        <dd>
+            <span>{{InvoiceSectionEnum[rateChargeMapping?.bdInvoiceSection]}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.rateName">Rate Name</span></dt>
+        <dd>
+            <span>{{rateChargeMapping.rateName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.rateGroupName">Rate Group Name</span></dt>
+        <dd>
+            <span>{{rateChargeMapping.rateGroupName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.chargeClass">Charge Class</span></dt>
+        <dd>
+            <span>{{rateChargeMapping.chargeClass}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.seasonName">Season Name</span></dt>
+        <dd>
+            <span>{{rateChargeMapping.seasonName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.applicabilityValue">Applicability Value</span></dt>
+        <dd>
+            <span>{{rateChargeMapping.applicabilityValue}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.rateMapped">Rate Mapped</span></dt>
+        <dd>
+            <span>{{rateChargeMapping.rateMapped}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.ignoreExport">Ignore Export</span></dt>
+        <dd>
+            <span>{{rateChargeMapping.ignoreExport}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.forceOptional">Force Optional</span></dt>
+        <dd>
+            <span>{{rateChargeMapping.forceOptional}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateChargeMapping.provider">Provider</span></dt>
+        <dd>
+            <div *ngIf="rateChargeMapping.providerId">
+                <a [routerLink]="['/provider', rateChargeMapping.providerId]">{{rateChargeMapping.providerName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'rate-charge-mapping/'+ rateChargeMapping.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

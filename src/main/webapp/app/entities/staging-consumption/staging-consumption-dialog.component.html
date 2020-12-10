@@ -1,0 +1,268 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myStagingConsumptionLabel" jhiTranslate="billingWebApp.stagingConsumption.home.createOrEditLabel">Create or edit a Staging Consumption</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!stagingConsumption.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="stagingConsumption.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.measurementType" for="field_measurementType">Measurement Type</label>
+            <input type="text" class="form-control" name="measurementType" id="field_measurementType"
+                [(ngModel)]="stagingConsumption.measurementType" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.measurementType?.dirty && editForm.controls.measurementType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.measurementType?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.rateComponent" for="field_rateComponent">Rate Component</label>
+            <input type="text" class="form-control" name="rateComponent" id="field_rateComponent"
+                [(ngModel)]="stagingConsumption.rateComponent" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.rateComponent?.dirty && editForm.controls.rateComponent?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.rateComponent?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.intervalStart" for="field_intervalStart">Interval Start</label>
+            <div class="input-group">
+                <input id="field_intervalStart" type="text" class="form-control" name="intervalStart" ngbDatepicker  #intervalStartDp="ngbDatepicker" [(ngModel)]="stagingConsumption.intervalStart"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="intervalStartDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.intervalEnd" for="field_intervalEnd">Interval End</label>
+            <div class="input-group">
+                <input id="field_intervalEnd" type="text" class="form-control" name="intervalEnd" ngbDatepicker  #intervalEndDp="ngbDatepicker" [(ngModel)]="stagingConsumption.intervalEnd"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="intervalEndDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.usageAmount" for="field_usageAmount">Usage Amount</label>
+            <input type="number" class="form-control" name="usageAmount" id="field_usageAmount"
+                [(ngModel)]="stagingConsumption.usageAmount" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.loadFactor" for="field_loadFactor">Load Factor</label>
+            <input type="number" class="form-control" name="loadFactor" id="field_loadFactor"
+                [(ngModel)]="stagingConsumption.loadFactor" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.meterReadCurrent" for="field_meterReadCurrent">Meter Read Current</label>
+            <input type="number" class="form-control" name="meterReadCurrent" id="field_meterReadCurrent"
+                [(ngModel)]="stagingConsumption.meterReadCurrent" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.meterReadPrevious" for="field_meterReadPrevious">Meter Read Previous</label>
+            <input type="number" class="form-control" name="meterReadPrevious" id="field_meterReadPrevious"
+                [(ngModel)]="stagingConsumption.meterReadPrevious" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.usageConstantMultiplier" for="field_usageConstantMultiplier">Usage Constant Multiplier</label>
+            <input type="number" class="form-control" name="usageConstantMultiplier" id="field_usageConstantMultiplier"
+                [(ngModel)]="stagingConsumption.usageConstantMultiplier" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.usageConversionMultiplier" for="field_usageConversionMultiplier">Usage Conversion Multiplier</label>
+            <input type="number" class="form-control" name="usageConversionMultiplier" id="field_usageConversionMultiplier"
+                [(ngModel)]="stagingConsumption.usageConversionMultiplier" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.calorificValue" for="field_calorificValue">Calorific Value</label>
+            <input type="number" class="form-control" name="calorificValue" id="field_calorificValue"
+                [(ngModel)]="stagingConsumption.calorificValue" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.energyUnit" for="field_energyUnit">Energy Unit</label>
+            <input type="text" class="form-control" name="energyUnit" id="field_energyUnit"
+                [(ngModel)]="stagingConsumption.energyUnit" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.energyUnit?.dirty && editForm.controls.energyUnit?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.energyUnit?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.loadType" for="field_loadType">Load Type</label>
+            <input type="text" class="form-control" name="loadType" id="field_loadType"
+                [(ngModel)]="stagingConsumption.loadType" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.loadType?.dirty && editForm.controls.loadType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.loadType?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.meterReadDate" for="field_meterReadDate">Meter Read Date</label>
+            <div class="input-group">
+                <input id="field_meterReadDate" type="text" class="form-control" name="meterReadDate" ngbDatepicker  #meterReadDateDp="ngbDatepicker" [(ngModel)]="stagingConsumption.meterReadDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="meterReadDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.meterReadDelta" for="field_meterReadDelta">Meter Read Delta</label>
+            <input type="number" class="form-control" name="meterReadDelta" id="field_meterReadDelta"
+                [(ngModel)]="stagingConsumption.meterReadDelta" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.meterReadDeltaUsageUnit" for="field_meterReadDeltaUsageUnit">Meter Read Delta Usage Unit</label>
+            <input type="text" class="form-control" name="meterReadDeltaUsageUnit" id="field_meterReadDeltaUsageUnit"
+                [(ngModel)]="stagingConsumption.meterReadDeltaUsageUnit" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.meterReadDeltaUsageUnit?.dirty && editForm.controls.meterReadDeltaUsageUnit?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.meterReadDeltaUsageUnit?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.meterReadType" for="field_meterReadType">Meter Read Type</label>
+            <input type="text" class="form-control" name="meterReadType" id="field_meterReadType"
+                [(ngModel)]="stagingConsumption.meterReadType" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.meterReadType?.dirty && editForm.controls.meterReadType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.meterReadType?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.meterReadTypeAsPrinted" for="field_meterReadTypeAsPrinted">Meter Read Type As Printed</label>
+            <input type="text" class="form-control" name="meterReadTypeAsPrinted" id="field_meterReadTypeAsPrinted"
+                [(ngModel)]="stagingConsumption.meterReadTypeAsPrinted" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.meterReadTypeAsPrinted?.dirty && editForm.controls.meterReadTypeAsPrinted?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.meterReadTypeAsPrinted?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.powerFactor" for="field_powerFactor">Power Factor</label>
+            <input type="number" class="form-control" name="powerFactor" id="field_powerFactor"
+                [(ngModel)]="stagingConsumption.powerFactor" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.previousMeterReadDate" for="field_previousMeterReadDate">Previous Meter Read Date</label>
+            <div class="input-group">
+                <input id="field_previousMeterReadDate" type="text" class="form-control" name="previousMeterReadDate" ngbDatepicker  #previousMeterReadDateDp="ngbDatepicker" [(ngModel)]="stagingConsumption.previousMeterReadDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="previousMeterReadDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.previousMeterReadType" for="field_previousMeterReadType">Previous Meter Read Type</label>
+            <input type="text" class="form-control" name="previousMeterReadType" id="field_previousMeterReadType"
+                [(ngModel)]="stagingConsumption.previousMeterReadType" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.previousMeterReadType?.dirty && editForm.controls.previousMeterReadType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.previousMeterReadType?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.previousMeterReadTypeAsPrinted" for="field_previousMeterReadTypeAsPrinted">Previous Meter Read Type As Printed</label>
+            <input type="text" class="form-control" name="previousMeterReadTypeAsPrinted" id="field_previousMeterReadTypeAsPrinted"
+                [(ngModel)]="stagingConsumption.previousMeterReadTypeAsPrinted" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.previousMeterReadTypeAsPrinted?.dirty && editForm.controls.previousMeterReadTypeAsPrinted?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.previousMeterReadTypeAsPrinted?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.usageActualName" for="field_usageActualName">Usage Actual Name</label>
+            <input type="text" class="form-control" name="usageActualName" id="field_usageActualName"
+                [(ngModel)]="stagingConsumption.usageActualName" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.usageActualName?.dirty && editForm.controls.usageActualName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.usageActualName?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.createdDate" for="field_createdDate">Created Date</label>
+            <div class="d-flex">
+                <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="stagingConsumption.createdDate"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createdDate?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.createdDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.lastModified" for="field_lastModified">Last Modified</label>
+            <div class="d-flex">
+                <input id="field_lastModified" type="datetime-local" class="form-control" name="lastModified" [(ngModel)]="stagingConsumption.lastModified"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.lastModified?.dirty && editForm.controls.lastModified?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastModified?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.lastModified?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.invoice" for="field_invoice">Invoice</label>
+            <select class="form-control" id="field_invoice" name="invoice" [(ngModel)]="stagingConsumption.invoiceId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="stagingInvoiceOption.id" *ngFor="let stagingInvoiceOption of staginginvoices; trackBy: trackStagingInvoiceById">{{stagingInvoiceOption.id}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingConsumption.meter" for="field_meter">Meter</label>
+            <select class="form-control" id="field_meter" name="meter" [(ngModel)]="stagingConsumption.meterId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="stagingMeterOption.id" *ngFor="let stagingMeterOption of stagingmeters; trackBy: trackStagingMeterById">{{stagingMeterOption.logicalMeterId}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

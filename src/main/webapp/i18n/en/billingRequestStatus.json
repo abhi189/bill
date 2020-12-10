@@ -1,0 +1,30 @@
+{
+    "billingWebApp": {
+        "BillingRequestStatus": {
+            "All": "All",
+            "New": "New",
+            "AMEResearch": "AMEResearch",
+            "AMEApproved": "AMEApproved",
+            "AMEGenerated": "AMEGenerated",
+            "AMEPendingApproval": "AMEPendingApproval",
+            "UrjanetHistoryReceived": "UrjanetHistoryReceived",
+            "UrjanetHistoryRequested": "UrjanetHistoryRequested",
+            "UrjanetNotEnoughHistory": "UrjanetNotEnoughHistory",
+            "CredentialsBlocked": "CredentialsBlocked"
+        }
+    },
+    "invoiceApp": {
+        "BillingRequestStatus": {
+            "All": "All",
+            "New": "New",
+            "AMEResearch": "AMEResearch",
+            "AMEApproved": "AMEApproved",
+            "AMEGenerated": "AMEGenerated",
+            "AMEPendingApproval": "AMEPendingApproval",
+            "UrjanetHistoryReceived": "UrjanetHistoryReceived",
+            "UrjanetHistoryRequested": "UrjanetHistoryRequested",
+            "UrjanetNotEnoughHistory": "UrjanetNotEnoughHistory",
+            "CredentialsBlocked": "CredentialsBlocked"
+        }
+    }
+}

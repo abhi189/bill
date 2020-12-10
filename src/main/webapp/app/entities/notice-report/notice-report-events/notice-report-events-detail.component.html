@@ -1,0 +1,64 @@
+
+<div *ngIf="noticeReportEvents">
+    <h2><span jhiTranslate="billingWebApp.noticeReportEvents.detail.title">Notice Report Events</span> {{noticeReportEvents.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.date">Date</span></dt>
+        <dd>
+            <span>{{noticeReportEvents.date | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.budderflyId">Budderfly Id</span></dt>
+        <dd>
+            <span>{{noticeReportEvents.budderflyId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.openBalance">Open Balance</span></dt>
+        <dd>
+            <span>{{noticeReportEvents.openBalance}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.numberOfDueInvoices">Number Of Due Invoices</span></dt>
+        <dd>
+            <span>{{noticeReportEvents.numberOfDueInvoices}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.optOut">Opt Out</span></dt>
+        <dd>
+            <span>{{noticeReportEvents.optOut}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.invoiceDaysOverdue">Invoice Days Overdue</span></dt>
+        <dd>
+            <span>{{noticeReportEvents.invoiceDaysOverdue}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.invoiceNumber">Invoice Number</span></dt>
+        <dd>
+            <span>{{noticeReportEvents.invoiceNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.invoiceAmountDue">Invoice Amount Due</span></dt>
+        <dd>
+            <span>{{noticeReportEvents.invoiceAmountDue}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.invoiceDueDate">Invoice Due Date</span></dt>
+        <dd>
+            <span>{{noticeReportEvents.invoiceDueDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.noticeType">Notice Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.NoticeType.' + noticeReportEvents.noticeType}}">{{noticeReportEvents.noticeType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.message">Message</span></dt>
+        <dd>
+            <span>{{noticeReportEvents.message}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.noticeReportEvents.noticeReport">Notice Report</span></dt>
+        <dd>
+            <div *ngIf="noticeReportEvents.noticeReportId">
+                <a [routerLink]="['/notice-report', noticeReportEvents.noticeReportId]">{{noticeReportEvents.noticeReportId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+</div>

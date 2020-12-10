@@ -1,0 +1,28 @@
+{
+    "billingWebApp": {
+        "billingCycleInvoiceActivity": {
+            "home": {
+                "title": "Billing Cycle Invoice Activities",
+                "createLabel": "Create a new Billing Cycle Invoice Activity",
+                "createOrEditLabel": "Create or edit a Billing Cycle Invoice Activity",
+                "search": "Search for Billing Cycle Invoice Activity"
+            },
+            "created": "A new Billing Cycle Invoice Activity is created with identifier {{ param }}",
+            "updated": "A Billing Cycle Invoice Activity is updated with identifier {{ param }}",
+            "deleted": "A Billing Cycle Invoice Activity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Billing Cycle Invoice Activity {{ id }}?"
+            },
+            "detail": {
+                "title": "Billing Cycle Invoice Activity"
+            },
+            "user": "User",
+            "pdfLink": "Pdf Link",
+            "activity": "Activity",
+            "level": "Level",
+            "message": "Message",
+            "activityDate": "Activity Date",
+            "budderflyInvoice": "Budderfly Invoice"
+        }
+    }
+}

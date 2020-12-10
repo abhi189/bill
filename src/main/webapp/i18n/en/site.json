@@ -1,0 +1,73 @@
+{
+    "billingWebApp": {
+        "site": {
+            "home": {
+                "title": "Sites",
+                "createLabel": "Create a new Site",
+                "createOrEditLabel": "Create or edit a Site",
+                "search": "Search for Sites",
+                "export": "Export"
+            },
+            "created": "A new Site is created with identifier {{ param }}",
+            "updated": "A Site is updated with identifier {{ param }}",
+            "deleted": "A Site is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Site {{ id }}?"
+            },
+            "detail": {
+                "title": "Site"
+            },
+            "budderflyId": "Budderfly Id",
+            "customerName": "Customer Name",
+            "status": "Status",
+            "companyType": "Company Type",
+            "storeNumber": "Store Number",
+            "address": "Address",
+            "city": "City",
+            "state": "State",
+            "zip": "Zip",
+            "billingType": "Billing Type",
+            "paymentType": "Payment Type",
+            "siteType": "Site Type",
+            "ownerName": "Owner Name",
+            "ownerEmail": "Owner Email",
+            "ownerPhone": "Owner Phone",
+            "address1": "Address 1",
+            "address2": "Address 2",
+            "latitude": "Latitude",
+            "longitude": "Longitude",
+            "taxExempt": "Tax Exempt",
+            "rollBilling": "Roll Billing",
+            "parentSite": "Parent Site",
+            "general": "General",
+            "utilityAccount": "Utility Account",
+            "invoices": "Invoices",
+            "createdBy": "Created By",
+            "createdDate": "Created Date",
+            "lastModifiedBy": "Last Modified By",
+            "lastModifiedDate": "Last Modified Date",
+            "enableTicketDispatch": "Enable Ticket Dispatch",
+            "contactDeskId": "Contact Desk Id",
+            "creditHold": "Credit Hold",
+            "workOrder": {
+                "title": "Work Orders"
+            },
+            "configurations": {
+                "title": "Configurations",
+                "HIGH_AIR_TEMPERATURE": "Dispatch of high air temperature Alert: ",
+                "LOW_AIR_TEMPERATURE": "Dispatch of low air temperature Alert: ",
+                "EQUIPMENT_HEATING_LIMIT": "Dispatch of equipment heating limit alert: ",
+                "EQUIPMENT_COOLING_LIMIT": "Dispatch of equipment cooling limit alert: ",
+                "OVERDUE_NOTICE": "Dispatch of overdue notices: ",
+                "DUNNING_NOTICE": "Dispatch of dunning notices: ",
+                "TERMINATION_NOTICE": "Dispatch of termination notices: "
+            }
+        },
+        "alertsSiteAlertType": {
+            "updated": "Configuration updated successfully."
+        },
+        "alertsSiteNoticeType": {
+            "updated": "Configuration updated successfully."
+        }
+    }
+}

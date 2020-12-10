@@ -1,0 +1,84 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myAlertLabel" jhiTranslate="billingWebApp.alert.home.createOrEditLabel">Create or edit a Alert</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!alert.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="alert.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alert.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="alert.description" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alert.priority" for="field_priority">Priority</label>
+            <select class="form-control" name="priority" [(ngModel)]="alert.priority" id="field_priority"  required>
+                <option value="HIGH">{{'billingWebApp.AlertPriority.HIGH' | translate}}</option>
+                <option value="MEDIUM">{{'billingWebApp.AlertPriority.MEDIUM' | translate}}</option>
+                <option value="LOW">{{'billingWebApp.AlertPriority.LOW' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.priority?.dirty && editForm.controls.priority?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.priority?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alert.category" for="field_category">Category</label>
+            <select class="form-control" name="category" [(ngModel)]="alert.category" id="field_category"  required>
+                <option value="CHARGE">{{'billingWebApp.AlertCategory.CHARGE' | translate}}</option>
+                <option value="CONSUMPTION">{{'billingWebApp.AlertCategory.CONSUMPTION' | translate}}</option>
+                <option value="DEMAND">{{'billingWebApp.AlertCategory.DEMAND' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.category?.dirty && editForm.controls.category?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.category?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alert.assignedTo" for="field_assignedTo">Assigned To</label>
+            <input type="text" class="form-control" name="assignedTo" id="field_assignedTo"
+                [(ngModel)]="alert.assignedTo" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alert.createdDate" for="field_createdDate">Created Date</label>
+            <div class="d-flex">
+                <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="alert.createdDate"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alert.lastModified" for="field_lastModified">Last Modified</label>
+            <div class="d-flex">
+                <input id="field_lastModified" type="datetime-local" class="form-control" name="lastModified" [(ngModel)]="alert.lastModified"
+                />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.alert.siteAccount" for="field_siteAccount">Site Account</label>
+            <select class="form-control" id="field_siteAccount" name="siteAccount" [(ngModel)]="alert.siteAccountId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="siteAccountOption.id" *ngFor="let siteAccountOption of siteaccounts; trackBy: trackSiteAccountById">{{siteAccountOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

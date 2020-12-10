@@ -1,0 +1,72 @@
+<form name="editForm" role="form" novalidate #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBillingCycleLabel" jhiTranslate="billingWebApp.billingCycle.home.createInvoices">Create Invoices</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group">
+            <input type="checkbox" name="billingCyclesCB" (change)="checkPreviousBC()" [(ngModel)]="billingCyclesModel" jhiTranslate="billingWebApp.billingCycle.importFromBillingCycle">Import from Billing Cycle:</input>
+            <fieldset id="previousBillingCyclesFieldSet" *ngIf="billingCyclesModel">
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="billingWebApp.budderflyInvoice.billingCycle" for="field_billingCycle">Billing Cycle</label>
+                    <select class="form-control" id="field_billingCycle" [(ngModel)]="previousBillingCycle" name="previousBillingCycle">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="billingCycleOption" *ngFor="let billingCycleOption of billingCycles">{{billingCycleOption.name}}</option>
+                    </select>
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" name="billingRequestCB" [(ngModel)]="billingRequestModel" (change)="checkBillingRequest()" jhiTranslate="billingWebApp.billingCycle.billingRequest">Billing Request:</input>
+
+            <fieldset  *ngIf="billingRequestModel" id="billingRequestFieldSet">
+                <div>
+                    <input type="checkbox" name="activeInvoicing" [(ngModel)]="activeInvoicing" jhiTranslate="billingWebApp.billingCycle.activeInvoicing"  *ngIf="billingRequestModel">Active Invoicing:</input>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="billingWebApp.budderflyInvoice.utilityRequest" for="field_requestDates">Utility Request Take Over Request Date</label>
+                    <select class="form-control" [(ngModel)]="requestDatesSelection" id="field_requestDates" name="requestDates">
+                        <option [ngValue]="requestDateOption" *ngFor="let requestDateOption of requestDates">{{requestDateOption | date:'mediumDate'}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="billingWebApp.budderflyInvoice.billingRequestStatus" for="field_billingRequestStatus">Billing Request status</label>
+                    <select class="form-control" [(ngModel)]="billingRequestStatus" id="field_billingRequestStatus" name="billingRequestStatus">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="billingRequestOption" *ngFor="let billingRequestOption of billingRequestStatuses">{{billingRequestOption}}</option>
+                    </select>
+                </div>
+            </fieldset>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" name="sitesCB" [(ngModel)]="sitesModel" (change)="checkSite()" jhiTranslate="billingWebApp.billingCycle.selectSites">Site:</input>
+            <div class="form-group" *ngIf="sitesModel">
+                <label class="form-control-label" jhiTranslate="billingWebApp.budderflyInvoice.budderflyId" for="field_budderflyId">Budderfly Id</label>
+                <input type="text" class="form-control" name="budderflyId" id="field_budderflyId"
+                       [(ngModel)]="budderflyId" />
+            </div>
+            <!--<div *ngIf="sitesModel" class="combo-selector">-->
+                <!--<angular4-multiselect [data]="dropdownList" [(ngModel)]="selectedItems" name="selectedItems"-->
+                                      <!--[settings]="dropdownSettings"-->
+                                      <!--[disabled]="selectSites"-->
+                                      <!--(onSelect)="$event"-->
+                                      <!--(onDeSelect)="$event"-->
+                                      <!--(onSelectAll)="$event"-->
+                                      <!--(onDeSelectAll)="$event">-->
+                <!--</angular4-multiselect>-->
+            <!--</div>-->
+
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="button" class="btn btn-primary" (click)="addSites()">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="billingWebApp.budderflyInvoice.addSites">Add Sites</span>
+        </button>
+    </div>
+</form>

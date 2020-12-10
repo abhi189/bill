@@ -1,0 +1,53 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myJobDescriptionLabel" jhiTranslate="jobDescription.home.createOrEditLabel">Create or edit a Job Description</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!jobDescription.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="jobDescription.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="jobDescription.callbackURL" for="field_callbackURL">Callback URL</label>
+            <input type="text" class="form-control" name="callbackURL" id="field_callbackURL" placeholder="site-accounts/test2 (without api/)"
+                [(ngModel)]="jobDescription.callbackURL" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="jobDescription.cron" for="field_cron">Cron</label>
+            <input type="text" class="form-control" name="cron" id="field_cron" placeholder="Example: 0 * * ? * * *"
+                [(ngModel)]="jobDescription.cron" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="jobDescription.tag" for="field_tag">Tag</label>
+            <select class="form-control" name="tag" [(ngModel)]="jobDescription.tag" id="field_tag" >
+                <option value="BILLING">{{'jobDescription.ServiceTag.BILLING' | translate}}</option>
+                <option value="INVENTORY">{{'jobDescription.ServiceTag.INVENTORY' | translate}}</option>
+                <option value="INJOBS">{{'jobDescription.ServiceTag.INJOBS' | translate}}</option>
+                <option value="SCHEDULING">{{'jobDescription.ServiceTag.SCHEDULING' | translate}}</option>
+                <option value="SITES">{{'jobDescription.ServiceTag.SITES' | translate}}</option>
+                <option value="ACCOUNTING">{{'jobDescription.ServiceTag.ACCOUNTING' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="jobDescription.httpMethod.title" for="field_tag">Http Method</label>
+            <select class="form-control" name="tag" [(ngModel)]="jobDescription.httpMethod" id="field_httpMethod" >
+                <option value="GET">{{'jobDescription.httpMethod.GET' | translate}}</option>
+                <option value="POST">{{'jobDescription.httpMethod.POST' | translate}}</option>
+            </select>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

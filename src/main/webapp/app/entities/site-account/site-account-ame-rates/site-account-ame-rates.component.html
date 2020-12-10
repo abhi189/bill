@@ -1,0 +1,246 @@
+<div class="row">
+    <div class="col-sm-3">
+        <select class="custom-select select-amer-set" id="amerSetSelected" [ngModel]="selectedAmerSet"
+                [ngModelOptions]="{standalone: true}" (ngModelChange)="onSelectedAmerSet($event)"
+                [disabled]="editingRate">
+            <option *ngFor="let amerSet of amerSets" [ngValue]="amerSet">{{amerSet.effectiveDate | date:'medium':'UTC'}}
+            </option>
+        </select>
+    </div>
+    <div class="automatic-update col-sm-2" [ngClass]="{'disabled' : editingRate}">
+        <span>Automatic Update</span>
+        <div class="onoffswitch">
+            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch"
+                   [disabled]="editingRate" [(ngModel)]="automaticUpdate" (change)="onAutomaticUpdateChange()">
+            <label class="onoffswitch-label" for="myonoffswitch">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <div class="row">
+            <div class="col-md-12">
+                <span>Tariff: </span>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <span><b>{{currentTariff}}</b></span>
+            </div>
+        </div>
+    </div>
+    <div class="automatic-update col-sm-3" [ngClass]="{'disabled' : editingRate}">
+        <span>Add charges to tariff rates</span>
+        <div class="onoffswitch">
+            <input type="checkbox" name="myonoffswitch_addcharges" class="onoffswitch-checkbox"
+                   id="myonoffswitch_addcharges" [disabled]="!useRateRepository"
+                   [(ngModel)]="addChargesToTariffRates" (change)="onAddChargesToTariffRatesChange()">
+            <label class="onoffswitch-label" for="myonoffswitch_addcharges">
+                <span class="onoffswitch-inner"></span>
+                <span class="onoffswitch-switch"></span>
+            </label>
+        </div>
+    </div>
+    <div class="container-buttons col-sm-2">
+        <div class="pull-right">
+            <button type="button" class="btn btn-primary ml-2" *ngIf="!editingRate" (click)="editRates()"
+                    [disabled]="disableControls">Edit
+            </button>
+            <button type="button" class="btn btn-info ml-2" *ngIf="editingRate" (click)="addNewRate()"
+                    [disabled]="disableControls">Add
+            </button>
+            <button type="button" class="btn btn-danger ml-2" *ngIf="editingRate" (click)="cancelEditRates()"
+                    [disabled]="disableControls">Cancel
+            </button>
+            <button type="button" class="btn btn-success ml-2" *ngIf="editingRate" (click)="confirmEditRates()"
+                    [disabled]="disableControls">Confirm
+            </button>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-sm table-striped table-bordered">
+        <tr>
+            <th data-toggle="tooltip" data-placement="top" title="Effective Date">
+                <span jhiTranslate="billingWebApp.siteAccount.effectiveDate">Date</span>
+                <span class="fa fa-sort" (click)="sortRateTable('effectiveDate')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.chargeId">Charge Id</span>
+                <span class="fa fa-sort" (click)="sortRateTable('chargeId')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.chargeDescription">Charge Description</span>
+                <span class="fa fa-sort" (click)="sortRateTable('chargeActualName')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.rateComponent">Rate Component</span>
+                <span class="fa fa-sort" (click)="sortRateTable('rateComponent')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.usageUnit">Usage Unit</span>
+                <span class="fa fa-sort" (click)="sortRateTable('usageType')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.rateType">Rate Type</span>
+                <span class="fa fa-sort" (click)="sortRateTable('usageType')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.usageAmount">Amount</span>
+                <span class="fa fa-sort" (click)="sortRateTable('usageType')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.ratePerUnit">Rate Per Unit</span>
+                <span class="fa fa-sort" (click)="sortRateTable('rate')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.billingMonth">Billing Month</span>
+                <span class="fa fa-sort" (click)="sortRateTable('rate')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.applyPercentage">Apply Percentage</span>
+                <span class="fa fa-sort" (click)="sortRateTable('rate')"></span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.sourceInvoice">Source Invoice</span>
+                <span class="fa fa-sort" (click)="sortRateTable('invoiceId')"></span>
+            </th>
+            <th *ngIf="editingRate"></th>
+        </tr>
+        <ng-container *ngIf="creatingRate">
+            <tr *ngFor="let newAmer of newAmers">
+                <td>{{ newAmer.effectiveDate | date:'MM-dd-yyyy':'UTC'}}</td>
+                <td>
+                    <input required pattern="[a-z\._ ]*" type="text" class="form-control" [(ngModel)]="newAmer.chargeId"
+                           name="newAmerChargeId">
+                </td>
+                <td>
+                    <input required pattern="[a-zA-Z ]*" type="text" class="form-control"
+                           [(ngModel)]="newAmer.chargeActualName" name="newAmerChargeActualName">
+                </td>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="newAmer.rateComponent"
+                           name="newAmerRateComponent">
+                </td>
+                <td>
+                    <!-- <input required pattern="(KW)|(KWH)|(DAY)|(FLAT)" type="text" class="form-control" [(ngModel)]="newAmer.usageType" name="newAmerUsageType"> -->
+                    <select class="form-control" id="newAmerUsageType" [(ngModel)]="newAmer.usageType">
+                        <option *ngFor="let unit of ratesUsageUnits">{{unit}}</option>
+                    </select>
+                </td>
+                <td class="d-flex">
+                    <select class="form-control" id="newAmerRateType" [(ngModel)]="newAmer.rateTypeParsed">
+                        <option value="FLAT">FLAT</option>
+                        <option value="USAGE">USAGE</option>
+                        <option value="PERCENTAGE">PERCENTAGE</option>
+                        <option value="TIER">TIER</option>
+                    </select>
+                    <input type="number" class="form-control max-width-rate-type" name="newTierNumber"
+                           id="newTierNumber"
+                           [(ngModel)]="newAmer.tierNumber" [hidden]="enableTierNumber(newAmer.rateTypeParsed)">
+
+                </td>
+                <td>
+                    <input type="text" class="form-control" [(ngModel)]="newAmer.usageAmount" name="newAmerUsageAmount">
+                </td>
+                <td>
+                    <input required type="number" class="form-control" [(ngModel)]="newAmer.rate" name="newAmerRate">
+                </td>
+                <td>
+                    <button type="button" (click)="openComboSelector(true,false,true,newAmer)" class="btn btn-primary"
+                            style="width: 100%">
+                        <span jhiTranslate="billingWebApp.siteAccount.select">Select Months</span>
+                    </button>
+                </td>
+                <td>
+                    <button type="button" (click)="openComboSelector(false,false,true,newAmer)" class="btn btn-primary"
+                            style="width: 100%" [disabled]="enableApplyPercentageButton(newAmer.rateTypeParsed)">
+                        <span jhiTranslate="billingWebApp.siteAccount.select">Select Charges</span>
+                    </button>
+                </td>
+                <td>
+                    <input type="number" class="form-control" [(ngModel)]="newAmer.invoiceId" name="newAmerInvoiceId">
+                </td>
+            </tr>
+        </ng-container>
+        <ng-container *ngIf="selectedAmerSet != null">
+            <tr *ngFor="let rate of selectedAmerSet.amers; let i = index" [hidden]="rate.effectiveDate == null"
+                [ngClass]="{'most-current-rate' : rate.mostCurrentRate}">
+                <td>{{rate?.effectiveDate | date:'MM-dd-yyyy':'UTC'}}</td>
+                <td>{{rate?.chargeId}}</td>
+                <td *ngIf="!editingRate; else editChargeActualName">{{rate?.chargeActualName}}</td>
+                <ng-template #editChargeActualName>
+                    <td>
+                        <input type="text" class="form-control" [(ngModel)]="rate.chargeActualName"
+                               name="chargeActualName">
+                    </td>
+                </ng-template>
+                <td *ngIf="!editingRate; else editRateComponent">{{rate?.rateComponent}}</td>
+                <ng-template #editRateComponent>
+                    <td>
+                        <input type="text" class="form-control" [(ngModel)]="rate.rateComponent" name="rateComponent">
+                    </td>
+                </ng-template>
+                <td>{{rate?.usageType}}</td>
+
+                <td>{{rate?.rateType}}</td>
+
+                <td *ngIf="!editingRate; else editUsageAmount">{{rate?.usageAmount }}</td>
+                <ng-template #editUsageAmount>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.usageAmount" name="rate">
+                    </td>
+                </ng-template>
+
+                <td *ngIf="!editingRate; else editRate">{{rate?.rate | number:'.4-4' }}</td>
+                <ng-template #editRate>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.rate" name="rate">
+                    </td>
+                </ng-template>
+
+                <td [hidden]="!editingRate">
+                    <a (click)="openComboSelector(true,false,false,rate)">
+                        <span *ngIf="rate.billingMonth == null">---</span>
+                        <span *ngIf="rate.amerApplyPercentages != null">{{rate.billingMonth}}</span>
+                    </a>
+                </td>
+                <td [hidden]="editingRate">
+                    <a (click)="openComboSelector(true,true,false,rate)">
+                        {{rate.billingMonth}}
+                    </a>
+                </td>
+
+                <td [hidden]="!editingRate">
+                    <a (click)="openComboSelector(false,false,false,rate)">
+                        <span>{{labelForAP(rate)}}</span>
+                    </a>
+                </td>
+                <td [hidden]="editingRate">
+                    <a (click)="openComboSelector(false,true,false,rate)">
+                        <span>{{labelForAP(rate)}}</span>
+                    </a>
+                </td>
+
+                <td *ngIf="!editingRate; else editInvoiceId">
+                    <a *ngIf="rate.invoiceId > 0" [routerLink]="['/invoice', rate.invoiceId]" target="_blank">
+                        {{rate?.invoiceId }}
+                    </a>
+                </td>
+                <ng-template #editInvoiceId>
+                    <td>
+                        <input type="number" class="form-control" [(ngModel)]="rate.invoiceId" name="invoiceId">
+                    </td>
+                </ng-template>
+
+                <td *ngIf="editingRate">
+                    <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove"
+                            (click)="removeRate(i,rate)">
+                        <span class="fa fa-lg fa-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        </ng-container>
+    </table>
+</div>

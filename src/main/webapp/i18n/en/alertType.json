@@ -1,0 +1,13 @@
+{
+    "billingWebApp": {
+        "AlertType": {
+            "null": "",
+            "EQUIPMENT": "EQUIPMENT",
+            "OTHER": "OTHER",
+            "HIGH_AIR_TEMPERATURE": "High air temperature",
+            "LOW_AIR_TEMPERATURE": "Low air temperature",
+            "EQUIPMENT_HEATING_LIMIT": "Equipment heating limit",
+            "EQUIPMENT_COOLING_LIMIT": "Equipment cooling limit"
+        }
+    }
+}

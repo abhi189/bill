@@ -1,0 +1,81 @@
+
+<div *ngIf="alertMs">
+    <h2><span jhiTranslate="billingWebApp.alertMs.detail.title">Alert Ms</span> {{alertMs.id}}</h2>
+    <hr>
+    <ngb-tabset [justify]="'fill'" type="pills" (tabChange)="beforeTabChange($event)" [activeId]="activeIdString">
+        <ngb-tab id="tabGeneral">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.siteAccount.general">General</span></ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert-error></jhi-alert-error>
+                <dl class="row-md jh-entity-details">
+                    <dt><span jhiTranslate="billingWebApp.alertMs.assignee">Assignee</span></dt>
+                    <dd>
+                        <span>{{alertMs.assignee}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.alertMs.alertType">Alert Type</span></dt>
+                    <dd>
+                        <span jhiTranslate="{{'billingWebApp.AlertType.' + alertMs.alertType}}">{{alertMs.alertType}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.alertMs.budderflyId">Budderfly Id</span></dt>
+                    <dd>
+                        <span>{{alertMs.budderflyId}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.alertMs.item">Item</span></dt>
+                    <dd>
+                        <span>{{alertMs.item}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.alertMs.description">Description</span></dt>
+                    <dd>
+                        <span>{{alertMs.description}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.alertMs.source">Source</span></dt>
+                    <dd>
+                        <span jhiTranslate="{{'billingWebApp.SourceType.' + alertMs.source}}">{{alertMs.source}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.alertMs.alertDate">Alert Date</span></dt>
+                    <dd>
+                        <span>{{alertMs.alertDate | date:'medium'}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.alertMs.severity">Severity</span></dt>
+                    <dd>
+                        <span jhiTranslate="{{'billingWebApp.SeverityType.' + alertMs.severity}}">{{alertMs.severity}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.alertMs.status">Status</span></dt>
+                    <dd>
+                        <span jhiTranslate="{{'billingWebApp.AlertStatus.' + alertMs.status}}">{{alertMs.status}}</span>
+                    </dd>
+                    <dt><span jhiTranslate="billingWebApp.alertMs.url">Ticket URL</span></dt>
+                    <dd>
+                        <div *ngIf="alertMs.ticketUrl"><a href="{{alertMs.ticketUrl}}" target="_blank">Ticket link</a></div>
+                    </dd>
+                </dl>
+
+                <button type="submit"
+                        (click)="previousState()"
+                        class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                </button>
+
+                <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'alert-ms/'+ alertMs.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabNotes">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.alertNote.home.title">Alert Notes</span></ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert-notes [alertId]="alertMs.id"></jhi-alert-notes>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabActivities">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.alertActivity.home.title">AlertActivity</span></ng-template>
+            <ng-template ngbTabContent>
+                <jhi-alert-activities [alertId]="alertMs.id"></jhi-alert-activities>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>

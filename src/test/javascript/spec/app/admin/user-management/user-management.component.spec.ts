@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed, async, inject, fakeAsync, tick } from '@angular/core/testing';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 
-import { HomebillingwebTestModule } from '../../../test.module';
-import { UserMgmtComponent } from 'app/admin/user-management/user-management.component';
-import { UserService, User } from 'app/core';
+import { BillingWebTestModule } from '../../../test.module';
+import { UserMgmtComponent } from '../../../../../../main/webapp/app/admin/user-management/user-management.component';
+import { UserService, User } from '../../../../../../main/webapp/app/shared';
 
 describe('Component Tests', () => {
     describe('User Management Component', () => {
@@ -14,8 +14,9 @@ describe('Component Tests', () => {
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
-                imports: [HomebillingwebTestModule],
-                declarations: [UserMgmtComponent]
+                imports: [BillingWebTestModule],
+                declarations: [UserMgmtComponent],
+                providers: [UserService]
             })
                 .overrideTemplate(UserMgmtComponent, '')
                 .compileComponents();
@@ -34,7 +35,7 @@ describe('Component Tests', () => {
                     // GIVEN
                     const headers = new HttpHeaders().append('link', 'link;link');
                     spyOn(service, 'query').and.returnValue(
-                        of(
+                        Observable.of(
                             new HttpResponse({
                                 body: [new User(123)],
                                 headers
@@ -61,14 +62,14 @@ describe('Component Tests', () => {
                     const headers = new HttpHeaders().append('link', 'link;link');
                     const user = new User(123);
                     spyOn(service, 'query').and.returnValue(
-                        of(
+                        Observable.of(
                             new HttpResponse({
                                 body: [user],
                                 headers
                             })
                         )
                     );
-                    spyOn(service, 'update').and.returnValue(of(new HttpResponse({ status: 200 })));
+                    spyOn(service, 'update').and.returnValue(Observable.of(new HttpResponse({ status: 200 })));
 
                     // WHEN
                     comp.setActive(user, true);

@@ -1,0 +1,742 @@
+<hr class="style1">
+<div class="row">
+    <div class="col-lg-2">
+        <div *ngIf="equipments">
+            <div class="btn-group-vertical w-100" style="align-items: inherit" role="group" aria-label="" >
+                <div *ngFor="let equipment of equipments">
+                    <button class="btn btn-light w-100 text-left" [class.active]="isActive(equipment)" (click)="changeEquipmentData(equipment)">
+                        <span>
+                            {{equipment.name}}{{equipment.displayDescription ? ' - ' + equipment.displayDescription : ''}}
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-10" *ngIf="showEquipmentData">
+
+        <jhi-site-equipment-header [equipment]="selectedEquipment"></jhi-site-equipment-header>
+
+        <!-- No Monitors warning message -->
+        <div class="row" *ngIf="nonAvailableMonitors">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header text-white" style="background-color: #547caa;">
+                        {{selectedEquipment.name}}
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-4"></div>
+                            <div class="col-4">
+                                <div class="alert alert-secondary" role="alert">
+                                    <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                    <span>  No data available for this equipment.</span>
+                                </div>
+                            </div>
+                            <div class="col-4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monitor list section-->
+        <div class="row" *ngIf="showMultipleMonitors">
+            <div class="col-1 align-self-center">
+                <p class="h6">Monitors: </p>
+            </div>
+            <div class="col-11">
+                <div class="btn-group" role="group" aria-label="">
+                    <div *ngFor="let monitor of powerMonitors">
+                        <button type="button" class="btn btn-outline-primary" [class.active]="isMonitorActive(monitor)" (click)="onSelectedPowerMonitorChange(monitor)" >{{monitor.monitorSource}}</button>
+                    </div>
+                </div>
+            </div>
+            <hr class="style1">
+        </div>
+
+        <!-- Consumption section-->
+        <div class="row" *ngIf="showPowerGraph || showKe2Graph">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header text-white" style="background-color: #547caa;">
+                        Telemetry Dashboard
+                    </div>
+                    <div class="card-body">
+                            <ngb-tabset #t="ngbTabset" [justify]="'justified'" [activeId]="starTabName">
+                                <ngb-tab  id="hour-tab" >
+                                    <ng-template ngbTabTitle>
+                                        <span jhiTranslate="billingWebApp.event.graph.hour">Hour</span>
+                                    </ng-template>
+                                    <ng-template ngbTabContent>
+                                        <div class="row mt-2 justify-content-md-center">
+                                            <h6>
+                                                Selected hour: {{currentShowHour | date:'MM/dd - hh a'}} - {{timeZoneID}}
+                                            </h6>
+                                        </div>
+                                        <div class="card" *ngIf="showPowerGraph">
+                                            <div class="card-header">
+                                                Consumption - Total: {{totalHourConsumption}} kWh
+                                            </div>
+                                            <div class="card-body">
+                                                <div *ngIf="hourDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousHour()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 300px">
+                                                                <canvas
+                                                                        baseChart
+                                                                        [chartType]="'bar'"
+                                                                        [datasets]="hourChartData"
+                                                                        [colors]="hourChartColors"
+                                                                        [labels]="hourChartLabels"
+                                                                        [options]="hourChartOptions"
+                                                                        (chartClick)="onChartClick($event)">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextHour()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" *ngIf="showPowerGraph">
+                                            <div class="card-header">
+                                                Demand - Max: {{maxHourDemand}} kW
+                                            </div>
+                                            <div class="card-body">
+                                                <div *ngIf="hourDemandDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousHour()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 300px">
+                                                                <canvas
+                                                                        baseChart
+                                                                        [chartType]="'bar'"
+                                                                        [datasets]="hourDemandChartData"
+                                                                        [colors]="hourDemandChartColors"
+                                                                        [labels]="hourDemandChartLabels"
+                                                                        [options]="hourDemandChartOptions"
+                                                                        (chartClick)="onChartClick($event)">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextHour()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" *ngIf="showKe2Graph">
+                                            <div *ngIf="!showDropDown; else showMonitorDropDown"></div>
+                                            <div class="card-header">
+                                                Max Coil Temperature: {{maxCoilTemp}} F; Max Room Temperature: {{maxRoomTemp}} F
+                                            </div>
+                                            <div class="card-body" style="height: 500px">
+                                                <div *ngIf="ke2HourDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousHour()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 500px">
+                                                                <canvas
+                                                                    baseChart
+                                                                    [chartType]="'line'"
+                                                                    [datasets]="hourKe2ChartData"
+                                                                    [colors]="hourKe2ChartColors"
+                                                                    [labels]="hourKe2ChartLabels"
+                                                                    [options]="hourKe2ChartOptions">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextHour()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                
+                                    </ng-template>
+                                </ngb-tab>
+                                <ngb-tab id="day-tab" >
+                                    <ng-template ngbTabTitle>
+                                        <span jhiTranslate="billingWebApp.event.graph.day">Day</span>
+                                    </ng-template>
+                                    <ng-template ngbTabContent>
+                                        <div class="row mt-2 justify-content-md-center">
+                                            <h6>
+                                                Selected day: {{currentShowDay | date:'mediumDate'}} - {{timeZoneID}}
+                                            </h6>
+                                        </div>
+                                        <div class="card" *ngIf="showPowerGraph">
+                                            <div class="card-header">
+                                                Consumption - Total: {{totalDayConsumption}} kWh
+                                            </div>
+                                            <div class="card-body">
+                                                <div *ngIf="dayDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousDay()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 300px">
+                                                                <canvas
+                                                                        baseChart
+                                                                        [chartType]="'bar'"
+                                                                        [datasets]="dayChartData"
+                                                                        [colors]="dayChartColors"
+                                                                        [labels]="dayChartLabels"
+                                                                        [options]="dayChartOptions"
+                                                                        (chartClick)="onChartClick($event)">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextDay()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" *ngIf="showPowerGraph">
+                                            <div class="card-header">
+                                                Demand - Max: {{maxDayDemand}} kW
+                                            </div>
+                                            <div class="card-body">
+                                                <div *ngIf="dayDemandDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousDay()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 300px">
+                                                                <canvas
+                                                                        baseChart
+                                                                        [chartType]="'bar'"
+                                                                        [datasets]="dayDemandChartData"
+                                                                        [colors]="dayDemandChartColors"
+                                                                        [labels]="dayDemandChartLabels"
+                                                                        [options]="dayDemandChartOptions"
+                                                                        (chartClick)="onChartClick($event)">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextDay()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" *ngIf="showKe2Graph">
+                                            <div *ngIf="!showDropDown; else showMonitorDropDown"></div>
+                                            <div class="card-header">
+                                                Max Coil Temperature: {{apexMaxCoilTemp}} F; Max Room Temperature: {{apexMaxRoomTemp}} F
+                                            </div>
+                                            <div class="card-body" style="height: 500px">
+                                                <div *ngIf="ke2DayDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousDay()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 500px">
+                                                                <canvas
+                                                                    baseChart
+                                                                    [chartType]="'line'"
+                                                                    [datasets]="dayKe2ChartData"
+                                                                    [colors]="dayKe2ChartColors"
+                                                                    [labels]="dayKe2ChartLabels"
+                                                                    [options]="dayKe2ChartOptions">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextDay()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <ngb-tab id="month-tab" >
+                                    <ng-template ngbTabTitle>
+                                        <span jhiTranslate="billingWebApp.event.graph.month">Month</span>
+                                    </ng-template>
+                                    <ng-template ngbTabContent>
+                                        <div class="row mt-2 justify-content-md-center">
+                                            <h6>
+                                                Selected month: {{currentShowMonth | date:'mediumDate'}} - {{timeZoneID}}
+                                            </h6>
+                                        </div>
+                                        <div class="card" *ngIf="showPowerGraph">
+                                            <div class="card-header">
+                                                Consumption - Total: {{totalMonthConsumption}} kWh
+                                            </div>
+                                            <div class="card-body">
+                                                <div *ngIf="monthDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousMonth()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 300px">
+                                                                <canvas
+                                                                        baseChart
+                                                                        [chartType]="'bar'"
+                                                                        [datasets]="monthChartData"
+                                                                        [colors]="monthChartColors"
+                                                                        [labels]="monthChartLabels"
+                                                                        [options]="monthChartOptions"
+                                                                        (chartClick)="onChartClick($event)">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextMonth()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" *ngIf="showPowerGraph">
+                                            <div class="card-header">
+                                                Demand - Max: {{maxMonthDemand}} kW
+                                            </div>
+                                            <div class="card-body">
+                                                <div *ngIf="monthDemandDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousMonth()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 300px">
+                                                                <canvas
+                                                                        baseChart
+                                                                        [chartType]="'bar'"
+                                                                        [datasets]="monthDemandChartData"
+                                                                        [colors]="monthDemandChartColors"
+                                                                        [labels]="monthDemandChartLabels"
+                                                                        [options]="monthDemandChartOptions"
+                                                                        (chartClick)="onChartClick($event)">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextMonth()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" *ngIf="showKe2Graph">
+                                            <div *ngIf="!showDropDown; else showMonitorDropDown"></div>
+                                            <div class="card-header">
+                                                Max Coil Temperature: {{apexMaxCoilTemp}} F; Max Room Temperature: {{apexMaxRoomTemp}} F
+                                            </div>
+                                            <div class="card-body" style="height: 500px">
+                                                <div *ngIf="ke2MonthDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousMonth()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 500px">
+                                                                <canvas
+                                                                    baseChart
+                                                                    [chartType]="'line'"
+                                                                    [datasets]="monthKe2ChartData"
+                                                                    [colors]="monthKe2ChartColors"
+                                                                    [labels]="monthKe2ChartLabels"
+                                                                    [options]="monthKe2ChartOptions">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextMonth()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                                <ngb-tab id="year-tab" >
+                                    <ng-template ngbTabTitle>
+                                        <span jhiTranslate="billingWebApp.event.graph.year">Year</span>
+                                    </ng-template>
+                                    <ng-template ngbTabContent>
+                                        <div class="row mt-2 justify-content-md-center">
+                                            <h6>
+                                                Selected year: {{currentShowYear}} - {{timeZoneID}}
+                                            </h6>
+                                        </div>
+                                        <div class="card" *ngIf="showPowerGraph">
+                                            <div class="card-header">
+                                                Consumption - Total: {{totalYearConsumption}} kWh
+                                            </div>
+                                            <div class="card-body">
+                                                <div *ngIf="yearDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousYear()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 300px">
+                                                                <canvas
+                                                                        baseChart
+                                                                        [chartType]="'bar'"
+                                                                        [datasets]="yearChartData"
+                                                                        [colors]="yearChartColors"
+                                                                        [labels]="yearChartLabels"
+                                                                        [options]="yearChartOptions"
+                                                                        (chartClick)="onChartClick($event)">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextYear()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" *ngIf="showPowerGraph">
+                                            <div class="card-header">
+                                                Demand kW - Max: {{maxYearDemand}} kW
+                                            </div>
+                                            <div class="card-body">
+                                                <div *ngIf="yearDemandDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousYear()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 300px">
+                                                                <canvas
+                                                                        baseChart
+                                                                        [chartType]="'bar'"
+                                                                        [datasets]="yearDemandChartData"
+                                                                        [colors]="yearDemandChartColors"
+                                                                        [labels]="yearChartLabels"
+                                                                        [options]="yearDemandChartOptions"
+                                                                        (chartClick)="onChartClick($event)">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextYear()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card" *ngIf="showKe2Graph">
+                                            <div *ngIf="!showDropDown; else showMonitorDropDown"></div>
+                                            <div class="card-header">
+                                                Max Coil Temperature: {{apexMaxCoilTemp}} F; Max Room Temperature: {{apexMaxRoomTemp}} F
+                                            </div>
+                                            <div class="card-body" style="height: 500px">
+                                                <div *ngIf="ke2YearDataLoaded; else spinner">
+                                                    <div class="row">
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-end">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="previousYear()">
+                                                                    <i class="fa fa-angle-double-left"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-10">
+                                                            <div style="height: 500px">
+                                                                <canvas
+                                                                    baseChart
+                                                                    [chartType]="'line'"
+                                                                    [datasets]="yearKe2ChartData"
+                                                                    [colors]="yearKe2ChartColors"
+                                                                    [labels]="yearKe2ChartLabels"
+                                                                    [options]="yearKe2ChartOptions">
+                                                                </canvas>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-1 align-self-center">
+                                                            <div class="d-flex justify-content-start">
+                                                                <button type="button" class="btn btn-outline-dark" (click)="nextYear()">
+                                                                    <i class="fa fa-angle-double-right"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </ng-template>
+                                </ngb-tab>
+                            </ngb-tabset>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monitor details section
+        <div class="row" *ngIf="selectedMonitor">
+            <div class="col-12">
+                <hr class="style1">
+                <div class="card">
+                    <div class="card-header">
+                        Details of {{selectedMonitor.name}}
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <dt class="col-sm-2">ID:</dt>
+                            <dd class="col-sm-10">{{selectedMonitor.id}}</dd>
+                            <dt class="col-sm-2">Name:</dt>
+                            <dd class="col-sm-10">{{selectedMonitor.name}}</dd>
+                            <dt class="col-sm-2">External ID:</dt>
+                            <dd class="col-sm-10">{{selectedMonitor.externalId}}</dd>
+                            <dt class="col-sm-2">Monitor UUID:</dt>
+                            <dd class="col-sm-10">{{selectedMonitor.monitorUuid}}</dd>
+                            <dt class="col-sm-2">Metric type:</dt>
+                            <dd class="col-sm-10">{{selectedMonitor.metricTemplate}}</dd>
+                            <dt class="col-sm-2">Monitor source:</dt>
+                            <dd class="col-sm-10">{{selectedMonitor.monitorSource}}</dd>
+                            <dt class="col-sm-2">Created by:</dt>
+                            <dd class="col-sm-10">{{selectedMonitor.createdBy}}</dd>
+                            <dt class="col-sm-2">Created:</dt>
+                            <dd class="col-sm-10">{{selectedMonitor.createdDate}}</dd>
+                            <dt class="col-sm-2">Last modified by:</dt>
+                            <dd class="col-sm-10">{{selectedMonitor.lastModifiedBy}}</dd>
+                            <dt class="col-sm-2">Last modified:</dt>
+                            <dd class="col-sm-10">{{selectedMonitor.lastModifiedDate}}</dd>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  -->
+
+        <!-- Will be available soon Main section
+        <div class="row">
+
+            <hr class="style1">
+            <div *ngIf="mainSelected">
+                <br>
+                <hr class="style1">
+
+                <div class="list-group">
+                    <a class="list-group-item active">
+                        Main Details
+                    </a>
+                    <a class="list-group-item">
+                        <span><i class="fa fa-thermometer-full"></i> FREEZER - 32%</span>
+                    </a>
+                    <a class="list-group-item">
+                        <span><i class="fa fa-thermometer-full"></i> COOLER - 22%</span>
+                    </a>
+                    <a class="list-group-item">
+                        <span><i class="fa fa-bolt"></i> HVAC - 45%</span>
+                    </a>
+                    <a class="list-group-item">
+                        <span><i class="fa fa-question-circle-o"></i> UNKNOWN - 1%</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        -->
+
+        <div class="container-fluid">
+            <!-- Events section-->
+            <div class="row" *ngIf="alertMonitorFound">
+                <div class="col-12">
+                    <div *ngIf="showPowerGraph">
+                        <hr class="style1">
+                    </div>
+                    <div class="card">
+                        <div class="card-header text-white" style="background-color: #547caa;">
+                            Latest events from the equipment
+                        </div>
+                        <div class="card-body">
+                            <div *ngIf="events && events.length; else noevents">
+                                <table class="table table-striped">
+                                    <thead>
+                                    <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                                        <th jhiSortBy="eventTimestamp"><span jhiTranslate="billingWebApp.event.eventTimestamp">Event Timestamp</span> <span class="fa fa-sort"></span></th>
+                                        <th jhiSortBy="eventType"><span jhiTranslate="billingWebApp.event.eventType">Event Type</span> <span class="fa fa-sort"></span></th>
+                                        <th jhiSortBy="message"><span jhiTranslate="billingWebApp.event.message">Message</span> <span class="fa fa-sort"></span></th>
+                                        <th jhiSortBy="event"><span jhiTranslate="billingWebApp.event.event">Event</span> <span class="fa fa-sort"></span></th>
+                                        <th jhiSortBy="duration"><span jhiTranslate="billingWebApp.event.duration">Duration</span> <span class="fa fa-sort"></span></th>
+                                        <th jhiSortBy="ipAddress"><span jhiTranslate="billingWebApp.event.ipAddress">Ip Address</span> <span class="fa fa-sort"></span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr *ngFor="let event of events ;trackBy: trackId">
+                                        <td>{{event.eventTimestamp | date:'medium'}}</td>
+                                        <td>{{event.eventType}}</td>
+                                        <td>{{event.message}}</td>
+                                        <td>{{event.event}}</td>
+                                        <td>{{event.duration / 1000 / 60 | number:'1.2-2'}}m</td>
+                                        <td>{{event.ipAddress}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div class="row justify-content-center">
+                                    <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                                </div>
+                                <div class="row justify-content-center">
+                                    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<ng-template #spinner>
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="reattempts < 2; else graphError">
+                <div class="graph-spinner">
+                    <i class="fa fa-spinner fa-spin"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #noevents>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <div class="alert alert-secondary" role="alert">
+                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                <span> No events available for this equipment.</span>
+            </div>
+        </div>
+        <div class="col-4"></div>
+    </div>
+</ng-template>
+
+<ng-template #graphError>
+    <div class="row">
+        <div class="col-12">
+            <div class="graph-spinner">
+                <div class="alert alert-warning" role="alert">
+                    The information for the graphs is not available at this moment, please refresh the page in a moment.
+                </div>
+            <div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #showMonitorDropDown>
+    <div class="monitorSelector">
+        <div style="margin-right:7px;"><label style="background-color: #dae0e5;" class="input-group-text" for="ameSelected">Monitor Selected</label></div>
+            <div style="flex: 1" class="input-group mb-3">
+                <select class="custom-select select-ame" id="selectedRefrigerationMonitorId" [(ngModel)]="selectedRefrigerationMonitorId"
+                        (ngModelChange)="onSelectedRefrigerationMonitorChange($event)">
+                    <option *ngFor="let monitor of refrigerationMonitors" [ngValue]="monitor.externalId" selected>{{monitor.externalId}}
+                    </option>
+                </select>
+            </div>
+    </div>
+</ng-template>

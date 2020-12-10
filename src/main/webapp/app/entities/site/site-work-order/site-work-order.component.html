@@ -1,0 +1,56 @@
+<jhi-alert></jhi-alert>
+<div class="table-responsive mt-2" *ngIf="workOrders">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th><span jhiTranslate="global.field.id">ID</span> </th>
+                <th><span jhiTranslate="billingWebApp.workOrder.workOrderNumber">Work Order Number</span> </th>
+                <th><span jhiTranslate="billingWebApp.workOrder.status">Status</span> </th>
+                <th><span jhiTranslate="billingWebApp.workOrder.scheduledDateAndTime">Scheduled Date And Time</span> </th>
+                <th><span jhiTranslate="billingWebApp.workOrder.jhiLabel">Label</span> </th>
+                <th><span jhiTranslate="billingWebApp.workOrder.contractorEmail">Contractor Email</span> </th>
+                <th><span jhiTranslate="billingWebApp.workOrder.jhiUser">User</span> </th>
+                <th><span jhiTranslate="billingWebApp.workOrder.dueDate">Due Date</span> </th>
+                <th><span jhiTranslate="billingWebApp.workOrder.coordinatorName">Coordinator Name</span> </th>
+                <th><span jhiTranslate="billingWebApp.workOrder.assignedContractorInfo">Assigned Contractor Info</span> </th>
+                <th><span jhiTranslate="billingWebApp.workOrder.completionDate">Completion Date</span> </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let workOrder of workOrders ;trackBy: trackId">
+                <td><a [routerLink]="['/work-order', workOrder.id ]">{{workOrder.id}}</a></td>
+                <td>{{workOrder.workOrderNumber}}</td>
+                <td>{{workOrder.status}}</td>
+                <td>{{workOrder.scheduledDateAndTime | date:'medium'}}</td>
+                <td>{{workOrder.jhiLabel}}</td>
+                <td>{{workOrder.contractorEmail}}</td>
+                <td>{{workOrder.jhiUser}}</td>
+                <td>{{workOrder.dueDate | date:'mediumDate'}}</td>
+                <td>{{workOrder.coordinatorName}}</td>
+                <td>{{workOrder.assignedContractorInfo}}</td>
+                <td>{{workOrder.completionDate | date:'mediumDate'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit" [routerLink]="['/work-order', workOrder.id ]" class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                            [routerLink]="['/', { outlets: { popup: 'work-order/'+ workOrder.id + '/edit'} }]"
+                            replaceUrl="true" queryParamsHandling="merge" class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                            [routerLink]="['/', { outlets: { popup: 'work-order/'+ workOrder.id + '/delete'} }]"
+                            replaceUrl="true" queryParamsHandling="merge" class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,135 @@
+<div class="row">
+  <div class="col-md-12">
+    <ngb-tabset [justify]="'fill'">
+      <ngb-tab id="tabGraph">
+        <ng-template ngbTabTitle>
+          <span jhiTranslate="billingWebApp.siteAccount.kwhGraph">kWh Graph</span>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <ng-container *ngIf="dataLoaded && validAmeData">
+                <div class="row mt-2 justify-content-md-center">
+                    <h3><span class="badge badge-primary">Current Year: {{currentYear}}</span></h3>
+                </div>
+                <div class="row">
+                    <div class="col-1 align-self-center">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-outline-dark" 
+                             [disabled]="thereIsNoPreviousYear" (click)="setChartBarPreviousYear()">
+                                <i class="fa fa-angle-double-left"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-10">
+                        <div mk-morris-js [options]="chartBarOptionsKWH" [data]="chartBarDataKWH" type="Bar" ></div>
+                    </div>
+                    
+                    <div class="col-1 align-self-center">
+                        <div class="d-flex justify-content-start">
+                            <button type="button" class="btn btn-outline-dark"
+                             [disabled]="thereIsNoNextYear" (click)="setChartBarNextYear()">
+                                <i class="fa fa-angle-double-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-1"></div>
+                    <div class="col-10">
+                        <ul class="legend">
+                            <li><span class="normalized-kwh"></span> Normalized kWh</li>
+                            <li><span class="used-for-amu"></span> Used for AMU</li>
+                            <li><span class="amu"></span> AMU</li>
+                            <li><span class="savings"></span> Savings</li>
+                        </ul>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="dataLoaded && !validAmeData">
+                <div class="alert alert-danger">{{errorMessage}}
+                </div>
+            </ng-container>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab id="tabKwh">
+        <ng-template ngbTabTitle>
+          <span jhiTranslate="billingWebApp.siteAccount.kwh">Kwh</span>
+        </ng-template>
+        <ng-template ngbTabContent>
+            <ng-container *ngIf="dataLoaded && validAmeData">
+                <table class="table table-striped table-bordered">
+                    <tr>
+                    <th></th>
+                    <th *ngFor="let month of constantValues.months">{{month}}</th>
+                    <th>Average</th>
+                    </tr>
+                    <tr>
+                    <th>AMU</th>
+                    <td *ngFor="let total of amuTotals">{{(total | number:'.0-0') || '--'}}</td>
+                    <td>{{(averages.amuAverage | number:'.0-0') || '--'}}</td>
+                    </tr>
+                    <tr>
+                    <td colspan="14"></td>
+                    </tr>
+                    <tr>
+                    <th>{{years.firstYear}} Normalized Kwh</th>
+                    <td *ngFor="let amun of amunsByYear.firstYearAmuns">{{(amun | number:'.0-0') || '--'}}</td>
+                    <td>{{(averages.firstYearAmunsAverage | number:'.0-0') || '--'}}</td>
+                    </tr>
+                    <tr>
+                    <th>{{years.secondYear}} Normalized Kwh</th>
+                    <td *ngFor="let amun of amunsByYear.secondYearAmuns">{{(amun | number:'.0-0') || '--'}}</td>
+                    <td>{{(averages.secondYearAmunsAverage | number:'.0-0') || '--'}}</td>
+                    </tr>
+                    <ng-container *ngIf="amunsByYear.thirdYearAmuns.length > 0">
+                    <tr>
+                        <th>{{years.thirdYear}} Normalized Kwh</th>
+                        <td *ngFor="let amun of amunsByYear.thirdYearAmuns">{{(amun | number:'.0-0') || '--'}}</td>
+                        <td>{{(averages.thirdYearAmunsAverage | number:'.0-0') || '--'}}</td>
+                    </tr>
+                    </ng-container>
+                    <tr>
+                    <th>PCT Change</th>
+                    <td *ngFor="let pct of percentageChanged">{{(pct | percent) || '--'}}</td>
+                    <td>{{(averages.percentageChangedAverage | percent) || '--'}}</td>
+                    </tr>
+                    <tr>
+                    <td colspan="14"></td>
+                    </tr>
+                    <tr>
+                    <th>{{years.lastYear}} Post take over</th>
+                    <td *ngFor="let pto of postTakeOver">{{(pto | number:'.0-0') || '--'}}</td>
+                    <td>{{(averages.postTakeOverAverage | number:'.0-0') || '--'}}</td>
+                    </tr>
+                    <tr>
+                    <th>{{years.lastYear}} PCT Change</th>
+                    <td *ngFor="let pctPto of percentageChangedPTO">{{(pctPto | percent) || '--'}}</td>
+                    <td>{{(averages.percentageChangedPTO | percent) || '--'}}</td>
+                    </tr>
+                    <ng-container *ngIf="nextYearsPostTakeOver.length > 0">
+                    <tr>
+                        <td colspan="14"></td>
+                    </tr>
+                    <tr *ngFor="let nextYearPto of nextYearsPostTakeOver; let i = index">
+                        <th>{{years.lastYear + i + 1}} Post take over</th>
+                        <td *ngFor="let pto of nextYearPto">{{(pto | number:'.0-0') || '--'}}</td>
+                        <td>{{(averages.nextYearsPostTakeOver[i] | number:'.0-0') || '--'}}</td>
+                    </tr>
+                    <tr *ngFor="let nextYearPctPto of nextYearsPercentageChangePTO; let i = index">
+                        <th>{{years.lastYear + i + 1}} PCT Change</th>
+                        <td *ngFor="let pct of nextYearPctPto">{{(pct | percent) || '--'}}</td>
+                        <td>{{(averages.nextYearsPercentageChangePTO[i] | percent) || '--'}}</td>
+                    </tr>
+                    </ng-container>
+                </table>
+            </ng-container>
+            <ng-container *ngIf="dataLoaded && !validAmeData">
+                <div class="alert alert-danger">{{errorMessage}}
+                </div>
+            </ng-container>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+  </div>
+</div>

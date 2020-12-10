@@ -1,0 +1,48 @@
+
+<div *ngIf="alertActivity">
+    <h2><span jhiTranslate="billingWebApp.alertActivity.detail.title">Alert Activity</span> {{alertActivity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.alertActivity.user">User</span></dt>
+        <dd>
+            <span>{{alertActivity.user}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.alertActivity.activity">Activity</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.AlertActivityAction.' + alertActivity.activity}}">{{alertActivity.activity}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.alertActivity.level">Level</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.ActivityLevel.' + alertActivity.level}}">{{alertActivity.level}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.alertActivity.message">Message</span></dt>
+        <dd>
+            <span>{{alertActivity.message}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.alertActivity.date">Date</span></dt>
+        <dd>
+            <span>{{alertActivity.date | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.alertActivity.alert">Alert</span></dt>
+        <dd>
+            <div *ngIf="alertActivity.alertId">
+                <a [routerLink]="['/alert', alertActivity.alertId]">{{alertActivity.alertId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'alert-activity/'+ alertActivity.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

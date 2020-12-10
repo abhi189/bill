@@ -1,0 +1,231 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myDiscountLabel" jhiTranslate="billingWebApp.discount.home.createOrEditLabel">Create
+            or edit a Discount</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!discount.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="discount.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.discount.discountName" for="field_discountName">Discount
+                Name
+            </label>
+            <input type="text" class="form-control" name="discountName" id="field_discountName" [(ngModel)]="discount.discountName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.discount.discountType" for="field_discountType">Discount
+                Type
+            </label>
+            <select class="form-control" name="discountType" [(ngModel)]="discount.discountType" id="field_discountType">
+                <option value="BILLING_MONTHS">{{'billingWebApp.DiscountType.BILLING_MONTHS' | translate}}</option>
+                <option value="HISTORICAL_SPEND">{{'billingWebApp.DiscountType.HISTORICAL_SPEND' | translate}}</option>
+                <option value="EQUIPMENT">{{'billingWebApp.DiscountType.EQUIPMENT' | translate}}</option>
+                <option value="SHARED_SAVINGS">{{'billingWebApp.DiscountType.SHARED_SAVINGS' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.discount.associatedEMO" for="field_associatedEMO">Associated
+                EMO
+            </label>
+            <input type="text" class="form-control" name="associatedEMO" id="field_associatedEMO" [(ngModel)]="discount.associatedEMO"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.discount.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description" [(ngModel)]="discount.description" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.discount.equipmentInstalledRequired" for="field_equipmentInstalledRequired">Equipment
+                Installed Required</label>
+            <input type="checkbox" name="equipmentInstalledRequired" id="field_equipmentInstalledRequired" [(ngModel)]="discount.equipmentInstalledRequired"
+            />
+            <select *ngIf="discount.equipmentInstalledRequired" [(ngModel)]="discount.equipmentInstalled" class="form-control" name="equipmentInstalled"
+                id="field_equipmentInstalled">
+                <option value="ANY">{{'billingWebApp.EquipmentInstalled.ANY' | translate}}</option>
+                <option value="LED">{{'billingWebApp.EquipmentInstalled.LED' | translate}}</option>
+                <option value="KE2_FREEZER">{{'billingWebApp.EquipmentInstalled.KE2_FREEZER' | translate}}</option>
+                <option value="KE2_COOLER">{{'billingWebApp.EquipmentInstalled.KE2_COOLER' | translate}}</option>
+                <option value="ENERFIT">{{'billingWebApp.EquipmentInstalled.ENERFIT' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.discount.equipmentInstalledMonthsRequired" for="field_equipmentInstalledMonthsRequired">Equipment
+                Installed Months Required</label>
+            <input type="checkbox" name="equipmentInstalledMonthsRequired" id="field_equipmentInstalledMonthsRequired" [(ngModel)]="discount.equipmentInstalledMonthsRequired"
+            />
+            <input *ngIf="discount.equipmentInstalledMonthsRequired" [(ngModel)]="discount.equipmentInstalledMonths" type="number" class="form-control"
+                name="equipmentInstalledMonths" id="field_equipmentInstalledMonths" max="12" />
+            <div [hidden]="!(editForm.controls.equipmentInstalledMonths?.dirty && editForm.controls.equipmentInstalledMonths?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.equipmentInstalledMonths?.errors?.max" jhiTranslate="entity.validation.max"
+                    translateValues="{ max: 12 }">
+                    This field cannot be more than 12.
+                </small>
+                <small class="form-text text-danger" [hidden]="!editForm.controls.equipmentInstalledMonths?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.discount.accrueDiscountSavings" for="field_accrueDiscountSavings">Accrue
+                Discount Savings</label>
+            <input type="checkbox" name="accrueDiscountSavings" id="field_accrueDiscountSavings" [(ngModel)]="discount.accrueDiscountSavings"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.discount.startDate" for="field_startDate">Start Date</label>
+            <div class="input-group">
+                <input id="field_startDate" type="text" class="form-control" name="startDate" ngbDatepicker  #startDateDp="ngbDatepicker" [(ngModel)]="discount.startDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="startDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.discount.endDate" for="field_endDate">End Date</label>
+            <div class="input-group">
+                <input id="field_endDate" type="text" class="form-control" name="endDate" ngbDatepicker  #endDateDp="ngbDatepicker" [(ngModel)]="discount.endDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="endDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <hr>
+        <h5><span jhiTranslate="billingWebApp.discount.discountValues">Discount Values</h5>
+        <p *ngFor="let alert of validationAlerts">
+            <ngb-alert *ngIf="!alert.alertClosed" [type]="alert.type" (close)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+        </p>
+        <form #createNewDiscountValue="ngForm">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><span jhiTranslate="billingWebApp.discount.beginningValue">Beginning Value</span></th>
+                        <th><span jhiTranslate="billingWebApp.discount.endValue">End Value</span></th>
+                        <th><span jhiTranslate="billingWebApp.discount.discountPercentage">Discount</span></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let discountValue of discount.discountValues; let i = index" [ngClass]="{'discount-value-error': i === indexErrorDiscountValue}">
+                        <ng-container *ngIf="!discountValue.editing; else inputsDiscountValue">
+                            <td>{{discountValue?.beginningValue | currency}}</td>
+                            <td>{{discountValue?.endValue | currency}}</td>
+                            <td>{{discountValue?.discountPercentage | percent:'.1-2'}}</td>
+                        </ng-container>
+                        <ng-template #inputsDiscountValue>
+                            <ng-container [formGroup]="formEditDiscountValue">
+                                <td>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">$</div>
+                                        </div>
+                                        <input formControlName="beginningValue"
+                                            type="number" class="form-control" id="inputBeginningValue" placeholder="Beginning Value" name="inputBeginningValue"
+                                            required min="0">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">$</div>
+                                        </div>
+                                        <input formControlName="endValue"
+                                            type="number" class="form-control" id="inputEndValue" placeholder="End Value" name="inputEndValue" min="0">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input formControlName="discountPercentage"
+                                            type="number" class="form-control" id="inputDiscountPercentage" placeholder="Discount Percentage" name="inputDiscountPercentage"
+                                            required max="100" step=".01">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">%</div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </ng-container>
+                        </ng-template>
+                        <td style="width: 20%">
+                            <ng-container *ngIf="!discountValue.editing; else buttonsEditDiscountValue">
+                                <button type="button" class="btn btn-sm btn-primary btn-circle" title="Edit" (click)="editDiscountValue(discountValue)">
+                                    <span class="fa fa-lg fa-pencil"></span>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove" (click)="removeDiscountValue(discountValue, i)">
+                                    <span class="fa fa-lg fa-trash"></span>
+                                </button>
+                            </ng-container>
+                            <ng-template #buttonsEditDiscountValue>
+                                <button [disabled]="formEditDiscountValue.invalid" type="button" class="btn btn-sm btn-success btn-circle" title="Confirm" (click)="confirmEditDiscountValue(discountValue)">
+                                    <span class="fa fa-lg fa-check"></span>
+                                </button>
+                                <button type="button" class="btn btn-sm btn-danger btn-circle" title="Cancel" (click)="cancelEditDiscountValue(discountValue)">
+                                    <span class="fa fa-lg fa-times"></span>
+                                </button>
+                            </ng-template>
+                        </td>
+                    </tr>
+                    <tr *ngIf="creatingDiscountValue; else lineAddDiscountValue">
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">$</div>
+                                </div>
+                                <input type="number" class="form-control" id="inputBeginningValue" placeholder="Beginning Value" name="inputBeginningValue"
+                                    required min="0" [(ngModel)]="newDiscountValue.beginningValue">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">$</div>
+                                </div>
+                                <input type="number" class="form-control" id="inputEndValue" placeholder="End Value" name="inputEndValue" min="0"
+                                    [(ngModel)]="newDiscountValue.endValue">
+                            </div>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="inputDiscountPercentage" placeholder="Discount Percentage" name="inputDiscountPercentage"
+                                    required max="100" [(ngModel)]="newDiscountValue.discountPercentage">
+                                <div class="input-group-append">
+                                    <div class="input-group-text">%</div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <button [disabled]="!createNewDiscountValue.form.valid" type="button" class="btn btn-sm btn-success btn-circle" title="Confirm" (click)="confirmAddDiscountValue()">
+                                <span class="fa fa-lg fa-check"></span>
+                            </button>
+                        </td>
+                    </tr>
+                    <ng-template #lineAddDiscountValue>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-sm btn-success btn-circle" title="Add" (click)="addDiscountValue()">
+                                    <span class="fa fa-lg fa-plus"></span>
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

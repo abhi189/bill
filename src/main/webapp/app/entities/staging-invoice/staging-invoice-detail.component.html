@@ -1,0 +1,174 @@
+
+<div *ngIf="stagingInvoice">
+    <h2><span jhiTranslate="billingWebApp.stagingInvoice.detail.title">Staging Invoice</span> {{stagingInvoice.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.electricSupplier">Electric Supplier</span></dt>
+        <dd>
+            <span>{{stagingInvoice.electricSupplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.intervalStart">Interval Start</span></dt>
+        <dd>
+            <span>{{stagingInvoice.intervalStart | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.intervalEnd">Interval End</span></dt>
+        <dd>
+            <span>{{stagingInvoice.intervalEnd | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.billingDays">Billing Days</span></dt>
+        <dd>
+            <span>{{stagingInvoice.billingDays}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.statementDate">Statement Date</span></dt>
+        <dd>
+            <span>{{stagingInvoice.statementDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.dueByDate">Due By Date</span></dt>
+        <dd>
+            <span>{{stagingInvoice.dueByDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.invoiceNumber">Invoice Number</span></dt>
+        <dd>
+            <span>{{stagingInvoice.invoiceNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.statementCreateDate">Statement Create Date</span></dt>
+        <dd>
+            <span>{{stagingInvoice.statementCreateDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.statementType">Statement Type</span></dt>
+        <dd>
+            <span>{{stagingInvoice.statementType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.newCharges">New Charges</span></dt>
+        <dd>
+            <span>{{stagingInvoice.newCharges}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.totalBillAmount">Total Bill Amount</span></dt>
+        <dd>
+            <span>{{stagingInvoice.totalBillAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.amountDue">Amount Due</span></dt>
+        <dd>
+            <span>{{stagingInvoice.amountDue}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.outstandingBalance">Outstanding Balance</span></dt>
+        <dd>
+            <span>{{stagingInvoice.outstandingBalance}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.previousBalance">Previous Balance</span></dt>
+        <dd>
+            <span>{{stagingInvoice.previousBalance}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.peakKWH">Peak KWH</span></dt>
+        <dd>
+            <span>{{stagingInvoice.peakKWH}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.midPeakKWH">Mid Peak KWH</span></dt>
+        <dd>
+            <span>{{stagingInvoice.midPeakKWH}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.offPeakKWH">Off Peak KWH</span></dt>
+        <dd>
+            <span>{{stagingInvoice.offPeakKWH}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.totalKWH">Total KWH</span></dt>
+        <dd>
+            <span>{{stagingInvoice.totalKWH}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.peakKW">Peak KW</span></dt>
+        <dd>
+            <span>{{stagingInvoice.peakKW}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.midPeakKW">Mid Peak KW</span></dt>
+        <dd>
+            <span>{{stagingInvoice.midPeakKW}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.offPeakKW">Off Peak KW</span></dt>
+        <dd>
+            <span>{{stagingInvoice.offPeakKW}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.maxKW">Max KW</span></dt>
+        <dd>
+            <span>{{stagingInvoice.maxKW}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.siteAccountId">Site Account Id</span></dt>
+        <dd>
+            <span>{{stagingInvoice.siteAccountId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.providerId">Provider Id</span></dt>
+        <dd>
+            <span>{{stagingInvoice.providerId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.providerStatementId">Provider Statement Id</span></dt>
+        <dd>
+            <span>{{stagingInvoice.providerStatementId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.providerName">Provider Name</span></dt>
+        <dd>
+            <span>{{stagingInvoice.providerName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.jobHistoryId">Job History Id</span></dt>
+        <dd>
+            <span>{{stagingInvoice.jobHistoryId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.totalUnit">Total Unit</span></dt>
+        <dd>
+            <span>{{stagingInvoice.totalUnit}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.totalVolume">Total Volume</span></dt>
+        <dd>
+            <span>{{stagingInvoice.totalVolume}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.billingAccount">Billing Account</span></dt>
+        <dd>
+            <span>{{stagingInvoice.billingAccount}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.billingAddress">Billing Address</span></dt>
+        <dd>
+            <span>{{stagingInvoice.billingAddress}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.billingContact">Billing Contact</span></dt>
+        <dd>
+            <span>{{stagingInvoice.billingContact}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.updatedDate">Updated Date</span></dt>
+        <dd>
+            <span>{{stagingInvoice.updatedDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.authorizationUid">Authorization Uid</span></dt>
+        <dd>
+            <span>{{stagingInvoice.authorizationUid}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.sourceLink">Source Link</span></dt>
+        <dd>
+            <span>{{stagingInvoice.sourceLink}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{stagingInvoice.createdDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.lastModified">Last Modified</span></dt>
+        <dd>
+            <span>{{stagingInvoice.lastModified | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingInvoice.imported">Imported</span></dt>
+        <dd>
+            <span>{{stagingInvoice.imported}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'staging-invoice/'+ stagingInvoice.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

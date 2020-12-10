@@ -1,0 +1,46 @@
+
+<div *ngIf="dataRetention">
+    <h2><span jhiTranslate="billingWebApp.dataRetention.detail.title">Data Retention</span> {{dataRetention.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.dataRetention.serviceName">Service Name</span></dt>
+        <dd>
+            <span>{{dataRetention.serviceName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.dataRetention.serviceDescription">Service Description</span></dt>
+        <dd>
+            <span>{{dataRetention.serviceDescription}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.dataRetention.serviceRetentionPeriodYear">Service Retention Period Year</span></dt>
+        <dd>
+            <span>{{dataRetention.serviceRetentionPeriodYear}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.dataRetention.serviceRetentionPeriodMonth">Service Retention Period Month</span></dt>
+        <dd>
+            <span>{{dataRetention.serviceRetentionPeriodMonth}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.dataRetention.serviceRetentionPeriodDay">Service Retention Period Day</span></dt>
+        <dd>
+            <span>{{dataRetention.serviceRetentionPeriodDay}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.dataRetention.serviceEndpoint">Service Endpoint</span></dt>
+        <dd>
+            <span>{{dataRetention.serviceEndpoint}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'data-retention/'+ dataRetention.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

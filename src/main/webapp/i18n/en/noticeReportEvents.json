@@ -1,0 +1,38 @@
+{
+    "billingWebApp": {
+        "noticeReportEvents": {
+            "home": {
+                "title": "Notice Report Events",
+                "createLabel": "Create a new Notice Report Events",
+                "createOrEditLabel": "Create or edit a Notice Report Events",
+                "search": "Search for Notice Report Events"
+            },
+            "created": "A new Notice Report Events is created with identifier {{ param }}",
+            "updated": "A Notice Report Events is updated with identifier {{ param }}",
+            "deleted": "A Notice Report Events is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Notice Report Events {{ id }}?"
+            },
+            "detail": {
+                "title": "Notice Report Events"
+            },
+            "date": "Date",
+            "budderflyId": "Budderfly Id",
+            "openBalance": "Open Balance",
+            "numberOfDueInvoices": "Number Of Due Invoices",
+            "numberOfDueInvoices-short": "Due Invoices",
+            "optOut": "Opt Out",
+            "invoiceDaysOverdue": "Invoice Days Overdue",
+            "invoiceNumber": "Invoice Number",
+            "invoiceAmountDue": "Invoice Amount Due",
+            "invoiceDueDate": "Invoice Due Date",
+            "noticeType": "Notice Type",
+            "message": "Message",
+            "noticeReport": "Notice Report",
+            "link": "Link",
+            "epResolution": "Rule status",
+            "aResolution": "Event status",
+            "accResolution": "Message"
+        }
+    }
+}

@@ -1,0 +1,32 @@
+
+<div *ngIf="solution">
+    <h2><span jhiTranslate="billingWebApp.solution.detail.title">Solution</span> {{solution.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.solution.name">Name</span></dt>
+        <dd>
+            <span>{{solution.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.solution.budderflyInvoice">Budderfly Invoice</span></dt>
+        <dd>
+            <div *ngIf="solution.budderflyInvoiceId">
+                <a [routerLink]="['/budderfly-invoice', solution.budderflyInvoiceId]">{{solution.budderflyInvoiceId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'solution/'+ solution.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

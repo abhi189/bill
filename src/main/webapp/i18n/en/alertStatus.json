@@ -1,0 +1,9 @@
+{
+    "billingWebApp": {
+        "AlertStatus": {
+            "null": "",
+            "OPEN": "OPEN",
+            "CLOSED": "CLOSED"
+        }
+    }
+}

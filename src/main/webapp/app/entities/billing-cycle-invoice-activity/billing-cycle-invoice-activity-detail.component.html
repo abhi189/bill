@@ -1,0 +1,52 @@
+
+<div *ngIf="billingCycleInvoiceActivity">
+    <h2><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.detail.title">Billing Cycle Invoice Activity</span> {{billingCycleInvoiceActivity.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.user">User</span></dt>
+        <dd>
+            <span>{{billingCycleInvoiceActivity.user}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.pdfLink">Pdf Link</span></dt>
+        <dd>
+            <span>{{billingCycleInvoiceActivity.pdfLink}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.activity">Activity</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.BillingCycleInvoiceActivityAction.' + billingCycleInvoiceActivity.activity}}">{{billingCycleInvoiceActivity.activity}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.level">Level</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.ActivityLevel.' + billingCycleInvoiceActivity.level}}">{{billingCycleInvoiceActivity.level}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.message">Message</span></dt>
+        <dd>
+            <span>{{billingCycleInvoiceActivity.message}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.activityDate">Activity Date</span></dt>
+        <dd>
+            <span>{{billingCycleInvoiceActivity.activityDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.billingCycleInvoiceActivity.budderflyInvoice">Budderfly Invoice</span></dt>
+        <dd>
+            <div *ngIf="billingCycleInvoiceActivity.budderflyInvoiceId">
+                <a [routerLink]="['/budderfly-invoice', billingCycleInvoiceActivity.budderflyInvoiceId]">{{billingCycleInvoiceActivity.budderflyInvoiceInvoiceNumber}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'billing-cycle-invoice-activity/'+ billingCycleInvoiceActivity.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,22 @@
+{
+    "billingWebApp": {
+        "zipCode": {
+            "home": {
+                "title": "Zip Codes",
+                "createLabel": "Create a new Zip Code",
+                "createOrEditLabel": "Create or edit a Zip Code"
+            },
+            "created": "A new Zip Code is created with identifier {{ param }}",
+            "updated": "A Zip Code is updated with identifier {{ param }}",
+            "deleted": "A Zip Code is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Zip Code {{ id }}?"
+            },
+            "detail": {
+                "title": "Zip Code"
+            },
+            "code": "Code",
+            "taxes": "Taxes"
+        }
+    }
+}

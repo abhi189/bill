@@ -1,0 +1,107 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.consumption.home.title">Consumptions</span>
+        <button class="btn btn-primary float-right jh-create-entity create-consumption" [routerLink]="['/', { outlets: { popup: ['consumption-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.consumption.home.createLabel">
+            Create new Consumption
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.consumption.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="consumptions">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="measurementType"><span jhiTranslate="billingWebApp.consumption.measurementType">Measurement Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="rateComponent"><span jhiTranslate="billingWebApp.consumption.rateComponent">Rate Component</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalStart"><span jhiTranslate="billingWebApp.consumption.intervalStart">Interval Start</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalEnd"><span jhiTranslate="billingWebApp.consumption.intervalEnd">Interval End</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="usageAmount"><span jhiTranslate="billingWebApp.consumption.usageAmount">Usage Amount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="energyUnit"><span jhiTranslate="billingWebApp.consumption.energyUnit">Energy Unit</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="meterReadType"><span jhiTranslate="billingWebApp.consumption.meterReadType">Meter Read Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="previousMeterReadType"><span jhiTranslate="billingWebApp.consumption.previousMeterReadType">Previous Meter Read Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="loadFactor"><span jhiTranslate="billingWebApp.consumption.loadFactor">Load Factor</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="meterReadCurrent"><span jhiTranslate="billingWebApp.consumption.meterReadCurrent">Meter Read Current</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="meterReadPrevious"><span jhiTranslate="billingWebApp.consumption.meterReadPrevious">Meter Read Previous</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="usageConstantMultiplier"><span jhiTranslate="billingWebApp.consumption.usageConstantMultiplier">Usage Constant Multiplier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="usageConversionMultiplier"><span jhiTranslate="billingWebApp.consumption.usageConversionMultiplier">Usage Conversion Multiplier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastModifiedBy"><span jhiTranslate="billingWebApp.invoice.lastModifiedBy">Last Modified By</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastModified"><span jhiTranslate="billingWebApp.invoice.lastModified">Last Modified</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="invoiceId"><span jhiTranslate="billingWebApp.consumption.invoice">Invoice</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let consumption of consumptions ;trackBy: trackId">
+                <td><a [routerLink]="['../consumption', consumption.id ]">{{consumption.id}}</a></td>
+                <td>{{consumption.measurementType}}</td>
+                <td>{{consumption.rateComponent}}</td>
+                <td>{{consumption.intervalStart | date:'medium':'UTC'}}</td>
+                <td>{{consumption.intervalEnd | date:'medium':'UTC'}}</td>
+                <td>{{consumption.usageAmount}}</td>
+                <td>{{consumption.energyUnit}}</td>
+                <td>{{consumption.meterReadType}}</td>
+                <td>{{consumption.previousMeterReadType}}</td>
+                <td>{{consumption.loadFactor}}</td>
+                <td>{{consumption.meterReadCurrent}}</td>
+                <td>{{consumption.meterReadPrevious}}</td>
+                <td>{{consumption.usageConstantMultiplier}}</td>
+                <td>{{consumption.usageConversionMultiplier}}</td>
+                <td>{{consumption.lastModifiedBy}}</td>
+                <td>{{consumption.lastModified | date:'mediumDate':'UTC'}}</td>
+                <td>
+                    <div *ngIf="consumption.invoiceId">
+                        <a [routerLink]="['../invoice', consumption.invoiceId  ]" >{{consumption.invoiceId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'consumption/'+ consumption.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'consumption/'+ consumption.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="consumptions && consumptions.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

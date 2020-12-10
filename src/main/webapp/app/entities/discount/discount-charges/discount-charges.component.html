@@ -1,0 +1,179 @@
+<div class="d-flex justify-content-end m-3">
+    <button type="button" class="btn btn-primary ml-2" *ngIf="!editingCharges" (click)="editCharges()">Edit</button>
+    <button type="button" class="btn btn-success ml-2" *ngIf="editingCharges" (click)="saveCharges()">Save</button>
+    <button type="button" class="btn btn-info ml-2" *ngIf="editingCharges" (click)="addNewCharge()">Add</button>
+    <button type="button" class="btn btn-danger ml-2" *ngIf="editingCharges" (click)="cancelEditCharges()">Cancel</button>
+</div>
+<div class="table-responsive" *ngIf="discountCharges">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.name">Name</span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.tier">Tier</span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.usageAmount">Usage Amount</span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.usageType">Usage Type</span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.rate">Rate</span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.total">Total</span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.invoiceSection">Invoice Section</span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.chargeId">Charge Id</span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.chargeActualName">Charge Actual Name</span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.usage">Usage</span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.month">Month</span>
+                </th>
+                <th>
+                    <span jhiTranslate="billingWebApp.budderflyCharge.rateComponent">Rate Component</span>
+                </th>
+                <th *ngIf="editingCharges"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngIf="creatingCharges" [formGroup]="formCreateNewDiscountCharge">
+                <td>
+                    <input type="text" class="form-control" name="newChargeName" id="newChargeName"
+                        formControlName="name">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="newChargeTier" id="newChargeTier"
+                        formControlName="tier">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="newChargeUsageAmount" id="newChargeUsageAmount"
+                        formControlName="usageAmount">
+                </td>
+                <td>
+                    <select class="form-control" id="newChargeUsageType" name="newChargeUsageType" formControlName="usageType">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="usageType" *ngFor="let usageType of usageTypeOptions">{{usageType}}</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="newChargeRate" id="newChargeRate"
+                        formControlName="rate">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="newChargeTotal" id="newChargeTotal"
+                        formControlName="total">
+                </td>
+                <td>
+                    <select class="form-control" id="newChargeInvoiceSection" name="newChargeInvoiceSection" formControlName="invoiceSection">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="invoiceSection" *ngFor="let invoiceSection of invoiceSectionOptions">{{invoiceSection}}</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="newChargeChargeId" id="newChargeChargeId"
+                        formControlName="chargeId">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="newChargeChargeActualName" id="newChargeChargeActualName" 
+                        formControlName="chargeActualName">
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="newChargeUsage" id="newChargeUsage"
+                        formControlName="usage">
+                </td>
+                <td>
+                    <select class="form-control" id="newChargeMonth" name="newChargeMonth" formControlName="month">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="month" *ngFor="let month of monthOptions">{{month}}</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="text" class="form-control" name="newChargeRateComponent" id="newChargeRateComponent"
+                        formControlName="rateComponent">
+                </td>
+                <td class="d-flex">
+                    <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove"
+                        (click)="discardNewCharge()">
+                        <span class="fa fa-lg fa-trash"></span>
+                    </button>
+                    <button type="button" class="btn btn-sm btn-success btn-circle ml-2" title="Confirm"
+                        [disabled]="formCreateNewDiscountCharge.invalid" (click)="confirmNewCharge()">
+                        <span class="fa fa-lg fa-check"></span>
+                    </button>
+                </td>
+            </tr>
+            <tr *ngFor="let charge of discountCharges; let i = index">
+                <ng-container *ngIf="!editingCharges; else editExistingCharges">
+                    <td> {{charge?.name}} </td>
+                    <td> {{charge?.tier}} </td>
+                    <td> {{charge?.usageAmount}} </td>
+                    <td> {{charge?.usageType}} </td>
+                    <td> {{charge?.rate}} </td>
+                    <td> {{charge?.total | currency}} </td>
+                    <td> {{charge?.invoiceSection}} </td>
+                    <td> {{charge?.chargeId}} </td>
+                    <td> {{charge?.chargeActualName}} </td>
+                    <td> {{charge?.usage}} </td>
+                    <td> {{charge?.month}} </td>
+                    <td> {{charge?.rateComponent}} </td>
+                </ng-container>
+                <ng-template #editExistingCharges>
+                    <td>
+                        <input type="text" class="form-control" name="chargeName" [ngModel]="charge.name" (ngModelChange)="charge.name = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="chargeTier" [ngModel]="charge.tier" (ngModelChange)="charge.tier = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="chargeUsageAmount" [ngModel]="charge.usageAmount" (ngModelChange)="charge.usageAmount = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="chargeUsageType" [ngModel]="charge.usageType" (ngModelChange)="charge.usageType = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="chargeRate" [ngModel]="charge.rate" (ngModelChange)="charge.rate = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="chargeTotal" [ngModel]="charge.total" (ngModelChange)="charge.total = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="chargeInvoiceSection" [ngModel]="charge.invoiceSection" (ngModelChange)="charge.invoiceSection = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="chargeChargeId" [ngModel]="charge.chargeId" (ngModelChange)="charge.chargeId = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="chargeChargeActualName" [ngModel]="charge.chargeActualName" (ngModelChange)="charge.chargeActualName = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="chargeUsage" [ngModel]="charge.usage" (ngModelChange)="charge.usage = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="chargeMonth" [ngModel]="charge.month" (ngModelChange)="charge.month = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <input type="text" class="form-control" name="chargeRateComponent" [ngModel]="charge.rateComponent" (ngModelChange)="charge.rateComponent = $event" (ngModelChange)="onEditExistingCharge(charge)">
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove"
+                            (click)="removeCharge(i, charge)">
+                            <span class="fa fa-lg fa-trash"></span>
+                        </button>
+                    </td>
+                </ng-template>
+            </tr>
+        </tbody>
+    </table>
+</div>

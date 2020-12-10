@@ -1,0 +1,44 @@
+
+<div *ngIf="utilityMappingRule">
+    <h2><span jhiTranslate="billingWebApp.utilityMappingRule.detail.title">Utility Mapping Rule</span> {{utilityMappingRule.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.utilityMappingRule.bdUtilityProviderKey">Bd Utility Provider Key</span></dt>
+        <dd>
+            <span>{{utilityMappingRule.bdUtilityProviderKey}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.utilityMappingRule.providerUtilityName">Provider Name</span></dt>
+        <dd>
+            <span>{{utilityMappingRule.providerUtilityName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.utilityMappingRule.providerState">Provider State</span></dt>
+        <dd>
+            <span>{{utilityMappingRule.providerState}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.utilityMappingRule.providerCountry">Provider Country</span></dt>
+        <dd>
+            <span>{{utilityMappingRule.providerCountry}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.utilityMappingRule.provider">Provider</span></dt>
+        <dd>
+            <div *ngIf="utilityMappingRule.providerId">
+                <a [routerLink]="['/provider', utilityMappingRule.providerId]">{{utilityMappingRule.providerName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'utility-mapping-rule/'+ utilityMappingRule.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

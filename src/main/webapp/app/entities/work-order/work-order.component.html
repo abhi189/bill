@@ -1,0 +1,92 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.workOrder.home.title">Work Orders</span>
+        <button class="btn btn-primary float-right jh-create-entity create-work-order" [routerLink]="['/', { outlets: { popup: ['work-order-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span  jhiTranslate="billingWebApp.workOrder.home.createLabel">
+            Create new Work Order
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-3">
+            <select class="dropdown" (change)="onSelectStatusChange($event)" [(ngModel)]="statusFilter">
+                <option value="">All</option>
+                <option *ngFor="let status of workOrderStatusMap" value="{{status.value}}">{{status.value}}</option>
+            </select>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="workOrders">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th><span jhiTranslate="billingWebApp.workOrder.siteId">Site ID</span></th>
+            <th jhiSortBy="workOrderNumber"><span jhiTranslate="billingWebApp.workOrder.workOrderNumber">Work Order Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span jhiTranslate="billingWebApp.workOrder.status">Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="scheduledDateAndTime"><span jhiTranslate="billingWebApp.workOrder.scheduledDateAndTime">Scheduled Date And Time</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="jhiLabel"><span jhiTranslate="billingWebApp.workOrder.jhiLabel">Label</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="contractorEmail"><span jhiTranslate="billingWebApp.workOrder.contractorEmail">Contractor Email</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="jhiUser"><span jhiTranslate="billingWebApp.workOrder.jhiUser">User</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="dueDate"><span jhiTranslate="billingWebApp.workOrder.dueDate">Due Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="coordinatorName"><span jhiTranslate="billingWebApp.workOrder.coordinatorName">Coordinator Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="assignedContractorInfo"><span jhiTranslate="billingWebApp.workOrder.assignedContractorInfo">Assigned Contractor Info</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="completionDate"><span jhiTranslate="billingWebApp.workOrder.completionDate">Completion Date</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let workOrder of workOrders ;trackBy: trackId">
+                <td><a [routerLink]="['../work-order', workOrder.id ]">{{workOrder.id}}</a></td>
+                <td><a *ngIf="workOrder.siteId > 0" [routerLink]="['../site', workOrder.siteId ]" fragment="tabWorkOrders">{{workOrder.siteId}}</a></td>
+                <td>{{workOrder.workOrderNumber}}</td>
+                <td>{{workOrder.status}}</td>
+                <td>{{workOrder.scheduledDateAndTime | date:'medium'}}</td>
+                <td>{{workOrder.jhiLabel}}</td>
+                <td>{{workOrder.contractorEmail}}</td>
+                <td>{{workOrder.jhiUser}}</td>
+                <td>{{workOrder.dueDate | date:'mediumDate'}}</td>
+                <td>{{workOrder.coordinatorName}}</td>
+                <td>{{workOrder.assignedContractorInfo}}</td>
+                <td>{{workOrder.completionDate | date:'mediumDate'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../work-order', workOrder.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'work-order/'+ workOrder.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'work-order/'+ workOrder.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="workOrders && workOrders.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

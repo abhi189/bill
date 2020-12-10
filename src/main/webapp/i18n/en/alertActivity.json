@@ -1,0 +1,27 @@
+{
+    "billingWebApp": {
+        "alertActivity": {
+            "home": {
+                "title": "Alert Activities",
+                "createLabel": "Create a new Alert Activity",
+                "createOrEditLabel": "Create or edit a Alert Activity",
+                "search": "Search for Alert Activity"
+            },
+            "created": "A new Alert Activity is created with identifier {{ param }}",
+            "updated": "A Alert Activity is updated with identifier {{ param }}",
+            "deleted": "A Alert Activity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Alert Activity {{ id }}?"
+            },
+            "detail": {
+                "title": "Alert Activity"
+            },
+            "user": "User",
+            "activity": "Activity",
+            "level": "Level",
+            "message": "Message",
+            "date": "Date",
+            "alert": "Alert"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+<form name="executeCampaign" (ngSubmit)="execute()">
+    <div class="modal-header">
+        <h6 class="modal-title">Select the campaign type you want to start</h6>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <select class="dropdown" (change)="onSelectChange($event)">
+            <option value="TEST" selected>Test Campaign</option>
+            <option value="TOTAL">Total Campaign</option>
+            <option value="OVERDUE">Overdue Campaign</option>
+            <option value="DUNNING">Dunning Campaign</option>
+            <option value="TERMINATION">Termination Campaign</option>
+        </select>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-danger">
+            <span class="fa fa-fire"></span>&nbsp;<span>Start Campaign</span>
+        </button>
+    </div>
+</form>

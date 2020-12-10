@@ -1,0 +1,52 @@
+{
+    "billingWebApp": {
+        "billingCycleActivity": {
+            "home": {
+                "title": "Billing Cycle Activities",
+                "createLabel": "Create a new Billing Cycle Activity",
+                "createOrEditLabel": "Create or edit a Billing Cycle Activity",
+                "search": "Search for Billing Cycle Activity"
+            },
+            "created": "A new Billing Cycle Activity is created with identifier {{ param }}",
+            "updated": "A Billing Cycle Activity is updated with identifier {{ param }}",
+            "deleted": "A Billing Cycle Activity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Billing Cycle Activity {{ id }}?"
+            },
+            "detail": {
+                "title": "Billing Cycle Activity"
+            },
+            "user": "User",
+            "activity": "Activity",
+            "level": "Level",
+            "message": "Message",
+            "activityDate": "Activity Date",
+            "billingCycle": "Billing Cycle"
+        }
+    },
+    "invoiceApp": {
+        "invoiceBillingCycleActivity": {
+            "home": {
+                "title": "Billing Cycle Activities",
+                "createLabel": "Create a new Billing Cycle Activity",
+                "createOrEditLabel": "Create or edit a Billing Cycle Activity",
+                "search": "Search for Billing Cycle Activity"
+            },
+            "created": "A new Billing Cycle Activity is created with identifier {{ param }}",
+            "updated": "A Billing Cycle Activity is updated with identifier {{ param }}",
+            "deleted": "A Billing Cycle Activity is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Billing Cycle Activity {{ id }}?"
+            },
+            "detail": {
+                "title": "Billing Cycle Activity"
+            },
+            "user": "User",
+            "activity": "Activity",
+            "level": "Level",
+            "message": "Message",
+            "activityDate": "Activity Date",
+            "billingCycle": "Billing Cycle"
+        }
+    }
+}

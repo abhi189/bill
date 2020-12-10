@@ -1,0 +1,36 @@
+{
+    "billingWebApp": {
+        "consumption": {
+            "home": {
+                "title": "Consumptions",
+                "title2": "Consumption",
+                "createLabel": "Create a new Consumption",
+                "createOrEditLabel": "Create or edit a Consumption",
+                "search": "Search for Consumption"
+            },
+            "created": "A new Consumption is created with identifier {{ param }}",
+            "updated": "A Consumption is updated with identifier {{ param }}",
+            "deleted": "A Consumption is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Consumption {{ id }}?"
+            },
+            "detail": {
+                "title": "Consumption"
+            },
+            "measurementType": "Measurement Type",
+            "rateComponent": "Rate Component",
+            "intervalStart": "Interval Start",
+            "intervalEnd": "Interval End",
+            "usageAmount": "Usage Amount",
+            "loadFactor": "Load Factor",
+            "meterReadCurrent": "Meter Read Current",
+            "meterReadPrevious": "Meter Read Previous",
+            "usageConstantMultiplier": "Usage Constant Multiplier",
+            "usageConversionMultiplier": "Usage Conversion Multiplier",
+            "invoice": "Invoice",
+            "previousMeterReadType": "Previous Meter Read Type",
+            "meterReadType": "Meter Read Type",
+            "energyUnit": "Energy Unit"
+        }
+    }
+}

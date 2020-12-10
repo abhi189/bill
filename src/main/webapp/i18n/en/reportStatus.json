@@ -1,0 +1,9 @@
+{
+    "billingWebApp": {
+        "ReportStatus": {
+            "null": "",
+            "COMPLETED": "COMPLETED",
+            "PENDING": "PENDING"
+        }
+    }
+}

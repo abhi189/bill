@@ -1,0 +1,98 @@
+<div class="modal-header">
+    <h4 class="modal-title" id="myUserLabel" jhiTranslate="userManagement.site.searchAndAssign">
+        Search and Assign Sites</h4>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+        (click)="clear()">&times;</button>
+</div>
+<div class="modal-body">
+    <div class="col-sm-12">
+        <form name="searchForm" class="form-inline">
+            <div class="input-group w-100 mt-3">
+                <input type="text" class="form-control" [(ngModel)]="currentSearch" 
+                    id="currentSearch" name="currentSearch" 
+                    placeholder="{{ 'userManagement.home.search' | translate }}">
+                <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                    <span class="fa fa-search"></span>
+                </button>
+                <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                    <span class="fa fa-trash-o"></span>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-sm-12">
+        <div class="table-responsive" *ngIf="sites">
+            <table class="table table-striped">
+                <thead>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="callBack.bind(this)">
+                    <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="budderflyId"><span jhiTranslate="userManagement.site.budderflyId">Budderfly Id</span> <span class="fa fa-sort"></span></th>
+                    <th></th>
+                    <th jhiSortBy="customerName"><span jhiTranslate="userManagement.site.customerName">Customer Name</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="status"><span jhiTranslate="userManagement.site.status">Status</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="companyType"><span jhiTranslate="userManagement.site.companyType">Company Type</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="storeNumber"><span jhiTranslate="userManagement.site.storeNumber">Store Number</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="address"><span jhiTranslate="userManagement.site.address">Address</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="city"><span jhiTranslate="userManagement.site.city">City</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="state"><span jhiTranslate="userManagement.site.state">State</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="zip"><span jhiTranslate="userManagement.site.zip">Zip</span> <span class="fa fa-sort"></span></th>
+                    <th jhiSortBy="SiteId"><span jhiTranslate="userManagement.site.parentSite">Parent Site</span> <span class="fa fa-sort"></span></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let site of sites;trackBy: trackId">
+                    <td><span class="btn" (click)="redirectToSite(site.id)">{{site.id}}</span></td>
+                    <td>{{site.budderflyId}}</td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <label htmlFor="action">
+                                <input type="checkbox"
+                                    id="action"
+                                    [(ngModel)]="site.checkedManually"
+                                    [checked]="site.checkedManually"
+                                    (change)="handleAssignCheck($event, site)" 
+                                />
+                                Assign
+                            </label>
+                        </div>
+                    </td>
+                    <td>{{site.customerName}}</td>
+                    <td jhiTranslate="{{'userManagement.SiteStatus.' + site.status}}">{{site.status}}</td>
+                    <td>{{site.companyType}}</td>
+                    <td>{{site.storeNumber}}</td>
+                    <td>{{site.address}}</td>
+                    <td>{{site.city}}</td>
+                    <td>{{site.state}}</td>
+                    <td>{{site.zip}}</td>
+                    <td>
+                        <div *ngIf="site.parentSiteId">
+                            <a [routerLink]="['/site', site.parentSiteId  ]" replaceUrl="true" data-dismiss="modal" (click)="clear()" >{{site.parentSiteId}}</a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div *ngIf="sites && sites.length">
+            <div class="row justify-content-center">
+                <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+            </div>
+            <div class="row justify-content-center">
+                <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <div class="btn-group flex-btn-group-container">
+        <button type="button" [disabled]="updatingSite" class="btn btn-primary" (click)="!updatingSite ? assignSites(): ''">
+                <span class="fa fa-plus"></span>&nbsp;
+            <span jhiTranslate="userManagement.action.assign">Assign</span>
+        </button>
+        &nbsp;&nbsp;
+        <button type="button" [disabled]="updatingSite" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+    </div>
+</div>

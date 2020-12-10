@@ -1,0 +1,154 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myChargeLabel" jhiTranslate="billingWebApp.charge.home.createOrEditLabel">Create or edit a Charge</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!charge.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="charge.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.charge.usageUnit" for="field_usageUnit">Usage Unit</label>
+            <input type="text" class="form-control" name="usageUnit" id="field_usageUnit"
+                [(ngModel)]="charge.usageUnit" required/>
+            <div [hidden]="!(editForm.controls.usageUnit?.dirty && editForm.controls.usageUnit?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.usageUnit?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.charge.measurementType" for="field_measurementType">Measurement Type</label>
+            <input type="text" class="form-control" name="measurementType" id="field_measurementType"
+                [(ngModel)]="charge.measurementType" required/>
+            <div [hidden]="!(editForm.controls.measurementType?.dirty && editForm.controls.measurementType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.measurementType?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.charge.rateComponent" for="field_rateComponent">Rate Component</label>
+            <input type="text" class="form-control" name="rateComponent" id="field_rateComponent"
+                [(ngModel)]="charge.rateComponent" required/>
+            <div [hidden]="!(editForm.controls.rateComponent?.dirty && editForm.controls.rateComponent?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.rateComponent?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.charge.intervalStart" for="field_intervalStart">Interval Start</label>
+            <div class="d-flex">
+                <input id="field_intervalStart" type="datetime-local" class="form-control" name="intervalStart" [(ngModel)]="charge.intervalStart"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.intervalStart?.dirty && editForm.controls.intervalStart?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.intervalStart?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.intervalStart?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.charge.intervalEnd" for="field_intervalEnd">Interval End</label>
+            <div class="d-flex">
+                <input id="field_intervalEnd" type="datetime-local" class="form-control" name="intervalEnd" [(ngModel)]="charge.intervalEnd"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.intervalEnd?.dirty && editForm.controls.intervalEnd?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.intervalEnd?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.intervalEnd?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.charge.chargeAmount" for="field_chargeAmount">Charge Amount</label>
+            <input type="number" class="form-control" name="chargeAmount" id="field_chargeAmount"
+                [(ngModel)]="charge.chargeAmount" required/>
+            <div [hidden]="!(editForm.controls.chargeAmount?.dirty && editForm.controls.chargeAmount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.chargeAmount?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.chargeAmount?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.charge.chargeCurrency" for="field_chargeCurrency">Charge Currency</label>
+            <input type="text" class="form-control" name="chargeCurrency" id="field_chargeCurrency"
+                [(ngModel)]="charge.chargeCurrency" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.charge.chargeRatePerUnit" for="field_chargeRatePerUnit">Charge Rate Per Unit</label>
+            <input type="number" class="form-control" name="chargeRatePerUnit" id="field_chargeRatePerUnit"
+                [(ngModel)]="charge.chargeRatePerUnit" required/>
+            <div [hidden]="!(editForm.controls.chargeRatePerUnit?.dirty && editForm.controls.chargeRatePerUnit?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.chargeRatePerUnit?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.chargeRatePerUnit?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.charge.chargeRatePerUnitMultiplier" for="field_chargeRatePerUnitMultiplier">Charge Rate Per Unit Multiplier</label>
+            <input type="number" class="form-control" name="chargeRatePerUnitMultiplier" id="field_chargeRatePerUnitMultiplier"
+                [(ngModel)]="charge.chargeRatePerUnitMultiplier" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.charge.chargeUnitsUsed" for="field_chargeUnitsUsed">Charge Units Used</label>
+            <input type="number" class="form-control" name="chargeUnitsUsed" id="field_chargeUnitsUsed"
+                [(ngModel)]="charge.chargeUnitsUsed" required/>
+            <div [hidden]="!(editForm.controls.chargeUnitsUsed?.dirty && editForm.controls.chargeUnitsUsed?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.chargeUnitsUsed?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.chargeUnitsUsed?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.charge.invoice" for="field_invoice">Invoice</label>
+            <select class="form-control" id="field_invoice" name="invoice" [(ngModel)]="charge.invoiceId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="invoiceOption.id" *ngFor="let invoiceOption of invoices; trackBy: trackInvoiceById">{{invoiceOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

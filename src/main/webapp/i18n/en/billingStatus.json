@@ -1,0 +1,13 @@
+{
+    "billingWebApp": {
+        "BillingStatus": {
+            "null": "",
+            "AMU_Forward": "AMU Forward",
+            "AMU_Arrears": "AMU Arrears",
+            "AME": "AME",
+            "PASSTHROUGH": "PASSTHROUGH",
+            "LME": "LME",
+            "none": "None"
+        }
+    }
+}

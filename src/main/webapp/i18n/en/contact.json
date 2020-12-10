@@ -1,0 +1,35 @@
+{
+    "billingWebApp": {
+        "contact": {
+            "home": {
+                "title": "Contacts",
+                "createLabel": "Create a new Contact",
+                "createOrEditLabel": "Create or edit a Contact",
+                "search": "Search for Contact"
+            },
+            "created": "A new Contact is created with identifier {{ param }}",
+            "updated": "A Contact is updated with identifier {{ param }}",
+            "deleted": "A Contact is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Contact {{ id }}?"
+            },
+            "detail": {
+                "title": "Contact"
+            },
+            "contactType": "Contact Type",
+            "name": "Name",
+            "phoneNumber": "Phone Number",
+            "webPage": "Web Page",
+            "notes": "Notes",
+            "city": "City",
+            "street": "Street",
+            "zipCode": "Zip Code",
+            "country": "Country",
+            "contactEmail": "Contact Email",
+            "createdDate": "Created Date",
+            "lastModifyDate": "Last Modify Date",
+            "modifiedBy": "Modified By",
+            "createdBy": "Created By"
+        }
+    }
+}

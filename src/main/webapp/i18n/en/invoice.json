@@ -1,0 +1,65 @@
+{
+    "billingWebApp": {
+        "invoice": {
+            "home": {
+                "title": "Invoices",
+                "createLabel": "Create a new Invoice",
+                "createOrEditLabel": "Create or edit a Invoice",
+                "search": "Search for Invoice",
+                "manual": "Manual Load"
+            },
+            "createdDate": "Created Date",
+            "created": "A new Invoice is created with identifier {{ param }}",
+            "updated": "A Invoice is updated with identifier {{ param }}",
+            "deleted": "A Invoice is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Invoice {{ id }} and all its associated data?",
+                "notAllowed": "Delete operation not allowed"
+            },
+            "rejectOperation": {
+                "notAllowed": "Reject operation not allowed"
+            },
+            "detail": {
+                "title": "Invoice"
+            },
+            "electricSupplier": "Electric Supplier",
+            "intervalStart": "Interval Start",
+            "intervalEnd": "Interval End",
+            "billingDays": "Billing Days",
+            "newCharges": "New Charges",
+            "peakKWH": "Peak KWH",
+            "midPeakKWH": "Mid Peak KWH",
+            "offPeakKWH": "Off Peak KWH",
+            "totalKWH": "Total KWH",
+            "peakKW": "Peak KW",
+            "midPeakKW": "Mid Peak KW",
+            "offPeakKW": "Off Peak KW",
+            "maxKW": "Max KW",
+            "urjanetId": "Urjanet Id",
+            "siteAccount": "Site Account",
+            "charge": "Charge",
+            "consumption": "Consumption",
+            "ok": "Ok",
+            "approve": "Approve",
+            "approveTitle": "Confirm approve operation",
+            "reject": "Reject",
+            "rejectTitle": "Confirm reject operation",
+            "sourceLink": "Source link",
+            "invalid": "Invalid",
+            "exportNetSuite": "Export to NetSuite",
+            "imported": "Imported",
+            "readyForImport": "Ready To Import",
+            "importedManually": "Imported Manually",
+            "ignoreImport": "Ignore Import",
+            "budderflyInvoiceNumber": "Budderfly Invoice Number",
+            "lastModifiedBy": "Last Modified By",
+            "lastModified": "Last Modified",
+            "exportDialog": {
+                "title": "Confirm Export Invoice",
+                "question": "Are you sure you want to export this Invoice?",
+                "cancel": "Cancel",
+                "confirm": "Export"
+            }
+        }
+    }
+}

@@ -1,0 +1,46 @@
+
+<div *ngIf="excludedRate">
+    <h2><span jhiTranslate="billingWebApp.excludedRate.detail.title">Excluded Rate</span> {{excludedRate.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.excludedRate.chargeId">Charge Id</span></dt>
+        <dd>
+            <span>{{excludedRate.chargeId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.excludedRate.chargeActualDescriptionName">Charge Actual Description Name</span></dt>
+        <dd>
+            <span>{{excludedRate.chargeActualDescriptionName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.excludedRate.customerType">Customer Type</span></dt>
+        <dd>
+            <span>{{excludedRate.customerType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.excludedRate.utilityProvider">Utility Provider</span></dt>
+        <dd>
+            <span>{{excludedRate.utilityProvider}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.excludedRate.siteId">Site Id</span></dt>
+        <dd>
+            <span>{{excludedRate.siteId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.excludedRate.active">Active</span></dt>
+        <dd>
+            <span>{{excludedRate.active}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'excluded-rate/'+ excludedRate.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,12 @@
+{
+    "billingWebApp": {
+        "importMapping": {
+            "home": {
+                "title": "Tariff Mapping Details:  Tariff ID # {{ tariffId }}"
+            },
+            "detail": {
+                "title": "Import Mapping"
+            }
+        }
+    }
+}

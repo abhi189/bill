@@ -1,0 +1,12 @@
+{
+    "billingWebApp": {
+        "EquipmentInstalled": {
+            "null": "",
+            "ANY": "ANY",
+            "LED": "LED",
+            "KE2_FREEZER": "KE2_FREEZER",
+            "KE2_COOLER": "KE2_COOLER",
+            "ENERFIT": "ENERFIT"
+        }
+    }
+}

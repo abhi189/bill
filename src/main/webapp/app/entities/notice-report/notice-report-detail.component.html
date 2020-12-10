@@ -1,0 +1,73 @@
+<div>
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="noticeReport">
+                <h2><span jhiTranslate="billingWebApp.noticeReport.detail.title">Notice Report</span></h2>
+                <hr>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="row">
+                    <div class="col-6">
+                        <dl class="row-md jh-entity-details">
+                            <dt><span jhiTranslate="billingWebApp.noticeReport.date">Date</span></dt>
+                            <dd>
+                                <span>{{noticeReport.date | date:'medium'}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="billingWebApp.noticeReport.status">Status</span></dt>
+                            <dd>
+                                <span jhiTranslate="{{'billingWebApp.ReportStatus.' + noticeReport.status}}">{{noticeReport.status}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="billingWebApp.noticeReport.campaignType">Campaign Type</span></dt>
+                            <dd>
+                                <span jhiTranslate="{{'billingWebApp.CampaignType.' + noticeReport.campaignType}}">{{noticeReport.campaignType}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="billingWebApp.noticeReport.eventCount">Event Count</span></dt>
+                            <dd>
+                                <span>{{noticeReport.eventCount}}</span>
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="col-6">
+                        <div *ngIf="noticeCountReport">
+                            <dl class="row-md jh-entity-details">
+                                <dt><span jhiTranslate="billingWebApp.noticeReport.countOfOverdueNotices">Overdue Notices</span></dt>
+                                <dd>
+                                    <span>{{noticeCountReport.countOfOverdueNotices}}</span>
+                                </dd>
+                                <dt><span jhiTranslate="billingWebApp.noticeReport.countOfDunningNotices">Dunning Notices</span></dt>
+                                <dd>
+                                    <span>{{noticeCountReport.countOfDunningNotices}}</span>
+                                </dd>
+                                <dt><span jhiTranslate="billingWebApp.noticeReport.countOfTerminationNotices">Termination Notices</span></dt>
+                                <dd>
+                                    <span>{{noticeCountReport.countOfTerminationNotices}}</span>
+                                </dd>
+                                <dt><span jhiTranslate="billingWebApp.noticeReport.countOfErrors">Errors</span></dt>
+                                <dd>
+                                    <span>{{noticeCountReport.countOfErrors}}</span>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit"
+                        (click)="previousState()"
+                        class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                </button>
+                <button class="btn btn-success float-right" (click)="exportAsXLSX()">
+                    <span  jhiTranslate="billingWebApp.noticeReport.export">
+                        Export Report
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div *ngIf="noticeReport">
+                <jhi-notice-report-events [reportId]="noticeReport.id" [campaignType]="noticeReport.campaignType"></jhi-notice-report-events>
+            </div>
+        </div>
+    </div>
+</div>

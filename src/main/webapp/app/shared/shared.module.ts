@@ -1,21 +1,41 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { NgbDateAdapter } from '@ng-bootstrap/ng-bootstrap';
+import { DatePipe } from '@angular/common';
 
-import { NgbDateMomentAdapter } from './util/datepicker-adapter';
-import { PortalSharedLibsModule, PortalSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective } from './';
+import {
+    BillingWebSharedLibsModule,
+    BillingWebSharedCommonModule,
+    CSRFService,
+    AuthServerProvider,
+    AccountService,
+    UserService,
+    StateStorageService,
+    LoginService,
+    LoginModalService,
+    JhiLoginModalComponent,
+    Principal,
+    JhiTrackerService,
+    HasAnyAuthorityDirective
+} from './';
+import { FeatureToggleService } from './feature-toggle/feature-toggle.service';
 
 @NgModule({
-    imports: [PortalSharedLibsModule, PortalSharedCommonModule],
+    imports: [BillingWebSharedLibsModule, BillingWebSharedCommonModule],
     declarations: [JhiLoginModalComponent, HasAnyAuthorityDirective],
-    providers: [{ provide: NgbDateAdapter, useClass: NgbDateMomentAdapter }],
+    providers: [
+        LoginService,
+        LoginModalService,
+        AccountService,
+        StateStorageService,
+        Principal,
+        CSRFService,
+        JhiTrackerService,
+        AuthServerProvider,
+        UserService,
+        DatePipe,
+        FeatureToggleService
+    ],
     entryComponents: [JhiLoginModalComponent],
-    exports: [PortalSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective],
+    exports: [BillingWebSharedCommonModule, JhiLoginModalComponent, HasAnyAuthorityDirective, DatePipe],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class PortalSharedModule {
-    static forRoot() {
-        return {
-            ngModule: PortalSharedModule
-        };
-    }
-}
+export class BillingWebSharedModule {}

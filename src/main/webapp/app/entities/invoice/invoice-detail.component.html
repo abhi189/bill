@@ -1,0 +1,168 @@
+
+<div *ngIf="invoice">
+    <h2><a [routerLink]="['/site', siteId]">{{bId}}</a> / {{accNum}} / <span jhiTranslate="billingWebApp.invoice.detail.title">Invoice</span> {{invoice.id}}</h2>    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.invoice.electricSupplier">Electric Supplier</span></dt>
+        <dd>
+            <span>{{invoice.electricSupplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.intervalStart">Interval Start</span></dt>
+        <dd>
+            <span>{{startDate}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.intervalEnd">Interval End</span></dt>
+        <dd>
+            <span>{{endDate}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.billingDays">Billing Days</span></dt>
+        <dd>
+            <span>{{invoice.billingDays}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.newCharges">New Charges</span></dt>
+        <dd>
+            <span>{{invoice.newCharges}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.peakKWH">Peak KWH</span></dt>
+        <dd>
+            <span>{{invoice.peakKWH}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.midPeakKWH">Mid Peak KWH</span></dt>
+        <dd>
+            <span>{{invoice.midPeakKWH}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.offPeakKWH">Off Peak KWH</span></dt>
+        <dd>
+            <span>{{invoice.offPeakKWH}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.totalKWH">Total KWH</span></dt>
+        <dd>
+            <span>{{invoice.totalKWH}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.peakKW">Peak KW</span></dt>
+        <dd>
+            <span>{{invoice.peakKW}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.midPeakKW">Mid Peak KW</span></dt>
+        <dd>
+            <span>{{invoice.midPeakKW}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.offPeakKW">Off Peak KW</span></dt>
+        <dd>
+            <span>{{invoice.offPeakKW}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.maxKW">Max KW</span></dt>
+        <dd>
+            <span>{{invoice.maxKW}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.urjanetId">Urjanet Id</span></dt>
+        <dd>
+            <span>{{invoice.urjanetId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.siteAccount">Site Account</span></dt>
+        <dd>
+            <div *ngIf="invoice.siteAccountId">
+                <a [routerLink]="['/site-account', invoice.siteAccountId]">{{invoice.siteAccountId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.invalid">Invalid</span></dt>
+        <dd>
+            <span>{{invoice.invalid}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.imported">Imported</span></dt>
+        <dd>
+            <span>{{invoice.imported}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.readyForImport">Ready To Import</span></dt>
+        <dd>
+            <span>{{invoice.readyForImport}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.importedManually">Imported Manually</span></dt>
+        <dd>
+            <div class="row">
+                <div class="col-12">
+                    <span class="automatic-update" style="justify-content: flex-start" [ngClass]="{'disabled' : disableControls}">
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="importedmanuallyonoffswitch"
+                                   [(ngModel)]="invoice.importedManually"
+                                   (change)="onImportedManuallyChange($event)">
+                            <label class="onoffswitch-label" for="importedmanuallyonoffswitch">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.ignoreImport">Ignore Import</span></dt>
+        <dd>
+            <div class="row">
+                <div class="col-14">
+                    <span class="automatic-update" style="justify-content: flex-start" [ngClass]="{'disabled' : disableControls}">
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="ignoreimportonoffswitch"
+                                   [(ngModel)]="invoice.ignoreImport"
+                                   (change)="onIgnoreImportChange($event)">
+                            <label class="onoffswitch-label" for="ignoreimportonoffswitch">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{invoice.createdDate}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.invoice.budderflyInvoiceNumber">Budderfly Invoice Number</span></dt>
+        <dd>
+            <span>{{invoice.budderflyInvoiceNumber}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'invoice/'+ invoice.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+    
+    <button type="button"
+            class="btn btn-secondary"
+            (click)="exportToNetSuite()">
+        <span class="fa fa-file"></span>
+        <span class="d-none d-md-inline" jhiTranslate="billingWebApp.invoice.exportNetSuite">Export to NetSuite</span>
+    </button>
+
+    <hr>
+    <ngb-tabset [justify]="'fill'" type="pills">
+        <ngb-tab id="tabCharges">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.charge.home.title">Charges</span></ng-template>
+            <ng-template ngbTabContent>
+                <jhi-invoice-charges [showInvoiceId]="false"></jhi-invoice-charges>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabConsumption">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.consumption.home.title2">Consumption</span></ng-template>
+            <ng-template ngbTabContent>
+                <jhi-invoice-consumption [showInvoiceId]="false"></jhi-invoice-consumption>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabMeter">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.meter.home.title">Meter</span></ng-template>
+            <ng-template ngbTabContent>
+                <jhi-invoice-meter [showInvoiceId]="false"></jhi-invoice-meter>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>

@@ -1,0 +1,50 @@
+
+<div *ngIf="budderflyInvoiceValidation">
+    <h2><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.detail.title">Budderfly Invoice Validation</span> {{budderflyInvoiceValidation.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.testName">Test Name</span></dt>
+        <dd>
+            <span>{{budderflyInvoiceValidation.testName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.description">Description</span></dt>
+        <dd>
+            <span>{{budderflyInvoiceValidation.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.config">Config</span></dt>
+        <dd>
+            <span>{{budderflyInvoiceValidation.config}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.enabled">Enabled</span></dt>
+        <dd>
+            <span>{{budderflyInvoiceValidation.enabled}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.order">Order</span></dt>
+        <dd>
+            <span>{{budderflyInvoiceValidation.order}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.endpoint">Endpoint</span></dt>
+        <dd>
+            <span>{{budderflyInvoiceValidation.endpoint}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.updateInvoiceStatus">Update Invoice Status</span></dt>
+        <dd>
+            <span>{{budderflyInvoiceValidation.updateInvoiceStatus}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'budderfly-invoice-validation/'+ budderflyInvoiceValidation.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

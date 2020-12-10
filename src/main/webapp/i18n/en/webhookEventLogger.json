@@ -1,0 +1,27 @@
+{
+    "billingWebApp": {
+        "webhookEventLogger": {
+            "home": {
+                "title": "Webhook Event Loggers",
+                "createLabel": "Create a new Webhook Event Logger",
+                "createOrEditLabel": "Create or edit a Webhook Event Logger",
+                "search": "Search for Webhook Event Logger"
+            },
+            "created": "A new Webhook Event Logger is created with identifier {{ param }}",
+            "updated": "A Webhook Event Logger is updated with identifier {{ param }}",
+            "deleted": "A Webhook Event Logger is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Webhook Event Logger {{ id }}?"
+            },
+            "detail": {
+                "title": "Webhook Event Logger"
+            },
+            "eventId": "Event Id",
+            "eventType": "Event Type",
+            "eventDate": "Event Date",
+            "eventEndpoint": "Event Endpoint",
+            "status": "Status",
+            "providerId": "Provider Id"
+        }
+    }
+}

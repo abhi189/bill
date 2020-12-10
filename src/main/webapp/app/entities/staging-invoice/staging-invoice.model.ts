@@ -1,0 +1,51 @@
+import { BaseEntity } from './../../shared';
+
+export class StagingInvoice implements BaseEntity {
+    constructor(
+        public id?: number,
+        public electricSupplier?: string,
+        public intervalStart?: any,
+        public intervalEnd?: any,
+        public billingDays?: number,
+        public statementDate?: any,
+        public dueByDate?: any,
+        public invoiceNumber?: string,
+        public statementCreateDate?: any,
+        public statementType?: string,
+        public newCharges?: number,
+        public totalBillAmount?: number,
+        public amountDue?: number,
+        public outstandingBalance?: number,
+        public previousBalance?: number,
+        public peakKWH?: number,
+        public midPeakKWH?: number,
+        public offPeakKWH?: number,
+        public totalKWH?: number,
+        public peakKW?: number,
+        public midPeakKW?: number,
+        public offPeakKW?: number,
+        public maxKW?: number,
+        public siteAccountId?: number,
+        public providerId?: string,
+        public providerStatementId?: string,
+        public providerName?: string,
+        public jobHistoryId?: number,
+        public totalUnit?: string,
+        public totalVolume?: number,
+        public billingAccount?: string,
+        public billingAddress?: string,
+        public billingContact?: string,
+        public updatedDate?: any,
+        public authorizationUid?: string,
+        public sourceLink?: string,
+        public createdDate?: any,
+        public lastModified?: any,
+        public imported?: boolean,
+        public billingInvoiceId?: number,
+        public consumptions?: BaseEntity[],
+        public meters?: BaseEntity[],
+        public charges?: BaseEntity[]
+    ) {
+        this.imported = false;
+    }
+}

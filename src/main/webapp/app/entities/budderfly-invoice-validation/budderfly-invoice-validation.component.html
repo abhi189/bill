@@ -1,0 +1,93 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.budderflyInvoiceValidation.home.title">Budderfly Invoice Validations</span>
+        <button class="btn btn-primary float-right jh-create-entity create-budderfly-invoice-validation" [routerLink]="['/', { outlets: { popup: ['budderfly-invoice-validation-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.budderflyInvoiceValidation.home.createLabel">
+            Create new Budderfly Invoice Validation
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.budderflyInvoiceValidation.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="budderflyInvoiceValidations">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="testName"><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.testName">Test Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="description"><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.description">Description</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="config"><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.config">Config</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="enabled"><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.enabled">Enabled</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="order"><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.order">Order</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="endpoint"><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.endpoint">Endpoint</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="updateInvoiceStatus"><span jhiTranslate="billingWebApp.budderflyInvoiceValidation.updateInvoiceStatus">Update Invoice Status</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let budderflyInvoiceValidation of budderflyInvoiceValidations ;trackBy: trackId">
+                <td><a [routerLink]="['../budderfly-invoice-validation', budderflyInvoiceValidation.id ]">{{budderflyInvoiceValidation.id}}</a></td>
+                <td>{{budderflyInvoiceValidation.testName}}</td>
+                <td>{{budderflyInvoiceValidation.description}}</td>
+                <td>{{budderflyInvoiceValidation.config}}</td>
+                <td><input type="checkbox" class="form-control" name="enabled__{{budderflyInvoiceValidation.id}}" id="field_enabled__{{budderflyInvoiceValidation.id}}"
+                           [(ngModel)]="budderflyInvoiceValidation.enabled" disabled/></td>
+                <td>{{budderflyInvoiceValidation.order}}</td>
+                <td>{{budderflyInvoiceValidation.endpoint}}</td>
+                <td><input type="checkbox" class="form-control" name="updateInvoiceStatus_{{budderflyInvoiceValidation.id}}" id="field_updateInvoiceStatus_{{budderflyInvoiceValidation.id}}"
+                    [(ngModel)]="budderflyInvoiceValidation.updateInvoiceStatus" disabled/></td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../budderfly-invoice-validation', budderflyInvoiceValidation.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'budderfly-invoice-validation/'+ budderflyInvoiceValidation.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'budderfly-invoice-validation/'+ budderflyInvoiceValidation.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="budderflyInvoiceValidations && budderflyInvoiceValidations.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

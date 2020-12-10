@@ -1,0 +1,9 @@
+{
+    "billingWebApp": {
+        "TaxType": {
+            "null": "",
+            "PERCENTAGE": "PERCENTAGE",
+            "FIXED_AMOUNT": "FIXED_AMOUNT"
+        }
+    }
+}

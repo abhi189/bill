@@ -1,0 +1,69 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myAmuConfigurationLabel" jhiTranslate="billingWebApp.amuConfiguration.home.createOrEditLabel">Create or edit a Customer Configuration</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!amuConfiguration.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="amuConfiguration.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.amuConfiguration.customerType" for="field_customerType">Customer Type</label>
+            <input type="text" class="form-control" name="customerType" id="field_customerType"
+                [(ngModel)]="amuConfiguration.customerType" required/>
+            <div [hidden]="!(editForm.controls.customerType?.dirty && editForm.controls.customerType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.customerType?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.amuConfiguration.utilityProvider" for="field_utilityProvider">Utility Provider</label>
+            <input type="text" class="form-control" name="utilityProvider" id="field_utilityProvider"
+                [(ngModel)]="amuConfiguration.utilityProvider" required/>
+            <div [hidden]="!(editForm.controls.utilityProvider?.dirty && editForm.controls.utilityProvider?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.utilityProvider?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.amuConfiguration.message" for="field_message">Message</label>
+            <textarea rows="8" class="form-control" name="message" id="field_message"
+                [(ngModel)]="amuConfiguration.message">
+            </textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.amuConfiguration.algorithm" for="field_algorithm">Algorithm</label>
+            <select class="form-control" name="algorithm" [(ngModel)]="amuConfiguration.algorithm" id="field_algorithm"  required>
+                <option value="LATEST_RATES">{{'billingWebApp.AmeAlgorithm.LATEST_RATES' | translate}}</option>
+                <option value="STANDARD">{{'billingWebApp.AmeAlgorithm.STANDARD' | translate}}</option>
+                <option value="LATEST_RATES_V2">{{'billingWebApp.AmeAlgorithm.LATEST_RATES_V2' | translate}}</option>
+                <option value="LATEST_RATES_V3">{{'billingWebApp.AmeAlgorithm.LATEST_RATES_V3' | translate}}</option>
+                <option value="LOWEST_PERIOD">{{'billingWebApp.AmeAlgorithm.LOWEST_PERIOD' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.algorithm?.dirty && editForm.controls.algorithm?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.algorithm?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

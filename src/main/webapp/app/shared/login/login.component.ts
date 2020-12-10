@@ -3,13 +3,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { LoginService } from 'app/core/login/login.service';
-import { StateStorageService } from 'app/core/auth/state-storage.service';
+import { LoginService } from './login.service';
+import { Principal } from '../auth/principal.service';
+import { AccountService } from '../auth/account.service';
+import { StateStorageService } from '../auth/state-storage.service';
 
 @Component({
     selector: 'jhi-login-modal',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
+    templateUrl: './login.component.html'
 })
 export class JhiLoginModalComponent implements AfterViewInit {
     authenticationError: boolean;
@@ -17,6 +18,7 @@ export class JhiLoginModalComponent implements AfterViewInit {
     rememberMe: boolean;
     username: string;
     credentials: any;
+    unauthError: boolean;
 
     constructor(
         private eventManager: JhiEventManager,
@@ -25,13 +27,15 @@ export class JhiLoginModalComponent implements AfterViewInit {
         private elementRef: ElementRef,
         private renderer: Renderer,
         private router: Router,
-        public activeModal: NgbActiveModal
+        public activeModal: NgbActiveModal,
+        private accountService: AccountService,
+        private principal: Principal
     ) {
         this.credentials = {};
     }
 
     ngAfterViewInit() {
-        setTimeout(() => this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#username'), 'focus', []), 0);
+        this.renderer.invokeElementMethod(this.elementRef.nativeElement.querySelector('#username'), 'focus', []);
     }
 
     cancel() {
@@ -44,31 +48,43 @@ export class JhiLoginModalComponent implements AfterViewInit {
         this.activeModal.dismiss('cancel');
     }
 
-    login() {
+    async login() {
+        this.unauthError = false;
         this.loginService
             .login({
                 username: this.username,
                 password: this.password,
                 rememberMe: this.rememberMe
             })
-            .then(() => {
-                this.authenticationError = false;
-                this.activeModal.dismiss('login success');
-                if (this.router.url === '/register' || /^\/activate\//.test(this.router.url) || /^\/reset\//.test(this.router.url)) {
-                    this.router.navigate(['']);
-                }
+            .then(async () => {
+                const account: any = await this.accountService.get().toPromise();
+                const {
+                    body: { authorities = [] }
+                } = account;
+                if (authorities && (authorities.includes('ROLE_USER') || authorities.includes('ROLE_ADMIN'))) {
+                    this.authenticationError = false;
+                    this.activeModal.dismiss('login success');
+                    if (this.router.url === '/register' || /^\/activate\//.test(this.router.url) || /^\/reset\//.test(this.router.url)) {
+                        this.router.navigate(['']);
+                    }
 
-                this.eventManager.broadcast({
-                    name: 'authenticationSuccess',
-                    content: 'Sending Authentication Success'
-                });
+                    this.eventManager.broadcast({
+                        name: 'authenticationSuccess',
+                        content: 'Sending Authentication Success'
+                    });
 
-                // previousState was set in the authExpiredInterceptor before being redirected to login modal.
-                // since login is successful, go to stored previousState and clear previousState
-                const redirect = this.stateStorageService.getUrl();
-                if (redirect) {
-                    this.stateStorageService.storeUrl(null);
-                    this.router.navigate([redirect]);
+                    // // previousState was set in the authExpiredInterceptor before being redirected to login modal.
+                    // // since login is succesful, go to stored previousState and clear previousState
+                    const redirect = this.stateStorageService.getUrl();
+                    if (redirect) {
+                        this.stateStorageService.storeUrl(null);
+                        this.router.navigate([redirect]);
+                    }
+                } else {
+                    this.unauthError = true;
+                    this.loginService.logout();
+                    this.principal.authenticate(null);
+                    console.log('Account: ', account);
                 }
             })
             .catch(() => {

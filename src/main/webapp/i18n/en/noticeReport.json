@@ -1,0 +1,34 @@
+{
+    "billingWebApp": {
+        "noticeReport": {
+            "home": {
+                "title": "Notice Campaigns",
+                "createLabel": "Create a new Notice Report",
+                "createOrEditLabel": "Create or edit a Notice Report",
+                "search": "Search for Notice Campaigns"
+            },
+            "created": "A new Notice Report is created with identifier {{ param }}",
+            "updated": "A Notice Report is updated with identifier {{ param }}",
+            "deleted": "A Notice Report is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Notice Report {{ id }}?"
+            },
+            "detail": {
+                "title": "Notice Campaign"
+            },
+            "date": "Date",
+            "status": "Status",
+            "campaignType": "Campaign Type",
+            "eventCount": "Event Count",
+            "countOfOverdueNotices": "Overdue Notices",
+            "countOfDunningNotices": "Dunning Notices",
+            "countOfTerminationNotices": "Termination Notices",
+            "countOfErrors": "Errors",
+            "export": "Export Report",
+            "info": {
+                "report-starting": "The campaign was triggered, please wait until it is finished.",
+                "running-campaign": "There is already one campaign running, please wait until that one is finished."
+            }
+        }
+    }
+}

@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
-import { LoginService } from 'app/core/login/login.service';
-import { JhiLoginModalComponent } from 'app/shared/login/login.component';
-import { StateStorageService } from 'app/core/auth/state-storage.service';
-import { HomebillingwebTestModule } from '../../../test.module';
+import { LoginService } from '../../../../../../main/webapp/app/shared/login/login.service';
+import { JhiLoginModalComponent } from '../../../../../../main/webapp/app/shared/login/login.component';
+import { StateStorageService } from '../../../../../../main/webapp/app/shared/auth/state-storage.service';
+import { BillingWebTestModule } from '../../../test.module';
 import { MockLoginService } from '../../../helpers/mock-login.service';
 import { MockStateStorageService } from '../../../helpers/mock-state-storage.service';
 
@@ -22,7 +22,7 @@ describe('Component Tests', () => {
 
         beforeEach(async(() => {
             TestBed.configureTestingModule({
-                imports: [HomebillingwebTestModule],
+                imports: [BillingWebTestModule],
                 declarations: [JhiLoginModalComponent],
                 providers: [
                     {

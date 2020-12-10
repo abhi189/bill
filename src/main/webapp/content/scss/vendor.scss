@@ -1,4 +1,5 @@
-/* after changing this file run 'npm run webpack:build' */
+/* after changing this file run 'yarn run webpack:build' */
+$fa-font-path: '~font-awesome/fonts';
 
 /***************************
 put Sass variables here:
@@ -7,6 +8,54 @@ eg $input-color: red;
 // Override Boostrap variables
 @import 'bootstrap-variables';
 // Import Bootstrap source files from node_modules
-@import '~bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap/scss/bootstrap';
+@import 'node_modules/font-awesome/scss/font-awesome';
 
 /* jhipster-needle-scss-add-vendor JHipster will add new css style */
+
+/* Split the screen in half */
+.split {
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+}
+
+/* If you want the content centered horizontally and vertically */
+.centered {
+    width: 100%;
+    overflow: auto;
+}
+
+.mid-left {
+    float: left;
+    width: 50%;
+}
+
+.mid-right {
+    float: right;
+    width: 50%;
+}
+.text-centered {
+    text-align: center;
+}
+
+.combo-selector {
+    width: 100%;
+}
+
+.graph-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+}
+
+.ref-spinner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+}

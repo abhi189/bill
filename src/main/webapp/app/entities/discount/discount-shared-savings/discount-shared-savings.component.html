@@ -1,0 +1,59 @@
+<div class="row mt-3">
+    <div class="col-md-6">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="sharedSavingsRadio" id="sharedSavingsTrue" [value]="false"
+                [(ngModel)]="discount.sharedSavings">
+            <label class="form-check-label" for="sharedSavingsFalse">
+                <span jhiTranslate="billingWebApp.discount.tabs.sharedSavings.sharedSavingsFalse">
+                    This agreement has no shared savings component
+                </span>
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="sharedSavingsRadio" id="sharedSavingsFalse" [value]="true" 
+            [(ngModel)]="discount.sharedSavings">
+            <label class="form-check-label" for="sharedSavingsTrue">
+                <span jhiTranslate="billingWebApp.discount.tabs.sharedSavings.sharedSavingsTrue">
+                    There is a shared savings element to this agreement
+                </span>
+            </label>
+        </div>
+        <div *ngIf="discount.sharedSavings" class="ml-5 mt-2 w-75">
+            <form class="form-inline">
+                <span class="fa mr-2 fa-check-square-o"></span>
+                <span jhiTranslate="billingWebApp.discount.tabs.sharedSavings.beginsAfterYears">
+                    Shared Savings begins after
+                </span>
+                <input class="form-control mx-2 w-25 inline-input" type="number" min="0" name="sharedSavingsYears"
+                [(ngModel)]="discount.sharedSavingsYears">
+                    <span jhiTranslate="billingWebApp.discount.tabs.sharedSavings.years">
+                        years
+                    </span>
+            </form>
+            <form class="form-inline mt-2">
+                <span class="fa mr-2 fa-check-square-o"></span>
+                <span jhiTranslate="billingWebApp.discount.tabs.sharedSavings.beginsAfterSavings">
+                    Shared Savings begins after savings exceed
+                </span>
+                <input class="form-control ml-2 w-25 inline-input" type="number" min="0" name="sharedSavingsPercentage"
+                    [ngModel]="discount.sharedSavingsPercentage * 100" (ngModelChange)="discount.sharedSavingsPercentage = $event / 100">
+                <div class="input-group-append">
+                    <div class="input-group-text">%</div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-md-6">
+        <button type="submit" (click)="previousState()" class="btn btn-info">
+            <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        </button>
+        <button type="button" (click)="resetDiscount()" class="btn btn-primary">
+            <span class="fa fa-lg fa-undo"></span>&nbsp;<span jhiTranslate="entity.action.reset"> Reset</span>
+        </button>
+        <button type="button" (click)="saveDiscount()" class="btn btn-success">
+            <span class="fa fa-lg fa-check"></span>&nbsp;<span jhiTranslate="entity.action.save"> Save</span>
+        </button>
+    </div>
+</div>

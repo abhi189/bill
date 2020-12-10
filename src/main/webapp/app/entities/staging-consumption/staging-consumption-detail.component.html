@@ -1,0 +1,134 @@
+
+<div *ngIf="stagingConsumption">
+    <h2><span jhiTranslate="billingWebApp.stagingConsumption.detail.title">Staging Consumption</span> {{stagingConsumption.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.measurementType">Measurement Type</span></dt>
+        <dd>
+            <span>{{stagingConsumption.measurementType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.rateComponent">Rate Component</span></dt>
+        <dd>
+            <span>{{stagingConsumption.rateComponent}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.intervalStart">Interval Start</span></dt>
+        <dd>
+            <span>{{stagingConsumption.intervalStart | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.intervalEnd">Interval End</span></dt>
+        <dd>
+            <span>{{stagingConsumption.intervalEnd | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.usageAmount">Usage Amount</span></dt>
+        <dd>
+            <span>{{stagingConsumption.usageAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.loadFactor">Load Factor</span></dt>
+        <dd>
+            <span>{{stagingConsumption.loadFactor}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.meterReadCurrent">Meter Read Current</span></dt>
+        <dd>
+            <span>{{stagingConsumption.meterReadCurrent}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.meterReadPrevious">Meter Read Previous</span></dt>
+        <dd>
+            <span>{{stagingConsumption.meterReadPrevious}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.usageConstantMultiplier">Usage Constant Multiplier</span></dt>
+        <dd>
+            <span>{{stagingConsumption.usageConstantMultiplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.usageConversionMultiplier">Usage Conversion Multiplier</span></dt>
+        <dd>
+            <span>{{stagingConsumption.usageConversionMultiplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.calorificValue">Calorific Value</span></dt>
+        <dd>
+            <span>{{stagingConsumption.calorificValue}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.energyUnit">Energy Unit</span></dt>
+        <dd>
+            <span>{{stagingConsumption.energyUnit}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.loadType">Load Type</span></dt>
+        <dd>
+            <span>{{stagingConsumption.loadType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.meterReadDate">Meter Read Date</span></dt>
+        <dd>
+            <span>{{stagingConsumption.meterReadDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.meterReadDelta">Meter Read Delta</span></dt>
+        <dd>
+            <span>{{stagingConsumption.meterReadDelta}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.meterReadDeltaUsageUnit">Meter Read Delta Usage Unit</span></dt>
+        <dd>
+            <span>{{stagingConsumption.meterReadDeltaUsageUnit}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.meterReadType">Meter Read Type</span></dt>
+        <dd>
+            <span>{{stagingConsumption.meterReadType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.meterReadTypeAsPrinted">Meter Read Type As Printed</span></dt>
+        <dd>
+            <span>{{stagingConsumption.meterReadTypeAsPrinted}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.powerFactor">Power Factor</span></dt>
+        <dd>
+            <span>{{stagingConsumption.powerFactor}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.previousMeterReadDate">Previous Meter Read Date</span></dt>
+        <dd>
+            <span>{{stagingConsumption.previousMeterReadDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.previousMeterReadType">Previous Meter Read Type</span></dt>
+        <dd>
+            <span>{{stagingConsumption.previousMeterReadType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.previousMeterReadTypeAsPrinted">Previous Meter Read Type As Printed</span></dt>
+        <dd>
+            <span>{{stagingConsumption.previousMeterReadTypeAsPrinted}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.usageActualName">Usage Actual Name</span></dt>
+        <dd>
+            <span>{{stagingConsumption.usageActualName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{stagingConsumption.createdDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.lastModified">Last Modified</span></dt>
+        <dd>
+            <span>{{stagingConsumption.lastModified | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.invoice">Invoice</span></dt>
+        <dd>
+            <div *ngIf="stagingConsumption.invoiceId">
+                <a [routerLink]="['/staging-invoice', stagingConsumption.invoiceId]">{{stagingConsumption.invoiceId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingConsumption.meter">Meter</span></dt>
+        <dd>
+            <div *ngIf="stagingConsumption.meterId">
+                <a [routerLink]="['/staging-meter', stagingConsumption.meterId]">{{stagingConsumption.meterLogicalMeterId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'staging-consumption/'+ stagingConsumption.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

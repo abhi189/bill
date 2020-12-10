@@ -1,0 +1,99 @@
+
+<div *ngIf="tax">
+    <h2><span jhiTranslate="billingWebApp.tax.detail.title">Tax</span> {{tax.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.tax.city">City</span></dt>
+        <dd>
+            <span>{{tax.city}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.state">State</span></dt>
+        <dd>
+            <span>{{tax.state}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.country">Country</span></dt>
+        <dd>
+            <span>{{tax.country}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.zip">Zip</span></dt>
+        <dd>
+            <span>{{tax.zip}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.cityTax">City Tax</span></dt>
+        <dd>
+            <span>{{tax.cityTax}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.cityTaxName">City Tax Name</span></dt>
+        <dd>
+            <span>{{tax.cityTaxName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.stateTaxName">State Tax Name</span></dt>
+        <dd>
+            <span>{{tax.stateTaxName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.stateTax">State Tax</span></dt>
+        <dd>
+            <span>{{tax.stateTax}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.stateExemptAmount">State Exempt Amount</span></dt>
+        <dd>
+            <span>{{tax.stateExemptAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.countyTax">County Tax</span></dt>
+        <dd>
+            <span>{{tax.countyTax}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.countyTaxName">County Tax Name</span></dt>
+        <dd>
+            <span>{{tax.countyTaxName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.otherTax">Other Tax</span></dt>
+        <dd>
+            <span>{{tax.otherTax}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.otherTaxName">Other Tax Name</span></dt>
+        <dd>
+            <span>{{tax.otherTaxName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.vadidFrom">Vadid From</span></dt>
+        <dd>
+            <span>{{tax.vadidFrom | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.validTo">Valid To</span></dt>
+        <dd>
+            <span>{{tax.validTo | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.createdBy">Created By</span></dt>
+        <dd>
+            <span>{{tax.createdBy}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{tax.createdDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.lastModifiedBy">Edited By</span></dt>
+        <dd>
+            <span>{{tax.lastModifiedBy}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.tax.lastModifiedDate">Edited Date</span></dt>
+        <dd>
+            <span>{{tax.lastModifiedDate | date:'mediumDate'}}</span>
+        </dd>
+
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'tax/'+ tax.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

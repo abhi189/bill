@@ -1,13 +1,102 @@
 {
     "global": {
-        "title": "Portal",
+        "title": "Facility Smart Grid",
         "browsehappy": "You are using an <strong>outdated</strong> browser. Please <a href=\"http://browsehappy.com/?locale=en\">upgrade your browser</a> to improve your experience.",
         "menu": {
             "home": "Home",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
+            "quicksight": "QuickSight",
             "entities": {
                 "main": "Entities",
+                "invoice": "Invoice",
+                "invoices": "Invoices",
+                "charge": "Charge",
+                "consumption": "Consumption",
+                "alert": "Alert",
+                "jobExecutionAuditLog": "Job Execution Audit Log",
+                "zipCode": "Zip Code",
+                "site": "Site",
+                "iot": "IoT",
+                "kitting": "Kitting",
+                "siteAccount": "Site Account",
+                "billingCycle": "Billing Cycle",
+                "budderflyInvoice": "Budderfly Invoice",
+                "webhookEventLogger": "Webhook Event Logger",
+                "dataRetention": "Data Retention",
+                "billingCycleActivity": "Billing Cycle Activity",
+                "billingCycleInvoiceActivity": "Billing Cycle Invoice Activity",
+                "solution": "Solution",
+                "budderflyCharge": "Budderfly Charge",
+                "missingInvoice": "Missing Invoice",
+                "discount": "Discount",
+                "adjustment": "Adjustment",
+                "accountsReceivable": "Accounts Receivable",
+                "budderflyInvoiceDiscount": "Budderfly Invoice Discount",
+                "performance": "Performance",
+                "tariff": "Tariff",
+                "amuConfiguration": "Customer Configuration",
+                "inventoryItem": "Inventory Item",
+                "utilityChargeConfiguration": "Utility Charge Configuration",
+                "rate": "Rate",
+                "utility": "Utility",
+                "expectedSavings": "Expected Savings",
+                "templates": "Templates",
+                "equipment": "Equipment",
+                "event": "Event",
+                "alerts": "Alerts",
+                "alertNote": "Alert Note",
+                "alertActivity": "Alert Activity",
+                "invoiceUpload": "Invoice Upload",
+                "contact": "Contact",
+                "excludedPassthrough": "Excluded Passthrough",
+                "budderflyInvoiceValidation": "Budderfly Invoice Validation",
+                "workOrder": "Work Order",
+                "equipmentType": "Equipment Type",
+                "tariffVersionHistory": "Tariff Version History",
+                "provider": "Provider",
+                "rateChargeMapping": "Rate Charge Mapping",
+                "rateComponentMapping": "Rate Component Mapping",
+                "rateUsageTypeMapping": "Rate Usage Type Mapping",
+                "utilityMappingRule": "Utility Mapping Rule",
+                "tariffMappingRule": "Tariff Mapping Rule",
+                "tariffName": "Tariff Name",
+                "noticeReport": "Notice Reports",
+                "noticeReportEvents": "Notice Report Events",
+                "noticeCampaigns": "Notice Campaigns",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
+            },
+            "billing": {
+                "main": "Billing",
+                "tax": "Taxes",
+                "amuConfiguration": "Customer Configuration"
+            },
+            "utilities": {
+                "main": "Utilities",
+                "siteAccount": "Utility Account",
+                "excludedRate": "Excluded Rate",
+                "stagingInvoice": "Staging Invoice",
+                "stagingMeter": "Staging Meter",
+                "stagingConsumption": "Staging Consumption",
+                "stagingCharge": "Staging Charge",
+                "missingInvoices": "Missing Invoices"
+            },
+            "invoices": {
+                "main": "Invoices",
+                "billingCycle": "Billing Cycle",
+                "budderflyInvoice": "Budderfly Invoice"
+            },
+            "system": {
+                "main": "System",
+                "gateway": "Gateway",
+                "health": "Health",
+                "configuration": "Configuration",
+                "logs": "Logs",
+                "audits": "Audits",
+                "elasticsearch-reindex": "Reindex Elasticsearch",
+                "metrics": "Metrics",
+                "apidocs": "API",
+                "database": "Database",
+                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
             },
             "account": {
                 "main": "Account",
@@ -19,58 +108,54 @@
                 "register": "Register"
             },
             "admin": {
-                "main": "Administration",
-                "gateway": "Gateway",
+                "main": "Settings",
                 "userManagement": "User management",
                 "tracker": "User tracker",
-                "metrics": "Metrics",
-                "health": "Health",
-                "configuration": "Configuration",
-                "logs": "Logs",
-                "apidocs": "API",
-                "database": "Database",
-                "jhipster-needle-menu-add-admin-element": "JHipster will add additional menu entries here (do not translate!)"
+                "jobs": "Jobs",
+                "jobHistory": "Job History"
             },
             "language": "Language"
         },
         "form": {
             "username": "Username",
-            "username.placeholder": "username",
-            "currentpassword": "Current password",
-            "currentpassword.placeholder": "Current password",
+            "username.placeholder": "Your username",
             "newpassword": "New password",
             "newpassword.placeholder": "New password",
             "confirmpassword": "New password confirmation",
             "confirmpassword.placeholder": "Confirm the new password",
+            "currentpassword": "Current password",
+            "currentpassword.placeholder": "Current password",
             "email": "Email",
-            "email.placeholder": "email"
+            "email.placeholder": "Your email"
         },
         "messages": {
             "info": {
                 "authenticated": {
-                    "prefix": "If you want to ",
+                    "prefix": "Please ",
                     "link": "sign in",
-                    "suffix": ", you can try the default accounts:<br/>- Administrator (login=\"admin\" and password=\"admin\") <br/>- User (login=\"user\" and password=\"user\")."
+                    "suffix": ", your account information was sent over email."
                 },
                 "register": {
                     "noaccount": "You don't have an account yet?",
-                    "link": "Register a new account"
-                }
+                    "link": "Please contact the administrator"
+                },
+                "generateInvoicesFromCycle": "Invoice generation process started for billing cycle: {{cycleId}}"
             },
             "error": {
-                "dontmatch": "The password and its confirmation do not match!"
+                "dontmatch": "The new password you entered is the same as your old password. Enter a different password."
             },
             "validate": {
-                "newpassword": {
-                    "required": "Your password is required.",
-                    "minlength": "Your password is required to be at least 4 characters.",
-                    "maxlength": "Your password cannot be longer than 50 characters.",
-                    "strength": "Password strength:"
+                "currentpassword": {
+                    "required": "Your current password is required.",
+                    "minlength": "Your current password is required to be at least 4 characters.",
+                    "maxlength": "Your current password cannot be longer than 50 characters."
                 },
-                "confirmpassword": {
-                    "required": "Your confirmation password is required.",
-                    "minlength": "Your confirmation password is required to be at least 4 characters.",
-                    "maxlength": "Your confirmation password cannot be longer than 50 characters."
+                "newpassword": {
+                    "required": "Your new password is required.",
+                    "minlength": "Your new password is required to be at least 4 characters.",
+                    "maxlength": "Your new password cannot be longer than 50 characters.",
+                    "strength": "Password strength:",
+                    "sameascurrent": "The new password you entered is the same as your old password. Enter a different password."
                 },
                 "email": {
                     "required": "Your email is required.",
@@ -86,19 +171,43 @@
         "ribbon": {
             "dev": "Development"
         },
-        "item-count": "Showing {{first}} - {{second}} of {{total}} items."
+        "item-count": "Showing {{first}} - {{second}} of {{total}} items.",
+        "siteAccount": {
+            "component": {
+                "billing-table": {
+                    "overview": "Overview",
+                    "month": "Month"
+                }
+            }
+        }
     },
     "entity": {
         "action": {
+            "add": "Add",
             "addblob": "Add blob",
             "addimage": "Add image",
             "back": "Back",
             "cancel": "Cancel",
             "delete": "Delete",
+            "deleteAmes": "Delete AMEs",
+            "deleteInvoices": "Delete Invoices",
             "edit": "Edit",
             "open": "Open",
             "save": "Save",
-            "view": "View"
+            "duplicate": "Duplicate",
+            "confirm": "Confirm",
+            "view": "View",
+            "calculate_ame": "Calculate AME",
+            "create_ame": "Create AME",
+            "delete_ame": "Delete AME",
+            "approve_ame": "Approve AME",
+            "reject_ame": "Reject AME",
+            "recalculate_ame": "Recalculate AME",
+            "submit_ame": "Submit AME",
+            "email_invoices": "Email Invoices",
+            "close": "Close",
+            "remove": "Remove",
+            "reset": "Reset"
         },
         "detail": {
             "field": "Field",
@@ -106,6 +215,12 @@
         },
         "delete": {
             "title": "Confirm delete operation"
+        },
+        "duplicate": {
+            "title": "Confirm duplicate operation"
+        },
+        "edit": {
+            "title": "Confirm edit operation"
         },
         "validation": {
             "required": "This field is required.",
@@ -130,7 +245,26 @@
         "userexists": "Login name already used!",
         "emailexists": "Email is already in use!",
         "idexists": "A new {{ entityName }} cannot already have an ID",
-        "idnull": "Invalid ID"
+        "amuConfigurationExist": "This AMU Configuration already exist. Please review the configurations.",
+        "cantDeleteInvoice": "Invoice cannot be deleted. There is an approved AME (ID: {{ params }}) generated with this invoice.",
+        "accountWithAmes": "The site account can't be deleted since it has related AMEs.",
+        "accountWithInvoices": "The site account can't be deleted since it has related invoices.",
+        "deleteAmesFirst": "Please delete the related AMEs first.",
+        "bfidProblem": "One of the BF-Id is wrong. Please check",
+        "budderflyInvoiceValidationExists": "Budderfly Invoice Validation has already been created",
+        "duplicatedfields": "Fields {{param0}} combined cannot be duplicated",
+        "rateChargeMappingIsBeingUsed": "The rate charge mapping  can't be deleted since it has relationships",
+        "rateComponentMappingIsBeingUsed": "The rate component mapping  can't be deleted since it has relationships",
+        "rateUsageTypeMappingIsBeingUsed": "The rate usage type mapping  can't be deleted since it has relationships",
+        "utilityMappingRuleIsBeingUsed": "The utility mapping rule can't be deleted since it has relationships",
+        "tariffMappingRuleIsBeingUsed": "The tariff mapping rule can't be deleted since it has relationships",
+        "alreadyExists": "{{ entityName }} Id is already in use"
     },
-    "footer": "This is your footer"
+    "warning": {
+        "needtoCheckBfId": "There are some SiteAccounts with a wrong BF-ID, please click on Missing Information button for more info."
+    },
+    "footer": "This is your footer",
+    "no.service.selected": "No service selected.",
+    "service.not.found": "{{serviceName}}: Unknown Service.",
+    "TIMEOUT": "Timeout"
 }

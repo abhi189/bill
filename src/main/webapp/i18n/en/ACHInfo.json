@@ -1,0 +1,13 @@
+{
+    "ACHInfo": {
+        "deleted": "{{ param }}",
+        "delete_ACH": "Remove ACH",
+        "error": "Issue removing ACH",
+        "dialog": {
+            "title": "Confirm ACH deletion",
+            "question": "This will delete ACH info for this site. Are you sure you want to proceed?",
+            "cancel": "Cancel",
+            "confirm": "Yes"
+        }
+    }
+}

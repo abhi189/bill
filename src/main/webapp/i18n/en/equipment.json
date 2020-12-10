@@ -1,0 +1,37 @@
+{
+    "billingWebApp": {
+        "equipment": {
+            "home": {
+                "title": "Equipment",
+                "createLabel": "Create a new Equipment",
+                "createOrEditLabel": "Create or edit a Equipment",
+                "search": "Search for Equipment"
+            },
+            "created": "A new Equipment is created with identifier {{ param }}",
+            "updated": "A Equipment is updated with identifier {{ param }}",
+            "deleted": "A Equipment is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Equipment {{ id }}?"
+            },
+            "detail": {
+                "title": "Equipment"
+            },
+            "name": "Name",
+            "description": "Description",
+            "bfSiteId": "Bf Site Id",
+            "state": "State",
+            "macAddress": "Mac Address",
+            "ipAddress": "Ip Address",
+            "locationDetails": "Location Details",
+            "equipmentNr": "Equipment Nr",
+            "equipmentType": "Equipment Type",
+            "meterNumber": "Meter Number",
+            "details": "Equipment Details"
+        },
+        "inventoryEquipment": {
+            "created": "A new Equipment is created with identifier {{ param }}",
+            "updated": "A Equipment is updated with identifier {{ param }}",
+            "deleted": "A Equipment is deleted with identifier {{ param }}"
+        }
+    }
+}

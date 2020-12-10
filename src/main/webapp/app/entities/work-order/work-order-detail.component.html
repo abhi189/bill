@@ -1,0 +1,134 @@
+
+<div *ngIf="workOrder">
+    <h2><span jhiTranslate="billingWebApp.workOrder.detail.title">Work Order</span> {{workOrder.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.workOrder.workOrderNumber">Work Order Number</span></dt>
+        <dd>
+            <span>{{workOrder.workOrderNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.status">Status</span></dt>
+        <dd>
+            <span>{{workOrder.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.scheduledDateAndTime">Scheduled Date And Time</span></dt>
+        <dd>
+            <span>{{workOrder.scheduledDateAndTime | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.numberOfDaysToComplete">Number Of Days To Complete</span></dt>
+        <dd>
+            <span>{{workOrder.numberOfDaysToComplete}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.estimatedCompletionDate">Estimated Completion Date</span></dt>
+        <dd>
+            <span>{{workOrder.estimatedCompletionDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.taskStatusLink">Task Status Link</span></dt>
+        <dd>
+            <span [innerHtml]="workOrder.taskStatusLink"></span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.jhiLabel">Label</span></dt>
+        <dd>
+            <span>{{workOrder.jhiLabel}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.sugarCrmReference">Sugar Crm Reference</span></dt>
+        <dd>
+            <span>{{workOrder.sugarCrmReference}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.overrideScheduledDateCheck">Override Scheduled Date Check</span></dt>
+        <dd>
+            <span>{{workOrder.overrideScheduledDateCheck}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.supportContactName">Support Contact Name</span></dt>
+        <dd>
+            <span>{{workOrder.supportContactName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.additionalContractors">Additional Contractors</span></dt>
+        <dd>
+            <span>{{workOrder.additionalContractors}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.creationDate">Creation Date</span></dt>
+        <dd>
+            <span>{{workOrder.creationDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.contractorEmail">Contractor Email</span></dt>
+        <dd>
+            <span>{{workOrder.contractorEmail}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.jhiUser">User</span></dt>
+        <dd>
+            <span>{{workOrder.jhiUser}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.workOrderLink">Work Order Link</span></dt>
+        <dd>
+            <span [innerHtml]="workOrder.workOrderLink"></span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.dueDate">Due Date</span></dt>
+        <dd>
+            <span>{{workOrder.dueDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.notificationEmail">Notification Email</span></dt>
+        <dd>
+            <span>{{workOrder.notificationEmail}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.netsuiteId">Netsuite Id</span></dt>
+        <dd>
+            <span>{{workOrder.netsuiteId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.additionalEmails">Additional Emails</span></dt>
+        <dd>
+            <span>{{workOrder.additionalEmails}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.coordinatorName">Coordinator Name</span></dt>
+        <dd>
+            <span>{{workOrder.coordinatorName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.jobRequest">Job Request</span></dt>
+        <dd>
+            <span>{{workOrder.jobRequest}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.assignedContractorInfo">Assigned Contractor Info</span></dt>
+        <dd>
+            <span>{{workOrder.assignedContractorInfo}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.reopenReason">Reopen Reason</span></dt>
+        <dd>
+            <span>{{workOrder.reopenReason}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.primaryTask">Primary Task</span></dt>
+        <dd>
+            <span>{{workOrder.primaryTask}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.supportContactEmail">Support Contact Email</span></dt>
+        <dd>
+            <span>{{workOrder.supportContactEmail}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.completionDate">Completion Date</span></dt>
+        <dd>
+            <span>{{workOrder.completionDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{workOrder.createdDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.workOrder.lastModifiedDate">Last Modified Date</span></dt>
+        <dd>
+            <span>{{workOrder.lastModifiedDate | date:'medium'}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'work-order/'+ workOrder.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

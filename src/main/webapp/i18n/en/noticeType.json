@@ -1,0 +1,12 @@
+{
+    "billingWebApp": {
+        "NoticeType": {
+            "null": "",
+            "OVERDUE_NOTICE": "OVERDUE NOTICE",
+            "DUNNING_NOTICE": "DUNNING NOTICE",
+            "TERMINATION_NOTICE": "TERMINATION NOTICE",
+            "NOTICE_ERROR": "ERROR",
+            "NOT_NOTICE": "NOT A NOTICE"
+        }
+    }
+}

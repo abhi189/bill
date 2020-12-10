@@ -1,0 +1,72 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBillingCycleInvoiceActivityLabel" jhiTranslate="billingWebApp.billingCycleInvoiceActivity.home.createOrEditLabel">Create or edit a Billing Cycle Invoice Activity</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!billingCycleInvoiceActivity.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="billingCycleInvoiceActivity.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleInvoiceActivity.user" for="field_user">User</label>
+            <input type="text" class="form-control" name="user" id="field_user"
+                [(ngModel)]="billingCycleInvoiceActivity.user" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleInvoiceActivity.pdfLink" for="field_pdfLink">Pdf Link</label>
+            <input type="text" class="form-control" name="pdfLink" id="field_pdfLink"
+                [(ngModel)]="billingCycleInvoiceActivity.pdfLink" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleInvoiceActivity.activity" for="field_activity">Activity</label>
+            <select class="form-control" name="activity" [(ngModel)]="billingCycleInvoiceActivity.activity" id="field_activity" >
+                <option value="INVOICE_GENERATED">{{'billingWebApp.BillingCycleInvoiceActivityAction.INVOICE_GENERATED' | translate}}</option>
+                <option value="INVOICE_EDITED">{{'billingWebApp.BillingCycleInvoiceActivityAction.INVOICE_EDITED' | translate}}</option>
+                <option value="INVOICE_STATUES_CHANGE">{{'billingWebApp.BillingCycleInvoiceActivityAction.INVOICE_STATUES_CHANGE' | translate}}</option>
+                <option value="INVOICE_SENT">{{'billingWebApp.BillingCycleInvoiceActivityAction.INVOICE_SENT' | translate}}</option>
+                <option value="INVOICE_IMPORTED">{{'billingWebApp.BillingCycleInvoiceActivityAction.INVOICE_IMPORTED' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleInvoiceActivity.level" for="field_level">Level</label>
+            <select class="form-control" name="level" [(ngModel)]="billingCycleInvoiceActivity.level" id="field_level" >
+                <option value="ERROR">{{'billingWebApp.ActivityLevel.ERROR' | translate}}</option>
+                <option value="WARNING">{{'billingWebApp.ActivityLevel.WARNING' | translate}}</option>
+                <option value="INFO">{{'billingWebApp.ActivityLevel.INFO' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleInvoiceActivity.message" for="field_message">Message</label>
+            <input type="text" class="form-control" name="message" id="field_message"
+                [(ngModel)]="billingCycleInvoiceActivity.message" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleInvoiceActivity.activityDate" for="field_activityDate">Activity Date</label>
+            <div class="d-flex">
+                <input id="field_activityDate" type="datetime-local" class="form-control" name="activityDate" [(ngModel)]="billingCycleInvoiceActivity.activityDate"
+                />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleInvoiceActivity.budderflyInvoice" for="field_budderflyInvoice">Budderfly Invoice</label>
+            <select class="form-control" id="field_budderflyInvoice" name="budderflyInvoice" [(ngModel)]="billingCycleInvoiceActivity.budderflyInvoiceId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="budderflyInvoiceOption.id" *ngFor="let budderflyInvoiceOption of budderflyinvoices; trackBy: trackBudderflyInvoiceById">{{budderflyInvoiceOption.invoiceNumber}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

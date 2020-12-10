@@ -1,0 +1,31 @@
+{
+    "billingWebApp": {
+        "tariffMappingRule": {
+            "home": {
+                "title": "Tariff Mapping Rules",
+                "createLabel": "Create a new Tariff Mapping Rule",
+                "createOrEditLabel": "Create or edit a Tariff Mapping Rule",
+                "search": "Search for Tariff Mapping Rule"
+            },
+            "created": "A new Tariff Mapping Rule is created with identifier {{ param }}",
+            "updated": "A Tariff Mapping Rule is updated with identifier {{ param }}",
+            "deleted": "A Tariff Mapping Rule is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Tariff Mapping Rule {{ id }}?"
+            },
+            "detail": {
+                "title": "Tariff Mapping Rule"
+            },
+            "bdTariffName": "Bd Tariff Name",
+            "bdUtilityProviderKey": "Bd Utility Provider Key",
+            "providerTariffCode": "Provider Tariff Code",
+            "providerTariffName": "Provider Tariff Name",
+            "provider": "Provider"
+        },
+        "billingimportTariffMappingRule": {
+            "created": "A new  Tariff Mapping Rule is created with identifier {{ param }}",
+            "updated": "A Tariff Mapping Rule is updated with identifier {{ param }}",
+            "deleted": "A Tariff Mapping Rule is deleted with identifier {{ param }}"
+        }
+    }
+}

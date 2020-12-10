@@ -1,0 +1,36 @@
+
+<div *ngIf="jobDescription">
+    <h2><span jhiTranslate="jobDescription.detail.title">Job Description</span> {{jobDescription.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="jobDescription.callbackURL">Callback URL</span></dt>
+        <dd>
+            <span>{{jobDescription.callbackURL}}</span>
+        </dd>
+        <dt><span jhiTranslate="jobDescription.cron">Cron</span></dt>
+        <dd>
+            <span>{{jobDescription.cron}}</span>
+        </dd>
+        <dt><span jhiTranslate="jobDescription.tag">Tag</span></dt>
+        <dd>
+            <span jhiTranslate="{{'jobDescription.ServiceTag.' + jobDescription.tag}}">{{jobDescription.tag}}</span>
+        </dd>
+    </dl>
+
+    <jhi-job-description-job-execution-audit></jhi-job-description-job-execution-audit>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'job-description/'+ jobDescription.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

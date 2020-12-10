@@ -1,0 +1,9 @@
+{
+    "billingWebApp": {
+        "TemplateType": {
+            "null": "",
+            "INVOICE_TEMPLATE": "INVOICE_TEMPLATE",
+            "EMAIL_TEMPLATE": "EMAIL_TEMPLATE"
+        }
+    }
+}

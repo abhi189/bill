@@ -1,0 +1,24 @@
+{
+    "billingWebApp": {
+        "inventoryExpectedSavings": {
+            "home": {
+                "title": "Expected Savings",
+                "createLabel": "Create a new Expected Savings",
+                "createOrEditLabel": "Create or edit a Expected Savings",
+                "search": "Search for Expected Savings"
+            },
+            "created": "A new Expected Savings is created with identifier {{ param }}",
+            "updated": "A Expected Savings is updated with identifier {{ param }}",
+            "deleted": "A Expected Savings is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Expected Savings {{ id }}?"
+            },
+            "detail": {
+                "title": "Expected Savings"
+            },
+            "customerType": "Customer Type",
+            "solution": "Solution",
+            "savingPercentage": "Saving Percentage"
+        }
+    }
+}

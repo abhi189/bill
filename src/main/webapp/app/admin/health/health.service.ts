@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import { SERVER_API_URL } from '../../app.constants';
 
-import { SERVER_API_URL } from 'app/app.constants';
-
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class JhiHealthService {
     separator: string;
 
@@ -18,7 +17,7 @@ export class JhiHealthService {
 
     transformHealthData(data): any {
         const response = [];
-        this.flattenHealthData(response, null, data.details);
+        this.flattenHealthData(response, null, data);
         return response;
     }
 

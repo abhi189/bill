@@ -1,0 +1,45 @@
+
+<div class="row m-2">
+    <div class="col-sm-4">
+        <angular4-multiselect [data]="filterOptions" [(ngModel)]="selectedFilters"
+            [settings]="filterConf" (onSelect)="filterSelect($event)" (onDeSelect)="filterDeSelect($event)">
+        </angular4-multiselect>
+    </div>
+</div>
+<table class="table table-sm table-striped table-bordered">
+    <tr>
+        <th>
+            <span jhiTranslate="billingWebApp.siteAccount.billingMonth">Billing Month</span>
+        </th>
+        <th>
+            <span jhiTranslate="billingWebApp.siteAccount.billingYear">Billing Year</span>
+        </th>
+        <th>
+            <span jhiTranslate="billingWebApp.siteAccount.invoiceStartDate">Invoice Start Date</span>
+        </th>
+        <th>
+            <span jhiTranslate="billingWebApp.siteAccount.invoiceEndDate">Invoice End Date</span>
+        </th>
+        <th>
+            <span jhiTranslate="billingWebApp.siteAccount.daysInMonth">Days In Month</span>
+        </th>
+        <th>
+            <span jhiTranslate="billingWebApp.siteAccount.totalKwh">Total Kwh</span>
+        </th>
+        <th>
+            <span jhiTranslate="billingWebApp.siteAccount.peakKw">Peak Kw</span>
+        </th>
+    </tr>
+    <tr *ngFor="let invoice of invoicesPerMonth">
+        <td>{{invoice?.month | date:'MMMM'}}</td>
+        <td>{{invoice?.year | date:'yyyy'}}</td>
+        <td>{{invoice?.intervalStart | date:'mediumDate':'UTC'}}</td>
+        <td>{{invoice?.intervalEnd | date:'mediumDate':'UTC'}}</td>
+        <td>{{invoice?.daysInMonth}}</td>
+        <td>{{(invoice?.totalKWH) || '--'}}</td>
+        <td>{{(invoice?.peakKW | number:'2.1-1') || '--'}}</td>
+    </tr>
+</table>
+
+<ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true"
+    [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>

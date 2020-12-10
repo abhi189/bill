@@ -1,0 +1,44 @@
+
+<div *ngIf="performance">
+    <h2><span jhiTranslate="billingWebApp.performance.detail.title">Performance</span> {{performance.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.performance.mont">Mont</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.Month.' + performance.mont}}">{{performance.mont}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.performance.usage">Usage</span></dt>
+        <dd>
+            <span>{{performance.usage}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.performance.usageType">Usage Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.UsageType.' + performance.usageType}}">{{performance.usageType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.performance.actual">Actual</span></dt>
+        <dd>
+            <span>{{performance.actual}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.performance.budderflyInvoice">Budderfly Invoice</span></dt>
+        <dd>
+            <div *ngIf="performance.budderflyInvoiceId">
+                <a [routerLink]="['/budderfly-invoice', performance.budderflyInvoiceId]">{{performance.budderflyInvoiceId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'performance/'+ performance.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

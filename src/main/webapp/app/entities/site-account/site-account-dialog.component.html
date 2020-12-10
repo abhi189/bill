@@ -1,0 +1,263 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="mySiteAccountLabel" jhiTranslate="billingWebApp.siteAccount.home.createOrEditLabel">Create or edit a Site Account</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="form-group" [hidden]="!siteAccount.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id" [(ngModel)]="siteAccount.id" readonly />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.utilityProvider" for="field_utilityProvider">Utility Provider</label>
+            <input type="text" class="form-control" name="utilityProvider" id="field_utilityProvider" [(ngModel)]="siteAccount.utilityProvider"
+                required/>
+            <div [hidden]="!(editForm.controls.utilityProvider?.dirty && editForm.controls.utilityProvider?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.utilityProvider?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.accountNumber" for="field_accountNumber">Account Number</label>
+            <input type="text" class="form-control" name="accountNumber" id="field_accountNumber" [(ngModel)]="siteAccount.accountNumber"
+                required/>
+            <div [hidden]="!(editForm.controls.accountNumber?.dirty && editForm.controls.accountNumber?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.accountNumber?.errors?.required" jhiTranslate="entity.validation.required">
+                    This field is required.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.customerName" for="field_customerName">Customer Name</label>
+            <input type="text" class="form-control" name="customerName" id="field_customerName" [(ngModel)]="siteAccount.customerName"
+            />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.type" for="field_type">Type</label>
+            <select class="form-control" name="type" [(ngModel)]="siteAccount.type" id="field_type" >
+                <option value="DISTRIBUTION">{{'billingWebApp.SiteAccountType.DISTRIBUTION' | translate}}</option>
+                <option value="GENERATION">{{'billingWebApp.SiteAccountType.GENERATION' | translate}}</option>
+                <option value="BOTH">{{'billingWebApp.SiteAccountType.BOTH' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.budderflyId" for="field_budderflyId">Budderfly Id</label>
+            <input type="text" class="form-control" name="budderflyId" id="field_budderflyId" [(ngModel)]="siteAccount.budderflyId"/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.relatedSiteAccount" for="field_siteAccount">Related Site Account</label>
+            <select class="form-control" id="field_siteAccount" name="relatedSiteAccount" [(ngModel)]="siteAccount.relatedSiteAccountId">
+                <option [ngValue]="null"></option>
+                <option [ngValue]="siteAccountOption.id" *ngFor="let siteAccountOption of sitesAccounts">{{siteAccountOption.accountNumber}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.notes" for="field_notes">Notes</label>
+            <textarea rows="8" class="form-control"  name="notes" id="field_notes" [(ngModel)]="siteAccount.notes"></textarea>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.requestedDate" for="field_requestedDate">Requested Date</label>
+            <div class="d-flex">
+                <input id="field_requestedDate" type="datetime-local" class="form-control" name="lastModified" [(ngModel)]="siteAccount.requestedDate"
+                />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.rawAccountNumber" for="field_rawAccountNumber">Raw Account Number</label>
+            <input type="text" class="form-control" name="rawAccountNumber" id="field_rawAccountNumber" [(ngModel)]="siteAccount.rawAccountNumber"
+            />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.meterNumber" for="field_meterNumber">Meter Number</label>
+            <input type="text" class="form-control" name="meterNumber" id="field_meterNumber" [(ngModel)]="siteAccount.meterNumber" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.customerCode" for="field_customerCode">Customer Code</label>
+            <input type="text" class="form-control" name="customerCode" id="field_customerCode" [(ngModel)]="siteAccount.customerCode"
+            />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.expectedInvoices" for="field_expectedInvoices">Expected Invoices</label>
+            <input type="number" class="form-control" name="expectedInvoices" id="field_expectedInvoices" [(ngModel)]="siteAccount.expectedInvoices"
+            />
+            <div [hidden]="!(editForm.controls.expectedInvoices?.dirty && editForm.controls.expectedInvoices?.invalid)">
+                <small class="form-text text-danger" [hidden]="!editForm.controls.expectedInvoices?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.state" for="field_state">State</label>
+            <select class="form-control" name="state" [(ngModel)]="siteAccount.state" id="field_state">
+                <option value="WAITING_FOR_INVOICES">{{'billingWebApp.SiteAccountState.WAITING_FOR_INVOICES' | translate}}</option>
+                <option value="AMU_GENERATED">{{'billingWebApp.SiteAccountState.AMU_GENERATED' | translate}}</option>
+                <option value="AMU_APPROVED">{{'billingWebApp.SiteAccountState.AMU_APPROVED' | translate}}</option>
+                <option value="AMU_REJECTED">{{'billingWebApp.SiteAccountState.AMU_REJECTED' | translate}}</option>
+                <option value="INACTIVE">{{'billingWebApp.SiteAccountState.INACTIVE' | translate}}</option>
+                <option value="ACTIVE">{{'billingWebApp.SiteAccountState.ACTIVE' | translate}}</option>
+                <option value="LINKED">{{'billingWebApp.SiteAccountState.LINKED' | translate}}</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.billingStreet" for="field_billingStreet">Billing Street</label>
+            <input type="text" class="form-control" name="billingStreet" id="field_billingStreet" [(ngModel)]="siteAccount.billingStreet"
+            />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.billingCity" for="field_billingCity">Billing City</label>
+            <input type="text" class="form-control" name="billingCity" id="field_billingCity" [(ngModel)]="siteAccount.billingCity" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.billingState" for="field_billingState">Billing State</label>
+            <input type="text" class="form-control" name="billingState" id="field_billingState" [(ngModel)]="siteAccount.billingState"
+            />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.billingZip" for="field_billingZip">Billing Zip</label>
+            <input type="text" class="form-control" name="billingZip" id="field_billingZip" [(ngModel)]="siteAccount.billingZip" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.paymentAddressFull" for="field_paymentAddressFull">Payment Address Full</label>
+            <input type="text" class="form-control" name="paymentAddressFull" id="field_paymentAddressFull" [(ngModel)]="siteAccount.paymentAddressFull"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.paymentAddressStreet" for="field_paymentAddressStreet">Payment Address Street</label>
+            <input type="text" class="form-control" name="paymentAddressStreet" id="field_paymentAddressStreet" [(ngModel)]="siteAccount.paymentAddressStreet"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.paymentAddressCity" for="field_paymentAddressCity">Payment Address City</label>
+            <input type="text" class="form-control" name="paymentAddressCity" id="field_paymentAddressCity" [(ngModel)]="siteAccount.paymentAddressCity"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.paymentAddressState" for="field_paymentAddressState">Payment Address State</label>
+            <input type="text" class="form-control" name="paymentAddressState" id="field_paymentAddressState" [(ngModel)]="siteAccount.paymentAddressState"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.paymentAddressZip" for="field_paymentAddressZip">Payment Address Zip</label>
+            <input type="text" class="form-control" name="paymentAddressZip" id="field_paymentAddressZip" [(ngModel)]="siteAccount.paymentAddressZip"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.siteCode" for="field_siteCode">Site Code</label>
+            <input type="text" class="form-control" name="siteCode" id="field_siteCode" [(ngModel)]="siteAccount.siteCode" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.customerType" for="field_customerType">Customer Type</label>
+            <input type="text" class="form-control" name="customerType" id="field_customerType" [(ngModel)]="siteAccount.customerType"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.siteStreet" for="field_siteStreet">Site Street</label>
+            <input type="text" class="form-control" name="siteStreet" id="field_siteStreet" [(ngModel)]="siteAccount.siteStreet" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.siteCity" for="field_siteCity">Site City</label>
+            <input type="text" class="form-control" name="siteCity" id="field_siteCity" [(ngModel)]="siteAccount.siteCity" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.siteState" for="field_siteState">Site State</label>
+            <input type="text" class="form-control" name="siteState" id="field_siteState" [(ngModel)]="siteAccount.siteState" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.siteZip" for="field_siteZip">Site Zip</label>
+            <input type="text" class="form-control" name="siteZip" id="field_siteZip" [(ngModel)]="siteAccount.siteZip" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.sitePostalCode" for="field_sitePostalCode">Site Postal Code</label>
+            <input type="text" class="form-control" name="sitePostalCode" id="field_sitePostalCode" [(ngModel)]="siteAccount.sitePostalCode"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.siteAddress1" for="field_siteAddress1">Site Address 1</label>
+            <input type="text" class="form-control" name="siteAddress1" id="field_siteAddress1" [(ngModel)]="siteAccount.siteAddress1"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.siteAddress2" for="field_siteAddress2">Site Address 2</label>
+            <input type="text" class="form-control" name="siteAddress2" id="field_siteAddress2" [(ngModel)]="siteAccount.siteAddress2"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.siteLongitude" for="field_siteLongitude">Site Longitude</label>
+            <input type="number" class="form-control" name="siteLongitude" id="field_siteLongitude" [(ngModel)]="siteAccount.siteLongitude"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.siteLatitude" for="field_siteLatitude">Site Latitude</label>
+            <input type="number" class="form-control" name="siteLatitude" id="field_siteLatitude" [(ngModel)]="siteAccount.siteLatitude"
+            />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.liveDate" for="field_liveDate">Live Date</label>
+            <div class="d-flex">
+                <input id="field_liveDate" type="datetime-local" class="form-control" name="liveDate" [(ngModel)]="siteAccount.liveDate"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.takeOverDate" for="field_takeOverDate">Take Over Date</label>
+            <div class="input-group">
+                <input id="field_takeOverDate" type="text" class="form-control" name="takeOverDate" ngbDatepicker  #takeOverDateDp="ngbDatepicker"
+                 [(ngModel)]="takeOverDateNgbDate" (ngModelChange)="onTakeOverDateChange($event)"/>
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="takeOverDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.createdDate" for="field_createdDate">Created Date</label>
+            <div class="d-flex">
+                <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="siteAccount.createdDate"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.lastModified" for="field_lastModified">Last Modified</label>
+            <div class="d-flex">
+                <input id="field_lastModified" type="datetime-local" class="form-control" name="lastModified" [(ngModel)]="siteAccount.lastModified"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.siteAccount.lastModifiedBy" for="field_lastModifiedBy">Last Modified By</label>
+            <input type="text" class="form-control" name="lastModifiedBy" id="field_lastModifiedBy" [(ngModel)]="siteAccount.lastModifiedBy"
+            />
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;
+            <span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;
+            <span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

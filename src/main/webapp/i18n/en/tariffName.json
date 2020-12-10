@@ -1,0 +1,28 @@
+{
+    "billingWebApp": {
+        "tariffName": {
+            "home": {
+                "title": "Tariff Names",
+                "createLabel": "Create a new Tariff Name",
+                "createOrEditLabel": "Create or edit a Tariff Name",
+                "search": "Search for Tariff Name"
+            },
+            "created": "A new Tariff Name is created with identifier {{ param }}",
+            "updated": "A Tariff Name is updated with identifier {{ param }}",
+            "deleted": "A Tariff Name is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Tariff Name {{ id }}?"
+            },
+            "detail": {
+                "title": "Tariff Name"
+            },
+            "utilityCode": "Utility Code",
+            "name": "Name"
+        },
+        "raterepositoryTariffName": {
+            "created": "A new Tariff Name is created with identifier {{ param }}",
+            "updated": "A Tariff Name is updated with identifier {{ param }}",
+            "deleted": "A Tariff Name is deleted with identifier {{ param }}"
+        }
+    }
+}

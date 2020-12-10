@@ -1,0 +1,24 @@
+<form name="exportForm" (ngSubmit)="export()">
+  <div class="modal-header">
+      <h4 class="modal-title" jhiTranslate="billingWebApp.invoice.exportDialog.title">Confirm Export Invoice</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="activeModal.dismiss('closed')">&times;</button>
+  </div>
+  <div class="modal-body">
+      <p jhiTranslate="billingWebApp.invoice.exportDialog.question">
+          Are you sure you want to export this Invoice?
+      </p>
+      <p>
+        <b>Invoice ID:</b> {{this.invoice.id}} <br>
+        <b>System:</b> {{this.system}} <br>
+        <b>Partner:</b> {{this.partner}}
+      </p>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="activeModal.dismiss('closed')">
+          <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="billingWebApp.invoice.exportDialog.cancel">Cancel</span>
+      </button>
+      <button type="submit" class="btn btn-danger">
+          <span class="fa fa-exclamation"></span>&nbsp;<span jhiTranslate="billingWebApp.invoice.exportDialog.confirm">Send</span>
+      </button>
+  </div>
+</form>

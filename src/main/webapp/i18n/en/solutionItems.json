@@ -1,0 +1,16 @@
+{
+    "billingWebApp": {
+        "SolutionItems": {
+            "null": "",
+            "LED": "LED",
+            "KE2_COOLER": "KE2_COOLER",
+            "KE2_FREEZER": "KE2_FREEZER",
+            "COLD_PLUS": "COLD_PLUS",
+            "HVAC_MAINTENANCE": "HVAC_MAINTENANCE",
+            "REFRIGERATION_MAINTENANCE": "REFRIGERATION_MAINTENANCE",
+            "STRIP_CURTAIN": "STRIP_CURTAIN",
+            "PEAK_DEMAND_MANAGEMENT": "PEAK_DEMAND_MANAGEMENT",
+            "ENERFIT_ON_HVAC": "ENERFIT_ON_HVAC"
+        }
+    }
+}

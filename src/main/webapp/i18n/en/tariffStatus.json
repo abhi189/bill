@@ -1,0 +1,10 @@
+{
+    "billingWebApp": {
+        "TariffStatus": {
+            "null": "",
+            "NEW": "New",
+            "ACTIVE": "Active",
+            "PENDING_UPDATE": "Pending Update"
+        }
+    }
+}

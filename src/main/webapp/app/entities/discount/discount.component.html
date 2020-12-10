@@ -1,0 +1,102 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.discount.home.title">Discounts</span>
+        <button class="btn btn-primary float-right jh-create-entity create-discount" [routerLink]="['/', { outlets: { popup: ['discount-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.discount.home.createLabel">
+            Create new Discount
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.discount.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="discounts">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="discountName"><span jhiTranslate="billingWebApp.discount.discountName">Discount Name</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="discountType"><span jhiTranslate="billingWebApp.discount.discountType">Discount Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="sharedSavings"><span jhiTranslate="billingWebApp.discount.sharedSavings">Shared Savings</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="solutions"><span jhiTranslate="billingWebApp.discount.solutions">Solutions</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="charges"><span jhiTranslate="billingWebApp.discount.charges">Charges</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lateFees"><span jhiTranslate="billingWebApp.discount.lateFees">Late Fees</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="minimunDiscount"><span jhiTranslate="billingWebApp.discount.minimunDiscount">Minimun Discount</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="maximunDiscount"><span jhiTranslate="billingWebApp.discount.maximunDiscount">Maximun Discount</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let discount of discounts ;trackBy: trackId">
+                <td><a [routerLink]="['../discount', discount.id ]">{{discount.id}}</a></td>
+                <td>{{discount.discountName}}</td>
+                <td jhiTranslate="{{'billingWebApp.DiscountType.' + discount.discountType}}">{{discount.discountType}}</td>
+                <td class="text-center"><span class="fa" [class.fa-check]="discount.sharedSavings"></span></td>
+                <td class="text-center"><span class="fa" [class.fa-check]="discount.hasSolutions"></span></td>
+                <td class="text-center"><span class="fa" [class.fa-check]="discount.hasCharges"></span></td>
+                <td>{{(discount.lateCharges ? (discount.lateChargesPercentage | percent:'.2') : '')}}</td>
+                <td>{{(discount.minimunValue | percent:'.2') || '--'}}</td>
+                <td>{{(discount.maximunValue | percent:'.2') || '--'}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../discount', discount.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'discount/'+ discount.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'discount/'+ discount.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'discount/'+ discount.id + '/duplicate'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-secondary btn-sm">
+                            <span class="fa fa-files-o"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.duplicate">Duplicate</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Pager is not implemented yet, so this is normal pagination instead -->
+    <div *ngIf="discounts && discounts.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

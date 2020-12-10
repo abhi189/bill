@@ -1,0 +1,10 @@
+{
+    "billingWebApp": {
+        "SourceType": {
+            "null": "",
+            "KE2": "KE2",
+            "VENSTAR": "Venstar",
+            "KE2_WS": "KE2 WiFi Sensor"
+        }
+    }
+}

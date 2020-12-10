@@ -1,0 +1,38 @@
+{
+    "billingWebApp": {
+        "tariff": {
+            "home": {
+                "title": "Tariffs",
+                "createLabel": "Create a new Tariff",
+                "createOrEditLabel": "Create or edit a Tariff",
+                "search": "Search for Tariff"
+            },
+            "created": "A new Tariff is created with identifier {{ param }}",
+            "updated": "A Tariff is updated with identifier {{ param }}",
+            "deleted": "A Tariff is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Tariff {{ id }}?"
+            },
+            "detail": {
+                "title": "Tariff"
+            },
+            "utilityProviderKey": "Utility Provider",
+            "tariffName": "Tariff Name",
+            "status": "Status",
+            "tariffYear": "Tariff Year",
+            "currentRates": "Current rates",
+            "aliasTariff": "Alias tariff",
+            "historicalAudit": "Historical Audit",
+            "rate": "Rate",
+            "manual": "Manual",
+            "import": "Import",
+            "externalId": "External ID",
+            "provider": "Provider",
+            "autoUpdate": "Auto Update",
+            "rateImportJob": {
+                "restartingJob": "Job {{ param }} is restarting...",
+                "updateRates": "Request sent to update rates."
+            }
+        }
+    }
+}

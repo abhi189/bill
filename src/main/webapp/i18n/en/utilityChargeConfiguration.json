@@ -1,0 +1,37 @@
+{
+    "billingWebApp": {
+        "utilityChargeConfiguration": {
+            "home": {
+                "title": "Utility Charge Configurations",
+                "createLabel": "Create a new Utility Charge Configuration",
+                "executeLabel": "Run Utility Charge Configurations",
+                "createOrEditLabel": "Create or edit a Utility Charge Configuration",
+                "search": "Search for Utility Charge Configuration"
+            },
+            "tabs": {
+                "general": "Utility Charge Configurations",
+                "charges": "Charges by configuration"
+            },
+            "created": "A new Utility Charge Configuration is created with identifier {{ param }}",
+            "updated": "A Utility Charge Configuration is updated with identifier {{ param }}",
+            "deleted": "A Utility Charge Configuration is deleted with identifier {{ param }}",
+            "executionStarted": "The process to update dollars normalization has been started.",
+            "delete": {
+                "question": "Are you sure you want to delete Utility Charge Configuration {{ id }}?"
+            },
+            "detail": {
+                "title": "Utility Charge Configuration"
+            },
+            "serviceType": "Service Type",
+            "chargeId": "Charge Id",
+            "chargeActualName": "Charge Actual Name",
+            "utilityProvider": "Utility Provider",
+            "chargeCategory": "Charge Category",
+            "priority": "Priority",
+            "ruleServiceType": "Rule Service Type",
+            "ruleChargeId": "Rule Charge Id",
+            "ruleChargeActualName": "Rule Charge Actual Name",
+            "ruleUtilityProvider": "Rule Utility Provider"
+        }
+    }
+}

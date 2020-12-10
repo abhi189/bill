@@ -1,0 +1,158 @@
+<div class="row" style="margin: 5px">
+    <div class="col-sm-4">
+        <angular4-multiselect [data]="amunFilterOptions" [(ngModel)]="amunSelectedFilters" [settings]="amunFilterConf"
+            (onSelect)="amunFilterSelect($event)" (onDeSelect)="amunFilterDeSelect($event)"></angular4-multiselect>
+
+    </div>
+    <div class="col-sm-8 d-flex justify-content-end">
+        <button type="button" class="my-1 ml-1 btn btn-primary" *ngIf="!editingAmun" (click)="editAmuns()"
+            jhiTranslate="entity.action.edit">Edit</button>
+        <button type="button" class="my-1 ml-1 btn btn-info" *ngIf="editingAmun" (click)="addNewAmun()"
+            jhiTranslate="entity.action.add">Add</button>
+        <button type="button" class="my-1 ml-1 btn btn-danger" *ngIf="editingAmun" (click)="cancelEditAmuns()"
+            jhiTranslate="entity.action.cancel">Cancel</button>
+        <button type="button" class="my-1 ml-1 btn btn-success" *ngIf="editingAmun" (click)="confirmEditAmuns()"
+            jhiTranslate="entity.action.confirm">Confirm</button>
+        <button type="button" class="my-1 ml-1 btn btn-primary" *ngIf="editingAmun" (click)="recalculateAmuns()"
+            jhiTranslate="billingWebApp.siteAccount.recalculate_amun">Recalculate AMUN</button>
+        <button type="button" class="my-1 ml-1 btn btn-secondary" *ngIf="editingAmun" (click)="recalculateDollars()"
+            jhiTranslate="billingWebApp.siteAccount.recalculate_dollars">Recalculate Dollars</button>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-sm table-striped table-bordered">
+        <tr>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.billingMonth">Billing Month</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.billingYear">Billing Year</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.dateNormalizationRule">Date Norm. Rule</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.rateComponent">Rate Component</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.usageUnit">Usage Unit</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.normalizedAmount">Normalized Amount</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.approvedAmount">Approved Amount</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.percentageOfTotal">Percentage of Total</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.version">Version</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.createdDate">Created Date</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.verified">Verified</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.invalid">Invalid</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.usedForAmu">Used for AMU</span>
+            </th>
+            <th *ngIf="editingAmun"></th>
+        </tr>
+        <tr *ngIf="creatingAmun">
+            <td>
+                <select [(ngModel)]="newAmun.month" class="custom-select select-month">
+                    <option *ngFor="let month of shortMonths">{{month}}</option>
+                </select>
+            </td>
+            <td>
+                <input type="number" class="form-control" [(ngModel)]="newAmun.year" name="newAmunYear">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="newAmun.dateNormalizationRule"
+                    name="newAmunDateNormalizationRule" disabled>
+            </td>
+            <td>
+                <input required type="text" class="form-control" [(ngModel)]="newAmun.rateComponent"
+                    name="newAmunRateComponent">
+            </td>
+            <td>
+                <select [(ngModel)]="newAmun.usageType" class="custom-select select-month">
+                    <option *ngFor="let unit of amunUsageUnits">{{unit}}</option>
+                </select>
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="newAmun.usage" name="newAmunUsage" disabled>
+            </td>
+            <td>
+                <input required type="number" step=".1" class="form-control" [(ngModel)]="newAmun.approvedUsage"
+                    name="newAmunApprovedUsage">
+            </td>
+            <td>
+                <input type="number" class="form-control" [(ngModel)]="newAmun.percentageOfTotal"
+                    name="newAmunPercentageOfTotal">
+            </td>
+            <td>
+                <input type="text" class="form-control" [(ngModel)]="newAmun.version" name="newAmunVersion" disabled>
+            </td>
+            <td>
+                <input type="text" class="form-control" disabled [(ngModel)]="newAmun.createdDate"
+                    name="newAmunCreatedDate">
+            </td>
+            <td class="text-center">
+                <input type="checkbox" [(ngModel)]="newAmun.verified" name="newAmunVerified">
+            </td>
+            <td class="text-center">
+                <input type="checkbox" [(ngModel)]="newAmun.invalid" name="newAmunInvalid">
+            </td>
+            <td class="text-center">
+                <input type="checkbox" name="newAmunUsedForAmu" disabled>
+            </td>
+        </tr>
+        <tr *ngFor="let amun of filteredAmuns; let i = index">
+            <td>{{amun?.month}}</td>
+            <td>{{amun?.year}}</td>
+            <td>{{(amun?.dateNormalizationRule) || '--'}}</td>
+            <td>{{amun?.rateComponent}}</td>
+            <td>{{amun?.usageType}}</td>
+            <td>{{amun?.usage | number:'.1-1' }}</td>
+            <td *ngIf="!editingAmun; else editAmunApprovedUsage">{{amun?.approvedUsage | number:'.1-1' }}</td>
+            <ng-template #editAmunApprovedUsage>
+                <td>
+                    <input [disabled]="amun?.usedForAmu" type="number" step=".1" class="form-control"
+                        [(ngModel)]="amun.approvedUsage" name="approvedUsage">
+                </td>
+            </ng-template>
+            <td>{{amun?.usageType === "KWH" && amun?.percentageOfTotal ? (amun?.percentageOfTotal | percent:'.1-1') : "-" }}
+            </td>
+            <td>{{amun?.version}}</td>
+            <td>{{amun?.createdDate | date:'mediumDate':'UTC'}}</td>
+            <td *ngIf="!editingAmun; else editAmunVerified" class="text-center"><span class="fa"
+                    [class.fa-check]="amun?.verified"></span></td>
+            <ng-template #editAmunVerified>
+                <td class="text-center"> <input type="checkbox" [disabled]="amun?.usedForAmu" name="amunVerified"
+                        [(ngModel)]="amun.verified"></td>
+            </ng-template>
+            <td *ngIf="!editingAmun; else editAmunInvalid" class="text-center"><span class="fa"
+                    [class.fa-check]="amun?.invalid"></span></td>
+            <ng-template #editAmunInvalid>
+                <td class="text-center"> <input type="checkbox" [disabled]="amun?.usedForAmu" name="amunInvalid"
+                        [(ngModel)]="amun.invalid"></td>
+            </ng-template>
+            <td class="text-center"><span class="fa" [class.fa-check]="amun?.usedForAmu"></span></td>
+            <td *ngIf="editingAmun">
+                <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove"
+                    [disabled]="amun?.usedForAmu" (click)="removeAmun(amun, i)">
+                    <span class="fa fa-lg fa-trash"></span>
+                </button>
+            </td>
+        </tr>
+    </table>
+
+    <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+        [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+</div>

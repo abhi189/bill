@@ -1,0 +1,121 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myMissingInvoiceLabel" jhiTranslate="billingWebApp.missingInvoice.home.createOrEditLabel">Create or edit a Missing Invoice</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!missingInvoice.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="missingInvoice.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.budderflyId" for="field_budderflyId">Budderfly Id</label>
+            <input type="text" class="form-control" name="budderflyId" id="field_budderflyId"
+                [(ngModel)]="missingInvoice.budderflyId" readonly/>
+            <div [hidden]="!(editForm.controls.budderflyId?.dirty && editForm.controls.budderflyId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.budderflyId?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.utilityProvider" for="field_utilityProvider">Utility Provider</label>
+            <input type="text" class="form-control" name="utilityProvider" id="field_utilityProvider"
+                [(ngModel)]="missingInvoice.utilityProvider" readonly/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.accountNumber" for="field_accountNumber">Account Number</label>
+            <input type="text" class="form-control" name="accountNumber" id="field_accountNumber"
+                [(ngModel)]="missingInvoice.accountNumber" readonly/>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.takeOverDate" for="field_takeOverDate">Take Over Date</label>
+            <div class="d-flex">
+                <input id="field_takeOverDate" type="datetime-local" class="form-control" name="takeOverDate" [(ngModel)]="missingInvoice.takeOverDate" readonly />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.startDate" for="field_startDate">Start Date</label>
+            <div class="d-flex">
+                <input id="field_startDate" type="datetime-local" class="form-control" name="startDate" [(ngModel)]="missingInvoice.startDate" readonly/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.endDate" for="field_endDate">End Date</label>
+            <div class="d-flex">
+                <input id="field_endDate" type="datetime-local" class="form-control" name="endDate" [(ngModel)]="missingInvoice.endDate" readonly/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.gapFixed" for="field_gapFixed">Gap Fixed</label>
+            <input type="checkbox" class="form-control" name="gapFixed" id="field_gapFixed"
+                [(ngModel)]="missingInvoice.gapFixed" />
+            <div [hidden]="!(editForm.controls.gapFixed?.dirty && editForm.controls.gapFixed?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.gapFixed?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.uploadedToUrjanet" for="field_uploadedToUrjanet">Uploaded To Urjanet</label>
+            <input type="checkbox" class="form-control" name="uploadedToUrjanet" id="field_uploadedToUrjanet"
+                [(ngModel)]="missingInvoice.uploadedToUrjanet" />
+            <div [hidden]="!(editForm.controls.uploadedToUrjanet?.dirty && editForm.controls.uploadedToUrjanet?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.uploadedToUrjanet?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.responsible" for="field_responsible">Responsible</label>
+            <select class="form-control" name="responsible" [(ngModel)]="missingInvoice.responsible" id="field_responsible" >
+                <option value="FINANCE">{{'billingWebApp.ResponsibleParty.FINANCE' | translate}}</option>
+            </select>
+        </div>
+        <!--
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.noInvoices" for="field_noInvoices">No Invoices</label>
+            <input type="checkbox" class="form-control" name="noInvoices" id="field_noInvoices"
+                [(ngModel)]="missingInvoice.noInvoices" />
+            <div [hidden]="!(editForm.controls.noInvoices?.dirty && editForm.controls.noInvoices?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.noInvoices?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        -->
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.notes" for="field_notes">Notes</label>
+            <textarea rows="8" class="form-control" name="notes" id="field_notes"
+                      [(ngModel)]="missingInvoice.notes" >
+            </textarea>
+        </div>
+
+
+        <!--
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.missingInvoice.siteAccount" for="field_siteAccount">Site Account</label>
+            <select class="form-control" id="field_siteAccount" name="siteAccount" [(ngModel)]="missingInvoice.siteAccountId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="siteAccountOption.id" *ngFor="let siteAccountOption of siteaccounts; trackBy: trackSiteAccountById">{{siteAccountOption.id}}</option>
+            </select>
+        </div>
+        -->
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

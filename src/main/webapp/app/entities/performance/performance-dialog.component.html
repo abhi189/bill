@@ -1,0 +1,72 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myPerformanceLabel" jhiTranslate="billingWebApp.performance.home.createOrEditLabel">Create or edit a Performance</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!performance.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="performance.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.performance.month" for="field_month">Month</label>
+            <select class="form-control" name="month" [(ngModel)]="performance.month" id="field_month" >
+                <option value="JAN">{{'billingWebApp.Month.JAN' | translate}}</option>
+                <option value="FEB">{{'billingWebApp.Month.FEB' | translate}}</option>
+                <option value="MAR">{{'billingWebApp.Month.MAR' | translate}}</option>
+                <option value="APR">{{'billingWebApp.Month.APR' | translate}}</option>
+                <option value="MAY">{{'billingWebApp.Month.MAY' | translate}}</option>
+                <option value="JUN">{{'billingWebApp.Month.JUN' | translate}}</option>
+                <option value="JUL">{{'billingWebApp.Month.JUL' | translate}}</option>
+                <option value="AUG">{{'billingWebApp.Month.AUG' | translate}}</option>
+                <option value="SEP">{{'billingWebApp.Month.SEP' | translate}}</option>
+                <option value="OCT">{{'billingWebApp.Month.OCT' | translate}}</option>
+                <option value="NOV">{{'billingWebApp.Month.NOV' | translate}}</option>
+                <option value="DEC">{{'billingWebApp.Month.DEC' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.performance.usage" for="field_usage">Usage</label>
+            <input type="number" class="form-control" name="usage" id="field_usage"
+                [(ngModel)]="performance.usage" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.performance.usageType" for="field_usageType">Usage Type</label>
+            <select class="form-control" name="usageType" [(ngModel)]="performance.usageType" id="field_usageType" >
+                <option value="KW">{{'billingWebApp.UsageType.KW' | translate}}</option>
+                <option value="KWH">{{'billingWebApp.UsageType.KWH' | translate}}</option>
+                <option value="DAY">{{'billingWebApp.UsageType.DAY' | translate}}</option>
+                <option value="FLAT">{{'billingWebApp.UsageType.FLAT' | translate}}</option>
+                <option value="CHARGE">{{'billingWebApp.UsageType.CHARGE' | translate}}</option>
+                <option value="USD">{{'billingWebApp.UsageType.USD' | translate}}</option>
+                <option value="CAD">{{'billingWebApp.UsageType.CAD' | translate}}</option>
+                <option value="CCF">{{'billingWebApp.UsageType.CCF' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.performance.actual" for="field_actual">Actual</label>
+            <input type="number" class="form-control" name="actual" id="field_actual"
+                [(ngModel)]="performance.actual" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.performance.budderflyInvoice" for="field_budderflyInvoice">Budderfly Invoice</label>
+            <select class="form-control" id="field_budderflyInvoice" name="budderflyInvoice" [(ngModel)]="performance.budderflyInvoiceId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="budderflyInvoiceOption.id" *ngFor="let budderflyInvoiceOption of budderflyinvoices; trackBy: trackBudderflyInvoiceById">{{budderflyInvoiceOption.id}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

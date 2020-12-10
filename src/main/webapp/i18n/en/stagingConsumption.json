@@ -1,0 +1,59 @@
+{
+    "billingWebApp": {
+        "stagingConsumption": {
+            "home": {
+                "title": "Staging Consumptions",
+                "createLabel": "Create a new Staging Consumption",
+                "createOrEditLabel": "Create or edit a Staging Consumption",
+                "search": "Search for Staging Consumption"
+            },
+            "created": "A new Staging Consumption is created with identifier {{ param }}",
+            "updated": "A Staging Consumption is updated with identifier {{ param }}",
+            "deleted": "A Staging Consumption is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Staging Consumption {{ id }}?"
+            },
+            "detail": {
+                "title": "Staging Consumption"
+            },
+            "measurementType": "Measurement Type",
+            "rateComponent": "Rate Component",
+            "intervalStart": "Interval Start",
+            "intervalEnd": "Interval End",
+            "usageAmount": "Usage Amount",
+            "loadFactor": "Load Factor",
+            "meterReadCurrent": "Meter Read Current",
+            "meterReadPrevious": "Meter Read Previous",
+            "usageConstantMultiplier": "Usage Constant Multiplier",
+            "usageConversionMultiplier": "Usage Conversion Multiplier",
+            "calorificValue": "Calorific Value",
+            "energyUnit": "Energy Unit",
+            "loadType": "Load Type",
+            "meterReadDate": "Meter Read Date",
+            "meterReadDelta": "Meter Read Delta",
+            "meterReadDeltaUsageUnit": "Meter Read Delta Usage Unit",
+            "meterReadType": "Meter Read Type",
+            "meterReadTypeAsPrinted": "Meter Read Type As Printed",
+            "powerFactor": "Power Factor",
+            "previousMeterReadDate": "Previous Meter Read Date",
+            "previousMeterReadType": "Previous Meter Read Type",
+            "previousMeterReadTypeAsPrinted": "Previous Meter Read Type As Printed",
+            "usageActualName": "Usage Actual Name",
+            "createdDate": "Created Date",
+            "lastModified": "Last Modified",
+            "invoice": "Invoice",
+            "meter": "Meter"
+        }
+    },
+
+    "billingimportApp": {
+        "billingimportStagingConsumption": {
+            "created": "A new Staging Consumption is created with identifier {{ param }}",
+            "updated": "A Staging Consumption is updated with identifier {{ param }}",
+            "deleted": "A Staging Consumption is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Staging Consumption {{ id }}?"
+            }
+        }
+    }
+}

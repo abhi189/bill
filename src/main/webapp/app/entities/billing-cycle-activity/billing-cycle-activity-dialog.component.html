@@ -1,0 +1,66 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myBillingCycleActivityLabel" jhiTranslate="billingWebApp.billingCycleActivity.home.createOrEditLabel">Create or edit a Billing Cycle Activity</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!billingCycleActivity.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="billingCycleActivity.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleActivity.user" for="field_user">User</label>
+            <input type="text" class="form-control" name="user" id="field_user"
+                [(ngModel)]="billingCycleActivity.user" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleActivity.activity" for="field_activity">Activity</label>
+            <select class="form-control" name="activity" [(ngModel)]="billingCycleActivity.activity" id="field_activity" >
+                <option value="ADDING_SITE">{{'billingWebApp.BillingCycleActivityAction.ADDING_SITE' | translate}}</option>
+                <option value="EMAILING">{{'billingWebApp.BillingCycleActivityAction.EMAILING' | translate}}</option>
+                <option value="DELETING_INVOICE">{{'billingWebApp.BillingCycleActivityAction.DELETING_INVOICE' | translate}}</option>
+                <option value="EXPORT">{{'billingWebApp.BillingCycleActivityAction.EXPORT' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleActivity.level" for="field_level">Level</label>
+            <select class="form-control" name="level" [(ngModel)]="billingCycleActivity.level" id="field_level" >
+                <option value="ERROR">{{'billingWebApp.ActivityLevel.ERROR' | translate}}</option>
+                <option value="WARNING">{{'billingWebApp.ActivityLevel.WARNING' | translate}}</option>
+                <option value="INFO">{{'billingWebApp.ActivityLevel.INFO' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleActivity.message" for="field_message">Message</label>
+            <input type="text" class="form-control" name="message" id="field_message"
+                [(ngModel)]="billingCycleActivity.message" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleActivity.activityDate" for="field_activityDate">Activity Date</label>
+            <div class="d-flex">
+                <input id="field_activityDate" type="datetime-local" class="form-control" name="activityDate" [(ngModel)]="billingCycleActivity.activityDate"
+                />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.billingCycleActivity.billingCycle" for="field_billingCycle">Billing Cycle</label>
+            <select class="form-control" id="field_billingCycle" name="billingCycle" [(ngModel)]="billingCycleActivity.billingCycleId" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="billingCycleOption.id" *ngFor="let billingCycleOption of billingcycles; trackBy: trackBillingCycleById">{{billingCycleOption.name}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

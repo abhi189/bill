@@ -1,0 +1,120 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.invoice.home.title">Invoices</span>
+        <!--
+        <button class="btn btn-primary float-right jh-create-entity create-invoice" [routerLink]="['/', { outlets: { popup: ['invoice-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.invoice.home.createLabel">
+            Create new Invoice
+            </span>
+        </button>
+        -->
+        <button class="btn btn-primary float-right jh-create-entity create-invoice" [routerLink]="['/invoice-upload']">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.invoice.home.manual">
+                Manual Load
+            </span>
+        </button>
+    </h2>
+    <div class="row" *ngIf="searchBar">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.invoice.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="invoices">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="electricSupplier"><span jhiTranslate="billingWebApp.invoice.electricSupplier">Electric Supplier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalStart"><span jhiTranslate="billingWebApp.invoice.intervalStart">Interval Start</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalEnd"><span jhiTranslate="billingWebApp.invoice.intervalEnd">Interval End</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="billingDays"><span jhiTranslate="billingWebApp.invoice.billingDays">Billing Days</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="newCharges"><span jhiTranslate="billingWebApp.invoice.newCharges">New Charges</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="totalKWH"><span jhiTranslate="billingWebApp.invoice.totalKWH">Total KWH</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="maxKW"><span jhiTranslate="billingWebApp.invoice.maxKW">Max KW</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="budderflyInvoiceNumber"><span jhiTranslate="billingWebApp.invoice.budderflyInvoiceNumber">Budderfly Invoice Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="imported"><span jhiTranslate="billingWebApp.invoice.imported">Max KW</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createdDate"><span jhiTranslate="billingWebApp.invoice.createdDate">Created Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="invalid"><span jhiTranslate="billingWebApp.invoice.invalid">Invalid</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="importedManually"><span jhiTranslate="billingWebApp.invoice.importedManually">Imported Manually</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="ignoreImport"><span jhiTranslate="billingWebApp.invoice.ignoreImport">Ignore Import</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="siteAccountId"><span jhiTranslate="billingWebApp.invoice.siteAccount">Site Account</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="sourceLink"><span jhiTranslate="billingWebApp.invoice.sourceLink">Source link</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let invoice of invoices ;trackBy: trackId">
+                <td><a [routerLink]="['/invoice', invoice.id ]">{{invoice.id}}</a></td>
+                <td>{{invoice.electricSupplier}}</td>
+                <td>{{invoice.intervalStart | date:'mediumDate'}}</td>
+                <td>{{invoice.intervalEnd | date:'mediumDate'}}</td>
+                <td>{{invoice.billingDays}}</td>
+                <td>{{invoice.newCharges}}</td>
+                <td>{{invoice.totalKWH}}</td>
+                <td>{{invoice.maxKW}}</td>
+                <td>{{invoice.budderflyInvoiceNumber}}</td>
+                <td>{{invoice.imported}}</td>
+                <td>{{invoice.createdDate | date:'mediumDate'}}</td>
+                <td>{{invoice.invalid}}</td>
+                <td>{{invoice.importedManually}}</td>
+                <td>{{invoice.ignoreImport}}</td>
+                <td>
+                    <div *ngIf="invoice.siteAccountId">
+                        <a [routerLink]="['/site-account', invoice.siteAccountId  ]" >{{invoice.siteAccountId}}</a>
+                    </div>
+                </td>
+                <td>
+                    <a href="{{getLink(invoice)}}" target="_blank">link</a>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/invoice', invoice.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'invoice/'+ invoice.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'invoice/'+ invoice.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="invoices && invoices.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

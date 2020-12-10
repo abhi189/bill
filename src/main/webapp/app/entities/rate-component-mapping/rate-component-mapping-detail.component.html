@@ -1,0 +1,60 @@
+
+<div *ngIf="rateComponentMapping">
+    <h2><span jhiTranslate="billingWebApp.rateComponentMapping.detail.title">Rate Component Mapping</span> {{rateComponentMapping.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.rateComponentMapping.bdRateComponent">Bd Rate Component</span></dt>
+        <dd>
+            <span>{{rateComponentMapping.bdRateComponent}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateComponentMapping.bdRateType">Bd Rate Type</span></dt>
+        <dd>
+            <span>{{rateComponentMapping.bdRateType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateComponentMapping.chargeType">Charge Type</span></dt>
+        <dd>
+            <span>{{rateComponentMapping.chargeType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateComponentMapping.chargePeriod">Charge Period</span></dt>
+        <dd>
+            <span>{{rateComponentMapping.chargePeriod}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateComponentMapping.tier">Tier</span></dt>
+        <dd>
+            <span>{{rateComponentMapping.tier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateComponentMapping.touName">Tou Name</span></dt>
+        <dd>
+            <span>{{rateComponentMapping.touName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateComponentMapping.touType">Tou Type</span></dt>
+        <dd>
+            <span>{{rateComponentMapping.touType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateComponentMapping.rateMapped">Rate Mapped</span></dt>
+        <dd>
+            <span>{{rateComponentMapping.rateMapped}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateComponentMapping.provider">Provider</span></dt>
+        <dd>
+            <div *ngIf="rateComponentMapping.providerId">
+                <a [routerLink]="['/provider', rateComponentMapping.providerId]">{{rateComponentMapping.providerName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'rate-component-mapping/'+ rateComponentMapping.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

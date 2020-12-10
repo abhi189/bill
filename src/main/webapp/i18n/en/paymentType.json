@@ -1,0 +1,10 @@
+{
+    "billingWebApp": {
+        "PaymentType": {
+            "null": "",
+            "ETF": "ETF",
+            "Check": "Check",
+            "Credit_Card": "Credit_Card"
+        }
+    }
+}

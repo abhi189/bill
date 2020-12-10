@@ -1,0 +1,110 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.utilityChargeConfiguration.home.title">Utility Charge Configurations</span>
+
+        <button [disabled]="!executeProcessEnabled" class="btn btn-success float-right ml-2" (click)="executeRules()">
+            <span class="fa fa-asterisk"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.utilityChargeConfiguration.home.executeLabel">
+            Execute Rules
+            </span>
+        </button>
+        <button class="btn btn-primary float-right jh-create-entity create-utility-charge-configuration" [routerLink]="['/', { outlets: { popup: ['utility-charge-configuration-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.utilityChargeConfiguration.home.createLabel">
+            Create new Utility Charge Configuration
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <ngb-tabset [justify]="'fill'" type="pills">
+        <ngb-tab id="tabGeneral">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.utilityChargeConfiguration.tabs.general">Utility Charge Configurations</span></ng-template>
+            <ng-template ngbTabContent>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form name="searchForm" class="form-inline">
+                            <div class="input-group w-100 mt-3">
+                                <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.utilityChargeConfiguration.home.search' | translate }}">
+                                <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                                    <span class="fa fa-search"></span>
+                                </button>
+                                <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                                    <span class="fa fa-trash-o"></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br/>
+                <div class="table-responsive" *ngIf="utilityChargeConfigurations">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                        <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="priority"><span jhiTranslate="billingWebApp.utilityChargeConfiguration.priority">Priority</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="serviceType"><span jhiTranslate="billingWebApp.utilityChargeConfiguration.serviceType">Service Type</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="chargeId"><span jhiTranslate="billingWebApp.utilityChargeConfiguration.chargeId">Charge Id</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="chargeActualName"><span jhiTranslate="billingWebApp.utilityChargeConfiguration.chargeActualName">Charge Actual Name</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="utilityProvider"><span jhiTranslate="billingWebApp.utilityChargeConfiguration.utilityProvider">Utility Provider</span> <span class="fa fa-sort"></span></th>
+                        <th jhiSortBy="chargeCategory"><span jhiTranslate="billingWebApp.utilityChargeConfiguration.chargeCategory">Charge Category</span> <span class="fa fa-sort"></span></th>
+                        <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let utilityChargeConfiguration of utilityChargeConfigurations ;trackBy: trackId">
+                            <td><a [routerLink]="['../utility-charge-configuration', utilityChargeConfiguration.id ]">{{utilityChargeConfiguration.id}}</a></td>
+                            <td>{{utilityChargeConfiguration.priority}}</td>
+                            <td>{{utilityChargeConfiguration.serviceType}}</td>
+                            <td>{{utilityChargeConfiguration.chargeId}}</td>
+                            <td>{{utilityChargeConfiguration.chargeActualName}}</td>
+                            <td>{{utilityChargeConfiguration.utilityProvider}}</td>
+                            <td jhiTranslate="{{'billingWebApp.ChargeCategory.' + utilityChargeConfiguration.chargeCategory}}">{{utilityChargeConfiguration.chargeCategory}}</td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container">
+                                    <button type="submit"
+                                            [routerLink]="['../utility-charge-configuration', utilityChargeConfiguration.id ]"
+                                            class="btn btn-info btn-sm">
+                                        <span class="fa fa-eye"></span>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', { outlets: { popup: 'utility-charge-configuration/'+ utilityChargeConfiguration.id + '/edit'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-primary btn-sm">
+                                        <span class="fa fa-pencil"></span>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', { outlets: { popup: 'utility-charge-configuration/'+ utilityChargeConfiguration.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-danger btn-sm">
+                                        <span class="fa fa-remove"></span>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div *ngIf="utilityChargeConfigurations && utilityChargeConfigurations.length">
+                    <div class="row justify-content-center">
+                        <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                    </div>
+                    <div class="row justify-content-center">
+                        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+                    </div>
+                </div>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabCharges">
+                <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.utilityChargeConfiguration.tabs.charges">Charges by Configuration</span></ng-template>
+                <ng-template ngbTabContent>
+                    <jhi-charge-utility-charge-configuration></jhi-charge-utility-charge-configuration>
+                </ng-template>
+            </ngb-tab>
+    </ngb-tabset>
+    
+</div>

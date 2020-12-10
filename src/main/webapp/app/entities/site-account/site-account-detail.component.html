@@ -1,0 +1,294 @@
+<jhi-alert></jhi-alert>
+<div *ngIf="siteAccount">
+    <h2><a *ngIf="siteId > 0; else budderflyIdWithoutLink" class="link-site" [routerLink]="['/site', siteId]">{{siteAccount.budderflyId}}</a> / {{siteAccount.accountNumber}}</h2>
+    <ng-template #budderflyIdWithoutLink>{{siteAccount.budderflyId}}</ng-template>
+    <ngb-tabset [justify]="'fill'" type="pills" (tabChange)="beforeTabChange($event)" [activeId]="activeIdString">
+        <ngb-tab id="tabGeneral">
+            <ng-template ngbTabTitle><span jhiTranslate="billingWebApp.siteAccount.general">General</span></ng-template>
+            <ng-template ngbTabContent>
+                <hr>
+                    <jhi-alert-error></jhi-alert-error>
+                    <dl class="row-md jh-entity-details">
+                        </dd>
+
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.utilityProvider">Utility Provider</span></dt>
+                        <dd>
+                            <span>{{siteAccount.utilityProvider}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.accountNumber">Account Number</span></dt>
+                        <dd>
+                            <span>{{siteAccount.accountNumber}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="billingWebApp.siteAccount.rawAccountNumber">Raw Account Number</span>
+                        </dt>
+                        <dd>
+                            <span>{{siteAccount.rawAccountNumber}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="billingWebApp.siteAccount.billingAccountNumber">Billing Account Number</span>
+                        </dt>
+                        <dd>
+                            <span>{{siteAccount.billingAccountNumber}}</span>
+                        </dd>
+                        <dt>
+                            <span jhiTranslate="billingWebApp.siteAccount.rawBillingAccountNumber">Raw Billing Account Number</span>
+                        </dt>
+                        <dd>
+                            <span>{{siteAccount.rawBillingAccountNumber}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.meterNumber">Meter Number</span></dt>
+                        <dd>
+                            <span>{{siteAccount.meterNumber}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.customerName">Customer Name</span></dt>
+                        <dd>
+                            <span>{{siteAccount.customerName}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.customerCode">Customer Code</span></dt>
+                        <dd>
+                            <span>{{siteAccount.customerCode}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.expectedInvoices">Expected Invoices</span></dt>
+                        <dd>
+                            <span>{{siteAccount.expectedInvoices}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.state">State</span></dt>
+                        <dd>
+                            <span jhiTranslate="{{'billingWebApp.SiteAccountState.' + siteAccount.state}}">{{siteAccount.state}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.billingStreet">Billing Street</span></dt>
+                        <dd>
+                            <span>{{siteAccount.billingStreet}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.billingCity">Billing City</span></dt>
+                        <dd>
+                            <span>{{siteAccount.billingCity}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.billingState">Billing State</span></dt>
+                        <dd>
+                            <span>{{siteAccount.billingState}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.billingZip">Billing Zip</span></dt>
+                        <dd>
+                            <span>{{siteAccount.billingZip}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.paymentAddressFull">Payment Address Full</span></dt>
+                        <dd>
+                            <span>{{siteAccount.paymentAddressFull}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.paymentAddressStreet">Payment Address Street</span></dt>
+                        <dd>
+                            <span>{{siteAccount.paymentAddressStreet}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.paymentAddressCity">Payment Address City</span></dt>
+                        <dd>
+                            <span>{{siteAccount.paymentAddressCity}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.paymentAddressState">Payment Address State</span></dt>
+                        <dd>
+                            <span>{{siteAccount.paymentAddressState}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.paymentAddressZip">Payment Address Zip</span></dt>
+                        <dd>
+                            <span>{{siteAccount.paymentAddressZip}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.siteCode">Site Code</span></dt>
+                        <dd>
+                            <span>{{siteAccount.siteCode}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.customerType">Customer Type</span></dt>
+                        <dd>
+                            <span>{{siteAccount.customerType}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.notes">Notes</span></dt>
+                        <dd>
+                            <span>{{siteAccount.notes}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.siteStreet">Site Street</span></dt>
+                        <dd>
+                            <span>{{siteAccount.siteStreet}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.siteCity">Site City</span></dt>
+                        <dd>
+                            <span>{{siteAccount.siteCity}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.siteState">Site State</span></dt>
+                        <dd>
+                            <span>{{siteAccount.siteState}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.siteZip">Site Zip</span></dt>
+                        <dd>
+                            <span>{{siteAccount.siteZip}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.sitePostalCode">Site Postal Code</span></dt>
+                        <dd>
+                            <span>{{siteAccount.sitePostalCode}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.siteAddress1">Site Address 1</span></dt>
+                        <dd>
+                            <span>{{siteAccount.siteAddress1}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.siteAddress2">Site Address 2</span></dt>
+                        <dd>
+                            <span>{{siteAccount.siteAddress2}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.siteLongitude">Site Longitude</span></dt>
+                        <dd>
+                            <span>{{siteAccount.siteLongitude}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.siteLatitude">Site Latitude</span></dt>
+                        <dd>
+                            <span>{{siteAccount.siteLatitude}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.takeOverDate">Take Over Date</span></dt>
+                        <dd>
+                            <span>{{siteAccount.takeOverDate | date:'mediumDate'}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.requestedDate">Requested Date</span></dt>
+                        <dd>
+                            <span>{{siteAccount.requestedDate | date:'medium'}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.liveDate">Live Date</span></dt>
+                        <dd>
+                            <span>{{siteAccount.liveDate | date:'medium'}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.type">Type</span></dt>
+                        <dd>
+                            <span jhiTranslate="{{'billingWebApp.SiteAccountType.'+siteAccount.type}}">{{siteAccount.type}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.budderflyId">Budderfly Id</span></dt>
+                        <dd>
+                            <span>{{siteAccount.budderflyId}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.relatedSiteAccount">Related Site Account</span></dt>
+                        <dd>
+                            <div *ngIf="siteAccount.relatedSiteAccountId">
+                                <a [routerLink]="['/site-account', siteAccount.relatedSiteAccountId]">{{siteAccount.relatedSiteAccountNumber}}</a>
+                            </div>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.createdDate">Created Date</span></dt>
+                        <dd>
+                            <span>{{siteAccount.createdDate | date:'medium'}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.lastModified">Last Modified</span></dt>
+                        <dd>
+                            <span>{{siteAccount.lastModified | date:'medium'}}</span>
+                        </dd>
+                        <dt><span jhiTranslate="billingWebApp.siteAccount.lastModifiedBy">Last Modified By</span></dt>
+                        <dd>
+                            <span>{{siteAccount.lastModifiedBy}}</span>
+                        </dd>
+
+                    </dl>
+                <hr>
+                <button type="submit" (click)="previousState()" class="btn btn-info">
+                    <span class="fa fa-arrow-left"></span>&nbsp;
+                    <span jhiTranslate="entity.action.back"> Back</span>
+                </button>
+
+                <button type="button" [routerLink]="['/', { outlets: { popup: 'site-account/'+ siteAccount.id + '/edit'} }]" replaceUrl="true"
+                    queryParamsHandling="merge" class="btn btn-primary">
+                    <span class="fa fa-pencil"></span>&nbsp;
+                    <span jhiTranslate="entity.action.edit"> Edit</span>
+                </button>
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabSetup">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.siteAccount.setup">Setup</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <dt><span jhiTranslate="billingWebApp.siteAccount.arrears">Billing Arrears</span></dt>
+                <dd>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="automatic-update" style="justify-content: flex-start" [ngClass]="{'disabled' : disableControls}">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="arreasonoffswitch"
+                                           [(ngModel)]="siteAccount.arrears"
+                                           (change)="onArrearsChange($event)">
+                                    <label class="onoffswitch-label" for="arreasonoffswitch">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="billingWebApp.siteAccount.autoImport">Auto Import</span></dt>
+                <dd>
+                    <div class="row">
+                        <div class="col-12">
+                            <span class="automatic-update" style="justify-content: flex-start" [ngClass]="{'disabled' : disableControls}">
+                                <div class="onoffswitch">
+                                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="autoimportonoffswitch"
+                                           [(ngModel)]="siteAccount.autoImport"
+                                           (change)="onAutoImportChange($event)">
+                                    <label class="onoffswitch-label" for="autoimportonoffswitch">
+                                        <span class="onoffswitch-inner"></span>
+                                        <span class="onoffswitch-switch"></span>
+                                    </label>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </dd>
+                <div>
+                    <dt><span jhiTranslate="billingWebApp.excludedPassthrough.home.title">Excluded Passthroughs</span></dt>
+                    <br/>
+                    <div class="table-responsive" *ngIf="excludedPassthroughs">
+                        <table class="table table-striped" >
+                            <thead>
+                            <th><span jhiTranslate="billingWebApp.excludedPassthrough.serviceType">Service Type</span></th>
+                            <th></th>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let excludedPassthrough of excludedPassthroughs ;trackBy: trackId">
+                                <input class="submissionfield" type="text" [(ngModel)]="excludedPassthrough.serviceType"  [disabled]="!editingExcludedPassthrough">
+                                <td *ngIf="editingExcludedPassthrough">
+                                    <button type="button" class="btn btn-sm btn-danger btn-circle" title="Remove"
+                                            (click)="removeExcludedPassthrough(excludedPassthrough)">
+                                        <span class="fa fa-lg fa-trash"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-primary ml-2" *ngIf="!editingExcludedPassthrough" (click)="editExcludedPassthrough()">
+                            <span jhiTranslate="billingWebApp.excludedPassthrough.editExcludedPassthrough" >Edit Excluded Passthrough</span></button>
+                        <button type="button" class="btn btn-info ml-2" *ngIf="editingExcludedPassthrough" (click)="addNewExcludedPassthrough()">Add</button>
+                        <button type="button" class="btn btn-danger ml-2" *ngIf="editingExcludedPassthrough" (click)="cancelEditExcludedPassthrough()">Cancel</button>
+                        <button type="button" class="btn btn-success ml-2" *ngIf="editingExcludedPassthrough" (click)="confirmEditExcludedPassthrough()">Confirm</button>
+                    </div>
+                </div>
+            </ng-template>
+
+        </ngb-tab>
+        <ngb-tab id="tabAme">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.siteAccount.ame">AME</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-site-account-billing-table (ameUpdated)="onAmeUpdated($event)" [ames]="siteAccount.ames">
+            </jhi-site-account-billing-table>
+
+                <!-- <button type="button" (click)="submitAME()" class="btn btn-success">
+                    <span class="fa fa-paper-plane"></span>&nbsp;
+                    <span jhiTranslate="entity.action.submit_ame"> Submit AME</span>
+                </button> -->
+            </ng-template>
+        </ngb-tab>
+        <ngb-tab id="tabInvoices">
+            <ng-template ngbTabTitle>
+                <span jhiTranslate="billingWebApp.siteAccount.invoices">Invoices</span>
+            </ng-template>
+            <ng-template ngbTabContent>
+                <jhi-site-account-invoices></jhi-site-account-invoices>
+            </ng-template>
+        </ngb-tab>
+    </ngb-tabset>
+</div>

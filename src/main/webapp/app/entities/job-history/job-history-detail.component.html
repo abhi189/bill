@@ -1,0 +1,40 @@
+
+<div *ngIf="jobHistory">
+    <h2><span jhiTranslate="billingWebApp.jobHistory.detail.title">Job History</span> {{jobHistory.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.jobHistory.description">Description</span></dt>
+        <dd>
+            <span>{{jobHistory.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.jobHistory.type">Type</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.JobType.' + jobHistory.type}}">{{jobHistory.type}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.jobHistory.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{jobHistory.createDate | date:'medium':'UTC'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.jobHistory.siteAccount">Site Account</span></dt>
+        <dd>
+            <div *ngIf="jobHistory.siteAccountId">
+                <a [routerLink]="['/site-account', jobHistory.siteAccountId]">{{jobHistory.siteAccountId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'job-history/'+ jobHistory.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

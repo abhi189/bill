@@ -1,0 +1,49 @@
+<div>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearchActivity" id="currentSearchActivity" name="currentSearchActivity" placeholder="{{ 'billingWebApp.billingCycleActivity.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="searchActivity(currentSearchActivity)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clearActivity()" *ngIf="currentSearchActivity">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="billingCycleActivities">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="user"><span jhiTranslate="billingWebApp.billingCycleActivity.user">User</span> <span></span></th>
+            <th jhiSortBy="activity"><span jhiTranslate="billingWebApp.billingCycleActivity.activity">Activity</span> <span></span></th>
+            <th jhiSortBy="level"><span jhiTranslate="billingWebApp.billingCycleActivity.level">Level</span> <span></span></th>
+            <th jhiSortBy="message"><span jhiTranslate="billingWebApp.billingCycleActivity.message">Message</span> <span></span></th>
+            <th jhiSortBy="activityDate"><span jhiTranslate="billingWebApp.billingCycleActivity.activityDate">Activity Date</span> <span></span></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let billingCycleActivity of billingCycleActivities ;trackBy: trackId">
+                <td>{{billingCycleActivity.user}}</td>
+                <td jhiTranslate="{{'billingWebApp.BillingCycleActivityAction.' + billingCycleActivity.activity}}">{{billingCycleActivity.activity}}</td>
+                <td jhiTranslate="{{'billingWebApp.ActivityLevel.' + billingCycleActivity.level}}">{{billingCycleActivity.level}}</td>
+                <td>{{billingCycleActivity.message}}</td>
+                <td>{{billingCycleActivity.activityDate | date:'medium'}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Pager is not implemented yet, so this is normal pagination instead -->
+    <div *ngIf="billingCycleActivities && billingCycleActivities.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

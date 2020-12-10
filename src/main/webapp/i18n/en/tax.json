@@ -1,0 +1,59 @@
+{
+    "billingWebApp": {
+        "tax": {
+            "home": {
+                "title": "Taxes",
+                "createLabel": "Create a new Tax",
+                "createOrEditLabel": "Create or edit a Tax"
+            },
+            "created": "A new Tax is created with identifier {{ param }}",
+            "updated": "A Tax is updated with identifier {{ param }}",
+            "deleted": "A Tax is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Tax {{ id }}?"
+            },
+            "detail": {
+                "title": "Tax"
+            },
+            "city": "City",
+            "state": "State",
+            "country": "Country",
+            "zip": "Zip",
+            "cityTax": "City Tax",
+            "cityTaxName": "City Tax Name",
+            "countyTax": "County Tax",
+            "countyTaxName": "County Tax Name",
+            "otherTax": "Other Tax",
+            "otherTaxName": "Other Tax Name",
+            "vadidFrom": "Vadid From",
+            "validTo": "Valid To",
+            "createdBy": "Created By",
+            "createdDate": "Created Date",
+            "editedBy": "Edited By",
+            "editedDate": "Edited Date",
+            "stateTax": "State Tax",
+            "stateTaxName": "State Tax Name",
+            "lastModifiedBy": "Edited By",
+            "lastModifiedDate": "Edited Date",
+            "stateExemptAmount": "State Exempt Amount"
+        }
+    },
+    "invoiceApp": {
+        "tax": {
+            "home": {
+                "title": "Taxes",
+                "createLabel": "Create a new Tax",
+                "createOrEditLabel": "Create or edit a Tax"
+            },
+            "created": "A new Tax is created with identifier {{ param }}",
+            "updated": "A Tax is updated with identifier {{ param }}",
+            "deleted": "A Tax is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Tax {{ id }}?"
+            },
+            "detail": {
+                "title": "Tax"
+            }
+        }
+    }
+}

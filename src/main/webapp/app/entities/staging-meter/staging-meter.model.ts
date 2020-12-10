@@ -1,0 +1,40 @@
+import { BaseEntity } from './../../shared';
+
+export class StagingMeter implements BaseEntity {
+    constructor(
+        public id?: number,
+        public meterId?: string,
+        public logicalMeterId?: string,
+        public meterNumber?: string,
+        public serviceType?: string,
+        public tariff?: string,
+        public serviceAddress?: string,
+        public serviceCity?: string,
+        public serviceState?: string,
+        public serviceZip?: string,
+        public bulbType?: string,
+        public podId?: string,
+        public intervalStart?: any,
+        public intervalEnd?: any,
+        public bulbQuantity?: number,
+        public meterConstantMultiplier?: number,
+        public meterConversionMultiplier?: number,
+        public thirdPartyProvider?: string,
+        public thirdPartyAccountNumber?: string,
+        public degreeDayStatus?: string,
+        public opTemp?: string,
+        public timeRange?: string,
+        public cdd?: number,
+        public hdd?: number,
+        public weatherSensitivityIndex?: number,
+        public weatherNormalizedConsumption?: number,
+        public avgMonthlyBaseload?: number,
+        public predictedConsumption?: number,
+        public serviceIdentifier?: string,
+        public createDate?: any,
+        public lastModified?: any,
+        public consumptions?: BaseEntity[],
+        public charges?: BaseEntity[],
+        public invoiceId?: number
+    ) {}
+}

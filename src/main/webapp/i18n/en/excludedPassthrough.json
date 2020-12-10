@@ -1,0 +1,23 @@
+{
+    "billingWebApp": {
+        "excludedPassthrough": {
+            "home": {
+                "title": "Excluded Passthroughs",
+                "createLabel": "Create a new Excluded Passthrough",
+                "createOrEditLabel": "Create or edit a Excluded Passthrough"
+            },
+            "created": "A new Excluded Passthrough is created with identifier {{ param }}",
+            "updated": "A Excluded Passthrough is updated with identifier {{ param }}",
+            "deleted": "A Excluded Passthrough is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Excluded Passthrough {{ id }}?"
+            },
+            "editExcludedPassthrough": "Edit Excluded Passthrough",
+            "detail": {
+                "title": "Excluded Passthrough"
+            },
+            "serviceType": "Service Type",
+            "siteAccount": "Site Account"
+        }
+    }
+}

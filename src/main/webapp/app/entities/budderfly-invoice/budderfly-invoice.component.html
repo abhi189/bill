@@ -1,0 +1,108 @@
+<div>
+    <div *ngIf="!external">
+        <h2>
+           <span jhiTranslate="billingWebApp.budderflyInvoice.home.title">Budderfly Invoices</span>
+            <button class="btn btn-primary float-right jh-create-entity create-budderfly-invoice" [routerLink]="['/', { outlets: { popup: ['budderfly-invoice-new'] } }]">
+                <span class="fa fa-plus"></span>
+                <span class="hidden-sm-down"  jhiTranslate="billingWebApp.budderflyInvoice.home.createLabel">
+                Create new Budderfly Invoice
+                </span>
+            </button>
+        </h2>
+        <jhi-alert></jhi-alert>
+        <div class="row">
+            <div class="col-sm-12">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group w-100 mt-3">
+                        <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.budderflyInvoice.home.search' | translate }}">
+                        <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                            <span class="fa fa-search"></span>
+                        </button>
+                        <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                            <span class="fa fa-trash-o"></span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <br/>
+    </div>
+    <div class="table-responsive" style="font-size: 0.85rem;" *ngIf="budderflyInvoices">
+        <table class="table table-striped table-sm table-bordered">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                <th *ngIf="!external" jhiSortBy="budderflyId" ><span jhiTranslate="billingWebApp.budderflyInvoice.budderflyId">BF-ID</span> </th>
+                <th jhiSortBy="utilityProvider" ><span jhiTranslate="billingWebApp.budderflyInvoice.utilityProvider">Utility</span> </th>
+                <th jhiSortBy="budderflyInvoiceStatus" ><span jhiTranslate="billingWebApp.budderflyInvoice.budderflyInvoiceStatus">Status</span></th>
+                <th jhiSortBy="arrears" ><span jhiTranslate="billingWebApp.budderflyInvoice.arrears">Arrears</span> </th>
+                <th jhiSortBy="invoiceNumber" ><span jhiTranslate="billingWebApp.budderflyInvoice.invoiceNumber">Invoice #</span></th>
+                <th jhiSortBy="priorInvoice" ><span jhiTranslate="billingWebApp.budderflyInvoice.priorInvoice">Prior Invoice #</span></th>
+                <th jhiSortBy="addressee" ><span jhiTranslate="billingWebApp.budderflyInvoice.addressee">Addressee</span></th>
+                <th jhiSortBy="contactEmail" ><span jhiTranslate="billingWebApp.budderflyInvoice.contactEmail">Email</span></th>
+                <th jhiSortBy="discount" ><span jhiTranslate="billingWebApp.budderflyInvoice.discount">Discount</span></th>
+                <th jhiSortBy="priorBalance" ><span jhiTranslate="billingWebApp.budderflyInvoice.priorBalance">Prior</span></th>
+                <th jhiSortBy="paymentsCredits" ><span jhiTranslate="billingWebApp.budderflyInvoice.paymentsCredits">P/C</span></th>
+                <th jhiSortBy="totalNewElectricCharges" ><span jhiTranslate="billingWebApp.budderflyInvoice.totalNewElectricCharges">New Electric</span></th>
+                <th jhiSortBy="totalOtherCharges" ><span jhiTranslate="billingWebApp.budderflyInvoice.totalOtherCharges">Other</span></th>
+                <th jhiSortBy="taxes" ><span jhiTranslate="billingWebApp.budderflyInvoice.taxes">Tax</span></th>
+                <th jhiSortBy="amountDue" ><span jhiTranslate="billingWebApp.budderflyInvoice.amountDue">Due</span></th>
+                <th *ngIf="!external"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let budderflyInvoice of budderflyInvoices ;trackBy: trackId">
+                <td *ngIf="!external"><a [routerLink]="['/site/',  budderflyInvoice.siteId]" target="_blank">{{budderflyInvoice.budderflyId}}</a></td>
+                <td>{{budderflyInvoice.utilityProvider}}</td>
+                <td jhiTranslate="{{'billingWebApp.BudderflyInvoiceStatus.' + budderflyInvoice.budderflyInvoiceStatus}}">{{budderflyInvoice.budderflyInvoiceStatus}}</td>
+                <td>{{budderflyInvoice.arrears}}</td>
+                <td><a href={{budderflyInvoice.pdfUrl}} target="-_blank">{{budderflyInvoice.invoiceNumber}}</a></td>
+                <td><a href={{budderflyInvoice.previousPdfUrl}} target="-_blank">{{budderflyInvoice.previousInvoiceNumber}}</a></td>
+                <td>{{budderflyInvoice.contactName}}</td>
+                <td>{{budderflyInvoice.contactEmail}}</td>
+                <td>{{budderflyInvoice.discount}}</td>
+                <td>{{budderflyInvoice.priorBalance | number: '.2'}}</td>
+                <td>{{budderflyInvoice.paymentsCredits | number: '.2'}}</td>
+                <td>{{budderflyInvoice.totalNewElectricCharges | number: '.2'}}</td>
+                <td>{{budderflyInvoice.totalOtherCharges | number: '.2'}}</td>
+                <td>{{budderflyInvoice.taxes | number: '.2'}}</td>
+                <td>{{budderflyInvoice.amountDue | number: '.2'}}</td>
+                <td *ngIf="!external" class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../budderfly-invoice', budderflyInvoice.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'budderfly-invoice/'+ budderflyInvoice.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'budderfly-invoice/'+ budderflyInvoice.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Pager is not implemented yet, so this is normal pagination instead -->
+    <div *ngIf="budderflyInvoices && budderflyInvoices.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

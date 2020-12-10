@@ -1,0 +1,25 @@
+{
+    "billingWebApp": {
+        "jobExecutionAuditLog": {
+            "home": {
+                "title": "Job Execution Audit Logs",
+                "createLabel": "Create a new Job Execution Audit Log",
+                "createOrEditLabel": "Create or edit a Job Execution Audit Log",
+                "search": "Search for Job Execution Audit Log"
+            },
+            "created": "A new Job Execution Audit Log is created with identifier {{ param }}",
+            "updated": "A Job Execution Audit Log is updated with identifier {{ param }}",
+            "deleted": "A Job Execution Audit Log is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Job Execution Audit Log {{ id }}?"
+            },
+            "detail": {
+                "title": "Job Execution Audit Log"
+            },
+            "jobExecutionType": "Job Execution Type",
+            "executionMessage": "Execution Message",
+            "executionDate": "Execution Date",
+            "jobDescription": "Job Description"
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "billingWebApp": {
+        "SiteAccountType": {
+            "null": "",
+            "DISTRIBUTION": "DISTRIBUTION",
+            "GENERATION": "GENERATION",
+            "BOTH": "BOTH"
+        }
+    }
+}

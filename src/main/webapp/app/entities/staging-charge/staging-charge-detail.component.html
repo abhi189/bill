@@ -1,0 +1,114 @@
+
+<div *ngIf="stagingCharge">
+    <h2><span jhiTranslate="billingWebApp.stagingCharge.detail.title">Staging Charge</span> {{stagingCharge.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.usageUnit">Usage Unit</span></dt>
+        <dd>
+            <span>{{stagingCharge.usageUnit}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.measurementType">Measurement Type</span></dt>
+        <dd>
+            <span>{{stagingCharge.measurementType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.rateComponent">Rate Component</span></dt>
+        <dd>
+            <span>{{stagingCharge.rateComponent}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.intervalStart">Interval Start</span></dt>
+        <dd>
+            <span>{{stagingCharge.intervalStart | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.intervalEnd">Interval End</span></dt>
+        <dd>
+            <span>{{stagingCharge.intervalEnd | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.chargeAmount">Charge Amount</span></dt>
+        <dd>
+            <span>{{stagingCharge.chargeAmount}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.chargeCurrency">Charge Currency</span></dt>
+        <dd>
+            <span>{{stagingCharge.chargeCurrency}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.chargeRatePerUnit">Charge Rate Per Unit</span></dt>
+        <dd>
+            <span>{{stagingCharge.chargeRatePerUnit}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.chargeRatePerUnitMultiplier">Charge Rate Per Unit Multiplier</span></dt>
+        <dd>
+            <span>{{stagingCharge.chargeRatePerUnitMultiplier}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.chargeUnitsUsed">Charge Units Used</span></dt>
+        <dd>
+            <span>{{stagingCharge.chargeUnitsUsed}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.chargeActualName">Charge Actual Name</span></dt>
+        <dd>
+            <span>{{stagingCharge.chargeActualName}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.chargeAmountCurrency">Charge Amount Currency</span></dt>
+        <dd>
+            <span>{{stagingCharge.chargeAmountCurrency}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.chargeId">Charge Id</span></dt>
+        <dd>
+            <span>{{stagingCharge.chargeId}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.chargeRateCurrency">Charge Rate Currency</span></dt>
+        <dd>
+            <span>{{stagingCharge.chargeRateCurrency}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.isAdjustmentCharge">Is Adjustment Charge</span></dt>
+        <dd>
+            <span>{{stagingCharge.isAdjustmentCharge}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.lifecycle">Lifecycle</span></dt>
+        <dd>
+            <span>{{stagingCharge.lifecycle}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.thirdPartyAccountNumber">Third Party Account Number</span></dt>
+        <dd>
+            <span>{{stagingCharge.thirdPartyAccountNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.thirdPartyProvider">Third Party Provider</span></dt>
+        <dd>
+            <span>{{stagingCharge.thirdPartyProvider}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.createDate">Create Date</span></dt>
+        <dd>
+            <span>{{stagingCharge.createDate | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.lastModified">Last Modified</span></dt>
+        <dd>
+            <span>{{stagingCharge.lastModified | date:'medium'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.invoice">Invoice</span></dt>
+        <dd>
+            <div *ngIf="stagingCharge.invoiceId">
+                <a [routerLink]="['/staging-invoice', stagingCharge.invoiceId]">{{stagingCharge.invoiceId}}</a>
+            </div>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.stagingCharge.meter">Meter</span></dt>
+        <dd>
+            <div *ngIf="stagingCharge.meterId">
+                <a [routerLink]="['/staging-meter', stagingCharge.meterId]">{{stagingCharge.meterLogicalMeterId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'staging-charge/'+ stagingCharge.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

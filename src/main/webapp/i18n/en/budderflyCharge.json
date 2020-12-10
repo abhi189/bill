@@ -1,0 +1,41 @@
+{
+    "billingWebApp": {
+        "budderflyCharge": {
+            "home": {
+                "title": "Budderfly Charges",
+                "createLabel": "Create a new Budderfly Charge",
+                "createOrEditLabel": "Create or edit a Budderfly Charge",
+                "search": "Search for Budderfly Charge"
+            },
+            "created": "A new Budderfly Charge is created with identifier {{ param }}",
+            "updated": "A Budderfly Charge is updated with identifier {{ param }}",
+            "deleted": "A Budderfly Charge is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Budderfly Charge {{ id }}?"
+            },
+            "detail": {
+                "title": "Budderfly Charge"
+            },
+            "name": "Name",
+            "tier": "Tier",
+            "usageAmount": "Usage Amount",
+            "usageType": "Usage Type",
+            "rate": "Rate",
+            "total": "Total",
+            "invoiceSection": "Invoice Section",
+            "discount": "Discount",
+            "discountAmount": "Discount Amount",
+            "fullAmount": "Full Amount",
+            "chargeId": "Charge Id",
+            "chargeActualName": "Charge Actual Name",
+            "usage": "Usage",
+            "month": "Month",
+            "rateComponent": "Rate Component",
+            "intervalStart": "Interval Start",
+            "intervalEnd": "Interval End",
+            "budderflyInvoice": "Budderfly Invoice",
+            "generateCharges": "Generate Charges",
+            "refreshCharges": "Are you sure you want to refresh charges?"
+        }
+    }
+}

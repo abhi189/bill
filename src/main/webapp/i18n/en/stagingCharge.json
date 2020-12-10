@@ -1,0 +1,54 @@
+{
+    "billingWebApp": {
+        "stagingCharge": {
+            "home": {
+                "title": "Staging Charges",
+                "createLabel": "Create a new Staging Charge",
+                "createOrEditLabel": "Create or edit a Staging Charge",
+                "search": "Search for Staging Charge"
+            },
+            "created": "A new Staging Charge is created with identifier {{ param }}",
+            "updated": "A Staging Charge is updated with identifier {{ param }}",
+            "deleted": "A Staging Charge is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Staging Charge {{ id }}?"
+            },
+            "detail": {
+                "title": "Staging Charge"
+            },
+            "usageUnit": "Usage Unit",
+            "measurementType": "Measurement Type",
+            "rateComponent": "Rate Component",
+            "intervalStart": "Interval Start",
+            "intervalEnd": "Interval End",
+            "chargeAmount": "Charge Amount",
+            "chargeCurrency": "Charge Currency",
+            "chargeRatePerUnit": "Charge Rate Per Unit",
+            "chargeRatePerUnitMultiplier": "Charge Rate Per Unit Multiplier",
+            "chargeUnitsUsed": "Charge Units Used",
+            "chargeActualName": "Charge Actual Name",
+            "chargeAmountCurrency": "Charge Amount Currency",
+            "chargeId": "Charge Id",
+            "chargeRateCurrency": "Charge Rate Currency",
+            "isAdjustmentCharge": "Is Adjustment Charge",
+            "lifecycle": "Lifecycle",
+            "thirdPartyAccountNumber": "Third Party Account Number",
+            "thirdPartyProvider": "Third Party Provider",
+            "createDate": "Create Date",
+            "lastModified": "Last Modified",
+            "invoice": "Invoice",
+            "meter": "Meter"
+        }
+    },
+
+    "billingimportApp": {
+        "billingimportStagingCharge": {
+            "created": "A new Staging Charge is created with identifier {{ param }}",
+            "updated": "A Staging Charge is updated with identifier {{ param }}",
+            "deleted": "A Staging Charge is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Staging Charge {{ id }}?"
+            }
+        }
+    }
+}

@@ -1,0 +1,339 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myStagingInvoiceLabel" jhiTranslate="billingWebApp.stagingInvoice.home.createOrEditLabel">Create or edit a Staging Invoice</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!stagingInvoice.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="stagingInvoice.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.electricSupplier" for="field_electricSupplier">Electric Supplier</label>
+            <input type="text" class="form-control" name="electricSupplier" id="field_electricSupplier"
+                [(ngModel)]="stagingInvoice.electricSupplier" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.electricSupplier?.dirty && editForm.controls.electricSupplier?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.electricSupplier?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.intervalStart" for="field_intervalStart">Interval Start</label>
+            <div class="input-group">
+                <input id="field_intervalStart" type="text" class="form-control" name="intervalStart" ngbDatepicker  #intervalStartDp="ngbDatepicker" [(ngModel)]="stagingInvoice.intervalStart"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="intervalStartDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.intervalEnd" for="field_intervalEnd">Interval End</label>
+            <div class="input-group">
+                <input id="field_intervalEnd" type="text" class="form-control" name="intervalEnd" ngbDatepicker  #intervalEndDp="ngbDatepicker" [(ngModel)]="stagingInvoice.intervalEnd"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="intervalEndDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.billingDays" for="field_billingDays">Billing Days</label>
+            <input type="number" class="form-control" name="billingDays" id="field_billingDays"
+                [(ngModel)]="stagingInvoice.billingDays" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.statementDate" for="field_statementDate">Statement Date</label>
+            <div class="d-flex">
+                <input id="field_statementDate" type="datetime-local" class="form-control" name="statementDate" [(ngModel)]="stagingInvoice.statementDate"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.dueByDate" for="field_dueByDate">Due By Date</label>
+            <div class="d-flex">
+                <input id="field_dueByDate" type="datetime-local" class="form-control" name="dueByDate" [(ngModel)]="stagingInvoice.dueByDate"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.invoiceNumber" for="field_invoiceNumber">Invoice Number</label>
+            <input type="text" class="form-control" name="invoiceNumber" id="field_invoiceNumber"
+                [(ngModel)]="stagingInvoice.invoiceNumber" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.invoiceNumber?.dirty && editForm.controls.invoiceNumber?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.invoiceNumber?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.statementCreateDate" for="field_statementCreateDate">Statement Create Date</label>
+            <div class="d-flex">
+                <input id="field_statementCreateDate" type="datetime-local" class="form-control" name="statementCreateDate" [(ngModel)]="stagingInvoice.statementCreateDate"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.statementType" for="field_statementType">Statement Type</label>
+            <input type="text" class="form-control" name="statementType" id="field_statementType"
+                [(ngModel)]="stagingInvoice.statementType" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.statementType?.dirty && editForm.controls.statementType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.statementType?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.newCharges" for="field_newCharges">New Charges</label>
+            <input type="number" class="form-control" name="newCharges" id="field_newCharges"
+                [(ngModel)]="stagingInvoice.newCharges" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.totalBillAmount" for="field_totalBillAmount">Total Bill Amount</label>
+            <input type="number" class="form-control" name="totalBillAmount" id="field_totalBillAmount"
+                [(ngModel)]="stagingInvoice.totalBillAmount" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.amountDue" for="field_amountDue">Amount Due</label>
+            <input type="number" class="form-control" name="amountDue" id="field_amountDue"
+                [(ngModel)]="stagingInvoice.amountDue" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.outstandingBalance" for="field_outstandingBalance">Outstanding Balance</label>
+            <input type="number" class="form-control" name="outstandingBalance" id="field_outstandingBalance"
+                [(ngModel)]="stagingInvoice.outstandingBalance" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.previousBalance" for="field_previousBalance">Previous Balance</label>
+            <input type="number" class="form-control" name="previousBalance" id="field_previousBalance"
+                [(ngModel)]="stagingInvoice.previousBalance" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.peakKWH" for="field_peakKWH">Peak KWH</label>
+            <input type="number" class="form-control" name="peakKWH" id="field_peakKWH"
+                [(ngModel)]="stagingInvoice.peakKWH" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.midPeakKWH" for="field_midPeakKWH">Mid Peak KWH</label>
+            <input type="number" class="form-control" name="midPeakKWH" id="field_midPeakKWH"
+                [(ngModel)]="stagingInvoice.midPeakKWH" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.offPeakKWH" for="field_offPeakKWH">Off Peak KWH</label>
+            <input type="number" class="form-control" name="offPeakKWH" id="field_offPeakKWH"
+                [(ngModel)]="stagingInvoice.offPeakKWH" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.totalKWH" for="field_totalKWH">Total KWH</label>
+            <input type="number" class="form-control" name="totalKWH" id="field_totalKWH"
+                [(ngModel)]="stagingInvoice.totalKWH" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.peakKW" for="field_peakKW">Peak KW</label>
+            <input type="number" class="form-control" name="peakKW" id="field_peakKW"
+                [(ngModel)]="stagingInvoice.peakKW" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.midPeakKW" for="field_midPeakKW">Mid Peak KW</label>
+            <input type="number" class="form-control" name="midPeakKW" id="field_midPeakKW"
+                [(ngModel)]="stagingInvoice.midPeakKW" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.offPeakKW" for="field_offPeakKW">Off Peak KW</label>
+            <input type="number" class="form-control" name="offPeakKW" id="field_offPeakKW"
+                [(ngModel)]="stagingInvoice.offPeakKW" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.maxKW" for="field_maxKW">Max KW</label>
+            <input type="number" class="form-control" name="maxKW" id="field_maxKW"
+                [(ngModel)]="stagingInvoice.maxKW" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.siteAccountId" for="field_siteAccountId">Site Account Id</label>
+            <input type="number" class="form-control" name="siteAccountId" id="field_siteAccountId"
+                [(ngModel)]="stagingInvoice.siteAccountId" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.providerId" for="field_providerId">Provider Id</label>
+            <input type="text" class="form-control" name="providerId" id="field_providerId"
+                [(ngModel)]="stagingInvoice.providerId" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.providerId?.dirty && editForm.controls.providerId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.providerId?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.providerStatementId" for="field_providerStatementId">Provider Statement Id</label>
+            <input type="text" class="form-control" name="providerStatementId" id="field_providerStatementId"
+                [(ngModel)]="stagingInvoice.providerStatementId" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.providerStatementId?.dirty && editForm.controls.providerStatementId?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.providerStatementId?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.providerName" for="field_providerName">Provider Name</label>
+            <input type="text" class="form-control" name="providerName" id="field_providerName"
+                [(ngModel)]="stagingInvoice.providerName" required maxlength="255"/>
+            <div [hidden]="!(editForm.controls.providerName?.dirty && editForm.controls.providerName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.providerName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.providerName?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.jobHistoryId" for="field_jobHistoryId">Job History Id</label>
+            <input type="number" class="form-control" name="jobHistoryId" id="field_jobHistoryId"
+                [(ngModel)]="stagingInvoice.jobHistoryId" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.totalUnit" for="field_totalUnit">Total Unit</label>
+            <input type="text" class="form-control" name="totalUnit" id="field_totalUnit"
+                [(ngModel)]="stagingInvoice.totalUnit" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.totalUnit?.dirty && editForm.controls.totalUnit?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.totalUnit?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.totalVolume" for="field_totalVolume">Total Volume</label>
+            <input type="number" class="form-control" name="totalVolume" id="field_totalVolume"
+                [(ngModel)]="stagingInvoice.totalVolume" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.billingAccount" for="field_billingAccount">Billing Account</label>
+            <input type="text" class="form-control" name="billingAccount" id="field_billingAccount"
+                [(ngModel)]="stagingInvoice.billingAccount" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.billingAccount?.dirty && editForm.controls.billingAccount?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.billingAccount?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.billingAddress" for="field_billingAddress">Billing Address</label>
+            <input type="text" class="form-control" name="billingAddress" id="field_billingAddress"
+                [(ngModel)]="stagingInvoice.billingAddress" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.billingAddress?.dirty && editForm.controls.billingAddress?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.billingAddress?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.billingContact" for="field_billingContact">Billing Contact</label>
+            <input type="text" class="form-control" name="billingContact" id="field_billingContact"
+                [(ngModel)]="stagingInvoice.billingContact" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.billingContact?.dirty && editForm.controls.billingContact?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.billingContact?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.updatedDate" for="field_updatedDate">Updated Date</label>
+            <div class="d-flex">
+                <input id="field_updatedDate" type="datetime-local" class="form-control" name="updatedDate" [(ngModel)]="stagingInvoice.updatedDate"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.authorizationUid" for="field_authorizationUid">Authorization Uid</label>
+            <input type="text" class="form-control" name="authorizationUid" id="field_authorizationUid"
+                [(ngModel)]="stagingInvoice.authorizationUid" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.authorizationUid?.dirty && editForm.controls.authorizationUid?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.authorizationUid?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.sourceLink" for="field_sourceLink">Source Link</label>
+            <input type="text" class="form-control" name="sourceLink" id="field_sourceLink"
+                [(ngModel)]="stagingInvoice.sourceLink" maxlength="255"/>
+            <div [hidden]="!(editForm.controls.sourceLink?.dirty && editForm.controls.sourceLink?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.sourceLink?.errors?.maxlength" jhiTranslate="entity.validation.maxlength" translateValues="{ max: 255 }">
+                   This field cannot be longer than 255 characters.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.createdDate" for="field_createdDate">Created Date</label>
+            <div class="d-flex">
+                <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="stagingInvoice.createdDate"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.createdDate?.dirty && editForm.controls.createdDate?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.createdDate?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.createdDate?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.lastModified" for="field_lastModified">Last Modified</label>
+            <div class="d-flex">
+                <input id="field_lastModified" type="datetime-local" class="form-control" name="lastModified" [(ngModel)]="stagingInvoice.lastModified"
+                required/>
+            </div>
+            <div [hidden]="!(editForm.controls.lastModified?.dirty && editForm.controls.lastModified?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.lastModified?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.lastModified?.errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                    This field should be a date and time.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.stagingInvoice.imported" for="field_imported">Imported</label>
+            <input type="checkbox" class="form-control" name="imported" id="field_imported"
+                [(ngModel)]="stagingInvoice.imported" />
+            <div [hidden]="!(editForm.controls.imported?.dirty && editForm.controls.imported?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.imported?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

@@ -1,0 +1,39 @@
+{
+    "schedulingApp": {
+        "jobDescription": {
+            "created": "A new Job Description is created with identifier {{ param }}",
+            "updated": "A Job Description is updated with identifier {{ param }}",
+            "deleted": "A Job Description is deleted with identifier {{ param }}"
+        }
+    },
+    "jobDescription": {
+        "home": {
+            "title": "Job Descriptions",
+            "createLabel": "Create a new Job Description",
+            "createOrEditLabel": "Create or edit a Job Description",
+            "search": "Search for Job Description"
+        },
+        "delete": {
+            "question": "Are you sure you want to delete Job Description {{ id }}?"
+        },
+        "detail": {
+            "title": "Job Description"
+        },
+        "callbackURL": "Callback URL",
+        "cron": "Cron",
+        "tag": "Tag",
+        "httpMethod": {
+            "title": "HTTP Method",
+            "GET": "GET",
+            "POST": "POST"
+        },
+        "ServiceTag": {
+            "BILLING": "BILLING",
+            "INJOBS": "INJOBS",
+            "SCHEDULING": "SCHEDULING",
+            "SITES": "SITES",
+            "ACCOUNTING": "ACCOUNTING",
+            "INVENTORY": "INVENTORY"
+        }
+    }
+}

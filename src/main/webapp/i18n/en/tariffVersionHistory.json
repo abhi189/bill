@@ -1,0 +1,25 @@
+{
+    "billingWebApp": {
+        "tariffVersionHistory": {
+            "home": {
+                "title": "Tariff Version Histories",
+                "createLabel": "Create a new Tariff Version History",
+                "createOrEditLabel": "Create or edit a Tariff Version History",
+                "search": "Search for Tariff Version History"
+            },
+            "created": "A new Tariff Version History is created with identifier {{ param }}",
+            "updated": "A Tariff Version History is updated with identifier {{ param }}",
+            "deleted": "A Tariff Version History is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Tariff Version History {{ id }}?"
+            },
+            "detail": {
+                "title": "Tariff Version History"
+            },
+            "effectiveDate": "Effective Date",
+            "endDate": "End Date",
+            "documentUrl": "Document",
+            "tariff": "Tariff"
+        }
+    }
+}

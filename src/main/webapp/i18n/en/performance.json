@@ -1,0 +1,30 @@
+{
+    "billingWebApp": {
+        "performance": {
+            "home": {
+                "title": "Performances",
+                "createLabel": "Create a new Performance",
+                "createOrEditLabel": "Create or edit a Performance",
+                "search": "Search for Performance"
+            },
+            "created": "A new Performance is created with identifier {{ param }}",
+            "updated": "A Performance is updated with identifier {{ param }}",
+            "deleted": "A Performance is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Performance {{ id }}?"
+            },
+            "detail": {
+                "title": "Performance"
+            },
+            "month": "Month",
+            "usage": "Usage",
+            "usageType": "Usage Type",
+            "actual": "Actual",
+            "budderflyInvoice": "Budderfly Invoice",
+            "installDate": "Install Date",
+            "lastInvoice": "Last Invoice",
+            "generatePerformances": "Generate Performances",
+            "refreshPerformances": "Are you sure you want to refresh Performances"
+        }
+    }
+}

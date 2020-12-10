@@ -1,0 +1,77 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.noticeReport.home.title">Notice Reports</span>
+        <button class="btn btn-primary float-right" (click)="openCampaignPopUp()">
+            <span class="fa fa-fire"></span>
+            <span> Start New Campaign </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.noticeReport.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="noticeReports">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="date"><span jhiTranslate="billingWebApp.noticeReport.date">Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span jhiTranslate="billingWebApp.noticeReport.status">Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="status"><span jhiTranslate="billingWebApp.noticeReport.campaignType">Campaign Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="eventCount"><span jhiTranslate="billingWebApp.noticeReport.eventCount">Event Count</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let noticeReport of noticeReports ;trackBy: trackId">
+                <td>{{noticeReport.date | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="isNotPending(noticeReport.status); else spinner">
+                        <span jhiTranslate="{{'billingWebApp.ReportStatus.' + noticeReport.status}}">{{noticeReport.status}}</span>
+                    </div>
+                </td>
+                <td>
+                    <span jhiTranslate="{{'billingWebApp.CampaignType.' + noticeReport.campaignType}}">{{noticeReport.campaignType}}</span>
+                </td>
+                <td>{{noticeReport.eventCount}}</td>
+                <td class="text-right">
+                    <div *ngIf="isNotPending(noticeReport.status)">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    [routerLink]="['../notice-report', noticeReport.id]"
+                                    class="btn btn-info btn-sm">
+                                <span class="fa fa-eye"></span>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="noticeReports && noticeReports.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="queryCount" [maxSize]="5" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>
+
+<ng-template #spinner>
+    <i class="fa fa-spinner fa-spin"></i>
+</ng-template>

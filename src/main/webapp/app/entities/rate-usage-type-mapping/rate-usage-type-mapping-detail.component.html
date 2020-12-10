@@ -1,0 +1,44 @@
+
+<div *ngIf="rateUsageTypeMapping">
+    <h2><span jhiTranslate="billingWebApp.rateUsageTypeMapping.detail.title">Rate Usage Type Mapping</span> {{rateUsageTypeMapping.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.rateUsageTypeMapping.bdUsageUnit">Bd Usage Unit</span></dt>
+        <dd>
+            <span>{{rateUsageTypeMapping.bdUsageUnit}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateUsageTypeMapping.chargeType">Charge Type</span></dt>
+        <dd>
+            <span>{{rateUsageTypeMapping.chargeType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateUsageTypeMapping.serviceType">Service Type</span></dt>
+        <dd>
+            <span>{{rateUsageTypeMapping.serviceType}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateUsageTypeMapping.rateMapped">Rate Mapped</span></dt>
+        <dd>
+            <span>{{rateUsageTypeMapping.rateMapped}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.rateUsageTypeMapping.provider">Provider</span></dt>
+        <dd>
+            <div *ngIf="rateUsageTypeMapping.providerId">
+                <a [routerLink]="['/provider', rateUsageTypeMapping.providerId]">{{rateUsageTypeMapping.providerName}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'rate-usage-type-mapping/'+ rateUsageTypeMapping.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,64 @@
+<jhi-alert></jhi-alert>
+<div class="card mb-2">
+    <div class="card-header text-white" style="background-color: #547caa; cursor: pointer;" (click)="toggleCollapseCard()">
+        <span jhiTranslate="billingWebApp.equipment.details">Equipment Details</span> - {{equipment.name}}
+        <span class="fa fa-sort ml-1" [ngClass]="getCollapseClass()"></span>
+    </div>
+    <div class="card-body" [ngbCollapse]="isCollapsed">
+        <div class="form-group row">
+            <label for="inputName" class="col-sm-2 col-form-label" jhiTranslate="billingWebApp.inventoryEquipmentType.name">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputName"
+                    [(ngModel)]="editedEquipment.name" [disabled]="inputsDisabled">
+            </div>
+        </div>
+        <div class="form-group row">
+            <label for="inputEquipmentType" class="col-sm-2 col-form-label" jhiTranslate="billingWebApp.inventoryEquipmentType.detail.title">Equipment Type</label>
+            <div class="col-sm-10">
+                <ng-select [(ngModel)]="editedEquipment.equipmentType" bindLabel="name" [disabled]="inputsDisabled" (change)="onEquipmentTypeChange()">
+                    <ng-option *ngFor="let equipmentType of equipmentTypes" [value]="equipmentType">{{equipmentType.name}}</ng-option>
+                </ng-select>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <ng-container *ngIf="!isEquipmentMain; else meterNumber">
+                <label for="inputLocation" class="col-sm-2 col-form-label" jhiTranslate="billingWebApp.inventoryEquipmentTypeLocation.location">Location</label>
+                <div class="col-sm-10">
+                    <ng-select [(ngModel)]="editedEquipment.equipmentTypeLocation" bindLabel="location" [disabled]="inputsDisabled">
+                        <ng-option *ngFor="let location of equipmentTypeLocations" [value]="location">{{location.location}}</ng-option>
+                    </ng-select>
+                </div>
+            </ng-container>
+            <ng-template #meterNumber>
+                <label for="inputMeterNumber" class="col-sm-2 col-form-label" jhiTranslate="billingWebApp.equipment.meterNumber">Meter Number</label>
+                <div class="col-sm-10">
+                        <input id="inputMeterNumber" name="meterNumber" type="text" class="form-control"
+                            [(ngModel)]="editedEquipment.utilityMeterNumber"
+                            (selectItem)="selectedMeterNumber($event)"
+                            [ngbTypeahead]="searchMeterNumber"
+                            (focus)="focusMeterNumber$.next($any($event).target.value)"
+                            (click)="clickMeterNumber$.next($any($event).target.value)"
+                            #ngbTypeAheadInstanceMeterNumber="ngbTypeahead"
+                            [disabled]="inputsDisabled">
+                </div>
+            </ng-template>
+        </div>
+
+        <div class="btn-container float-right">
+            <ng-container *ngIf="inputsDisabled; else confirmOrCancel">
+                <button class="btn btn-primary" [disabled]="!finishedLoading" (click)="editEquipment()">Edit</button>
+            </ng-container>
+            <ng-template #confirmOrCancel>
+                <button class="btn btn-danger" (click)="cancelEditEquipment()">Cancel</button>
+                <button class="btn btn-success" (click)="confirmEditEquipment()">Confirm</button>
+            </ng-template>
+        </div>
+
+    </div>
+</div>
+
+<!-- 
+    fazer o sort na listinha da esquerda
+
+ -->

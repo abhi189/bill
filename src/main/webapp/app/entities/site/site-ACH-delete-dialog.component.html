@@ -1,0 +1,19 @@
+<form name="ACHForm" (ngSubmit)="deleteACH()">
+    <div class="modal-header">
+        <h4 class="modal-title" jhiTranslate="ACHInfo.dialog.title">Confirm ACH deletion</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="activeModal.dismiss('closed')">&times;</button>
+    </div>
+    <div class="modal-body">
+        <p jhiTranslate="ACHInfo.dialog.question">
+            This will delete ACH info for this site. Are you sure you want to proceed?
+        </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="activeModal.dismiss('closed')">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="ACHInfo.dialog.cancel">Cancel</span>
+        </button>
+        <button type="submit" class="btn btn-danger">
+            <span class="fa fa-exclamation"></span>&nbsp;<span jhiTranslate="ACHInfo.dialog.confirm">Yes</span>
+        </button>
+    </div>
+</form>

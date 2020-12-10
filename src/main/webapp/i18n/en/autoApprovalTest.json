@@ -1,0 +1,9 @@
+{
+    "billingWebApp": {
+        "autoApprovalTests": {
+            "home": {
+                "title": "Auto Approval Tests"
+            }
+        }
+    }
+}

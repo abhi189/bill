@@ -21,21 +21,17 @@ export class JhiHealthModalComponent {
     }
 
     readableValue(value: number) {
-        if (this.currentHealth.name === 'diskSpace') {
-            // Should display storage space in an human readable unit
-            const val = value / 1073741824;
-            if (val > 1) {
-                // Value
-                return val.toFixed(2) + ' GB';
-            } else {
-                return (value / 1048576).toFixed(2) + ' MB';
-            }
+        if (this.currentHealth.name !== 'diskSpace') {
+            return value.toString();
         }
 
-        if (typeof value === 'object') {
-            return JSON.stringify(value);
+        // Should display storage space in an human readable unit
+        const val = value / 1073741824;
+        if (val > 1) {
+            // Value
+            return val.toFixed(2) + ' GB';
         } else {
-            return value.toString();
+            return (value / 1048576).toFixed(2) + ' MB';
         }
     }
 }

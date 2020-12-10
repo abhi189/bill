@@ -1,11 +1,11 @@
 import { ComponentFixture, TestBed, inject, tick, fakeAsync } from '@angular/core/testing';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { Renderer, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { HomebillingwebTestModule } from '../../../../test.module';
-import { PasswordResetFinishComponent } from 'app/account/password-reset/finish/password-reset-finish.component';
-import { PasswordResetFinishService } from 'app/account/password-reset/finish/password-reset-finish.service';
+import { BillingWebTestModule } from '../../../../test.module';
+import { PasswordResetFinishComponent } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.component';
+import { PasswordResetFinishService } from '../../../../../../../main/webapp/app/account/password-reset/finish/password-reset-finish.service';
 import { MockActivatedRoute } from '../../../../helpers/mock-route.service';
 
 describe('Component Tests', () => {
@@ -15,9 +15,10 @@ describe('Component Tests', () => {
 
         beforeEach(() => {
             fixture = TestBed.configureTestingModule({
-                imports: [HomebillingwebTestModule],
+                imports: [BillingWebTestModule],
                 declarations: [PasswordResetFinishComponent],
                 providers: [
+                    PasswordResetFinishService,
                     {
                         provide: ActivatedRoute,
                         useValue: new MockActivatedRoute({ key: 'XYZPDQ' })
@@ -80,7 +81,7 @@ describe('Component Tests', () => {
         it('should update success to OK after resetting password', inject(
             [PasswordResetFinishService],
             fakeAsync((service: PasswordResetFinishService) => {
-                spyOn(service, 'save').and.returnValue(of({}));
+                spyOn(service, 'save').and.returnValue(Observable.of({}));
 
                 comp.resetAccount.password = 'password';
                 comp.confirmPassword = 'password';
@@ -99,7 +100,7 @@ describe('Component Tests', () => {
         it('should notify of generic error', inject(
             [PasswordResetFinishService],
             fakeAsync((service: PasswordResetFinishService) => {
-                spyOn(service, 'save').and.returnValue(throwError('ERROR'));
+                spyOn(service, 'save').and.returnValue(Observable.throw('ERROR'));
 
                 comp.resetAccount.password = 'password';
                 comp.confirmPassword = 'password';

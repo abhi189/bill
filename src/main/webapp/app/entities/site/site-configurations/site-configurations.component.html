@@ -1,0 +1,68 @@
+<jhi-alert></jhi-alert>
+
+<div class="row" style="margin-top: 10px;">
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                Alert configurations
+            </div>
+            <div class="card-body">
+                <div *ngFor="let siteAlertType of siteAlertTypes; let i = index">
+                    <div class="row">
+                        <div class=" col-12">
+                            <div *ngIf="i != 0">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            {{getTranslateType(siteAlertType.alertTypeType) | translate}}
+                        </div>
+                        <div class="col-4">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{getAlertId(siteAlertType.id)}}"
+                                       [(ngModel)]="siteAlertType.enabled"
+                                       (change)="onAlertChange(siteAlertType)">
+                                <label class="onoffswitch-label" for="{{getAlertId(siteAlertType.id)}}">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card">
+            <div class="card-header">
+                Notice configurations
+            </div>
+            <div class="card-body">
+                <div *ngFor="let siteNoticeType of siteNoticeTypes; let i = index">
+                    <div class="row">
+                        <div class=" col-12">
+                            <div *ngIf="i != 0">
+                                <hr>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            {{getTranslateType(siteNoticeType.noticeTypeType) | translate}}
+                        </div>
+                        <div class="col-4">
+                            <div class="onoffswitch">
+                                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="{{getNoticeId(siteNoticeType.id)}}"
+                                       [(ngModel)]="siteNoticeType.enabled"
+                                       (change)="onNoticeChange(siteNoticeType)">
+                                <label class="onoffswitch-label" for="{{getNoticeId(siteNoticeType.id)}}">
+                                    <span class="onoffswitch-inner"></span>
+                                    <span class="onoffswitch-switch"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

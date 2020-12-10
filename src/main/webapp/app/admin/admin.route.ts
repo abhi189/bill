@@ -1,10 +1,33 @@
 import { Routes } from '@angular/router';
 
-import { configurationRoute, docsRoute, healthRoute, logsRoute, metricsRoute, gatewayRoute, userMgmtRoute } from './';
+import {
+    auditsRoute,
+    configurationRoute,
+    docsRoute,
+    healthRoute,
+    logsRoute,
+    metricsRoute,
+    gatewayRoute,
+    trackerRoute,
+    userMgmtRoute,
+    userDialogRoute,
+    jobDescriptionRoute
+} from './';
 
-import { UserRouteAccessService } from 'app/core';
+import { UserRouteAccessService } from '../shared';
 
-const ADMIN_ROUTES = [configurationRoute, docsRoute, healthRoute, logsRoute, gatewayRoute, ...userMgmtRoute, metricsRoute];
+const ADMIN_ROUTES = [
+    auditsRoute,
+    configurationRoute,
+    docsRoute,
+    healthRoute,
+    logsRoute,
+    gatewayRoute,
+    trackerRoute,
+    ...userMgmtRoute,
+    metricsRoute,
+    ...jobDescriptionRoute
+];
 
 export const adminState: Routes = [
     {
@@ -14,5 +37,6 @@ export const adminState: Routes = [
         },
         canActivate: [UserRouteAccessService],
         children: ADMIN_ROUTES
-    }
+    },
+    ...userDialogRoute
 ];

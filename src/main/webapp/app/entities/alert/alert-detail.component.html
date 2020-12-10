@@ -1,0 +1,52 @@
+
+<div *ngIf="alert">
+    <h2><span jhiTranslate="billingWebApp.alert.detail.title">Alert</span> {{alert.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="billingWebApp.alert.description">Description</span></dt>
+        <dd>
+            <span>{{alert.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.alert.priority">Priority</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.AlertPriority.' + alert.priority}}">{{alert.priority}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.alert.category">Category</span></dt>
+        <dd>
+            <span jhiTranslate="{{'billingWebApp.AlertCategory.' + alert.category}}">{{alert.category}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.alert.assignedTo">Assigned To</span></dt>
+        <dd>
+            <span>{{alert.assignedTo}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.alert.createdDate">Created Date</span></dt>
+        <dd>
+            <span>{{alert.createdDate | date:'medium':'UTC'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.alert.lastModified">Last Modified</span></dt>
+        <dd>
+            <span>{{alert.lastModified | date:'medium':'UTC'}}</span>
+        </dd>
+        <dt><span jhiTranslate="billingWebApp.alert.siteAccount">Site Account</span></dt>
+        <dd>
+            <div *ngIf="alert.siteAccountId">
+                <a [routerLink]="['/site-account', alert.siteAccountId]">{{alert.siteAccountId}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'alert/'+ alert.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

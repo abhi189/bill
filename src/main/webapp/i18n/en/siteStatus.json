@@ -1,0 +1,10 @@
+{
+    "billingWebApp": {
+        "SiteStatus": {
+            "null": "",
+            "ACTIVE": "ACTIVE",
+            "INACTIVE": "INACTIVE",
+            "PENDING": "PENDING"
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "billingWebApp": {
+        "AlertCategory": {
+            "null": "",
+            "CHARGE": "CHARGE",
+            "CONSUMPTION": "CONSUMPTION",
+            "DEMAND": "DEMAND"
+        }
+    }
+}

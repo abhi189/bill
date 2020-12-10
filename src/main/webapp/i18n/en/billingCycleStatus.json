@@ -1,0 +1,16 @@
+{
+    "billingWebApp": {
+        "BillingCycleStatus": {
+            "null": "",
+            "OPEN": "OPEN",
+            "CLOSED": "CLOSED"
+        }
+    },
+    "invoiceApp": {
+        "BillingCycleStatus": {
+            "null": "",
+            "OPEN": "OPEN",
+            "CLOSED": "CLOSED"
+        }
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "billingWebApp": {
+        "InvoiceSection": {
+            "null": "",
+            "ACCOUNT_CHARGES": "ACCOUNT_CHARGES",
+            "ELECTRICITY_CHARGES": "ELECTRICITY_CHARGES",
+            "OTHER_CHARGES": "OTHER_CHARGES",
+            "TAXES_AND_FEES": "TAXES_AND_FEES"
+        }
+    }
+}

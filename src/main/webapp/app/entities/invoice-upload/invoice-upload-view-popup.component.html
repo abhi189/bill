@@ -1,0 +1,70 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="clear()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalTitle"> List of generated invoices</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+
+    <div class="modal-body">
+        <table class="table table-striped table-sm table-bordered">
+            <thead>
+            <tr>
+                <th>
+                    <span>Created Date</span>
+                </th>
+                <th>
+                    <span>Electric Supplier</span>
+                </th>
+                <th>
+                    <span>Interval Start</span>
+                </th>
+                <th>
+                    <span>Interval End</span>
+                </th>
+                <th>
+                    <span>Max Kw</span>
+                </th>
+                <th>
+                    <span>New charges</span>
+                </th>
+                <th>
+                    <span>Result</span>
+                </th>
+                <th>
+                    <span>Invoice Link</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let stagingInvoice of invoiceUpload.stagingInvoices; let i = index">
+                <td>{{stagingInvoice?.createdDate}}</td>
+                <td>{{stagingInvoice?.electricSupplier}}</td>
+                <td>{{stagingInvoice?.intervalStart | date:'mediumDate':'UTC' }}</td>
+                <td>{{stagingInvoice?.intervalEnd | date:'mediumDate':'UTC' }}</td>
+                <td>{{stagingInvoice?.maxKW}}</td>
+                <td>{{stagingInvoice?.newCharges}}</td>
+                <td *ngIf="stagingInvoice?.billingInvoiceId">Imported</td>
+                <td *ngIf="!stagingInvoice?.billingInvoiceId">Not Imported</td>
+                <td>
+                    <button type="button"
+                            [disabled]="isDisabled(stagingInvoice.billingInvoiceId)"
+                            (click)="goToLink(stagingInvoice.billingInvoiceId)"
+                            class="btn btn-info btn-sm">
+                        <span class="fa fa-eye"></span>
+                        <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">
+            <span class="fa fa-close"></span>&nbsp;
+            <span jhiTranslate="entity.action.close">Close</span>
+        </button>
+    </div>
+
+</form>
+

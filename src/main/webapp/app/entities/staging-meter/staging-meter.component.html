@@ -1,0 +1,135 @@
+<div>
+    <h2>
+        <span jhiTranslate="billingWebApp.stagingMeter.home.title">Staging Meters</span>
+        <button class="btn btn-primary float-right jh-create-entity create-staging-meter" [routerLink]="['/', { outlets: { popup: ['staging-meter-new'] } }]">
+            <span class="fa fa-plus"></span>
+            <span class="hidden-sm-down"  jhiTranslate="billingWebApp.stagingMeter.home.createLabel">
+            Create new Staging Meter
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'billingWebApp.stagingMeter.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <span class="fa fa-search"></span>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <span class="fa fa-trash-o"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive" *ngIf="stagingMeters">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="meterId"><span jhiTranslate="billingWebApp.stagingMeter.meterId">Meter Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="logicalMeterId"><span jhiTranslate="billingWebApp.stagingMeter.logicalMeterId">Logical Meter Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="meterNumber"><span jhiTranslate="billingWebApp.stagingMeter.meterNumber">Meter Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="serviceType"><span jhiTranslate="billingWebApp.stagingMeter.serviceType">Service Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="tariff"><span jhiTranslate="billingWebApp.stagingMeter.tariff">Tariff</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="serviceAddress"><span jhiTranslate="billingWebApp.stagingMeter.serviceAddress">Service Address</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="serviceCity"><span jhiTranslate="billingWebApp.stagingMeter.serviceCity">Service City</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="serviceState"><span jhiTranslate="billingWebApp.stagingMeter.serviceState">Service State</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="serviceZip"><span jhiTranslate="billingWebApp.stagingMeter.serviceZip">Service Zip</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bulbType"><span jhiTranslate="billingWebApp.stagingMeter.bulbType">Bulb Type</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="podId"><span jhiTranslate="billingWebApp.stagingMeter.podId">Pod Id</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalStart"><span jhiTranslate="billingWebApp.stagingMeter.intervalStart">Interval Start</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="intervalEnd"><span jhiTranslate="billingWebApp.stagingMeter.intervalEnd">Interval End</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="bulbQuantity"><span jhiTranslate="billingWebApp.stagingMeter.bulbQuantity">Bulb Quantity</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="meterConstantMultiplier"><span jhiTranslate="billingWebApp.stagingMeter.meterConstantMultiplier">Meter Constant Multiplier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="meterConversionMultiplier"><span jhiTranslate="billingWebApp.stagingMeter.meterConversionMultiplier">Meter Conversion Multiplier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="thirdPartyProvider"><span jhiTranslate="billingWebApp.stagingMeter.thirdPartyProvider">Third Party Provider</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="thirdPartyAccountNumber"><span jhiTranslate="billingWebApp.stagingMeter.thirdPartyAccountNumber">Third Party Account Number</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="degreeDayStatus"><span jhiTranslate="billingWebApp.stagingMeter.degreeDayStatus">Degree Day Status</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="opTemp"><span jhiTranslate="billingWebApp.stagingMeter.opTemp">Op Temp</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="timeRange"><span jhiTranslate="billingWebApp.stagingMeter.timeRange">Time Range</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="cdd"><span jhiTranslate="billingWebApp.stagingMeter.cdd">Cdd</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="hdd"><span jhiTranslate="billingWebApp.stagingMeter.hdd">Hdd</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="weatherSensitivityIndex"><span jhiTranslate="billingWebApp.stagingMeter.weatherSensitivityIndex">Weather Sensitivity Index</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="weatherNormalizedConsumption"><span jhiTranslate="billingWebApp.stagingMeter.weatherNormalizedConsumption">Weather Normalized Consumption</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="avgMonthlyBaseload"><span jhiTranslate="billingWebApp.stagingMeter.avgMonthlyBaseload">Avg Monthly Baseload</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="predictedConsumption"><span jhiTranslate="billingWebApp.stagingMeter.predictedConsumption">Predicted Consumption</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="serviceIdentifier"><span jhiTranslate="billingWebApp.stagingMeter.serviceIdentifier">Service Identifier</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="createDate"><span jhiTranslate="billingWebApp.stagingMeter.createDate">Create Date</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="lastModified"><span jhiTranslate="billingWebApp.stagingMeter.lastModified">Last Modified</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="invoiceId"><span jhiTranslate="billingWebApp.stagingMeter.invoice">Invoice</span> <span class="fa fa-sort"></span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let stagingMeter of stagingMeters ;trackBy: trackId">
+                <td><a [routerLink]="['../staging-meter', stagingMeter.id ]">{{stagingMeter.id}}</a></td>
+                <td>{{stagingMeter.meterId}}</td>
+                <td>{{stagingMeter.logicalMeterId}}</td>
+                <td>{{stagingMeter.meterNumber}}</td>
+                <td>{{stagingMeter.serviceType}}</td>
+                <td>{{stagingMeter.tariff}}</td>
+                <td>{{stagingMeter.serviceAddress}}</td>
+                <td>{{stagingMeter.serviceCity}}</td>
+                <td>{{stagingMeter.serviceState}}</td>
+                <td>{{stagingMeter.serviceZip}}</td>
+                <td>{{stagingMeter.bulbType}}</td>
+                <td>{{stagingMeter.podId}}</td>
+                <td>{{stagingMeter.intervalStart | date:'mediumDate'}}</td>
+                <td>{{stagingMeter.intervalEnd | date:'mediumDate'}}</td>
+                <td>{{stagingMeter.bulbQuantity}}</td>
+                <td>{{stagingMeter.meterConstantMultiplier}}</td>
+                <td>{{stagingMeter.meterConversionMultiplier}}</td>
+                <td>{{stagingMeter.thirdPartyProvider}}</td>
+                <td>{{stagingMeter.thirdPartyAccountNumber}}</td>
+                <td>{{stagingMeter.degreeDayStatus}}</td>
+                <td>{{stagingMeter.opTemp}}</td>
+                <td>{{stagingMeter.timeRange}}</td>
+                <td>{{stagingMeter.cdd}}</td>
+                <td>{{stagingMeter.hdd}}</td>
+                <td>{{stagingMeter.weatherSensitivityIndex}}</td>
+                <td>{{stagingMeter.weatherNormalizedConsumption}}</td>
+                <td>{{stagingMeter.avgMonthlyBaseload}}</td>
+                <td>{{stagingMeter.predictedConsumption}}</td>
+                <td>{{stagingMeter.serviceIdentifier}}</td>
+                <td>{{stagingMeter.createDate | date:'medium'}}</td>
+                <td>{{stagingMeter.lastModified | date:'medium'}}</td>
+                <td>
+                    <div *ngIf="stagingMeter.invoiceId">
+                        <a [routerLink]="['../staging-invoice', stagingMeter.invoiceId  ]" >{{stagingMeter.invoiceId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['../staging-meter', stagingMeter.id ]"
+                                class="btn btn-info btn-sm">
+                            <span class="fa fa-eye"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'staging-meter/'+ stagingMeter.id + '/edit'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-primary btn-sm">
+                            <span class="fa fa-pencil"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', { outlets: { popup: 'staging-meter/'+ stagingMeter.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <span class="fa fa-remove"></span>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

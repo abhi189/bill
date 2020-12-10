@@ -1,0 +1,57 @@
+{
+    "billingWebApp": {
+        "workOrder": {
+            "home": {
+                "title": "Work Orders",
+                "createLabel": "Create a new Work Order",
+                "createOrEditLabel": "Create or edit a Work Order"
+            },
+            "created": "A new Work Order is created with identifier {{ param }}",
+            "updated": "A Work Order is updated with identifier {{ param }}",
+            "deleted": "A Work Order is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Work Order {{ id }}?"
+            },
+            "detail": {
+                "title": "Work Order"
+            },
+            "workOrderNumber": "Work Order Number",
+            "status": "Status",
+            "scheduledDateAndTime": "Scheduled Date And Time",
+            "numberOfDaysToComplete": "Number Of Days To Complete",
+            "estimatedCompletionDate": "Estimated Completion Date",
+            "taskStatusLink": "Task Status Link",
+            "jhiLabel": "Label",
+            "sugarCrmReference": "Sugar Crm Reference",
+            "overrideScheduledDateCheck": "Override Scheduled Date Check",
+            "supportContactName": "Support Contact Name",
+            "additionalContractors": "Additional Contractors",
+            "creationDate": "Creation Date",
+            "contractorEmail": "Contractor Email",
+            "jhiUser": "User",
+            "workOrderLink": "Work Order Link",
+            "dueDate": "Due Date",
+            "notificationEmail": "Notification Email",
+            "netsuiteId": "Netsuite Id",
+            "siteId": "Site Id",
+            "additionalEmails": "Additional Emails",
+            "coordinatorName": "Coordinator Name",
+            "jobRequest": "Job Request",
+            "assignedContractorInfo": "Assigned Contractor Info",
+            "reopenReason": "Reopen Reason",
+            "primaryTask": "Primary Task",
+            "supportContactEmail": "Support Contact Email",
+            "completionDate": "Completion Date",
+            "createdDate": "Created Date",
+            "lastModifiedDate": "Last Modified Date"
+        },
+        "sitesWorkOrder": {
+            "created": "A new Work Order is created with identifier {{ param }}",
+            "updated": "A Work Order is updated with identifier {{ param }}",
+            "deleted": "A Work Order is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Work Order {{ id }}?"
+            }
+        }
+    }
+}

@@ -1,0 +1,73 @@
+{
+    "billingWebApp": {
+        "stagingInvoice": {
+            "home": {
+                "title": "Staging Invoices",
+                "createLabel": "Create a new Staging Invoice",
+                "createOrEditLabel": "Create or edit a Staging Invoice",
+                "search": "Search for Staging Invoice"
+            },
+            "created": "A new Staging Invoice is created with identifier {{ param }}",
+            "updated": "A Staging Invoice is updated with identifier {{ param }}",
+            "deleted": "A Staging Invoice is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Staging Invoice {{ id }} and all its associated data?"
+            },
+            "detail": {
+                "title": "Staging Invoice"
+            },
+            "electricSupplier": "Electric Supplier",
+            "intervalStart": "Interval Start",
+            "intervalEnd": "Interval End",
+            "billingDays": "Billing Days",
+            "statementDate": "Statement Date",
+            "dueByDate": "Due By Date",
+            "invoiceNumber": "Invoice Number",
+            "statementCreateDate": "Statement Create Date",
+            "statementType": "Statement Type",
+            "newCharges": "New Charges",
+            "totalBillAmount": "Total Bill Amount",
+            "amountDue": "Amount Due",
+            "outstandingBalance": "Outstanding Balance",
+            "previousBalance": "Previous Balance",
+            "peakKWH": "Peak KWH",
+            "midPeakKWH": "Mid Peak KWH",
+            "offPeakKWH": "Off Peak KWH",
+            "totalKWH": "Total KWH",
+            "peakKW": "Peak KW",
+            "midPeakKW": "Mid Peak KW",
+            "offPeakKW": "Off Peak KW",
+            "maxKW": "Max KW",
+            "siteAccountId": "Site Account Id",
+            "providerId": "Provider Id",
+            "providerStatementId": "Provider Statement Id",
+            "providerName": "Provider Name",
+            "jobHistoryId": "Job History Id",
+            "totalUnit": "Total Unit",
+            "totalVolume": "Total Volume",
+            "billingAccount": "Billing Account",
+            "billingAddress": "Billing Address",
+            "billingContact": "Billing Contact",
+            "updatedDate": "Updated Date",
+            "authorizationUid": "Authorization Uid",
+            "sourceLink": "Source Link",
+            "createdDate": "Created Date",
+            "lastModified": "Last Modified",
+            "imported": "Imported",
+            "consumptions": "Consumptions",
+            "meters": "Meters",
+            "charges": "Charges"
+        }
+    },
+
+    "billingimportApp": {
+        "billingimportStagingInvoice": {
+            "created": "A new Staging Invoice is created with identifier {{ param }}",
+            "updated": "A Staging Invoice is updated with identifier {{ param }}",
+            "deleted": "A Staging Invoice is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Staging Invoice {{ id }} and all its associated data?"
+            }
+        }
+    }
+}

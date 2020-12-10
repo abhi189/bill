@@ -1,36 +1,31 @@
+const HtmlScreenshotReporter = require('protractor-jasmine2-screenshot-reporter');
+const JasmineReporters = require('jasmine-reporters');
 
 exports.config = {
     allScriptsTimeout: 20000,
 
     specs: [
-        './e2e/account/**/*.spec.ts',
-        './e2e/admin/**/*.spec.ts',
-        './e2e/entities/**/*.spec.ts',
+        './e2e/account/*.spec.ts',
+        './e2e/admin/*.spec.ts',
+        './e2e/entities/*.spec.ts',
         /* jhipster-needle-add-protractor-tests - JHipster will add protractors tests here */
     ],
 
     capabilities: {
-        browserName: 'chrome',
-        chromeOptions: {
-            args: process.env.JHI_E2E_HEADLESS
-                ? [ "--headless", "--disable-gpu", "--window-size=800,600" ]
-                : [ "--disable-gpu", "--window-size=800,600" ]
-        }
+        'browserName': 'chrome',
+        'phantomjs.binary.path': require('phantomjs-prebuilt').path,
+        'phantomjs.ghostdriver.cli.args': ['--loglevel=DEBUG']
     },
 
     directConnect: true,
 
-    baseUrl: 'http://localhost:8029/',
+    baseUrl: 'http://localhost:8080/',
 
-    framework: 'mocha',
+    framework: 'jasmine2',
 
-    SELENIUM_PROMISE_MANAGER: false,
-
-    mochaOpts: {
-        reporter: 'spec',
-        slow: 3000,
-        ui: 'bdd',
-        timeout: 720000
+    jasmineNodeOpts: {
+        showColors: true,
+        defaultTimeoutInterval: 720000
     },
 
     beforeLaunch: function() {
@@ -41,16 +36,13 @@ exports.config = {
 
     onPrepare: function() {
         browser.driver.manage().window().setSize(1280, 1024);
-        // Disable animations
-        // @ts-ignore
-        browser.executeScript('document.body.className += " notransition";');
-        const chai = require('chai');
-        const chaiAsPromised = require('chai-as-promised');
-        chai.use(chaiAsPromised);
-        const chaiString = require('chai-string');
-        chai.use(chaiString);
-        // @ts-ignore
-        global.chai = chai;
+        jasmine.getEnv().addReporter(new JasmineReporters.JUnitXmlReporter({
+            savePath: 'target/reports/e2e',
+            consolidateAll: false
+        }));
+        jasmine.getEnv().addReporter(new HtmlScreenshotReporter({
+            dest: "target/reports/e2e/screenshots"
+        }));
     },
 
     useAllAngular2AppRoots: true

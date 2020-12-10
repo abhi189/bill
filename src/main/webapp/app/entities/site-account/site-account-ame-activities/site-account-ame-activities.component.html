@@ -1,0 +1,20 @@
+<div class="row">
+    <table class="table table-sm table-striped table-bordered">
+        <tr>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.createdDate">Created Date</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.createdBy">Created By</span>
+            </th>
+            <th>
+                <span jhiTranslate="billingWebApp.siteAccount.description">Description</span>
+            </th>
+        </tr>
+        <tr *ngFor="let activity of ameActivities">
+            <td>{{activity?.createdDate | date:'medium'}}</td>
+            <td>{{activity?.createdBy}}</td>
+            <td>{{activity?.description}}</td>
+        </tr>
+    </table>
+</div>

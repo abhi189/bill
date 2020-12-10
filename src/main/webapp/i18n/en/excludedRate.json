@@ -1,0 +1,27 @@
+{
+    "billingWebApp": {
+        "excludedRate": {
+            "home": {
+                "title": "Excluded Rates",
+                "createLabel": "Create a new Excluded Rate",
+                "createOrEditLabel": "Create or edit a Excluded Rate",
+                "search": "Search for Excluded Rate"
+            },
+            "created": "A new Excluded Rate is created with identifier {{ param }}",
+            "updated": "A Excluded Rate is updated with identifier {{ param }}",
+            "deleted": "A Excluded Rate is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Excluded Rate {{ id }}?"
+            },
+            "detail": {
+                "title": "Excluded Rate"
+            },
+            "chargeId": "Charge Id",
+            "chargeActualDescriptionName": "Charge Actual Description Name",
+            "customerType": "Customer Type",
+            "utilityProvider": "Utility Provider",
+            "siteId": "Site Id",
+            "active": "Active"
+        }
+    }
+}

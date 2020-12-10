@@ -1,0 +1,191 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myWorkOrderLabel" jhiTranslate="billingWebApp.workOrder.home.createOrEditLabel">Create or edit a Work Order</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!workOrder.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="workOrder.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.workOrderNumber" for="field_workOrderNumber">Work Order Number</label>
+            <input type="number" class="form-control" name="workOrderNumber" id="field_workOrderNumber"
+                [(ngModel)]="workOrder.workOrderNumber" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.status" for="field_status">Status</label>
+            <input type="text" class="form-control" name="status" id="field_status"
+                [(ngModel)]="workOrder.status" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.scheduledDateAndTime" for="field_scheduledDateAndTime">Scheduled Date And Time</label>
+            <div class="d-flex">
+                <input id="field_scheduledDateAndTime" type="datetime-local" class="form-control" name="scheduledDateAndTime" [(ngModel)]="workOrder.scheduledDateAndTime"
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.numberOfDaysToComplete" for="field_numberOfDaysToComplete">Number Of Days To Complete</label>
+            <input type="number" class="form-control" name="numberOfDaysToComplete" id="field_numberOfDaysToComplete"
+                [(ngModel)]="workOrder.numberOfDaysToComplete" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.estimatedCompletionDate" for="field_estimatedCompletionDate">Estimated Completion Date</label>
+            <div class="input-group">
+                <input id="field_estimatedCompletionDate" type="text" class="form-control" name="estimatedCompletionDate" ngbDatepicker  #estimatedCompletionDateDp="ngbDatepicker" [(ngModel)]="workOrder.estimatedCompletionDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="estimatedCompletionDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.taskStatusLink" for="field_taskStatusLink">Task Status Link</label>
+            <input type="text" class="form-control" name="taskStatusLink" id="field_taskStatusLink"
+                [(ngModel)]="workOrder.taskStatusLink" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.jhiLabel" for="field_jhiLabel">Label</label>
+            <input type="text" class="form-control" name="jhiLabel" id="field_jhiLabel"
+                [(ngModel)]="workOrder.jhiLabel" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.sugarCrmReference" for="field_sugarCrmReference">Sugar Crm Reference</label>
+            <input type="text" class="form-control" name="sugarCrmReference" id="field_sugarCrmReference"
+                [(ngModel)]="workOrder.sugarCrmReference" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.overrideScheduledDateCheck" for="field_overrideScheduledDateCheck">Override Scheduled Date Check</label>
+            <input type="checkbox" class="form-control" name="overrideScheduledDateCheck" id="field_overrideScheduledDateCheck"
+                [(ngModel)]="workOrder.overrideScheduledDateCheck" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.supportContactName" for="field_supportContactName">Support Contact Name</label>
+            <input type="text" class="form-control" name="supportContactName" id="field_supportContactName"
+                [(ngModel)]="workOrder.supportContactName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.additionalContractors" for="field_additionalContractors">Additional Contractors</label>
+            <input type="text" class="form-control" name="additionalContractors" id="field_additionalContractors"
+                [(ngModel)]="workOrder.additionalContractors" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.creationDate" for="field_creationDate">Creation Date</label>
+            <div class="input-group">
+                <input id="field_creationDate" type="text" class="form-control" name="creationDate" ngbDatepicker  #creationDateDp="ngbDatepicker" [(ngModel)]="workOrder.creationDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="creationDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.contractorEmail" for="field_contractorEmail">Contractor Email</label>
+            <input type="text" class="form-control" name="contractorEmail" id="field_contractorEmail"
+                [(ngModel)]="workOrder.contractorEmail" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.jhiUser" for="field_jhiUser">User</label>
+            <input type="text" class="form-control" name="jhiUser" id="field_jhiUser"
+                [(ngModel)]="workOrder.jhiUser" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.workOrderLink" for="field_workOrderLink">Work Order Link</label>
+            <input type="text" class="form-control" name="workOrderLink" id="field_workOrderLink"
+                [(ngModel)]="workOrder.workOrderLink" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.dueDate" for="field_dueDate">Due Date</label>
+            <div class="input-group">
+                <input id="field_dueDate" type="text" class="form-control" name="dueDate" ngbDatepicker  #dueDateDp="ngbDatepicker" [(ngModel)]="workOrder.dueDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="dueDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.notificationEmail" for="field_notificationEmail">Notification Email</label>
+            <input type="text" class="form-control" name="notificationEmail" id="field_notificationEmail"
+                [(ngModel)]="workOrder.notificationEmail" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.netsuiteId" for="field_netsuiteId">Netsuite Id</label>
+            <input type="text" class="form-control" name="netsuiteId" id="field_netsuiteId"
+                [(ngModel)]="workOrder.netsuiteId" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.additionalEmails" for="field_additionalEmails">Additional Emails</label>
+            <input type="text" class="form-control" name="additionalEmails" id="field_additionalEmails"
+                [(ngModel)]="workOrder.additionalEmails" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.coordinatorName" for="field_coordinatorName">Coordinator Name</label>
+            <input type="text" class="form-control" name="coordinatorName" id="field_coordinatorName"
+                [(ngModel)]="workOrder.coordinatorName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.jobRequest" for="field_jobRequest">Job Request</label>
+            <input type="text" class="form-control" name="jobRequest" id="field_jobRequest"
+                [(ngModel)]="workOrder.jobRequest" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.assignedContractorInfo" for="field_assignedContractorInfo">Assigned Contractor Info</label>
+            <input type="text" class="form-control" name="assignedContractorInfo" id="field_assignedContractorInfo"
+                [(ngModel)]="workOrder.assignedContractorInfo" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.reopenReason" for="field_reopenReason">Reopen Reason</label>
+            <input type="text" class="form-control" name="reopenReason" id="field_reopenReason"
+                [(ngModel)]="workOrder.reopenReason" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.primaryTask" for="field_primaryTask">Primary Task</label>
+            <input type="text" class="form-control" name="primaryTask" id="field_primaryTask"
+                [(ngModel)]="workOrder.primaryTask" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.supportContactEmail" for="field_supportContactEmail">Support Contact Email</label>
+            <input type="text" class="form-control" name="supportContactEmail" id="field_supportContactEmail"
+                [(ngModel)]="workOrder.supportContactEmail" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.completionDate" for="field_completionDate">Completion Date</label>
+            <div class="input-group">
+                <input id="field_completionDate" type="text" class="form-control" name="completionDate" ngbDatepicker  #completionDateDp="ngbDatepicker" [(ngModel)]="workOrder.completionDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="completionDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.createdDate" for="field_createdDate">Created Date</label>
+            <div class="d-flex">
+                <input id="field_createdDate" type="datetime-local" class="form-control" name="createdDate" [(ngModel)]="workOrder.createdDate" disabled
+                />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.workOrder.lastModifiedDate" for="field_lastModifiedDate">Last Modified Date</label>
+            <div class="d-flex">
+                <input id="field_lastModifiedDate" type="datetime-local" class="form-control" name="lastModifiedDate" [(ngModel)]="workOrder.lastModifiedDate" disabled
+                />
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

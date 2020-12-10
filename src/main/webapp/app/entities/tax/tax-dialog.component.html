@@ -1,0 +1,167 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTaxLabel" jhiTranslate="billingWebApp.tax.home.createOrEditLabel">Create or edit a Tax</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!tax.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="tax.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.city" for="field_city">City</label>
+            <input type="text" class="form-control" name="city" id="field_city"
+                [(ngModel)]="tax.city" required/>
+            <div [hidden]="!(editForm.controls.city?.dirty && editForm.controls.city?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.city?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.state" for="field_state">State</label>
+            <input type="text" class="form-control" name="state" id="field_state"
+                [(ngModel)]="tax.state" required/>
+            <div [hidden]="!(editForm.controls.state?.dirty && editForm.controls.state?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.state?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.country" for="field_country">Country</label>
+            <input type="text" class="form-control" name="country" id="field_country"
+                [(ngModel)]="tax.country" required/>
+            <div [hidden]="!(editForm.controls.country?.dirty && editForm.controls.country?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.country?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.zip" for="field_zip">Zip</label>
+            <input type="text" class="form-control" name="zip" id="field_zip"
+                [(ngModel)]="tax.zip" required/>
+            <div [hidden]="!(editForm.controls.zip?.dirty && editForm.controls.zip?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.zip?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.cityTaxName" for="field_cityTaxName">City Tax Name</label>
+            <input type="text" class="form-control" name="cityTaxName" id="field_cityTaxName"
+                   [(ngModel)]="tax.cityTaxName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.cityTax" for="field_cityTax">City Tax</label>
+            <div class="input-group mb-3">
+                <input type="number" class="form-control" name="cityTax" id="field_cityTax"
+                    [(ngModel)]="tax.cityTax" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.stateTaxName" for="field_stateTaxName">State Tax Name</label>
+            <input type="text" class="form-control" name="stateTaxName" id="field_stateTaxName"
+                   [(ngModel)]="tax.stateTaxName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.stateTax" for="field_stateTax">State Tax</label>
+            <div class="input-group mb-3">
+            <input type="number" class="form-control" name="stateTax" id="field_stateTax"
+                   [(ngModel)]="tax.stateTax" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.stateExemptAmount" for="field_stateExemptAmount">State Exempt Amount</label>
+            <div class="input-group mb-3">
+            <input type="number" class="form-control" name="stateExemptAmount" id="field_stateExemptAmount"
+                   [(ngModel)]="tax.stateExemptAmount" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.countyTaxName" for="field_countyTaxName">County Tax Name</label>
+            <input type="text" class="form-control" name="countyTaxName" id="field_countyTaxName"
+                   [(ngModel)]="tax.countyTaxName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.countyTax" for="field_countyTax">County Tax</label>
+            <div class="input-group mb-3">
+            <input type="number" class="form-control" name="countyTax" id="field_countyTax"
+                    [(ngModel)]="tax.countyTax" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.otherTaxName" for="field_otherTaxName">Other Tax Name</label>
+            <input type="text" class="form-control" name="otherTaxName" id="field_otherTaxName"
+                   [(ngModel)]="tax.otherTaxName" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.otherTax" for="field_otherTax">Other Tax</label>
+            <div class="input-group mb-3">
+            <input type="number" class="form-control" name="otherTax" id="field_otherTax"
+                [(ngModel)]="tax.otherTax" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.vadidFrom" for="field_vadidFrom">Vadid From</label>
+            <div class="input-group">
+                <input id="field_vadidFrom" type="text" class="form-control" name="vadidFrom" ngbDatepicker  #vadidFromDp="ngbDatepicker" [(ngModel)]="tax.vadidFrom"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="vadidFromDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.validTo" for="field_validTo">Valid To</label>
+            <div class="input-group">
+                <input id="field_validTo" type="text" class="form-control" name="validTo" ngbDatepicker  #validToDp="ngbDatepicker" [(ngModel)]="tax.validTo"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="validToDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.createdBy">Created By</label>
+            <div class="input-group">
+                <span>{{tax.createdBy}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.createdDate" >Created Date</label>
+            <div class="input-group">
+                <span>{{tax.createdDate | date:'medium':'UTC'}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.lastModifiedBy" for="field_lastModifiedBy">Edited By</label>
+            <div class="input-group">
+                <span>{{tax.lastModifiedBy}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.tax.lastModifiedDate" >Edited Date</label>
+            <div class="input-group">
+                <span>{{tax.lastModifiedDate | date:'medium':'UTC'}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

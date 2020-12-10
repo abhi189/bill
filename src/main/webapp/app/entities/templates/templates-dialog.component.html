@@ -1,0 +1,48 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myTemplatesLabel" jhiTranslate="billingWebApp.inventoryTemplates.home.createOrEditLabel">Create or edit a Templates</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <input type="hidden" class="form-control" id="id" name="id"
+               [(ngModel)]="templates.id" readonly />
+        <input type="hidden" class="form-control" name="customerType" id="field_customerType"
+               [(ngModel)]="templates.customerType" required/>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.inventoryTemplates.templateType" for="field_templateType">Template Type</label>
+            <select class="form-control" name="templateType" [(ngModel)]="templates.templateType" id="field_templateType"  required>
+                <option value="INVOICE_TEMPLATE">{{'billingWebApp.TemplateType.INVOICE_TEMPLATE' | translate}}</option>
+                <option value="EMAIL_TEMPLATE">{{'billingWebApp.TemplateType.EMAIL_TEMPLATE' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.templateType?.dirty && editForm.controls.templateType?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.templateType?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="billingWebApp.inventoryTemplates.templateName" for="field_templateName">Template Name</label>
+            <input type="text" class="form-control" name="templateName" id="field_templateName"
+                [(ngModel)]="templates.templateName" required/>
+            <div [hidden]="!(editForm.controls.templateName?.dirty && editForm.controls.templateName?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.templateName?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>
